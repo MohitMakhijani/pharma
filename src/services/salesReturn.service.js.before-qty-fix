@@ -1,0 +1,224 @@
+const prisma = require('../config/prisma');
+const stockService = require('./stock.service');
+
+
+async function createSalesReturn({
+  storeId,
+  saleId,
+  items,
+  reason,
+}) {
+
+  if(!items || !items.length){
+    throw new Error('Return items required');
+  }
+
+
+  return prisma.$transaction(async(tx)=>{
+
+    const sale = await tx.sale.findFirst({
+      where:{
+        id:saleId,
+        storeId,
+      },
+      include:{
+        items:true,
+      }
+    });
+
+
+    if(!sale){
+      throw new Error('Sale not found');
+    }
+
+
+    let totalAmount = 0;
+    const returnItems=[];
+
+
+    console.log('===== SALES RETURN DEBUG =====');
+    console.log('SALE ID:', sale.id);
+    console.log('SALE STORE ID:', sale.storeId);
+    console.log('REQUEST ITEMS:', JSON.stringify(items, null, 2));
+    console.log(
+      'SALE ITEMS:',
+      JSON.stringify(
+        sale.items.map(x => ({
+          id: x.id,
+          productId: x.productId,
+          batchId: x.batchId,
+          quantity: x.quantity,
+          unitPrice: x.unitPrice,
+        })),
+        null,
+        2
+      )
+    );
+    console.log('==============================');
+
+    for(const item of items){
+
+      console.log('LOOKING FOR SALE ITEM:', {
+        requestedId: item.saleItemId,
+        requestedIdType: typeof item.saleItemId,
+        availableIds: sale.items.map(x => ({
+          id: x.id,
+          type: typeof x.id,
+          equal: x.id === item.saleItemId
+        }))
+      });
+
+      const saleItem = sale.items.find(
+        x=>x.id === item.saleItemId
+      );
+
+
+      if(!saleItem){
+        throw new Error('Sale item not found');
+      }
+
+
+      const qty = Number(item.quantity);
+
+
+      if(qty <= 0){
+        throw new Error('Invalid quantity');
+      }
+
+
+      const amount =
+        qty * Number(saleItem.unitPrice);
+
+
+      totalAmount += amount;
+
+
+      returnItems.push({
+
+        saleItemId:saleItem.id,
+
+        productId:saleItem.productId,
+
+        batchId:saleItem.batchId,
+
+        quantity:qty,
+
+        baseQuantity:
+          item.baseQuantity || qty,
+
+        unitPrice:saleItem.unitPrice,
+
+        totalAmount:amount,
+
+        reason:
+          item.reason || reason || null,
+      });
+
+    }
+
+
+
+    const salesReturn =
+      await tx.salesReturn.create({
+
+        data:{
+
+          storeId,
+
+          customerId:sale.customerId,
+
+          saleId:sale.id,
+
+          returnNumber:
+            `SR-${Date.now()}`,
+
+          returnDate:new Date(),
+
+          subtotal:totalAmount,
+
+          totalAmount,
+
+          reason:reason || null,
+
+          items:{
+            create:returnItems
+          }
+        }
+      });
+
+
+
+    for(const item of returnItems){
+
+      await stockService.salesReturn(
+        item.batchId,
+        storeId,
+        null,
+        {
+          quantity:item.baseQuantity,
+          referenceId:salesReturn.id,
+          reason:
+            `Sales return ${salesReturn.returnNumber}`
+        }
+      );
+
+    }
+
+
+
+    if(sale.customerId){
+
+      await tx.ledgerEntry.create({
+
+        data:{
+
+          storeId,
+
+          customerId:sale.customerId,
+
+          ledgerType:'CUSTOMER',
+
+          entryType:'SALES_RETURN',
+
+          amount:-totalAmount,
+
+          referenceId:salesReturn.id,
+
+          referenceNumber:
+            salesReturn.returnNumber,
+
+          description:
+            `Sales return ${salesReturn.returnNumber}`
+
+        }
+
+      });
+
+    }
+
+
+
+    await tx.sale.update({
+
+      where:{
+        id:sale.id
+      },
+
+      data:{
+        status:
+          'PARTIALLY_RETURNED'
+      }
+
+    });
+
+
+    return salesReturn;
+
+  });
+
+}
+
+
+module.exports={
+  createSalesReturn
+};

@@ -1,0 +1,113 @@
+enum StockMovementType {
+  PURCHASE
+  SALE
+  PURCHASE_RETURN
+  SALES_RETURN
+  ADJUSTMENT_IN
+  ADJUSTMENT_OUT
+  DAMAGE
+  EXPIRY
+  OPENING_STOCK
+  TRANSFER_IN
+  TRANSFER_OUT
+}
+
+enum StockReferenceType {
+  PURCHASE
+  SALE
+  PURCHASE_RETURN
+  SALES_RETURN
+  ADJUSTMENT
+  TRANSFER
+  MANUAL
+}
+
+model Stock {
+  id String @id @default(cuid())
+
+  storeId   String
+  productId String
+  batchId   String
+
+  /**
+   * ALWAYS stored in the product's base unit.
+   */
+  quantity Decimal @default(0) @db.Decimal(14, 3)
+
+  reservedQuantity Decimal @default(0) @db.Decimal(14, 3)
+
+  /**
+   * Actual available quantity.
+   * available = quantity - reservedQuantity
+   * This can be calculated in the service layer.
+   */
+
+  store   Store        @relation(fields: [storeId], references: [id])
+  product Product      @relation(fields: [productId], references: [id])
+  batch   ProductBatch @relation(fields: [batchId], references: [id])
+
+  movements StockMovement[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([storeId, productId, batchId])
+  @@index([storeId])
+  @@index([productId])
+  @@index([batchId])
+}
+
+model StockMovement {
+  id String @id @default(cuid())
+
+  storeId   String
+  productId String
+  batchId   String
+
+  type          StockMovementType
+  referenceType StockReferenceType
+
+  /**
+   * Positive for stock IN.
+   * Negative for stock OUT.
+   * Always stored in base units.
+   */
+  quantity Decimal @db.Decimal(14, 3)
+
+  /**
+   * Stock before this movement.
+   */
+  quantityBefore Decimal @db.Decimal(14, 3)
+
+  /**
+   * Stock after this movement.
+   */
+  quantityAfter Decimal @db.Decimal(14, 3)
+
+  /**
+   * Cost of the batch at the time
+   * of this movement.
+   */
+  unitCost Decimal? @db.Decimal(14, 2)
+
+  referenceId String?
+
+  reason String?
+  notes  String?
+
+  createdById String?
+
+  stock Stock @relation(fields: [stockId], references: [id])
+
+  stockId String
+
+  createdAt DateTime @default(now())
+
+  @@index([storeId])
+  @@index([productId])
+  @@index([batchId])
+  @@index([type])
+  @@index([referenceType])
+  @@index([referenceId])
+  @@index([createdAt])
+}

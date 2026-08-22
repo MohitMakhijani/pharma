@@ -1,0 +1,48 @@
+model Prescription {
+  id                   String             @id @default(cuid())
+  storeId              String
+  customerId           String?
+  prescriptionNumber   String?
+  prescriptionDate     DateTime
+  validUntil           DateTime?
+  doctorName           String?
+  doctorRegistrationNo String?
+  diagnosis            String?
+  notes                String?
+  status               PrescriptionStatus @default(ACTIVE)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+  customer             Customer?          @relation(fields: [customerId], references: [id])
+  store                Store              @relation(fields: [storeId], references: [id])
+  items                PrescriptionItem[]
+
+  @@unique([storeId, prescriptionNumber])
+  @@index([storeId])
+  @@index([customerId])
+  @@index([prescriptionDate])
+  @@index([status])
+}
+
+model PrescriptionItem {
+  id                 String       @id @default(cuid())
+  prescriptionId     String
+  productId          String
+  prescribedQuantity Decimal?     @db.Decimal(14, 3)
+  dosage             String?
+  frequency          String?
+  duration           String?
+  instructions       String?
+  createdAt          DateTime     @default(now())
+  prescription       Prescription @relation(fields: [prescriptionId], references: [id], onDelete: Cascade)
+  product            Product      @relation(fields: [productId], references: [id])
+
+  @@index([prescriptionId])
+  @@index([productId])
+}
+
+enum PrescriptionStatus {
+  ACTIVE
+  USED
+  CANCELLED
+  EXPIRED
+}

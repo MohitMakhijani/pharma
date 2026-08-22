@@ -1,0 +1,47 @@
+enum SupplierStatus {
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
+
+model Supplier {
+  id String @id @default(cuid())
+
+  storeId String
+
+  name          String
+  contactPerson String?
+
+  phone          String?
+  alternatePhone String?
+  email          String?
+
+  gstin         String?
+  drugLicenseNo String?
+
+  address String?
+  city    String?
+  state   String?
+  pincode String?
+
+  creditLimit Decimal @default(0) @db.Decimal(14, 2)
+  creditDays  Int     @default(0)
+
+  openingBalance Decimal @default(0) @db.Decimal(14, 2)
+
+  status SupplierStatus @default(ACTIVE)
+
+  store Store @relation(fields: [storeId], references: [id])
+
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  purchases       Purchase[]
+  ledgerEntries   LedgerEntry[]
+  payments        Payment[]
+  purchaseReturns PurchaseReturn[]
+
+  @@index([storeId])
+  @@index([name])
+  @@index([phone])
+  @@index([gstin])
+}

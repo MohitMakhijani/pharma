@@ -1,0 +1,149 @@
+const prisma = require('../config/prisma');
+
+async function addPayment({
+  storeId,
+  saleId,
+  amount,
+  paymentMethod,
+  referenceNumber,
+  notes,
+}) {
+
+  const paymentAmount = Number(amount);
+
+  if (!Number.isFinite(paymentAmount) || paymentAmount <= 0) {
+    throw new Error('Payment amount must be greater than 0');
+  }
+
+
+  return prisma.$transaction(async (tx) => {
+
+    const sale = await tx.sale.findFirst({
+      where:{
+        id:saleId,
+        storeId,
+      },
+    });
+
+
+    if(!sale){
+      throw new Error('Sale not found');
+    }
+
+
+    const dueAmount = Number(sale.dueAmount);
+
+
+    if(paymentAmount > dueAmount){
+      throw new Error(
+        `Payment cannot exceed due amount of ${dueAmount}`
+      );
+    }
+
+
+    const payment = await tx.salePayment.create({
+      data:{
+        saleId,
+        amount:paymentAmount,
+        paymentMethod,
+        referenceNumber:referenceNumber || null,
+        notes:notes || null,
+      }
+    });
+
+
+
+    const newPaidAmount =
+      Number(sale.paidAmount) + paymentAmount;
+
+
+    const newDueAmount =
+      Number(sale.totalAmount) - newPaidAmount;
+
+
+    let paymentStatus = 'PARTIAL';
+
+
+    if(newDueAmount <= 0){
+      paymentStatus='PAID';
+    }
+
+
+
+    await tx.sale.update({
+      where:{
+        id:saleId,
+      },
+      data:{
+        paidAmount:newPaidAmount,
+        dueAmount:Math.max(0,newDueAmount),
+        paymentStatus,
+      }
+    });
+
+
+
+    if (sale.customerId) {
+
+      await tx.ledgerEntry.create({
+        data: {
+          storeId,
+
+          customerId: sale.customerId,
+
+          ledgerType: 'CUSTOMER',
+
+          entryType: 'SALE_PAYMENT',
+
+          amount: -paymentAmount,
+
+          referenceId: payment.id,
+
+          referenceNumber: referenceNumber || null,
+
+          description:
+            `Payment against sale ${sale.invoiceNumber}`,
+        },
+      });
+
+    }
+
+
+    return payment;
+
+  });
+
+}
+
+
+async function getPayments(storeId,saleId){
+
+  const sale = await prisma.sale.findFirst({
+    where:{
+      id:saleId,
+      storeId,
+    }
+  });
+
+
+  if(!sale){
+    throw new Error('Sale not found');
+  }
+
+
+  return prisma.salePayment.findMany({
+    where:{
+      saleId,
+    },
+    orderBy:{
+      paymentDate:'desc'
+    }
+  });
+
+}
+
+
+module.exports={
+  addPayment,
+  getPayments,
+};

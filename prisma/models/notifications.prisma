@@ -1,0 +1,27 @@
+model Notification {
+  id          String           @id @default(cuid())
+  storeId     String
+  userId      String?
+  type        NotificationType
+  title       String
+  message     String
+  referenceId String?
+  isRead      Boolean          @default(false)
+  readAt      DateTime?
+  createdAt   DateTime         @default(now())
+  store       Store            @relation(fields: [storeId], references: [id])
+  user        User?            @relation(fields: [userId], references: [id])
+
+  @@index([storeId])
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+}
+
+enum NotificationType {
+  LOW_STOCK
+  EXPIRY_WARNING
+  EXPIRED
+  PAYMENT_DUE
+  SYSTEM
+}

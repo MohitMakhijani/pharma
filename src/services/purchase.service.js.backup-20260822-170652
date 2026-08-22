@@ -1,0 +1,249 @@
+const prisma = require('../config/prisma');
+
+async function createPurchase({
+  storeId,
+  supplierId,
+  invoiceNumber,
+  invoiceDate,
+  items,
+  notes,
+}) {
+  if (!storeId) throw new Error('Store ID is required');
+  if (!supplierId) throw new Error('Supplier ID is required');
+  if (!invoiceNumber) throw new Error('Invoice number is required');
+  if (!invoiceDate) throw new Error('Invoice date is required');
+
+  if (!Array.isArray(items) || items.length === 0) {
+    throw new Error('At least one purchase item is required');
+  }
+
+  return prisma.$transaction(async (tx) => {
+    let subtotal = 0;
+    let discountAmount = 0;
+    let taxableAmount = 0;
+    let cgstAmount = 0;
+    let sgstAmount = 0;
+    let igstAmount = 0;
+    let totalAmount = 0;
+
+    const preparedItems = [];
+
+    for (const item of items) {
+      const quantity = Number(item.quantity);
+      const freeQuantity = Number(item.freeQuantity || 0);
+      const purchasePrice = Number(item.purchasePrice);
+      const mrp = Number(item.mrp);
+      const sellingPrice = Number(item.sellingPrice);
+
+      if (!item.productId) {
+        throw new Error('Product ID is required');
+      }
+
+      if (!item.batchId) {
+        throw new Error('Batch ID is required');
+      }
+
+      if (!Number.isFinite(quantity) || quantity <= 0) {
+        throw new Error('Quantity must be greater than 0');
+      }
+
+      if (!Number.isFinite(purchasePrice) || purchasePrice < 0) {
+        throw new Error('Invalid purchase price');
+      }
+
+      if (!Number.isFinite(mrp) || mrp < 0) {
+        throw new Error('Invalid MRP');
+      }
+
+      if (!Number.isFinite(sellingPrice) || sellingPrice < 0) {
+        throw new Error('Invalid selling price');
+      }
+
+      const discountPercent = Number(item.discountPercent || 0);
+      const cgstPercent = Number(item.cgstPercent || 0);
+      const sgstPercent = Number(item.sgstPercent || 0);
+      const igstPercent = Number(item.igstPercent || 0);
+
+      const grossAmount = quantity * purchasePrice;
+
+      const itemDiscount =
+        grossAmount * (discountPercent / 100);
+
+      const itemTaxable =
+        grossAmount - itemDiscount;
+
+      const itemCgst =
+        itemTaxable * (cgstPercent / 100);
+
+      const itemSgst =
+        itemTaxable * (sgstPercent / 100);
+
+      const itemIgst =
+        itemTaxable * (igstPercent / 100);
+
+      const itemTotal =
+        itemTaxable +
+        itemCgst +
+        itemSgst +
+        itemIgst;
+
+      /*
+       * baseQuantity represents stock in the product's
+       * base unit. For now quantity and baseQuantity are
+       * treated as the same value.
+       *
+       * Packaging conversion can be added later.
+       */
+      const baseQuantity =
+        Number(item.baseQuantity ?? quantity);
+
+      const freeBaseQuantity =
+        Number(item.freeBaseQuantity ?? freeQuantity);
+
+      preparedItems.push({
+        productId: item.productId,
+        batchId: item.batchId,
+        packagingId: item.packagingId || null,
+
+        quantity,
+        baseQuantity,
+
+        freeQuantity,
+        freeBaseQuantity,
+
+        purchasePrice,
+        mrp,
+        sellingPrice,
+
+        discountPercent,
+        discountAmount: itemDiscount,
+
+        taxableAmount: itemTaxable,
+
+        cgstPercent,
+        cgstAmount: itemCgst,
+
+        sgstPercent,
+        sgstAmount: itemSgst,
+
+        igstPercent,
+        igstAmount: itemIgst,
+
+        totalAmount: itemTotal,
+      });
+
+      subtotal += grossAmount;
+      discountAmount += itemDiscount;
+      taxableAmount += itemTaxable;
+      cgstAmount += itemCgst;
+      sgstAmount += itemSgst;
+      igstAmount += itemIgst;
+      totalAmount += itemTotal;
+    }
+
+    const purchase = await tx.purchase.create({
+      data: {
+        storeId,
+        supplierId,
+        invoiceNumber,
+        invoiceDate: new Date(invoiceDate),
+        receivedDate: new Date(),
+
+        status: 'RECEIVED',
+        paymentStatus: 'UNPAID',
+
+        subtotal,
+        discountAmount,
+        taxableAmount,
+
+        cgstAmount,
+        sgstAmount,
+        igstAmount,
+
+        otherTaxAmount: 0,
+        roundOff: 0,
+
+        totalAmount,
+        paidAmount: 0,
+        dueAmount: totalAmount,
+
+        notes: notes || null,
+
+        items: {
+          create: preparedItems,
+        },
+      },
+
+      include: {
+        supplier: true,
+        items: true,
+      },
+    });
+
+    // Supplier ledger:
+    // Purchase creates payable (+)
+    await tx.ledgerEntry.create({
+      data: {
+        storeId,
+        supplierId,
+        ledgerType: 'SUPPLIER',
+        entryType: 'PURCHASE',
+        amount: totalAmount,
+        referenceId: purchase.id,
+        referenceNumber: invoiceNumber,
+        description: `Purchase ${invoiceNumber}`,
+        entryDate: new Date(invoiceDate),
+      },
+    });
+
+    return purchase;
+  });
+}
+
+async function getPurchases(storeId) {
+  return prisma.purchase.findMany({
+    where: {
+      storeId,
+    },
+    include: {
+      supplier: true,
+      items: {
+        include: {
+          product: true,
+          batch: true,
+        },
+      },
+      payments: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+}
+
+async function getPurchaseById(storeId, purchaseId) {
+  return prisma.purchase.findFirst({
+    where: {
+      id: purchaseId,
+      storeId,
+    },
+    include: {
+      supplier: true,
+      items: {
+        include: {
+          product: true,
+          batch: true,
+        },
+      },
+      payments: true,
+    },
+  });
+}
+
+
+
+module.exports = {
+  createPurchase,
+  getPurchases,
+  getPurchaseById,
+};

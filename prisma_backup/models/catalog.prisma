@@ -1,0 +1,62 @@
+enum UnitType {
+  COUNT
+  WEIGHT
+  VOLUME
+  LENGTH
+  OTHER
+}
+
+model Category {
+  id String @id @default(cuid())
+
+  name        String
+  description String?
+  isActive    Boolean @default(true)
+
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name])
+}
+
+model Manufacturer {
+  id String @id @default(cuid())
+
+  name        String
+  description String?
+  phone       String?
+  email       String?
+  address     String?
+
+  isActive Boolean @default(true)
+
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name])
+}
+
+model Unit {
+  id String @id @default(cuid())
+
+  name   String
+  symbol String
+  type   UnitType
+
+  isActive Boolean @default(true)
+
+  strengthProducts Product[] @relation("StrengthUnit")
+  baseProducts     Product[] @relation("ProductBaseUnit")
+
+  packaging ProductPackaging[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name])
+  @@unique([symbol])
+}

@@ -1,0 +1,46 @@
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  LOGIN
+  LOGOUT
+  SALE
+  PURCHASE
+  SALE_RETURN
+  PURCHASE_RETURN
+  STOCK_ADJUSTMENT
+  PAYMENT
+}
+
+model AuditLog {
+  id String @id @default(cuid())
+
+  storeId String
+  userId  String?
+
+  action AuditAction
+
+  entity   String
+  entityId String?
+
+  /**
+   * JSON snapshots of important changes.
+   */
+  oldData Json?
+  newData Json?
+
+  ipAddress String?
+  userAgent String?
+
+  createdAt DateTime @default(now())
+
+  store Store @relation(fields: [storeId], references: [id])
+  user  User? @relation(fields: [userId], references: [id])
+
+  @@index([storeId])
+  @@index([userId])
+  @@index([entity])
+  @@index([entityId])
+  @@index([action])
+  @@index([createdAt])
+}

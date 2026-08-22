@@ -1,0 +1,36 @@
+model Customer {
+  id             String         @id @default(cuid())
+  storeId        String
+  name           String
+  phone          String?
+  alternatePhone String?
+  email          String?
+  gstin          String?
+  address        String?
+  city           String?
+  state          String?
+  pincode        String?
+  creditLimit    Decimal        @default(0) @db.Decimal(14, 2)
+  creditDays     Int            @default(0)
+  openingBalance Decimal        @default(0) @db.Decimal(14, 2)
+  status         CustomerStatus @default(ACTIVE)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  store          Store          @relation(fields: [storeId], references: [id])
+  ledgerEntries  LedgerEntry[]
+  payments       Payment[]
+  prescriptions  Prescription[]
+  sales          Sale[]
+  salesReturns   SalesReturn[]
+
+  @@index([storeId])
+  @@index([name])
+  @@index([phone])
+  @@index([gstin])
+}
+
+enum CustomerStatus {
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}

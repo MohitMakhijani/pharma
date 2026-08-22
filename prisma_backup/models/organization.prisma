@@ -1,0 +1,36 @@
+model Store {
+  id   String @id @default(cuid())
+  name String
+  code String @unique
+
+  address String?
+  city    String?
+  state   String?
+  pincode String?
+  phone   String?
+  email   String?
+  gstin   String?
+
+  isActive Boolean @default(true)
+
+  users    User[]
+  products Product[]
+  batches  ProductBatch[]
+
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  customers       Customer[]
+  suppliers       Supplier[]
+  purchases       Purchase[]
+  sales           Sale[]
+  stocks          Stock[]
+  ledgerEntries   LedgerEntry[]
+  payments        Payment[]
+  prescriptions   Prescription[]
+  purchaseReturns PurchaseReturn[]
+  salesReturns    SalesReturn[]
+  auditLogs       AuditLog[]
+  notifications   Notification[]
+
+  @@index([name])
+}

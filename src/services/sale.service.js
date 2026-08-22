@@ -1,0 +1,185 @@
+const prisma = require('../config/prisma');
+const stockService = require('./stock.service');
+
+async function createSale({
+  storeId,
+  customerId,
+  invoiceNumber,
+  invoiceDate,
+  items,
+  notes,
+}) {
+
+  if (!invoiceNumber) {
+    throw new Error('Invoice number is required');
+  }
+
+  if (!items || !items.length) {
+    throw new Error('Sale items are required');
+  }
+
+
+  return prisma.$transaction(async (tx) => {
+
+    let subtotal = 0;
+    let totalAmount = 0;
+
+
+    const saleItemsData = [];
+
+
+    for (const item of items) {
+
+      const batch = await tx.productBatch.findFirst({
+        where: {
+          id: item.batchId,
+          storeId,
+          productId: item.productId,
+        },
+      });
+
+
+      if (!batch) {
+        throw new Error(
+          `Batch not found: ${item.batchId}`
+        );
+      }
+
+
+      const stock = await tx.stock.findFirst({
+        where: {
+          storeId,
+          batchId: item.batchId,
+          productId: item.productId,
+        },
+      });
+
+
+      if (!stock) {
+        throw new Error('Stock not found');
+      }
+
+
+      if (
+        Number(stock.quantity) <
+        Number(item.baseQuantity)
+      ) {
+        throw new Error(
+          `Insufficient stock for batch ${batch.batchNumber}`
+        );
+      }
+
+
+      const amount =
+        Number(item.unitPrice) *
+        Number(item.quantity);
+
+
+      subtotal += amount;
+      totalAmount += amount;
+
+
+      saleItemsData.push({
+        productId: item.productId,
+        batchId: item.batchId,
+        quantity: item.quantity,
+        baseQuantity: item.baseQuantity,
+
+        unitPrice: item.unitPrice,
+
+        costPrice: batch.purchasePrice,
+        costPerBaseUnit: batch.costPerBaseUnit,
+
+        totalAmount: amount,
+      });
+
+
+    }
+
+
+    const sale = await tx.sale.create({
+      data: {
+        storeId,
+        customerId: customerId || null,
+        invoiceNumber,
+        invoiceDate: invoiceDate
+          ? new Date(invoiceDate)
+          : new Date(),
+
+        status: 'COMPLETED',
+
+        subtotal,
+        taxableAmount: subtotal,
+        totalAmount,
+
+        dueAmount: totalAmount,
+        paidAmount: 0,
+
+        paymentStatus: 'UNPAID',
+
+        notes: notes || null,
+      },
+    });
+
+
+
+    await tx.saleItem.createMany({
+      data: saleItemsData.map(item => ({
+        ...item,
+        saleId: sale.id,
+      })),
+    });
+
+
+
+    for (const item of items) {
+
+      await stockService.sellStock(
+        item.batchId,
+        storeId,
+        {
+          quantity: item.baseQuantity,
+          referenceId: sale.id,
+          reason:
+            `Sale ${invoiceNumber}`,
+        },
+        null
+      );
+
+    }
+
+
+
+    if (customerId) {
+
+      await tx.ledgerEntry.create({
+        data: {
+          storeId,
+          customerId,
+
+          ledgerType: 'CUSTOMER',
+          entryType: 'SALE',
+
+          amount: totalAmount,
+
+          referenceId: sale.id,
+          referenceNumber: invoiceNumber,
+
+          description:
+            `Sale ${invoiceNumber}`,
+        },
+      });
+
+    }
+
+
+    return sale;
+
+  });
+
+}
+
+
+module.exports = {
+  createSale,
+};

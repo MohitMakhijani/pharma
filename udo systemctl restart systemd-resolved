@@ -1,0 +1,24 @@
+[0;1;39mGlobal[0m
+[0;94m           Protocols:[0m +LLMNR +mDNS -DNSOverTLS DNSSEC=no/unsupported
+[0;94m    resolv.conf mode:[0m foreign
+[0;94m  Current DNS Server:[0m 172.20.10.1
+[0;94m         DNS Servers:[0m 172.20.10.1
+[0;94mFallback DNS Servers:[0m 9.9.9.9#dns.quad9.net 2620:fe::9#dns.quad9.net
+[0;94m                     [0m 1.1.1.1#cloudflare-dns.com
+[0;94m                     [0m 2606:4700:4700::1111#cloudflare-dns.com
+[0;94m                     [0m 8.8.8.8#dns.google
+[0;94m                     [0m 2001:4860:4860::8888#dns.google
+
+[0;1;39mLink 4 (docker0)[0m
+[0;94m    Current Scopes:[0m none
+[0;94m         Protocols:[0m -DefaultRoute +LLMNR +mDNS -DNSOverTLS
+[0;94m                   [0m DNSSEC=no/unsupported
+[0;94m     Default Route:[0m no
+
+[0;1;39mLink 76 (wlan0)[0m
+[0;94m    Current Scopes:[0m DNS LLMNR/IPv4 LLMNR/IPv6 mDNS/IPv4 mDNS/IPv6
+[0;94m         Protocols:[0m +DefaultRoute +LLMNR +mDNS -DNSOverTLS
+[0;94m                   [0m DNSSEC=no/unsupported
+[0;94mCurrent DNS Server:[0m 172.20.10.1
+[0;94m       DNS Servers:[0m 172.20.10.1 fe80::6057:c8ff:fef1:3c64
+[0;94m     Default Route:[0m yes

@@ -1,0 +1,95 @@
+enum LedgerType {
+  CUSTOMER
+  SUPPLIER
+}
+
+enum LedgerEntryType {
+  OPENING_BALANCE
+  SALE
+  PURCHASE
+  SALE_PAYMENT
+  PURCHASE_PAYMENT
+  SALES_RETURN
+  PURCHASE_RETURN
+  ADJUSTMENT
+}
+
+enum PaymentMethod {
+  CASH
+  UPI
+  CARD
+  BANK_TRANSFER
+  CHEQUE
+  OTHER
+}
+
+model LedgerEntry {
+  id String @id @default(cuid())
+
+  storeId String
+
+  ledgerType LedgerType
+
+  customerId String?
+  supplierId String?
+
+  entryType LedgerEntryType
+
+  /**
+   * Positive amount:
+   * money receivable from customer
+   * OR money payable to supplier
+   * Negative amount:
+   * settlement/payment/adjustment
+   */
+  amount Decimal @db.Decimal(14, 2)
+
+  referenceId     String?
+  referenceNumber String?
+
+  description String?
+
+  entryDate DateTime @default(now())
+
+  store    Store     @relation(fields: [storeId], references: [id])
+  customer Customer? @relation(fields: [customerId], references: [id])
+  supplier Supplier? @relation(fields: [supplierId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([storeId])
+  @@index([customerId])
+  @@index([supplierId])
+  @@index([entryType])
+  @@index([entryDate])
+  @@index([referenceId])
+}
+
+model Payment {
+  id String @id @default(cuid())
+
+  storeId String
+
+  customerId String?
+  supplierId String?
+
+  amount Decimal @db.Decimal(14, 2)
+
+  paymentMethod PaymentMethod
+
+  paymentDate DateTime @default(now())
+
+  referenceNumber String?
+  notes           String?
+
+  store    Store     @relation(fields: [storeId], references: [id])
+  customer Customer? @relation(fields: [customerId], references: [id])
+  supplier Supplier? @relation(fields: [supplierId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([storeId])
+  @@index([customerId])
+  @@index([supplierId])
+  @@index([paymentDate])
+}
