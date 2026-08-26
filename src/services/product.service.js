@@ -38,6 +38,18 @@ async function getProduct(productId, storeId) {
 }
 
 async function createProduct(storeId, data) {
+  const [category, manufacturer, strengthUnit] = await Promise.all([
+    data.categoryId
+      ? prisma.category.findUnique({ where: { id: data.categoryId }, select: { id: true } })
+      : null,
+    data.manufacturerId
+      ? prisma.manufacturer.findUnique({ where: { id: data.manufacturerId }, select: { id: true } })
+      : null,
+    data.strengthUnitId
+      ? prisma.unit.findUnique({ where: { id: data.strengthUnitId }, select: { id: true } })
+      : null,
+  ]);
+
   return prisma.product.create({
     data: {
       storeId,
@@ -48,9 +60,9 @@ async function createProduct(storeId, data) {
       barcode: data.barcode || null,
       dosageForm: data.dosageForm || null,
       strength: data.strength ?? null,
-      strengthUnitId: data.strengthUnitId || null,
-      categoryId: data.categoryId || null,
-      manufacturerId: data.manufacturerId || null,
+      strengthUnitId: strengthUnit?.id || null,
+      categoryId: category?.id || null,
+      manufacturerId: manufacturer?.id || null,
       description: data.description || null,
       gstPercent: data.gstPercent ?? 0,
       baseUnitId: data.baseUnitId,

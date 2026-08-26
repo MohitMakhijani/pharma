@@ -308,6 +308,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   brandName: 'brandName',
   sku: 'sku',
   barcode: 'barcode',
+  hsnCode: 'hsnCode',
   dosageForm: 'dosageForm',
   strength: 'strength',
   strengthUnitId: 'strengthUnitId',

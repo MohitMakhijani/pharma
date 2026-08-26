@@ -39,10 +39,6 @@ async function createPurchase({
         throw new Error('Product ID is required');
       }
 
-      if (!item.batchId) {
-        throw new Error('Batch ID is required');
-      }
-
       if (!Number.isFinite(quantity) || quantity <= 0) {
         throw new Error('Quantity must be greater than 0');
       }
@@ -57,6 +53,54 @@ async function createPurchase({
 
       if (!Number.isFinite(sellingPrice) || sellingPrice < 0) {
         throw new Error('Invalid selling price');
+      }
+
+      const product = await tx.product.findFirst({
+        where: { id: item.productId, storeId },
+        select: { id: true },
+      });
+
+      if (!product) {
+        throw new Error('Product does not belong to this store');
+      }
+
+      const packaging = item.packagingId
+        ? await tx.productPackaging.findFirst({
+            where: { id: item.packagingId, productId: item.productId, isPurchaseUnit: true },
+          })
+        : null;
+      if (item.packagingId && !packaging) {
+        throw new Error('Purchase packaging does not belong to this product');
+      }
+
+      const conversion = packaging ? Number(packaging.conversionToBase) : 1;
+      let batchId = item.batchId;
+      if (!batchId) {
+        if (!item.batchNumber || !item.expiryDate) {
+          throw new Error('Batch number and expiry date are required for a new batch');
+        }
+
+        const batch = await tx.productBatch.create({
+          data: {
+            storeId,
+            productId: item.productId,
+            batchNumber: item.batchNumber,
+            manufacturingDate: item.manufacturingDate ? new Date(item.manufacturingDate) : null,
+            expiryDate: new Date(item.expiryDate),
+            purchasePrice,
+            costPerBaseUnit: purchasePrice / conversion,
+            mrp,
+            sellingPrice,
+          },
+        });
+        batchId = batch.id;
+      }
+
+      if (item.hsnCode) {
+        await tx.product.update({
+          where: { id: item.productId },
+          data: { hsnCode: item.hsnCode },
+        });
       }
 
       const discountPercent = Number(item.discountPercent || 0);
@@ -94,16 +138,19 @@ async function createPurchase({
        *
        * Packaging conversion can be added later.
        */
-      const baseQuantity =
-        Number(item.baseQuantity ?? quantity);
+      const baseQuantity = packaging
+        ? quantity * conversion
+        : Number(item.baseQuantity ?? quantity);
 
       const freeBaseQuantity =
-        Number(item.freeBaseQuantity ?? freeQuantity);
+        packaging
+          ? freeQuantity * conversion
+          : Number(item.freeBaseQuantity ?? freeQuantity);
 
       preparedItems.push({
         productId: item.productId,
-        batchId: item.batchId,
-        packagingId: item.packagingId || null,
+        batchId,
+        packagingId: packaging?.id || null,
 
         quantity,
         baseQuantity,
@@ -179,6 +226,70 @@ async function createPurchase({
         items: true,
       },
     });
+
+    // A received purchase immediately increases stock for each batch.
+    for (const item of preparedItems) {
+      const batch = await tx.productBatch.findFirst({
+        where: {
+          id: item.batchId,
+          productId: item.productId,
+          storeId,
+        },
+        select: { id: true, productId: true, costPerBaseUnit: true },
+      });
+
+      if (!batch) {
+        throw new Error('Product batch does not belong to this store or product');
+      }
+
+      const receivedQuantity = item.baseQuantity + item.freeBaseQuantity;
+      let stock = await tx.stock.findUnique({
+        where: {
+          storeId_productId_batchId: {
+            storeId,
+            productId: item.productId,
+            batchId: item.batchId,
+          },
+        },
+      });
+
+      if (!stock) {
+        stock = await tx.stock.create({
+          data: {
+            storeId,
+            productId: item.productId,
+            batchId: item.batchId,
+            quantity: 0,
+            reservedQuantity: 0,
+          },
+        });
+      }
+
+      const quantityBefore = Number(stock.quantity);
+      const quantityAfter = quantityBefore + receivedQuantity;
+
+      await tx.stock.update({
+        where: { id: stock.id },
+        data: { quantity: quantityAfter },
+      });
+
+      await tx.stockMovement.create({
+        data: {
+          storeId,
+          productId: item.productId,
+          batchId: item.batchId,
+          stockId: stock.id,
+          type: 'PURCHASE',
+          referenceType: 'PURCHASE',
+          quantity: receivedQuantity,
+          quantityBefore,
+          quantityAfter,
+          unitCost: item.costPerBaseUnit || batch.costPerBaseUnit,
+          referenceId: purchase.id,
+          reason: `Purchase ${invoiceNumber}`,
+        },
+      });
+    }
 
     // Supplier ledger:
     // Purchase creates payable (+)

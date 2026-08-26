@@ -21,6 +21,7 @@ const saleRoutes = require('./routes/sale.routes');
 const saleQueryRoutes = require('./routes/saleQuery.routes');
 const salesReturnRoutes = require('./routes/salesReturn.routes');
 const dashboardRoutes = require('./routes/dashboard.routes');
+const catalogRoutes = require('./routes/catalog.routes');
 
 
 const app = express();
@@ -57,6 +58,7 @@ app.use('/api', saleRoutes);
 app.use('/api/sales', saleQueryRoutes);
 app.use('/api', salesReturnRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/catalog', catalogRoutes);
 
 app.get('/health', (req, res) => {
   res.json({

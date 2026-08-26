@@ -45,6 +45,18 @@ async function createSale({
         );
       }
 
+      const packaging = item.packagingId
+        ? await tx.productPackaging.findFirst({
+            where: { id: item.packagingId, productId: item.productId, isSellable: true },
+          })
+        : null;
+      if (item.packagingId && !packaging) {
+        throw new Error('Sale packaging does not belong to this product');
+      }
+      const quantity = Number(item.quantity);
+      const conversion = packaging ? Number(packaging.conversionToBase) : 1;
+      const baseQuantity = quantity * conversion;
+
 
       const stock = await tx.stock.findFirst({
         where: {
@@ -62,7 +74,7 @@ async function createSale({
 
       if (
         Number(stock.quantity) <
-        Number(item.baseQuantity)
+        baseQuantity
       ) {
         throw new Error(
           `Insufficient stock for batch ${batch.batchNumber}`
@@ -71,8 +83,7 @@ async function createSale({
 
 
       const amount =
-        Number(item.unitPrice) *
-        Number(item.quantity);
+        Number(item.unitPrice) * quantity;
 
 
       subtotal += amount;
@@ -82,8 +93,9 @@ async function createSale({
       saleItemsData.push({
         productId: item.productId,
         batchId: item.batchId,
-        quantity: item.quantity,
-        baseQuantity: item.baseQuantity,
+        packagingId: packaging?.id || null,
+        quantity,
+        baseQuantity,
 
         unitPrice: item.unitPrice,
 
@@ -138,7 +150,7 @@ async function createSale({
         item.batchId,
         storeId,
         {
-          quantity: item.baseQuantity,
+          quantity: baseQuantity,
           referenceId: sale.id,
           reason:
             `Sale ${invoiceNumber}`,

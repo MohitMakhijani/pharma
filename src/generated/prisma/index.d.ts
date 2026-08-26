@@ -20826,6 +20826,7 @@ export namespace Prisma {
     brandName: string | null
     sku: string | null
     barcode: string | null
+    hsnCode: string | null
     dosageForm: string | null
     strength: Decimal | null
     strengthUnitId: string | null
@@ -20849,6 +20850,7 @@ export namespace Prisma {
     brandName: string | null
     sku: string | null
     barcode: string | null
+    hsnCode: string | null
     dosageForm: string | null
     strength: Decimal | null
     strengthUnitId: string | null
@@ -20872,6 +20874,7 @@ export namespace Prisma {
     brandName: number
     sku: number
     barcode: number
+    hsnCode: number
     dosageForm: number
     strength: number
     strengthUnitId: number
@@ -20911,6 +20914,7 @@ export namespace Prisma {
     brandName?: true
     sku?: true
     barcode?: true
+    hsnCode?: true
     dosageForm?: true
     strength?: true
     strengthUnitId?: true
@@ -20934,6 +20938,7 @@ export namespace Prisma {
     brandName?: true
     sku?: true
     barcode?: true
+    hsnCode?: true
     dosageForm?: true
     strength?: true
     strengthUnitId?: true
@@ -20957,6 +20962,7 @@ export namespace Prisma {
     brandName?: true
     sku?: true
     barcode?: true
+    hsnCode?: true
     dosageForm?: true
     strength?: true
     strengthUnitId?: true
@@ -21067,6 +21073,7 @@ export namespace Prisma {
     brandName: string | null
     sku: string
     barcode: string | null
+    hsnCode: string | null
     dosageForm: string | null
     strength: Decimal | null
     strengthUnitId: string | null
@@ -21109,6 +21116,7 @@ export namespace Prisma {
     brandName?: boolean
     sku?: boolean
     barcode?: boolean
+    hsnCode?: boolean
     dosageForm?: boolean
     strength?: boolean
     strengthUnitId?: boolean
@@ -21147,6 +21155,7 @@ export namespace Prisma {
     brandName?: boolean
     sku?: boolean
     barcode?: boolean
+    hsnCode?: boolean
     dosageForm?: boolean
     strength?: boolean
     strengthUnitId?: boolean
@@ -21175,6 +21184,7 @@ export namespace Prisma {
     brandName?: boolean
     sku?: boolean
     barcode?: boolean
+    hsnCode?: boolean
     dosageForm?: boolean
     strength?: boolean
     strengthUnitId?: boolean
@@ -21203,6 +21213,7 @@ export namespace Prisma {
     brandName?: boolean
     sku?: boolean
     barcode?: boolean
+    hsnCode?: boolean
     dosageForm?: boolean
     strength?: boolean
     strengthUnitId?: boolean
@@ -21218,7 +21229,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "genericName" | "brandName" | "sku" | "barcode" | "dosageForm" | "strength" | "strengthUnitId" | "categoryId" | "manufacturerId" | "description" | "gstPercent" | "status" | "baseUnitId" | "minimumStock" | "reorderLevel" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "genericName" | "brandName" | "sku" | "barcode" | "hsnCode" | "dosageForm" | "strength" | "strengthUnitId" | "categoryId" | "manufacturerId" | "description" | "gstPercent" | "status" | "baseUnitId" | "minimumStock" | "reorderLevel" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     prescriptionItems?: boolean | Product$prescriptionItemsArgs<ExtArgs>
     baseUnit?: boolean | UnitDefaultArgs<ExtArgs>
@@ -21277,6 +21288,7 @@ export namespace Prisma {
       brandName: string | null
       sku: string
       barcode: string | null
+      hsnCode: string | null
       dosageForm: string | null
       strength: Prisma.Decimal | null
       strengthUnitId: string | null
@@ -21740,6 +21752,7 @@ export namespace Prisma {
     readonly brandName: FieldRef<"Product", 'String'>
     readonly sku: FieldRef<"Product", 'String'>
     readonly barcode: FieldRef<"Product", 'String'>
+    readonly hsnCode: FieldRef<"Product", 'String'>
     readonly dosageForm: FieldRef<"Product", 'String'>
     readonly strength: FieldRef<"Product", 'Decimal'>
     readonly strengthUnitId: FieldRef<"Product", 'String'>
@@ -43550,6 +43563,7 @@ export namespace Prisma {
     brandName: 'brandName',
     sku: 'sku',
     barcode: 'barcode',
+    hsnCode: 'hsnCode',
     dosageForm: 'dosageForm',
     strength: 'strength',
     strengthUnitId: 'strengthUnitId',
@@ -45531,6 +45545,7 @@ export namespace Prisma {
     brandName?: StringNullableFilter<"Product"> | string | null
     sku?: StringFilter<"Product"> | string
     barcode?: StringNullableFilter<"Product"> | string | null
+    hsnCode?: StringNullableFilter<"Product"> | string | null
     dosageForm?: StringNullableFilter<"Product"> | string | null
     strength?: DecimalNullableFilter<"Product"> | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: StringNullableFilter<"Product"> | string | null
@@ -45568,6 +45583,7 @@ export namespace Prisma {
     brandName?: SortOrderInput | SortOrder
     sku?: SortOrder
     barcode?: SortOrderInput | SortOrder
+    hsnCode?: SortOrderInput | SortOrder
     dosageForm?: SortOrderInput | SortOrder
     strength?: SortOrderInput | SortOrder
     strengthUnitId?: SortOrderInput | SortOrder
@@ -45609,6 +45625,7 @@ export namespace Prisma {
     brandName?: StringNullableFilter<"Product"> | string | null
     sku?: StringFilter<"Product"> | string
     barcode?: StringNullableFilter<"Product"> | string | null
+    hsnCode?: StringNullableFilter<"Product"> | string | null
     dosageForm?: StringNullableFilter<"Product"> | string | null
     strength?: DecimalNullableFilter<"Product"> | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: StringNullableFilter<"Product"> | string | null
@@ -45646,6 +45663,7 @@ export namespace Prisma {
     brandName?: SortOrderInput | SortOrder
     sku?: SortOrder
     barcode?: SortOrderInput | SortOrder
+    hsnCode?: SortOrderInput | SortOrder
     dosageForm?: SortOrderInput | SortOrder
     strength?: SortOrderInput | SortOrder
     strengthUnitId?: SortOrderInput | SortOrder
@@ -45677,6 +45695,7 @@ export namespace Prisma {
     brandName?: StringNullableWithAggregatesFilter<"Product"> | string | null
     sku?: StringWithAggregatesFilter<"Product"> | string
     barcode?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    hsnCode?: StringNullableWithAggregatesFilter<"Product"> | string | null
     dosageForm?: StringNullableWithAggregatesFilter<"Product"> | string | null
     strength?: DecimalNullableWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: StringNullableWithAggregatesFilter<"Product"> | string | null
@@ -48853,6 +48872,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -48886,6 +48906,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -48917,6 +48938,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48950,6 +48972,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48982,6 +49005,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -49004,6 +49028,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49023,6 +49048,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52390,6 +52416,7 @@ export namespace Prisma {
     brandName?: SortOrder
     sku?: SortOrder
     barcode?: SortOrder
+    hsnCode?: SortOrder
     dosageForm?: SortOrder
     strength?: SortOrder
     strengthUnitId?: SortOrder
@@ -52420,6 +52447,7 @@ export namespace Prisma {
     brandName?: SortOrder
     sku?: SortOrder
     barcode?: SortOrder
+    hsnCode?: SortOrder
     dosageForm?: SortOrder
     strength?: SortOrder
     strengthUnitId?: SortOrder
@@ -52443,6 +52471,7 @@ export namespace Prisma {
     brandName?: SortOrder
     sku?: SortOrder
     barcode?: SortOrder
+    hsnCode?: SortOrder
     dosageForm?: SortOrder
     strength?: SortOrder
     strengthUnitId?: SortOrder
@@ -59109,6 +59138,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -59141,6 +59171,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -59201,6 +59232,7 @@ export namespace Prisma {
     brandName?: StringNullableFilter<"Product"> | string | null
     sku?: StringFilter<"Product"> | string
     barcode?: StringNullableFilter<"Product"> | string | null
+    hsnCode?: StringNullableFilter<"Product"> | string | null
     dosageForm?: StringNullableFilter<"Product"> | string | null
     strength?: DecimalNullableFilter<"Product"> | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: StringNullableFilter<"Product"> | string | null
@@ -59223,6 +59255,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -59255,6 +59288,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -59311,6 +59345,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -59343,6 +59378,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -59383,6 +59419,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -59415,6 +59452,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     categoryId?: string | null
@@ -60150,6 +60188,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -60182,6 +60221,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -60392,6 +60432,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60424,6 +60465,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -61073,6 +61115,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -61104,6 +61147,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -62302,6 +62346,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -62334,6 +62379,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -62423,6 +62469,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62455,6 +62502,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63526,6 +63574,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -63558,6 +63607,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -63833,6 +63883,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63865,6 +63916,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63994,6 +64046,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -64026,6 +64079,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -64409,6 +64463,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64441,6 +64496,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64685,6 +64741,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -64717,6 +64774,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -64873,6 +64931,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64905,6 +64964,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65484,6 +65544,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -65516,6 +65577,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -65759,6 +65821,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65791,6 +65854,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -66420,6 +66484,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -66452,6 +66517,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -66696,6 +66762,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -66728,6 +66795,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67400,6 +67468,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -67432,6 +67501,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -67673,6 +67743,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67705,6 +67776,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68436,6 +68508,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -68468,6 +68541,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -68710,6 +68784,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68742,6 +68817,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69651,6 +69727,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -69672,6 +69749,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69704,6 +69782,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69735,6 +69814,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69757,6 +69837,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -69778,6 +69859,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69810,6 +69892,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69841,6 +69924,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69863,6 +69947,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -69885,6 +69970,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     categoryId?: string | null
@@ -69921,6 +70007,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69953,6 +70040,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69984,6 +70072,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70005,6 +70094,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70037,6 +70127,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70068,6 +70159,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70625,6 +70717,7 @@ export namespace Prisma {
     brandName?: string | null
     sku: string
     barcode?: string | null
+    hsnCode?: string | null
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -71049,6 +71142,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71080,6 +71174,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71111,6 +71206,7 @@ export namespace Prisma {
     brandName?: NullableStringFieldUpdateOperationsInput | string | null
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
