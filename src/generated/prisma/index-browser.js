@@ -309,6 +309,9 @@ exports.Prisma.ProductScalarFieldEnum = {
   sku: 'sku',
   barcode: 'barcode',
   hsnCode: 'hsnCode',
+  rack: 'rack',
+  scheduling: 'scheduling',
+  prescriptionOnly: 'prescriptionOnly',
   dosageForm: 'dosageForm',
   strength: 'strength',
   strengthUnitId: 'strengthUnitId',
@@ -322,6 +325,19 @@ exports.Prisma.ProductScalarFieldEnum = {
   reorderLevel: 'reorderLevel',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SaltScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProductSaltScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  saltId: 'saltId'
 };
 
 exports.Prisma.ProductPackagingScalarFieldEnum = {
@@ -797,6 +813,8 @@ exports.Prisma.ModelName = {
   Prescription: 'Prescription',
   PrescriptionItem: 'PrescriptionItem',
   Product: 'Product',
+  Salt: 'Salt',
+  ProductSalt: 'ProductSalt',
   ProductPackaging: 'ProductPackaging',
   ProductBatch: 'ProductBatch',
   ProductSupplier: 'ProductSupplier',

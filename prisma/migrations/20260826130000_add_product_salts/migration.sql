@@ -1,0 +1,1 @@
+-- Salt schema is created by the subsequent consolidated migration.

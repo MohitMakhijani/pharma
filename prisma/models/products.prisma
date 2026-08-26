@@ -7,6 +7,9 @@ model Product {
   sku                 String
   barcode             String?
   hsnCode             String?
+  rack                String?
+  scheduling          String?
+  prescriptionOnly    Boolean              @default(false)
   dosageForm          String?
   strength            Decimal?             @db.Decimal(12, 4)
   strengthUnitId      String?
@@ -38,12 +41,33 @@ model Product {
   saleItems           SaleItem[]
   salesReturnItems    SalesReturnItem[]
   stocks              Stock[]
+  salts               ProductSalt[]
 
   @@unique([storeId, sku])
   @@index([storeId])
   @@index([name])
   @@index([genericName])
   @@index([barcode])
+}
+
+model Salt {
+  id        String        @id @default(cuid())
+  name      String        @unique
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  products  ProductSalt[]
+}
+
+model ProductSalt {
+  id        String   @id @default(cuid())
+  productId String
+  saltId    String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  salt      Salt     @relation(fields: [saltId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, saltId])
+  @@index([productId])
+  @@index([saltId])
 }
 
 model ProductPackaging {

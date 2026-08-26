@@ -9,7 +9,17 @@ router.use(authenticate);
 
 router.get('/', controller.getProducts);
 
+router.get('/salts', controller.getSalts);
+
+router.post('/salts', controller.createSalt);
+
+router.post('/:productId/salts', controller.mapProductToSalt);
+
+router.get('/:productId/purchase-history', controller.getProductPurchaseHistory);
+
 router.get('/:productId', controller.getProduct);
+
+router.patch('/:productId', controller.updateProduct);
 
 router.post('/', controller.createProduct);
 

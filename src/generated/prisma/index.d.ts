@@ -84,6 +84,16 @@ export type PrescriptionItem = $Result.DefaultSelection<Prisma.$PrescriptionItem
  */
 export type Product = $Result.DefaultSelection<Prisma.$ProductPayload>
 /**
+ * Model Salt
+ * 
+ */
+export type Salt = $Result.DefaultSelection<Prisma.$SaltPayload>
+/**
+ * Model ProductSalt
+ * 
+ */
+export type ProductSalt = $Result.DefaultSelection<Prisma.$ProductSaltPayload>
+/**
  * Model ProductPackaging
  * 
  */
@@ -728,6 +738,26 @@ export class PrismaClient<
   get product(): Prisma.ProductDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.salt`: Exposes CRUD operations for the **Salt** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Salts
+    * const salts = await prisma.salt.findMany()
+    * ```
+    */
+  get salt(): Prisma.SaltDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.productSalt`: Exposes CRUD operations for the **ProductSalt** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProductSalts
+    * const productSalts = await prisma.productSalt.findMany()
+    * ```
+    */
+  get productSalt(): Prisma.ProductSaltDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.productPackaging`: Exposes CRUD operations for the **ProductPackaging** model.
     * Example usage:
     * ```ts
@@ -1347,6 +1377,8 @@ export namespace Prisma {
     Prescription: 'Prescription',
     PrescriptionItem: 'PrescriptionItem',
     Product: 'Product',
+    Salt: 'Salt',
+    ProductSalt: 'ProductSalt',
     ProductPackaging: 'ProductPackaging',
     ProductBatch: 'ProductBatch',
     ProductSupplier: 'ProductSupplier',
@@ -1378,7 +1410,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "ledgerEntry" | "payment" | "auditLog" | "category" | "manufacturer" | "unit" | "customer" | "stock" | "stockMovement" | "notification" | "store" | "prescription" | "prescriptionItem" | "product" | "productPackaging" | "productBatch" | "productSupplier" | "purchase" | "purchaseItem" | "purchasePayment" | "purchaseReturn" | "purchaseReturnItem" | "sale" | "saleItem" | "salePayment" | "salesReturn" | "salesReturnItem" | "supplier" | "role" | "user"
+      modelProps: "ledgerEntry" | "payment" | "auditLog" | "category" | "manufacturer" | "unit" | "customer" | "stock" | "stockMovement" | "notification" | "store" | "prescription" | "prescriptionItem" | "product" | "salt" | "productSalt" | "productPackaging" | "productBatch" | "productSupplier" | "purchase" | "purchaseItem" | "purchasePayment" | "purchaseReturn" | "purchaseReturnItem" | "sale" | "saleItem" | "salePayment" | "salesReturn" | "salesReturnItem" | "supplier" | "role" | "user"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2415,6 +2447,154 @@ export namespace Prisma {
           count: {
             args: Prisma.ProductCountArgs<ExtArgs>
             result: $Utils.Optional<ProductCountAggregateOutputType> | number
+          }
+        }
+      }
+      Salt: {
+        payload: Prisma.$SaltPayload<ExtArgs>
+        fields: Prisma.SaltFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SaltFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaltPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SaltFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaltPayload>
+          }
+          findFirst: {
+            args: Prisma.SaltFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaltPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SaltFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaltPayload>
+          }
+          findMany: {
+            args: Prisma.SaltFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaltPayload>[]
+          }
+          create: {
+            args: Prisma.SaltCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaltPayload>
+          }
+          createMany: {
+            args: Prisma.SaltCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SaltCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaltPayload>[]
+          }
+          delete: {
+            args: Prisma.SaltDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaltPayload>
+          }
+          update: {
+            args: Prisma.SaltUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaltPayload>
+          }
+          deleteMany: {
+            args: Prisma.SaltDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SaltUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SaltUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaltPayload>[]
+          }
+          upsert: {
+            args: Prisma.SaltUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SaltPayload>
+          }
+          aggregate: {
+            args: Prisma.SaltAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSalt>
+          }
+          groupBy: {
+            args: Prisma.SaltGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SaltGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SaltCountArgs<ExtArgs>
+            result: $Utils.Optional<SaltCountAggregateOutputType> | number
+          }
+        }
+      }
+      ProductSalt: {
+        payload: Prisma.$ProductSaltPayload<ExtArgs>
+        fields: Prisma.ProductSaltFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProductSaltFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductSaltPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProductSaltFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductSaltPayload>
+          }
+          findFirst: {
+            args: Prisma.ProductSaltFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductSaltPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProductSaltFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductSaltPayload>
+          }
+          findMany: {
+            args: Prisma.ProductSaltFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductSaltPayload>[]
+          }
+          create: {
+            args: Prisma.ProductSaltCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductSaltPayload>
+          }
+          createMany: {
+            args: Prisma.ProductSaltCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProductSaltCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductSaltPayload>[]
+          }
+          delete: {
+            args: Prisma.ProductSaltDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductSaltPayload>
+          }
+          update: {
+            args: Prisma.ProductSaltUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductSaltPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProductSaltDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProductSaltUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProductSaltUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductSaltPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProductSaltUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductSaltPayload>
+          }
+          aggregate: {
+            args: Prisma.ProductSaltAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProductSalt>
+          }
+          groupBy: {
+            args: Prisma.ProductSaltGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProductSaltGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProductSaltCountArgs<ExtArgs>
+            result: $Utils.Optional<ProductSaltCountAggregateOutputType> | number
           }
         }
       }
@@ -3739,6 +3919,8 @@ export namespace Prisma {
     prescription?: PrescriptionOmit
     prescriptionItem?: PrescriptionItemOmit
     product?: ProductOmit
+    salt?: SaltOmit
+    productSalt?: ProductSaltOmit
     productPackaging?: ProductPackagingOmit
     productBatch?: ProductBatchOmit
     productSupplier?: ProductSupplierOmit
@@ -4241,6 +4423,7 @@ export namespace Prisma {
     saleItems: number
     salesReturnItems: number
     stocks: number
+    salts: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4253,6 +4436,7 @@ export namespace Prisma {
     saleItems?: boolean | ProductCountOutputTypeCountSaleItemsArgs
     salesReturnItems?: boolean | ProductCountOutputTypeCountSalesReturnItemsArgs
     stocks?: boolean | ProductCountOutputTypeCountStocksArgs
+    salts?: boolean | ProductCountOutputTypeCountSaltsArgs
   }
 
   // Custom InputTypes
@@ -4327,6 +4511,44 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountStocksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StockWhereInput
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountSaltsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductSaltWhereInput
+  }
+
+
+  /**
+   * Count Type SaltCountOutputType
+   */
+
+  export type SaltCountOutputType = {
+    products: number
+  }
+
+  export type SaltCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    products?: boolean | SaltCountOutputTypeCountProductsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SaltCountOutputType without action
+   */
+  export type SaltCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SaltCountOutputType
+     */
+    select?: SaltCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SaltCountOutputType without action
+   */
+  export type SaltCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductSaltWhereInput
   }
 
 
@@ -20827,6 +21049,9 @@ export namespace Prisma {
     sku: string | null
     barcode: string | null
     hsnCode: string | null
+    rack: string | null
+    scheduling: string | null
+    prescriptionOnly: boolean | null
     dosageForm: string | null
     strength: Decimal | null
     strengthUnitId: string | null
@@ -20851,6 +21076,9 @@ export namespace Prisma {
     sku: string | null
     barcode: string | null
     hsnCode: string | null
+    rack: string | null
+    scheduling: string | null
+    prescriptionOnly: boolean | null
     dosageForm: string | null
     strength: Decimal | null
     strengthUnitId: string | null
@@ -20875,6 +21103,9 @@ export namespace Prisma {
     sku: number
     barcode: number
     hsnCode: number
+    rack: number
+    scheduling: number
+    prescriptionOnly: number
     dosageForm: number
     strength: number
     strengthUnitId: number
@@ -20915,6 +21146,9 @@ export namespace Prisma {
     sku?: true
     barcode?: true
     hsnCode?: true
+    rack?: true
+    scheduling?: true
+    prescriptionOnly?: true
     dosageForm?: true
     strength?: true
     strengthUnitId?: true
@@ -20939,6 +21173,9 @@ export namespace Prisma {
     sku?: true
     barcode?: true
     hsnCode?: true
+    rack?: true
+    scheduling?: true
+    prescriptionOnly?: true
     dosageForm?: true
     strength?: true
     strengthUnitId?: true
@@ -20963,6 +21200,9 @@ export namespace Prisma {
     sku?: true
     barcode?: true
     hsnCode?: true
+    rack?: true
+    scheduling?: true
+    prescriptionOnly?: true
     dosageForm?: true
     strength?: true
     strengthUnitId?: true
@@ -21074,6 +21314,9 @@ export namespace Prisma {
     sku: string
     barcode: string | null
     hsnCode: string | null
+    rack: string | null
+    scheduling: string | null
+    prescriptionOnly: boolean
     dosageForm: string | null
     strength: Decimal | null
     strengthUnitId: string | null
@@ -21117,6 +21360,9 @@ export namespace Prisma {
     sku?: boolean
     barcode?: boolean
     hsnCode?: boolean
+    rack?: boolean
+    scheduling?: boolean
+    prescriptionOnly?: boolean
     dosageForm?: boolean
     strength?: boolean
     strengthUnitId?: boolean
@@ -21144,6 +21390,7 @@ export namespace Prisma {
     saleItems?: boolean | Product$saleItemsArgs<ExtArgs>
     salesReturnItems?: boolean | Product$salesReturnItemsArgs<ExtArgs>
     stocks?: boolean | Product$stocksArgs<ExtArgs>
+    salts?: boolean | Product$saltsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
@@ -21156,6 +21403,9 @@ export namespace Prisma {
     sku?: boolean
     barcode?: boolean
     hsnCode?: boolean
+    rack?: boolean
+    scheduling?: boolean
+    prescriptionOnly?: boolean
     dosageForm?: boolean
     strength?: boolean
     strengthUnitId?: boolean
@@ -21185,6 +21435,9 @@ export namespace Prisma {
     sku?: boolean
     barcode?: boolean
     hsnCode?: boolean
+    rack?: boolean
+    scheduling?: boolean
+    prescriptionOnly?: boolean
     dosageForm?: boolean
     strength?: boolean
     strengthUnitId?: boolean
@@ -21214,6 +21467,9 @@ export namespace Prisma {
     sku?: boolean
     barcode?: boolean
     hsnCode?: boolean
+    rack?: boolean
+    scheduling?: boolean
+    prescriptionOnly?: boolean
     dosageForm?: boolean
     strength?: boolean
     strengthUnitId?: boolean
@@ -21229,7 +21485,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "genericName" | "brandName" | "sku" | "barcode" | "hsnCode" | "dosageForm" | "strength" | "strengthUnitId" | "categoryId" | "manufacturerId" | "description" | "gstPercent" | "status" | "baseUnitId" | "minimumStock" | "reorderLevel" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "genericName" | "brandName" | "sku" | "barcode" | "hsnCode" | "rack" | "scheduling" | "prescriptionOnly" | "dosageForm" | "strength" | "strengthUnitId" | "categoryId" | "manufacturerId" | "description" | "gstPercent" | "status" | "baseUnitId" | "minimumStock" | "reorderLevel" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     prescriptionItems?: boolean | Product$prescriptionItemsArgs<ExtArgs>
     baseUnit?: boolean | UnitDefaultArgs<ExtArgs>
@@ -21245,6 +21501,7 @@ export namespace Prisma {
     saleItems?: boolean | Product$saleItemsArgs<ExtArgs>
     salesReturnItems?: boolean | Product$salesReturnItemsArgs<ExtArgs>
     stocks?: boolean | Product$stocksArgs<ExtArgs>
+    salts?: boolean | Product$saltsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21279,6 +21536,7 @@ export namespace Prisma {
       saleItems: Prisma.$SaleItemPayload<ExtArgs>[]
       salesReturnItems: Prisma.$SalesReturnItemPayload<ExtArgs>[]
       stocks: Prisma.$StockPayload<ExtArgs>[]
+      salts: Prisma.$ProductSaltPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -21289,6 +21547,9 @@ export namespace Prisma {
       sku: string
       barcode: string | null
       hsnCode: string | null
+      rack: string | null
+      scheduling: string | null
+      prescriptionOnly: boolean
       dosageForm: string | null
       strength: Prisma.Decimal | null
       strengthUnitId: string | null
@@ -21716,6 +21977,7 @@ export namespace Prisma {
     saleItems<T extends Product$saleItemsArgs<ExtArgs> = {}>(args?: Subset<T, Product$saleItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salesReturnItems<T extends Product$salesReturnItemsArgs<ExtArgs> = {}>(args?: Subset<T, Product$salesReturnItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalesReturnItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     stocks<T extends Product$stocksArgs<ExtArgs> = {}>(args?: Subset<T, Product$stocksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    salts<T extends Product$saltsArgs<ExtArgs> = {}>(args?: Subset<T, Product$saltsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21753,6 +22015,9 @@ export namespace Prisma {
     readonly sku: FieldRef<"Product", 'String'>
     readonly barcode: FieldRef<"Product", 'String'>
     readonly hsnCode: FieldRef<"Product", 'String'>
+    readonly rack: FieldRef<"Product", 'String'>
+    readonly scheduling: FieldRef<"Product", 'String'>
+    readonly prescriptionOnly: FieldRef<"Product", 'Boolean'>
     readonly dosageForm: FieldRef<"Product", 'String'>
     readonly strength: FieldRef<"Product", 'Decimal'>
     readonly strengthUnitId: FieldRef<"Product", 'String'>
@@ -22440,6 +22705,30 @@ export namespace Prisma {
   }
 
   /**
+   * Product.salts
+   */
+  export type Product$saltsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltInclude<ExtArgs> | null
+    where?: ProductSaltWhereInput
+    orderBy?: ProductSaltOrderByWithRelationInput | ProductSaltOrderByWithRelationInput[]
+    cursor?: ProductSaltWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProductSaltScalarFieldEnum | ProductSaltScalarFieldEnum[]
+  }
+
+  /**
    * Product without action
    */
   export type ProductDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -22455,6 +22744,2113 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ProductInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Salt
+   */
+
+  export type AggregateSalt = {
+    _count: SaltCountAggregateOutputType | null
+    _min: SaltMinAggregateOutputType | null
+    _max: SaltMaxAggregateOutputType | null
+  }
+
+  export type SaltMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SaltMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SaltCountAggregateOutputType = {
+    id: number
+    name: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SaltMinAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SaltMaxAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SaltCountAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SaltAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Salt to aggregate.
+     */
+    where?: SaltWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Salts to fetch.
+     */
+    orderBy?: SaltOrderByWithRelationInput | SaltOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SaltWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Salts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Salts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Salts
+    **/
+    _count?: true | SaltCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SaltMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SaltMaxAggregateInputType
+  }
+
+  export type GetSaltAggregateType<T extends SaltAggregateArgs> = {
+        [P in keyof T & keyof AggregateSalt]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSalt[P]>
+      : GetScalarType<T[P], AggregateSalt[P]>
+  }
+
+
+
+
+  export type SaltGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SaltWhereInput
+    orderBy?: SaltOrderByWithAggregationInput | SaltOrderByWithAggregationInput[]
+    by: SaltScalarFieldEnum[] | SaltScalarFieldEnum
+    having?: SaltScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SaltCountAggregateInputType | true
+    _min?: SaltMinAggregateInputType
+    _max?: SaltMaxAggregateInputType
+  }
+
+  export type SaltGroupByOutputType = {
+    id: string
+    name: string
+    createdAt: Date
+    updatedAt: Date
+    _count: SaltCountAggregateOutputType | null
+    _min: SaltMinAggregateOutputType | null
+    _max: SaltMaxAggregateOutputType | null
+  }
+
+  type GetSaltGroupByPayload<T extends SaltGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SaltGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SaltGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SaltGroupByOutputType[P]>
+            : GetScalarType<T[P], SaltGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SaltSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    products?: boolean | Salt$productsArgs<ExtArgs>
+    _count?: boolean | SaltCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["salt"]>
+
+  export type SaltSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["salt"]>
+
+  export type SaltSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["salt"]>
+
+  export type SaltSelectScalar = {
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SaltOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["salt"]>
+  export type SaltInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    products?: boolean | Salt$productsArgs<ExtArgs>
+    _count?: boolean | SaltCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SaltIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SaltIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SaltPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Salt"
+    objects: {
+      products: Prisma.$ProductSaltPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["salt"]>
+    composites: {}
+  }
+
+  type SaltGetPayload<S extends boolean | null | undefined | SaltDefaultArgs> = $Result.GetResult<Prisma.$SaltPayload, S>
+
+  type SaltCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SaltFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SaltCountAggregateInputType | true
+    }
+
+  export interface SaltDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Salt'], meta: { name: 'Salt' } }
+    /**
+     * Find zero or one Salt that matches the filter.
+     * @param {SaltFindUniqueArgs} args - Arguments to find a Salt
+     * @example
+     * // Get one Salt
+     * const salt = await prisma.salt.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SaltFindUniqueArgs>(args: SelectSubset<T, SaltFindUniqueArgs<ExtArgs>>): Prisma__SaltClient<$Result.GetResult<Prisma.$SaltPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Salt that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SaltFindUniqueOrThrowArgs} args - Arguments to find a Salt
+     * @example
+     * // Get one Salt
+     * const salt = await prisma.salt.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SaltFindUniqueOrThrowArgs>(args: SelectSubset<T, SaltFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SaltClient<$Result.GetResult<Prisma.$SaltPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Salt that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaltFindFirstArgs} args - Arguments to find a Salt
+     * @example
+     * // Get one Salt
+     * const salt = await prisma.salt.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SaltFindFirstArgs>(args?: SelectSubset<T, SaltFindFirstArgs<ExtArgs>>): Prisma__SaltClient<$Result.GetResult<Prisma.$SaltPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Salt that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaltFindFirstOrThrowArgs} args - Arguments to find a Salt
+     * @example
+     * // Get one Salt
+     * const salt = await prisma.salt.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SaltFindFirstOrThrowArgs>(args?: SelectSubset<T, SaltFindFirstOrThrowArgs<ExtArgs>>): Prisma__SaltClient<$Result.GetResult<Prisma.$SaltPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Salts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaltFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Salts
+     * const salts = await prisma.salt.findMany()
+     * 
+     * // Get first 10 Salts
+     * const salts = await prisma.salt.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const saltWithIdOnly = await prisma.salt.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SaltFindManyArgs>(args?: SelectSubset<T, SaltFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaltPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Salt.
+     * @param {SaltCreateArgs} args - Arguments to create a Salt.
+     * @example
+     * // Create one Salt
+     * const Salt = await prisma.salt.create({
+     *   data: {
+     *     // ... data to create a Salt
+     *   }
+     * })
+     * 
+     */
+    create<T extends SaltCreateArgs>(args: SelectSubset<T, SaltCreateArgs<ExtArgs>>): Prisma__SaltClient<$Result.GetResult<Prisma.$SaltPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Salts.
+     * @param {SaltCreateManyArgs} args - Arguments to create many Salts.
+     * @example
+     * // Create many Salts
+     * const salt = await prisma.salt.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SaltCreateManyArgs>(args?: SelectSubset<T, SaltCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Salts and returns the data saved in the database.
+     * @param {SaltCreateManyAndReturnArgs} args - Arguments to create many Salts.
+     * @example
+     * // Create many Salts
+     * const salt = await prisma.salt.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Salts and only return the `id`
+     * const saltWithIdOnly = await prisma.salt.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SaltCreateManyAndReturnArgs>(args?: SelectSubset<T, SaltCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaltPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Salt.
+     * @param {SaltDeleteArgs} args - Arguments to delete one Salt.
+     * @example
+     * // Delete one Salt
+     * const Salt = await prisma.salt.delete({
+     *   where: {
+     *     // ... filter to delete one Salt
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SaltDeleteArgs>(args: SelectSubset<T, SaltDeleteArgs<ExtArgs>>): Prisma__SaltClient<$Result.GetResult<Prisma.$SaltPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Salt.
+     * @param {SaltUpdateArgs} args - Arguments to update one Salt.
+     * @example
+     * // Update one Salt
+     * const salt = await prisma.salt.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SaltUpdateArgs>(args: SelectSubset<T, SaltUpdateArgs<ExtArgs>>): Prisma__SaltClient<$Result.GetResult<Prisma.$SaltPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Salts.
+     * @param {SaltDeleteManyArgs} args - Arguments to filter Salts to delete.
+     * @example
+     * // Delete a few Salts
+     * const { count } = await prisma.salt.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SaltDeleteManyArgs>(args?: SelectSubset<T, SaltDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Salts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaltUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Salts
+     * const salt = await prisma.salt.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SaltUpdateManyArgs>(args: SelectSubset<T, SaltUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Salts and returns the data updated in the database.
+     * @param {SaltUpdateManyAndReturnArgs} args - Arguments to update many Salts.
+     * @example
+     * // Update many Salts
+     * const salt = await prisma.salt.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Salts and only return the `id`
+     * const saltWithIdOnly = await prisma.salt.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SaltUpdateManyAndReturnArgs>(args: SelectSubset<T, SaltUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaltPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Salt.
+     * @param {SaltUpsertArgs} args - Arguments to update or create a Salt.
+     * @example
+     * // Update or create a Salt
+     * const salt = await prisma.salt.upsert({
+     *   create: {
+     *     // ... data to create a Salt
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Salt we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SaltUpsertArgs>(args: SelectSubset<T, SaltUpsertArgs<ExtArgs>>): Prisma__SaltClient<$Result.GetResult<Prisma.$SaltPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Salts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaltCountArgs} args - Arguments to filter Salts to count.
+     * @example
+     * // Count the number of Salts
+     * const count = await prisma.salt.count({
+     *   where: {
+     *     // ... the filter for the Salts we want to count
+     *   }
+     * })
+    **/
+    count<T extends SaltCountArgs>(
+      args?: Subset<T, SaltCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SaltCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Salt.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaltAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SaltAggregateArgs>(args: Subset<T, SaltAggregateArgs>): Prisma.PrismaPromise<GetSaltAggregateType<T>>
+
+    /**
+     * Group by Salt.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaltGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SaltGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SaltGroupByArgs['orderBy'] }
+        : { orderBy?: SaltGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SaltGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSaltGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Salt model
+   */
+  readonly fields: SaltFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Salt.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SaltClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    products<T extends Salt$productsArgs<ExtArgs> = {}>(args?: Subset<T, Salt$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Salt model
+   */
+  interface SaltFieldRefs {
+    readonly id: FieldRef<"Salt", 'String'>
+    readonly name: FieldRef<"Salt", 'String'>
+    readonly createdAt: FieldRef<"Salt", 'DateTime'>
+    readonly updatedAt: FieldRef<"Salt", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Salt findUnique
+   */
+  export type SaltFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salt
+     */
+    select?: SaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salt
+     */
+    omit?: SaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaltInclude<ExtArgs> | null
+    /**
+     * Filter, which Salt to fetch.
+     */
+    where: SaltWhereUniqueInput
+  }
+
+  /**
+   * Salt findUniqueOrThrow
+   */
+  export type SaltFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salt
+     */
+    select?: SaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salt
+     */
+    omit?: SaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaltInclude<ExtArgs> | null
+    /**
+     * Filter, which Salt to fetch.
+     */
+    where: SaltWhereUniqueInput
+  }
+
+  /**
+   * Salt findFirst
+   */
+  export type SaltFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salt
+     */
+    select?: SaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salt
+     */
+    omit?: SaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaltInclude<ExtArgs> | null
+    /**
+     * Filter, which Salt to fetch.
+     */
+    where?: SaltWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Salts to fetch.
+     */
+    orderBy?: SaltOrderByWithRelationInput | SaltOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Salts.
+     */
+    cursor?: SaltWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Salts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Salts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Salts.
+     */
+    distinct?: SaltScalarFieldEnum | SaltScalarFieldEnum[]
+  }
+
+  /**
+   * Salt findFirstOrThrow
+   */
+  export type SaltFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salt
+     */
+    select?: SaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salt
+     */
+    omit?: SaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaltInclude<ExtArgs> | null
+    /**
+     * Filter, which Salt to fetch.
+     */
+    where?: SaltWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Salts to fetch.
+     */
+    orderBy?: SaltOrderByWithRelationInput | SaltOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Salts.
+     */
+    cursor?: SaltWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Salts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Salts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Salts.
+     */
+    distinct?: SaltScalarFieldEnum | SaltScalarFieldEnum[]
+  }
+
+  /**
+   * Salt findMany
+   */
+  export type SaltFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salt
+     */
+    select?: SaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salt
+     */
+    omit?: SaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaltInclude<ExtArgs> | null
+    /**
+     * Filter, which Salts to fetch.
+     */
+    where?: SaltWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Salts to fetch.
+     */
+    orderBy?: SaltOrderByWithRelationInput | SaltOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Salts.
+     */
+    cursor?: SaltWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Salts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Salts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Salts.
+     */
+    distinct?: SaltScalarFieldEnum | SaltScalarFieldEnum[]
+  }
+
+  /**
+   * Salt create
+   */
+  export type SaltCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salt
+     */
+    select?: SaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salt
+     */
+    omit?: SaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaltInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Salt.
+     */
+    data: XOR<SaltCreateInput, SaltUncheckedCreateInput>
+  }
+
+  /**
+   * Salt createMany
+   */
+  export type SaltCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Salts.
+     */
+    data: SaltCreateManyInput | SaltCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Salt createManyAndReturn
+   */
+  export type SaltCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salt
+     */
+    select?: SaltSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salt
+     */
+    omit?: SaltOmit<ExtArgs> | null
+    /**
+     * The data used to create many Salts.
+     */
+    data: SaltCreateManyInput | SaltCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Salt update
+   */
+  export type SaltUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salt
+     */
+    select?: SaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salt
+     */
+    omit?: SaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaltInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Salt.
+     */
+    data: XOR<SaltUpdateInput, SaltUncheckedUpdateInput>
+    /**
+     * Choose, which Salt to update.
+     */
+    where: SaltWhereUniqueInput
+  }
+
+  /**
+   * Salt updateMany
+   */
+  export type SaltUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Salts.
+     */
+    data: XOR<SaltUpdateManyMutationInput, SaltUncheckedUpdateManyInput>
+    /**
+     * Filter which Salts to update
+     */
+    where?: SaltWhereInput
+    /**
+     * Limit how many Salts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Salt updateManyAndReturn
+   */
+  export type SaltUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salt
+     */
+    select?: SaltSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salt
+     */
+    omit?: SaltOmit<ExtArgs> | null
+    /**
+     * The data used to update Salts.
+     */
+    data: XOR<SaltUpdateManyMutationInput, SaltUncheckedUpdateManyInput>
+    /**
+     * Filter which Salts to update
+     */
+    where?: SaltWhereInput
+    /**
+     * Limit how many Salts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Salt upsert
+   */
+  export type SaltUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salt
+     */
+    select?: SaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salt
+     */
+    omit?: SaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaltInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Salt to update in case it exists.
+     */
+    where: SaltWhereUniqueInput
+    /**
+     * In case the Salt found by the `where` argument doesn't exist, create a new Salt with this data.
+     */
+    create: XOR<SaltCreateInput, SaltUncheckedCreateInput>
+    /**
+     * In case the Salt was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SaltUpdateInput, SaltUncheckedUpdateInput>
+  }
+
+  /**
+   * Salt delete
+   */
+  export type SaltDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salt
+     */
+    select?: SaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salt
+     */
+    omit?: SaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaltInclude<ExtArgs> | null
+    /**
+     * Filter which Salt to delete.
+     */
+    where: SaltWhereUniqueInput
+  }
+
+  /**
+   * Salt deleteMany
+   */
+  export type SaltDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Salts to delete
+     */
+    where?: SaltWhereInput
+    /**
+     * Limit how many Salts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Salt.products
+   */
+  export type Salt$productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltInclude<ExtArgs> | null
+    where?: ProductSaltWhereInput
+    orderBy?: ProductSaltOrderByWithRelationInput | ProductSaltOrderByWithRelationInput[]
+    cursor?: ProductSaltWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProductSaltScalarFieldEnum | ProductSaltScalarFieldEnum[]
+  }
+
+  /**
+   * Salt without action
+   */
+  export type SaltDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Salt
+     */
+    select?: SaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Salt
+     */
+    omit?: SaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaltInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ProductSalt
+   */
+
+  export type AggregateProductSalt = {
+    _count: ProductSaltCountAggregateOutputType | null
+    _min: ProductSaltMinAggregateOutputType | null
+    _max: ProductSaltMaxAggregateOutputType | null
+  }
+
+  export type ProductSaltMinAggregateOutputType = {
+    id: string | null
+    productId: string | null
+    saltId: string | null
+  }
+
+  export type ProductSaltMaxAggregateOutputType = {
+    id: string | null
+    productId: string | null
+    saltId: string | null
+  }
+
+  export type ProductSaltCountAggregateOutputType = {
+    id: number
+    productId: number
+    saltId: number
+    _all: number
+  }
+
+
+  export type ProductSaltMinAggregateInputType = {
+    id?: true
+    productId?: true
+    saltId?: true
+  }
+
+  export type ProductSaltMaxAggregateInputType = {
+    id?: true
+    productId?: true
+    saltId?: true
+  }
+
+  export type ProductSaltCountAggregateInputType = {
+    id?: true
+    productId?: true
+    saltId?: true
+    _all?: true
+  }
+
+  export type ProductSaltAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProductSalt to aggregate.
+     */
+    where?: ProductSaltWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProductSalts to fetch.
+     */
+    orderBy?: ProductSaltOrderByWithRelationInput | ProductSaltOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProductSaltWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProductSalts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProductSalts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProductSalts
+    **/
+    _count?: true | ProductSaltCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProductSaltMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProductSaltMaxAggregateInputType
+  }
+
+  export type GetProductSaltAggregateType<T extends ProductSaltAggregateArgs> = {
+        [P in keyof T & keyof AggregateProductSalt]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProductSalt[P]>
+      : GetScalarType<T[P], AggregateProductSalt[P]>
+  }
+
+
+
+
+  export type ProductSaltGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductSaltWhereInput
+    orderBy?: ProductSaltOrderByWithAggregationInput | ProductSaltOrderByWithAggregationInput[]
+    by: ProductSaltScalarFieldEnum[] | ProductSaltScalarFieldEnum
+    having?: ProductSaltScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProductSaltCountAggregateInputType | true
+    _min?: ProductSaltMinAggregateInputType
+    _max?: ProductSaltMaxAggregateInputType
+  }
+
+  export type ProductSaltGroupByOutputType = {
+    id: string
+    productId: string
+    saltId: string
+    _count: ProductSaltCountAggregateOutputType | null
+    _min: ProductSaltMinAggregateOutputType | null
+    _max: ProductSaltMaxAggregateOutputType | null
+  }
+
+  type GetProductSaltGroupByPayload<T extends ProductSaltGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProductSaltGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProductSaltGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProductSaltGroupByOutputType[P]>
+            : GetScalarType<T[P], ProductSaltGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProductSaltSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    saltId?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    salt?: boolean | SaltDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["productSalt"]>
+
+  export type ProductSaltSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    saltId?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    salt?: boolean | SaltDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["productSalt"]>
+
+  export type ProductSaltSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    productId?: boolean
+    saltId?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    salt?: boolean | SaltDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["productSalt"]>
+
+  export type ProductSaltSelectScalar = {
+    id?: boolean
+    productId?: boolean
+    saltId?: boolean
+  }
+
+  export type ProductSaltOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productId" | "saltId", ExtArgs["result"]["productSalt"]>
+  export type ProductSaltInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    salt?: boolean | SaltDefaultArgs<ExtArgs>
+  }
+  export type ProductSaltIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    salt?: boolean | SaltDefaultArgs<ExtArgs>
+  }
+  export type ProductSaltIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    salt?: boolean | SaltDefaultArgs<ExtArgs>
+  }
+
+  export type $ProductSaltPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProductSalt"
+    objects: {
+      product: Prisma.$ProductPayload<ExtArgs>
+      salt: Prisma.$SaltPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      productId: string
+      saltId: string
+    }, ExtArgs["result"]["productSalt"]>
+    composites: {}
+  }
+
+  type ProductSaltGetPayload<S extends boolean | null | undefined | ProductSaltDefaultArgs> = $Result.GetResult<Prisma.$ProductSaltPayload, S>
+
+  type ProductSaltCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProductSaltFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProductSaltCountAggregateInputType | true
+    }
+
+  export interface ProductSaltDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProductSalt'], meta: { name: 'ProductSalt' } }
+    /**
+     * Find zero or one ProductSalt that matches the filter.
+     * @param {ProductSaltFindUniqueArgs} args - Arguments to find a ProductSalt
+     * @example
+     * // Get one ProductSalt
+     * const productSalt = await prisma.productSalt.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProductSaltFindUniqueArgs>(args: SelectSubset<T, ProductSaltFindUniqueArgs<ExtArgs>>): Prisma__ProductSaltClient<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ProductSalt that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProductSaltFindUniqueOrThrowArgs} args - Arguments to find a ProductSalt
+     * @example
+     * // Get one ProductSalt
+     * const productSalt = await prisma.productSalt.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProductSaltFindUniqueOrThrowArgs>(args: SelectSubset<T, ProductSaltFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProductSaltClient<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProductSalt that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductSaltFindFirstArgs} args - Arguments to find a ProductSalt
+     * @example
+     * // Get one ProductSalt
+     * const productSalt = await prisma.productSalt.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProductSaltFindFirstArgs>(args?: SelectSubset<T, ProductSaltFindFirstArgs<ExtArgs>>): Prisma__ProductSaltClient<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProductSalt that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductSaltFindFirstOrThrowArgs} args - Arguments to find a ProductSalt
+     * @example
+     * // Get one ProductSalt
+     * const productSalt = await prisma.productSalt.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProductSaltFindFirstOrThrowArgs>(args?: SelectSubset<T, ProductSaltFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProductSaltClient<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ProductSalts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductSaltFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProductSalts
+     * const productSalts = await prisma.productSalt.findMany()
+     * 
+     * // Get first 10 ProductSalts
+     * const productSalts = await prisma.productSalt.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const productSaltWithIdOnly = await prisma.productSalt.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProductSaltFindManyArgs>(args?: SelectSubset<T, ProductSaltFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ProductSalt.
+     * @param {ProductSaltCreateArgs} args - Arguments to create a ProductSalt.
+     * @example
+     * // Create one ProductSalt
+     * const ProductSalt = await prisma.productSalt.create({
+     *   data: {
+     *     // ... data to create a ProductSalt
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProductSaltCreateArgs>(args: SelectSubset<T, ProductSaltCreateArgs<ExtArgs>>): Prisma__ProductSaltClient<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ProductSalts.
+     * @param {ProductSaltCreateManyArgs} args - Arguments to create many ProductSalts.
+     * @example
+     * // Create many ProductSalts
+     * const productSalt = await prisma.productSalt.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProductSaltCreateManyArgs>(args?: SelectSubset<T, ProductSaltCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ProductSalts and returns the data saved in the database.
+     * @param {ProductSaltCreateManyAndReturnArgs} args - Arguments to create many ProductSalts.
+     * @example
+     * // Create many ProductSalts
+     * const productSalt = await prisma.productSalt.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ProductSalts and only return the `id`
+     * const productSaltWithIdOnly = await prisma.productSalt.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProductSaltCreateManyAndReturnArgs>(args?: SelectSubset<T, ProductSaltCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ProductSalt.
+     * @param {ProductSaltDeleteArgs} args - Arguments to delete one ProductSalt.
+     * @example
+     * // Delete one ProductSalt
+     * const ProductSalt = await prisma.productSalt.delete({
+     *   where: {
+     *     // ... filter to delete one ProductSalt
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProductSaltDeleteArgs>(args: SelectSubset<T, ProductSaltDeleteArgs<ExtArgs>>): Prisma__ProductSaltClient<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ProductSalt.
+     * @param {ProductSaltUpdateArgs} args - Arguments to update one ProductSalt.
+     * @example
+     * // Update one ProductSalt
+     * const productSalt = await prisma.productSalt.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProductSaltUpdateArgs>(args: SelectSubset<T, ProductSaltUpdateArgs<ExtArgs>>): Prisma__ProductSaltClient<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ProductSalts.
+     * @param {ProductSaltDeleteManyArgs} args - Arguments to filter ProductSalts to delete.
+     * @example
+     * // Delete a few ProductSalts
+     * const { count } = await prisma.productSalt.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProductSaltDeleteManyArgs>(args?: SelectSubset<T, ProductSaltDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProductSalts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductSaltUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProductSalts
+     * const productSalt = await prisma.productSalt.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProductSaltUpdateManyArgs>(args: SelectSubset<T, ProductSaltUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProductSalts and returns the data updated in the database.
+     * @param {ProductSaltUpdateManyAndReturnArgs} args - Arguments to update many ProductSalts.
+     * @example
+     * // Update many ProductSalts
+     * const productSalt = await prisma.productSalt.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ProductSalts and only return the `id`
+     * const productSaltWithIdOnly = await prisma.productSalt.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProductSaltUpdateManyAndReturnArgs>(args: SelectSubset<T, ProductSaltUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ProductSalt.
+     * @param {ProductSaltUpsertArgs} args - Arguments to update or create a ProductSalt.
+     * @example
+     * // Update or create a ProductSalt
+     * const productSalt = await prisma.productSalt.upsert({
+     *   create: {
+     *     // ... data to create a ProductSalt
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProductSalt we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProductSaltUpsertArgs>(args: SelectSubset<T, ProductSaltUpsertArgs<ExtArgs>>): Prisma__ProductSaltClient<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ProductSalts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductSaltCountArgs} args - Arguments to filter ProductSalts to count.
+     * @example
+     * // Count the number of ProductSalts
+     * const count = await prisma.productSalt.count({
+     *   where: {
+     *     // ... the filter for the ProductSalts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProductSaltCountArgs>(
+      args?: Subset<T, ProductSaltCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProductSaltCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProductSalt.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductSaltAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProductSaltAggregateArgs>(args: Subset<T, ProductSaltAggregateArgs>): Prisma.PrismaPromise<GetProductSaltAggregateType<T>>
+
+    /**
+     * Group by ProductSalt.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductSaltGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProductSaltGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProductSaltGroupByArgs['orderBy'] }
+        : { orderBy?: ProductSaltGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProductSaltGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProductSaltGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProductSalt model
+   */
+  readonly fields: ProductSaltFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProductSalt.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProductSaltClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    salt<T extends SaltDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SaltDefaultArgs<ExtArgs>>): Prisma__SaltClient<$Result.GetResult<Prisma.$SaltPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ProductSalt model
+   */
+  interface ProductSaltFieldRefs {
+    readonly id: FieldRef<"ProductSalt", 'String'>
+    readonly productId: FieldRef<"ProductSalt", 'String'>
+    readonly saltId: FieldRef<"ProductSalt", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ProductSalt findUnique
+   */
+  export type ProductSaltFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltInclude<ExtArgs> | null
+    /**
+     * Filter, which ProductSalt to fetch.
+     */
+    where: ProductSaltWhereUniqueInput
+  }
+
+  /**
+   * ProductSalt findUniqueOrThrow
+   */
+  export type ProductSaltFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltInclude<ExtArgs> | null
+    /**
+     * Filter, which ProductSalt to fetch.
+     */
+    where: ProductSaltWhereUniqueInput
+  }
+
+  /**
+   * ProductSalt findFirst
+   */
+  export type ProductSaltFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltInclude<ExtArgs> | null
+    /**
+     * Filter, which ProductSalt to fetch.
+     */
+    where?: ProductSaltWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProductSalts to fetch.
+     */
+    orderBy?: ProductSaltOrderByWithRelationInput | ProductSaltOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProductSalts.
+     */
+    cursor?: ProductSaltWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProductSalts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProductSalts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProductSalts.
+     */
+    distinct?: ProductSaltScalarFieldEnum | ProductSaltScalarFieldEnum[]
+  }
+
+  /**
+   * ProductSalt findFirstOrThrow
+   */
+  export type ProductSaltFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltInclude<ExtArgs> | null
+    /**
+     * Filter, which ProductSalt to fetch.
+     */
+    where?: ProductSaltWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProductSalts to fetch.
+     */
+    orderBy?: ProductSaltOrderByWithRelationInput | ProductSaltOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProductSalts.
+     */
+    cursor?: ProductSaltWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProductSalts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProductSalts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProductSalts.
+     */
+    distinct?: ProductSaltScalarFieldEnum | ProductSaltScalarFieldEnum[]
+  }
+
+  /**
+   * ProductSalt findMany
+   */
+  export type ProductSaltFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltInclude<ExtArgs> | null
+    /**
+     * Filter, which ProductSalts to fetch.
+     */
+    where?: ProductSaltWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProductSalts to fetch.
+     */
+    orderBy?: ProductSaltOrderByWithRelationInput | ProductSaltOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProductSalts.
+     */
+    cursor?: ProductSaltWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProductSalts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProductSalts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProductSalts.
+     */
+    distinct?: ProductSaltScalarFieldEnum | ProductSaltScalarFieldEnum[]
+  }
+
+  /**
+   * ProductSalt create
+   */
+  export type ProductSaltCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProductSalt.
+     */
+    data: XOR<ProductSaltCreateInput, ProductSaltUncheckedCreateInput>
+  }
+
+  /**
+   * ProductSalt createMany
+   */
+  export type ProductSaltCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProductSalts.
+     */
+    data: ProductSaltCreateManyInput | ProductSaltCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ProductSalt createManyAndReturn
+   */
+  export type ProductSaltCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * The data used to create many ProductSalts.
+     */
+    data: ProductSaltCreateManyInput | ProductSaltCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProductSalt update
+   */
+  export type ProductSaltUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProductSalt.
+     */
+    data: XOR<ProductSaltUpdateInput, ProductSaltUncheckedUpdateInput>
+    /**
+     * Choose, which ProductSalt to update.
+     */
+    where: ProductSaltWhereUniqueInput
+  }
+
+  /**
+   * ProductSalt updateMany
+   */
+  export type ProductSaltUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProductSalts.
+     */
+    data: XOR<ProductSaltUpdateManyMutationInput, ProductSaltUncheckedUpdateManyInput>
+    /**
+     * Filter which ProductSalts to update
+     */
+    where?: ProductSaltWhereInput
+    /**
+     * Limit how many ProductSalts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProductSalt updateManyAndReturn
+   */
+  export type ProductSaltUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * The data used to update ProductSalts.
+     */
+    data: XOR<ProductSaltUpdateManyMutationInput, ProductSaltUncheckedUpdateManyInput>
+    /**
+     * Filter which ProductSalts to update
+     */
+    where?: ProductSaltWhereInput
+    /**
+     * Limit how many ProductSalts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProductSalt upsert
+   */
+  export type ProductSaltUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProductSalt to update in case it exists.
+     */
+    where: ProductSaltWhereUniqueInput
+    /**
+     * In case the ProductSalt found by the `where` argument doesn't exist, create a new ProductSalt with this data.
+     */
+    create: XOR<ProductSaltCreateInput, ProductSaltUncheckedCreateInput>
+    /**
+     * In case the ProductSalt was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProductSaltUpdateInput, ProductSaltUncheckedUpdateInput>
+  }
+
+  /**
+   * ProductSalt delete
+   */
+  export type ProductSaltDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltInclude<ExtArgs> | null
+    /**
+     * Filter which ProductSalt to delete.
+     */
+    where: ProductSaltWhereUniqueInput
+  }
+
+  /**
+   * ProductSalt deleteMany
+   */
+  export type ProductSaltDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProductSalts to delete
+     */
+    where?: ProductSaltWhereInput
+    /**
+     * Limit how many ProductSalts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProductSalt without action
+   */
+  export type ProductSaltDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductSalt
+     */
+    select?: ProductSaltSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProductSalt
+     */
+    omit?: ProductSaltOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductSaltInclude<ExtArgs> | null
   }
 
 
@@ -43564,6 +45960,9 @@ export namespace Prisma {
     sku: 'sku',
     barcode: 'barcode',
     hsnCode: 'hsnCode',
+    rack: 'rack',
+    scheduling: 'scheduling',
+    prescriptionOnly: 'prescriptionOnly',
     dosageForm: 'dosageForm',
     strength: 'strength',
     strengthUnitId: 'strengthUnitId',
@@ -43580,6 +45979,25 @@ export namespace Prisma {
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
+  export const SaltScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SaltScalarFieldEnum = (typeof SaltScalarFieldEnum)[keyof typeof SaltScalarFieldEnum]
+
+
+  export const ProductSaltScalarFieldEnum: {
+    id: 'id',
+    productId: 'productId',
+    saltId: 'saltId'
+  };
+
+  export type ProductSaltScalarFieldEnum = (typeof ProductSaltScalarFieldEnum)[keyof typeof ProductSaltScalarFieldEnum]
 
 
   export const ProductPackagingScalarFieldEnum: {
@@ -45546,6 +47964,9 @@ export namespace Prisma {
     sku?: StringFilter<"Product"> | string
     barcode?: StringNullableFilter<"Product"> | string | null
     hsnCode?: StringNullableFilter<"Product"> | string | null
+    rack?: StringNullableFilter<"Product"> | string | null
+    scheduling?: StringNullableFilter<"Product"> | string | null
+    prescriptionOnly?: BoolFilter<"Product"> | boolean
     dosageForm?: StringNullableFilter<"Product"> | string | null
     strength?: DecimalNullableFilter<"Product"> | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: StringNullableFilter<"Product"> | string | null
@@ -45573,6 +47994,7 @@ export namespace Prisma {
     saleItems?: SaleItemListRelationFilter
     salesReturnItems?: SalesReturnItemListRelationFilter
     stocks?: StockListRelationFilter
+    salts?: ProductSaltListRelationFilter
   }
 
   export type ProductOrderByWithRelationInput = {
@@ -45584,6 +48006,9 @@ export namespace Prisma {
     sku?: SortOrder
     barcode?: SortOrderInput | SortOrder
     hsnCode?: SortOrderInput | SortOrder
+    rack?: SortOrderInput | SortOrder
+    scheduling?: SortOrderInput | SortOrder
+    prescriptionOnly?: SortOrder
     dosageForm?: SortOrderInput | SortOrder
     strength?: SortOrderInput | SortOrder
     strengthUnitId?: SortOrderInput | SortOrder
@@ -45611,6 +48036,7 @@ export namespace Prisma {
     saleItems?: SaleItemOrderByRelationAggregateInput
     salesReturnItems?: SalesReturnItemOrderByRelationAggregateInput
     stocks?: StockOrderByRelationAggregateInput
+    salts?: ProductSaltOrderByRelationAggregateInput
   }
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
@@ -45626,6 +48052,9 @@ export namespace Prisma {
     sku?: StringFilter<"Product"> | string
     barcode?: StringNullableFilter<"Product"> | string | null
     hsnCode?: StringNullableFilter<"Product"> | string | null
+    rack?: StringNullableFilter<"Product"> | string | null
+    scheduling?: StringNullableFilter<"Product"> | string | null
+    prescriptionOnly?: BoolFilter<"Product"> | boolean
     dosageForm?: StringNullableFilter<"Product"> | string | null
     strength?: DecimalNullableFilter<"Product"> | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: StringNullableFilter<"Product"> | string | null
@@ -45653,6 +48082,7 @@ export namespace Prisma {
     saleItems?: SaleItemListRelationFilter
     salesReturnItems?: SalesReturnItemListRelationFilter
     stocks?: StockListRelationFilter
+    salts?: ProductSaltListRelationFilter
   }, "id" | "storeId_sku">
 
   export type ProductOrderByWithAggregationInput = {
@@ -45664,6 +48094,9 @@ export namespace Prisma {
     sku?: SortOrder
     barcode?: SortOrderInput | SortOrder
     hsnCode?: SortOrderInput | SortOrder
+    rack?: SortOrderInput | SortOrder
+    scheduling?: SortOrderInput | SortOrder
+    prescriptionOnly?: SortOrder
     dosageForm?: SortOrderInput | SortOrder
     strength?: SortOrderInput | SortOrder
     strengthUnitId?: SortOrderInput | SortOrder
@@ -45696,6 +48129,9 @@ export namespace Prisma {
     sku?: StringWithAggregatesFilter<"Product"> | string
     barcode?: StringNullableWithAggregatesFilter<"Product"> | string | null
     hsnCode?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    rack?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    scheduling?: StringNullableWithAggregatesFilter<"Product"> | string | null
+    prescriptionOnly?: BoolWithAggregatesFilter<"Product"> | boolean
     dosageForm?: StringNullableWithAggregatesFilter<"Product"> | string | null
     strength?: DecimalNullableWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: StringNullableWithAggregatesFilter<"Product"> | string | null
@@ -45709,6 +48145,105 @@ export namespace Prisma {
     reorderLevel?: DecimalWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
+  }
+
+  export type SaltWhereInput = {
+    AND?: SaltWhereInput | SaltWhereInput[]
+    OR?: SaltWhereInput[]
+    NOT?: SaltWhereInput | SaltWhereInput[]
+    id?: StringFilter<"Salt"> | string
+    name?: StringFilter<"Salt"> | string
+    createdAt?: DateTimeFilter<"Salt"> | Date | string
+    updatedAt?: DateTimeFilter<"Salt"> | Date | string
+    products?: ProductSaltListRelationFilter
+  }
+
+  export type SaltOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    products?: ProductSaltOrderByRelationAggregateInput
+  }
+
+  export type SaltWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: SaltWhereInput | SaltWhereInput[]
+    OR?: SaltWhereInput[]
+    NOT?: SaltWhereInput | SaltWhereInput[]
+    createdAt?: DateTimeFilter<"Salt"> | Date | string
+    updatedAt?: DateTimeFilter<"Salt"> | Date | string
+    products?: ProductSaltListRelationFilter
+  }, "id" | "name">
+
+  export type SaltOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SaltCountOrderByAggregateInput
+    _max?: SaltMaxOrderByAggregateInput
+    _min?: SaltMinOrderByAggregateInput
+  }
+
+  export type SaltScalarWhereWithAggregatesInput = {
+    AND?: SaltScalarWhereWithAggregatesInput | SaltScalarWhereWithAggregatesInput[]
+    OR?: SaltScalarWhereWithAggregatesInput[]
+    NOT?: SaltScalarWhereWithAggregatesInput | SaltScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Salt"> | string
+    name?: StringWithAggregatesFilter<"Salt"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Salt"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Salt"> | Date | string
+  }
+
+  export type ProductSaltWhereInput = {
+    AND?: ProductSaltWhereInput | ProductSaltWhereInput[]
+    OR?: ProductSaltWhereInput[]
+    NOT?: ProductSaltWhereInput | ProductSaltWhereInput[]
+    id?: StringFilter<"ProductSalt"> | string
+    productId?: StringFilter<"ProductSalt"> | string
+    saltId?: StringFilter<"ProductSalt"> | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    salt?: XOR<SaltScalarRelationFilter, SaltWhereInput>
+  }
+
+  export type ProductSaltOrderByWithRelationInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    saltId?: SortOrder
+    product?: ProductOrderByWithRelationInput
+    salt?: SaltOrderByWithRelationInput
+  }
+
+  export type ProductSaltWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    productId_saltId?: ProductSaltProductIdSaltIdCompoundUniqueInput
+    AND?: ProductSaltWhereInput | ProductSaltWhereInput[]
+    OR?: ProductSaltWhereInput[]
+    NOT?: ProductSaltWhereInput | ProductSaltWhereInput[]
+    productId?: StringFilter<"ProductSalt"> | string
+    saltId?: StringFilter<"ProductSalt"> | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    salt?: XOR<SaltScalarRelationFilter, SaltWhereInput>
+  }, "id" | "productId_saltId">
+
+  export type ProductSaltOrderByWithAggregationInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    saltId?: SortOrder
+    _count?: ProductSaltCountOrderByAggregateInput
+    _max?: ProductSaltMaxOrderByAggregateInput
+    _min?: ProductSaltMinOrderByAggregateInput
+  }
+
+  export type ProductSaltScalarWhereWithAggregatesInput = {
+    AND?: ProductSaltScalarWhereWithAggregatesInput | ProductSaltScalarWhereWithAggregatesInput[]
+    OR?: ProductSaltScalarWhereWithAggregatesInput[]
+    NOT?: ProductSaltScalarWhereWithAggregatesInput | ProductSaltScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ProductSalt"> | string
+    productId?: StringWithAggregatesFilter<"ProductSalt"> | string
+    saltId?: StringWithAggregatesFilter<"ProductSalt"> | string
   }
 
   export type ProductPackagingWhereInput = {
@@ -48873,6 +51408,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -48896,6 +51434,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateInput = {
@@ -48907,6 +51446,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -48929,6 +51471,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductUpdateInput = {
@@ -48939,6 +51482,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48962,6 +51508,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateInput = {
@@ -48973,6 +51520,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -48995,6 +51545,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateManyInput = {
@@ -49006,6 +51557,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -49029,6 +51583,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49049,6 +51606,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -49062,6 +51622,99 @@ export namespace Prisma {
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SaltCreateInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    products?: ProductSaltCreateNestedManyWithoutSaltInput
+  }
+
+  export type SaltUncheckedCreateInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    products?: ProductSaltUncheckedCreateNestedManyWithoutSaltInput
+  }
+
+  export type SaltUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductSaltUpdateManyWithoutSaltNestedInput
+  }
+
+  export type SaltUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductSaltUncheckedUpdateManyWithoutSaltNestedInput
+  }
+
+  export type SaltCreateManyInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SaltUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SaltUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductSaltCreateInput = {
+    id?: string
+    product: ProductCreateNestedOneWithoutSaltsInput
+    salt: SaltCreateNestedOneWithoutProductsInput
+  }
+
+  export type ProductSaltUncheckedCreateInput = {
+    id?: string
+    productId: string
+    saltId: string
+  }
+
+  export type ProductSaltUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    product?: ProductUpdateOneRequiredWithoutSaltsNestedInput
+    salt?: SaltUpdateOneRequiredWithoutProductsNestedInput
+  }
+
+  export type ProductSaltUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    saltId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProductSaltCreateManyInput = {
+    id?: string
+    productId: string
+    saltId: string
+  }
+
+  export type ProductSaltUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProductSaltUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    saltId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductPackagingCreateInput = {
@@ -52383,6 +55036,12 @@ export namespace Prisma {
     none?: SalesReturnItemWhereInput
   }
 
+  export type ProductSaltListRelationFilter = {
+    every?: ProductSaltWhereInput
+    some?: ProductSaltWhereInput
+    none?: ProductSaltWhereInput
+  }
+
   export type ProductSupplierOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -52403,6 +55062,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type ProductSaltOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ProductStoreIdSkuCompoundUniqueInput = {
     storeId: string
     sku: string
@@ -52417,6 +55080,9 @@ export namespace Prisma {
     sku?: SortOrder
     barcode?: SortOrder
     hsnCode?: SortOrder
+    rack?: SortOrder
+    scheduling?: SortOrder
+    prescriptionOnly?: SortOrder
     dosageForm?: SortOrder
     strength?: SortOrder
     strengthUnitId?: SortOrder
@@ -52448,6 +55114,9 @@ export namespace Prisma {
     sku?: SortOrder
     barcode?: SortOrder
     hsnCode?: SortOrder
+    rack?: SortOrder
+    scheduling?: SortOrder
+    prescriptionOnly?: SortOrder
     dosageForm?: SortOrder
     strength?: SortOrder
     strengthUnitId?: SortOrder
@@ -52472,6 +55141,9 @@ export namespace Prisma {
     sku?: SortOrder
     barcode?: SortOrder
     hsnCode?: SortOrder
+    rack?: SortOrder
+    scheduling?: SortOrder
+    prescriptionOnly?: SortOrder
     dosageForm?: SortOrder
     strength?: SortOrder
     strengthUnitId?: SortOrder
@@ -52502,6 +55174,55 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumProductStatusFilter<$PrismaModel>
     _max?: NestedEnumProductStatusFilter<$PrismaModel>
+  }
+
+  export type SaltCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SaltMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SaltMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SaltScalarRelationFilter = {
+    is?: SaltWhereInput
+    isNot?: SaltWhereInput
+  }
+
+  export type ProductSaltProductIdSaltIdCompoundUniqueInput = {
+    productId: string
+    saltId: string
+  }
+
+  export type ProductSaltCountOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    saltId?: SortOrder
+  }
+
+  export type ProductSaltMaxOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    saltId?: SortOrder
+  }
+
+  export type ProductSaltMinOrderByAggregateInput = {
+    id?: SortOrder
+    productId?: SortOrder
+    saltId?: SortOrder
   }
 
   export type ProductPackagingProductIdNameCompoundUniqueInput = {
@@ -55462,6 +58183,13 @@ export namespace Prisma {
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
   }
 
+  export type ProductSaltCreateNestedManyWithoutProductInput = {
+    create?: XOR<ProductSaltCreateWithoutProductInput, ProductSaltUncheckedCreateWithoutProductInput> | ProductSaltCreateWithoutProductInput[] | ProductSaltUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProductSaltCreateOrConnectWithoutProductInput | ProductSaltCreateOrConnectWithoutProductInput[]
+    createMany?: ProductSaltCreateManyProductInputEnvelope
+    connect?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+  }
+
   export type PrescriptionItemUncheckedCreateNestedManyWithoutProductInput = {
     create?: XOR<PrescriptionItemCreateWithoutProductInput, PrescriptionItemUncheckedCreateWithoutProductInput> | PrescriptionItemCreateWithoutProductInput[] | PrescriptionItemUncheckedCreateWithoutProductInput[]
     connectOrCreate?: PrescriptionItemCreateOrConnectWithoutProductInput | PrescriptionItemCreateOrConnectWithoutProductInput[]
@@ -55523,6 +58251,13 @@ export namespace Prisma {
     connectOrCreate?: StockCreateOrConnectWithoutProductInput | StockCreateOrConnectWithoutProductInput[]
     createMany?: StockCreateManyProductInputEnvelope
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+  }
+
+  export type ProductSaltUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<ProductSaltCreateWithoutProductInput, ProductSaltUncheckedCreateWithoutProductInput> | ProductSaltCreateWithoutProductInput[] | ProductSaltUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProductSaltCreateOrConnectWithoutProductInput | ProductSaltCreateOrConnectWithoutProductInput[]
+    createMany?: ProductSaltCreateManyProductInputEnvelope
+    connect?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
   }
 
   export type EnumProductStatusFieldUpdateOperationsInput = {
@@ -55701,6 +58436,20 @@ export namespace Prisma {
     deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
   }
 
+  export type ProductSaltUpdateManyWithoutProductNestedInput = {
+    create?: XOR<ProductSaltCreateWithoutProductInput, ProductSaltUncheckedCreateWithoutProductInput> | ProductSaltCreateWithoutProductInput[] | ProductSaltUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProductSaltCreateOrConnectWithoutProductInput | ProductSaltCreateOrConnectWithoutProductInput[]
+    upsert?: ProductSaltUpsertWithWhereUniqueWithoutProductInput | ProductSaltUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: ProductSaltCreateManyProductInputEnvelope
+    set?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    disconnect?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    delete?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    connect?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    update?: ProductSaltUpdateWithWhereUniqueWithoutProductInput | ProductSaltUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: ProductSaltUpdateManyWithWhereWithoutProductInput | ProductSaltUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: ProductSaltScalarWhereInput | ProductSaltScalarWhereInput[]
+  }
+
   export type PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput = {
     create?: XOR<PrescriptionItemCreateWithoutProductInput, PrescriptionItemUncheckedCreateWithoutProductInput> | PrescriptionItemCreateWithoutProductInput[] | PrescriptionItemUncheckedCreateWithoutProductInput[]
     connectOrCreate?: PrescriptionItemCreateOrConnectWithoutProductInput | PrescriptionItemCreateOrConnectWithoutProductInput[]
@@ -55825,6 +58574,90 @@ export namespace Prisma {
     update?: StockUpdateWithWhereUniqueWithoutProductInput | StockUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: StockUpdateManyWithWhereWithoutProductInput | StockUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
+  }
+
+  export type ProductSaltUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<ProductSaltCreateWithoutProductInput, ProductSaltUncheckedCreateWithoutProductInput> | ProductSaltCreateWithoutProductInput[] | ProductSaltUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProductSaltCreateOrConnectWithoutProductInput | ProductSaltCreateOrConnectWithoutProductInput[]
+    upsert?: ProductSaltUpsertWithWhereUniqueWithoutProductInput | ProductSaltUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: ProductSaltCreateManyProductInputEnvelope
+    set?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    disconnect?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    delete?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    connect?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    update?: ProductSaltUpdateWithWhereUniqueWithoutProductInput | ProductSaltUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: ProductSaltUpdateManyWithWhereWithoutProductInput | ProductSaltUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: ProductSaltScalarWhereInput | ProductSaltScalarWhereInput[]
+  }
+
+  export type ProductSaltCreateNestedManyWithoutSaltInput = {
+    create?: XOR<ProductSaltCreateWithoutSaltInput, ProductSaltUncheckedCreateWithoutSaltInput> | ProductSaltCreateWithoutSaltInput[] | ProductSaltUncheckedCreateWithoutSaltInput[]
+    connectOrCreate?: ProductSaltCreateOrConnectWithoutSaltInput | ProductSaltCreateOrConnectWithoutSaltInput[]
+    createMany?: ProductSaltCreateManySaltInputEnvelope
+    connect?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+  }
+
+  export type ProductSaltUncheckedCreateNestedManyWithoutSaltInput = {
+    create?: XOR<ProductSaltCreateWithoutSaltInput, ProductSaltUncheckedCreateWithoutSaltInput> | ProductSaltCreateWithoutSaltInput[] | ProductSaltUncheckedCreateWithoutSaltInput[]
+    connectOrCreate?: ProductSaltCreateOrConnectWithoutSaltInput | ProductSaltCreateOrConnectWithoutSaltInput[]
+    createMany?: ProductSaltCreateManySaltInputEnvelope
+    connect?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+  }
+
+  export type ProductSaltUpdateManyWithoutSaltNestedInput = {
+    create?: XOR<ProductSaltCreateWithoutSaltInput, ProductSaltUncheckedCreateWithoutSaltInput> | ProductSaltCreateWithoutSaltInput[] | ProductSaltUncheckedCreateWithoutSaltInput[]
+    connectOrCreate?: ProductSaltCreateOrConnectWithoutSaltInput | ProductSaltCreateOrConnectWithoutSaltInput[]
+    upsert?: ProductSaltUpsertWithWhereUniqueWithoutSaltInput | ProductSaltUpsertWithWhereUniqueWithoutSaltInput[]
+    createMany?: ProductSaltCreateManySaltInputEnvelope
+    set?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    disconnect?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    delete?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    connect?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    update?: ProductSaltUpdateWithWhereUniqueWithoutSaltInput | ProductSaltUpdateWithWhereUniqueWithoutSaltInput[]
+    updateMany?: ProductSaltUpdateManyWithWhereWithoutSaltInput | ProductSaltUpdateManyWithWhereWithoutSaltInput[]
+    deleteMany?: ProductSaltScalarWhereInput | ProductSaltScalarWhereInput[]
+  }
+
+  export type ProductSaltUncheckedUpdateManyWithoutSaltNestedInput = {
+    create?: XOR<ProductSaltCreateWithoutSaltInput, ProductSaltUncheckedCreateWithoutSaltInput> | ProductSaltCreateWithoutSaltInput[] | ProductSaltUncheckedCreateWithoutSaltInput[]
+    connectOrCreate?: ProductSaltCreateOrConnectWithoutSaltInput | ProductSaltCreateOrConnectWithoutSaltInput[]
+    upsert?: ProductSaltUpsertWithWhereUniqueWithoutSaltInput | ProductSaltUpsertWithWhereUniqueWithoutSaltInput[]
+    createMany?: ProductSaltCreateManySaltInputEnvelope
+    set?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    disconnect?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    delete?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    connect?: ProductSaltWhereUniqueInput | ProductSaltWhereUniqueInput[]
+    update?: ProductSaltUpdateWithWhereUniqueWithoutSaltInput | ProductSaltUpdateWithWhereUniqueWithoutSaltInput[]
+    updateMany?: ProductSaltUpdateManyWithWhereWithoutSaltInput | ProductSaltUpdateManyWithWhereWithoutSaltInput[]
+    deleteMany?: ProductSaltScalarWhereInput | ProductSaltScalarWhereInput[]
+  }
+
+  export type ProductCreateNestedOneWithoutSaltsInput = {
+    create?: XOR<ProductCreateWithoutSaltsInput, ProductUncheckedCreateWithoutSaltsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutSaltsInput
+    connect?: ProductWhereUniqueInput
+  }
+
+  export type SaltCreateNestedOneWithoutProductsInput = {
+    create?: XOR<SaltCreateWithoutProductsInput, SaltUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: SaltCreateOrConnectWithoutProductsInput
+    connect?: SaltWhereUniqueInput
+  }
+
+  export type ProductUpdateOneRequiredWithoutSaltsNestedInput = {
+    create?: XOR<ProductCreateWithoutSaltsInput, ProductUncheckedCreateWithoutSaltsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutSaltsInput
+    upsert?: ProductUpsertWithoutSaltsInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutSaltsInput, ProductUpdateWithoutSaltsInput>, ProductUncheckedUpdateWithoutSaltsInput>
+  }
+
+  export type SaltUpdateOneRequiredWithoutProductsNestedInput = {
+    create?: XOR<SaltCreateWithoutProductsInput, SaltUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: SaltCreateOrConnectWithoutProductsInput
+    upsert?: SaltUpsertWithoutProductsInput
+    connect?: SaltWhereUniqueInput
+    update?: XOR<XOR<SaltUpdateToOneWithWhereWithoutProductsInput, SaltUpdateWithoutProductsInput>, SaltUncheckedUpdateWithoutProductsInput>
   }
 
   export type ProductCreateNestedOneWithoutPackagingInput = {
@@ -59139,6 +61972,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -59161,6 +61997,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutCategoryInput = {
@@ -59172,6 +62009,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -59193,6 +62033,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutCategoryInput = {
@@ -59233,6 +62074,9 @@ export namespace Prisma {
     sku?: StringFilter<"Product"> | string
     barcode?: StringNullableFilter<"Product"> | string | null
     hsnCode?: StringNullableFilter<"Product"> | string | null
+    rack?: StringNullableFilter<"Product"> | string | null
+    scheduling?: StringNullableFilter<"Product"> | string | null
+    prescriptionOnly?: BoolFilter<"Product"> | boolean
     dosageForm?: StringNullableFilter<"Product"> | string | null
     strength?: DecimalNullableFilter<"Product"> | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: StringNullableFilter<"Product"> | string | null
@@ -59256,6 +62100,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -59278,6 +62125,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutManufacturerInput = {
@@ -59289,6 +62137,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -59310,6 +62161,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutManufacturerInput = {
@@ -59346,6 +62198,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -59368,6 +62223,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutBaseUnitInput = {
@@ -59379,6 +62235,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -59400,6 +62259,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutBaseUnitInput = {
@@ -59420,6 +62280,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -59442,6 +62305,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutStrengthUnitInput = {
@@ -59453,6 +62317,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     categoryId?: string | null
@@ -59474,6 +62341,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutStrengthUnitInput = {
@@ -60189,6 +63057,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -60211,6 +63082,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemCreateNestedManyWithoutProductInput
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutStocksInput = {
@@ -60222,6 +63094,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -60243,6 +63118,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedCreateNestedManyWithoutProductInput
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutStocksInput = {
@@ -60433,6 +63309,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60455,6 +63334,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUpdateManyWithoutProductNestedInput
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutStocksInput = {
@@ -60466,6 +63346,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -60487,6 +63370,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedUpdateManyWithoutProductNestedInput
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type StoreUpsertWithoutStocksInput = {
@@ -61116,6 +64000,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -61138,6 +64025,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutStoreInput = {
@@ -61148,6 +64036,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -61170,6 +64061,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutStoreInput = {
@@ -62347,6 +65239,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -62369,6 +65264,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutPrescriptionItemsInput = {
@@ -62380,6 +65276,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -62401,6 +65300,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutPrescriptionItemsInput = {
@@ -62470,6 +65370,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62492,6 +65395,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutPrescriptionItemsInput = {
@@ -62503,6 +65407,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -62524,6 +65431,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type PrescriptionItemCreateWithoutProductInput = {
@@ -63105,6 +66013,26 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProductSaltCreateWithoutProductInput = {
+    id?: string
+    salt: SaltCreateNestedOneWithoutProductsInput
+  }
+
+  export type ProductSaltUncheckedCreateWithoutProductInput = {
+    id?: string
+    saltId: string
+  }
+
+  export type ProductSaltCreateOrConnectWithoutProductInput = {
+    where: ProductSaltWhereUniqueInput
+    create: XOR<ProductSaltCreateWithoutProductInput, ProductSaltUncheckedCreateWithoutProductInput>
+  }
+
+  export type ProductSaltCreateManyProductInputEnvelope = {
+    data: ProductSaltCreateManyProductInput | ProductSaltCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PrescriptionItemUpsertWithWhereUniqueWithoutProductInput = {
     where: PrescriptionItemWhereUniqueInput
     update: XOR<PrescriptionItemUpdateWithoutProductInput, PrescriptionItemUncheckedUpdateWithoutProductInput>
@@ -63567,6 +66495,271 @@ export namespace Prisma {
     data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyWithoutProductInput>
   }
 
+  export type ProductSaltUpsertWithWhereUniqueWithoutProductInput = {
+    where: ProductSaltWhereUniqueInput
+    update: XOR<ProductSaltUpdateWithoutProductInput, ProductSaltUncheckedUpdateWithoutProductInput>
+    create: XOR<ProductSaltCreateWithoutProductInput, ProductSaltUncheckedCreateWithoutProductInput>
+  }
+
+  export type ProductSaltUpdateWithWhereUniqueWithoutProductInput = {
+    where: ProductSaltWhereUniqueInput
+    data: XOR<ProductSaltUpdateWithoutProductInput, ProductSaltUncheckedUpdateWithoutProductInput>
+  }
+
+  export type ProductSaltUpdateManyWithWhereWithoutProductInput = {
+    where: ProductSaltScalarWhereInput
+    data: XOR<ProductSaltUpdateManyMutationInput, ProductSaltUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type ProductSaltScalarWhereInput = {
+    AND?: ProductSaltScalarWhereInput | ProductSaltScalarWhereInput[]
+    OR?: ProductSaltScalarWhereInput[]
+    NOT?: ProductSaltScalarWhereInput | ProductSaltScalarWhereInput[]
+    id?: StringFilter<"ProductSalt"> | string
+    productId?: StringFilter<"ProductSalt"> | string
+    saltId?: StringFilter<"ProductSalt"> | string
+  }
+
+  export type ProductSaltCreateWithoutSaltInput = {
+    id?: string
+    product: ProductCreateNestedOneWithoutSaltsInput
+  }
+
+  export type ProductSaltUncheckedCreateWithoutSaltInput = {
+    id?: string
+    productId: string
+  }
+
+  export type ProductSaltCreateOrConnectWithoutSaltInput = {
+    where: ProductSaltWhereUniqueInput
+    create: XOR<ProductSaltCreateWithoutSaltInput, ProductSaltUncheckedCreateWithoutSaltInput>
+  }
+
+  export type ProductSaltCreateManySaltInputEnvelope = {
+    data: ProductSaltCreateManySaltInput | ProductSaltCreateManySaltInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProductSaltUpsertWithWhereUniqueWithoutSaltInput = {
+    where: ProductSaltWhereUniqueInput
+    update: XOR<ProductSaltUpdateWithoutSaltInput, ProductSaltUncheckedUpdateWithoutSaltInput>
+    create: XOR<ProductSaltCreateWithoutSaltInput, ProductSaltUncheckedCreateWithoutSaltInput>
+  }
+
+  export type ProductSaltUpdateWithWhereUniqueWithoutSaltInput = {
+    where: ProductSaltWhereUniqueInput
+    data: XOR<ProductSaltUpdateWithoutSaltInput, ProductSaltUncheckedUpdateWithoutSaltInput>
+  }
+
+  export type ProductSaltUpdateManyWithWhereWithoutSaltInput = {
+    where: ProductSaltScalarWhereInput
+    data: XOR<ProductSaltUpdateManyMutationInput, ProductSaltUncheckedUpdateManyWithoutSaltInput>
+  }
+
+  export type ProductCreateWithoutSaltsInput = {
+    id?: string
+    name: string
+    genericName?: string | null
+    brandName?: string | null
+    sku: string
+    barcode?: string | null
+    hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
+    dosageForm?: string | null
+    strength?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    gstPercent?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.ProductStatus
+    minimumStock?: Decimal | DecimalJsLike | number | string
+    reorderLevel?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
+    baseUnit: UnitCreateNestedOneWithoutBaseProductsInput
+    category?: CategoryCreateNestedOneWithoutProductsInput
+    manufacturer?: ManufacturerCreateNestedOneWithoutProductsInput
+    store: StoreCreateNestedOneWithoutProductsInput
+    strengthUnit?: UnitCreateNestedOneWithoutStrengthProductsInput
+    batches?: ProductBatchCreateNestedManyWithoutProductInput
+    packaging?: ProductPackagingCreateNestedManyWithoutProductInput
+    suppliers?: ProductSupplierCreateNestedManyWithoutProductInput
+    purchaseItems?: PurchaseItemCreateNestedManyWithoutProductInput
+    purchaseReturnItems?: PurchaseReturnItemCreateNestedManyWithoutProductInput
+    saleItems?: SaleItemCreateNestedManyWithoutProductInput
+    salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
+    stocks?: StockCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutSaltsInput = {
+    id?: string
+    storeId: string
+    name: string
+    genericName?: string | null
+    brandName?: string | null
+    sku: string
+    barcode?: string | null
+    hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
+    dosageForm?: string | null
+    strength?: Decimal | DecimalJsLike | number | string | null
+    strengthUnitId?: string | null
+    categoryId?: string | null
+    manufacturerId?: string | null
+    description?: string | null
+    gstPercent?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.ProductStatus
+    baseUnitId: string
+    minimumStock?: Decimal | DecimalJsLike | number | string
+    reorderLevel?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
+    batches?: ProductBatchUncheckedCreateNestedManyWithoutProductInput
+    packaging?: ProductPackagingUncheckedCreateNestedManyWithoutProductInput
+    suppliers?: ProductSupplierUncheckedCreateNestedManyWithoutProductInput
+    purchaseItems?: PurchaseItemUncheckedCreateNestedManyWithoutProductInput
+    purchaseReturnItems?: PurchaseReturnItemUncheckedCreateNestedManyWithoutProductInput
+    saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
+    salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
+    stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutSaltsInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutSaltsInput, ProductUncheckedCreateWithoutSaltsInput>
+  }
+
+  export type SaltCreateWithoutProductsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SaltUncheckedCreateWithoutProductsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SaltCreateOrConnectWithoutProductsInput = {
+    where: SaltWhereUniqueInput
+    create: XOR<SaltCreateWithoutProductsInput, SaltUncheckedCreateWithoutProductsInput>
+  }
+
+  export type ProductUpsertWithoutSaltsInput = {
+    update: XOR<ProductUpdateWithoutSaltsInput, ProductUncheckedUpdateWithoutSaltsInput>
+    create: XOR<ProductCreateWithoutSaltsInput, ProductUncheckedCreateWithoutSaltsInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutSaltsInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutSaltsInput, ProductUncheckedUpdateWithoutSaltsInput>
+  }
+
+  export type ProductUpdateWithoutSaltsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    genericName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    sku?: StringFieldUpdateOperationsInput | string
+    barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
+    dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
+    strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gstPercent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+    minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
+    baseUnit?: UnitUpdateOneRequiredWithoutBaseProductsNestedInput
+    category?: CategoryUpdateOneWithoutProductsNestedInput
+    manufacturer?: ManufacturerUpdateOneWithoutProductsNestedInput
+    store?: StoreUpdateOneRequiredWithoutProductsNestedInput
+    strengthUnit?: UnitUpdateOneWithoutStrengthProductsNestedInput
+    batches?: ProductBatchUpdateManyWithoutProductNestedInput
+    packaging?: ProductPackagingUpdateManyWithoutProductNestedInput
+    suppliers?: ProductSupplierUpdateManyWithoutProductNestedInput
+    purchaseItems?: PurchaseItemUpdateManyWithoutProductNestedInput
+    purchaseReturnItems?: PurchaseReturnItemUpdateManyWithoutProductNestedInput
+    saleItems?: SaleItemUpdateManyWithoutProductNestedInput
+    salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
+    stocks?: StockUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutSaltsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    genericName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    sku?: StringFieldUpdateOperationsInput | string
+    barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
+    dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
+    strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    manufacturerId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gstPercent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+    baseUnitId?: StringFieldUpdateOperationsInput | string
+    minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
+    batches?: ProductBatchUncheckedUpdateManyWithoutProductNestedInput
+    packaging?: ProductPackagingUncheckedUpdateManyWithoutProductNestedInput
+    suppliers?: ProductSupplierUncheckedUpdateManyWithoutProductNestedInput
+    purchaseItems?: PurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+    purchaseReturnItems?: PurchaseReturnItemUncheckedUpdateManyWithoutProductNestedInput
+    saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
+    salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+  }
+
+  export type SaltUpsertWithoutProductsInput = {
+    update: XOR<SaltUpdateWithoutProductsInput, SaltUncheckedUpdateWithoutProductsInput>
+    create: XOR<SaltCreateWithoutProductsInput, SaltUncheckedCreateWithoutProductsInput>
+    where?: SaltWhereInput
+  }
+
+  export type SaltUpdateToOneWithWhereWithoutProductsInput = {
+    where?: SaltWhereInput
+    data: XOR<SaltUpdateWithoutProductsInput, SaltUncheckedUpdateWithoutProductsInput>
+  }
+
+  export type SaltUpdateWithoutProductsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SaltUncheckedUpdateWithoutProductsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ProductCreateWithoutPackagingInput = {
     id?: string
     name: string
@@ -63575,6 +66768,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -63597,6 +66793,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutPackagingInput = {
@@ -63608,6 +66805,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -63629,6 +66829,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutPackagingInput = {
@@ -63884,6 +67085,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63906,6 +67110,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutPackagingInput = {
@@ -63917,6 +67122,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -63938,6 +67146,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type UnitUpsertWithoutPackagingInput = {
@@ -64047,6 +67256,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -64069,6 +67281,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutBatchesInput = {
@@ -64080,6 +67293,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -64101,6 +67317,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutBatchesInput = {
@@ -64464,6 +67681,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64486,6 +67706,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutBatchesInput = {
@@ -64497,6 +67718,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64518,6 +67742,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type StoreUpsertWithoutBatchesInput = {
@@ -64742,6 +67967,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -64764,6 +67992,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutSuppliersInput = {
@@ -64775,6 +68004,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -64796,6 +68028,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutSuppliersInput = {
@@ -64932,6 +68165,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64954,6 +68190,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutSuppliersInput = {
@@ -64965,6 +68202,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -64986,6 +68226,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type SupplierUpsertWithoutProductsInput = {
@@ -65545,6 +68786,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -65567,6 +68811,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutPurchaseItemsInput = {
@@ -65578,6 +68823,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -65599,6 +68847,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutPurchaseItemsInput = {
@@ -65822,6 +69071,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65844,6 +69096,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutPurchaseItemsInput = {
@@ -65855,6 +69108,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -65876,6 +69132,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type PurchaseUpsertWithoutItemsInput = {
@@ -66485,6 +69742,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -66507,6 +69767,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutPurchaseReturnItemsInput = {
@@ -66518,6 +69779,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -66539,6 +69803,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutPurchaseReturnItemsInput = {
@@ -66763,6 +70028,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -66785,6 +70053,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutPurchaseReturnItemsInput = {
@@ -66796,6 +70065,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -66817,6 +70089,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type PurchaseItemUpsertWithoutPurchaseReturnItemsInput = {
@@ -67469,6 +70742,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -67491,6 +70767,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutSaleItemsInput = {
@@ -67502,6 +70779,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -67523,6 +70803,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutSaleItemsInput = {
@@ -67744,6 +71025,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67766,6 +71050,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutSaleItemsInput = {
@@ -67777,6 +71062,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -67798,6 +71086,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type SaleUpsertWithoutItemsInput = {
@@ -68509,6 +71798,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
@@ -68531,6 +71823,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemCreateNestedManyWithoutProductInput
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutSalesReturnItemsInput = {
@@ -68542,6 +71835,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -68563,6 +71859,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedCreateNestedManyWithoutProductInput
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutSalesReturnItemsInput = {
@@ -68785,6 +72082,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68807,6 +72107,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUpdateManyWithoutProductNestedInput
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutSalesReturnItemsInput = {
@@ -68818,6 +72119,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -68839,6 +72143,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedUpdateManyWithoutProductNestedInput
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type SaleItemUpsertWithoutSalesReturnItemsInput = {
@@ -69728,6 +73033,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -69750,6 +73058,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69772,6 +73083,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutCategoryInput = {
@@ -69783,6 +73095,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69804,6 +73119,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutCategoryInput = {
@@ -69815,6 +73131,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69838,6 +73157,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -69860,6 +73182,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69882,6 +73207,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutManufacturerInput = {
@@ -69893,6 +73219,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69914,6 +73243,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutManufacturerInput = {
@@ -69925,6 +73255,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -69948,6 +73281,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -69971,6 +73307,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     categoryId?: string | null
@@ -70008,6 +73347,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70030,6 +73372,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutBaseUnitInput = {
@@ -70041,6 +73384,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70062,6 +73408,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutBaseUnitInput = {
@@ -70073,6 +73420,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70095,6 +73445,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70117,6 +73470,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutStrengthUnitInput = {
@@ -70128,6 +73482,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70149,6 +73506,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutStrengthUnitInput = {
@@ -70160,6 +73518,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -70718,6 +74079,9 @@ export namespace Prisma {
     sku: string
     barcode?: string | null
     hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
     dosageForm?: string | null
     strength?: Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: string | null
@@ -71143,6 +74507,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71165,6 +74532,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutStoreInput = {
@@ -71175,6 +74543,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71197,6 +74568,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutStoreInput = {
@@ -71207,6 +74579,9 @@ export namespace Prisma {
     sku?: StringFieldUpdateOperationsInput | string
     barcode?: NullableStringFieldUpdateOperationsInput | string | null
     hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
     dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
     strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -71857,6 +75232,11 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type ProductSaltCreateManyProductInput = {
+    id?: string
+    saltId: string
+  }
+
   export type PrescriptionItemUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     prescribedQuantity?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -72313,6 +75693,41 @@ export namespace Prisma {
     reservedQuantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductSaltUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    salt?: SaltUpdateOneRequiredWithoutProductsNestedInput
+  }
+
+  export type ProductSaltUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    saltId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProductSaltUncheckedUpdateManyWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    saltId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProductSaltCreateManySaltInput = {
+    id?: string
+    productId: string
+  }
+
+  export type ProductSaltUpdateWithoutSaltInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    product?: ProductUpdateOneRequiredWithoutSaltsNestedInput
+  }
+
+  export type ProductSaltUncheckedUpdateWithoutSaltInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProductSaltUncheckedUpdateManyWithoutSaltInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PurchaseItemCreateManyPackagingInput = {
