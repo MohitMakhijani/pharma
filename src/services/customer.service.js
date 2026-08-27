@@ -1,16 +1,40 @@
 const prisma = require('../config/prisma');
+const crypto = require('crypto');
 
 
 async function getCustomers(storeId){
 
-return prisma.customer.findMany({
+const customers = await prisma.customer.findMany({
 where:{
 storeId
+},
+include: {
+	ledgerEntries: {
+		where: { ledgerType: 'CUSTOMER' },
+		select: { amount: true, entryType: true, entryDate: true, createdAt: true },
+		orderBy: [{ entryDate: 'desc' }, { createdAt: 'desc' }],
+	},
 },
 orderBy:{
 createdAt:'desc'
 }
 });
+
+return customers.map((customer) => ({
+	...customer,
+	ledgerEntries: undefined,
+	outstandingBalance:
+		Number(customer.openingBalance || 0) +
+		customer.ledgerEntries.reduce((total, entry) => total + Number(entry.amount || 0), 0),
+	lastPaymentAmount: (() => {
+		const payment = customer.ledgerEntries.find((entry) => entry.entryType === 'SALE_PAYMENT' && Number(entry.amount) < 0);
+		return payment ? Math.abs(Number(payment.amount)) : 0;
+	})(),
+	lastPaymentDate: (() => {
+		const payment = customer.ledgerEntries.find((entry) => entry.entryType === 'SALE_PAYMENT' && Number(entry.amount) < 0);
+		return payment?.entryDate || null;
+	})(),
+}));
 
 }
 
@@ -104,6 +128,37 @@ data
 
 }
 
+async function getCustomerSales(customerId, storeId) {
+return prisma.sale.findMany({
+where:{customerId,storeId},
+orderBy:{invoiceDate:'desc'},
+include:{items:{include:{product:{select:{name:true}},batch:{select:{batchNumber:true}}}}}
+});
+}
+
+async function createCustomerLedgerShare(customerId, storeId) {
+	const customer = await prisma.customer.findFirst({ where: { id: customerId, storeId }, select: { id: true } });
+	if (!customer) {
+		const error = new Error('Customer not found');
+		error.statusCode = 404;
+		throw error;
+	}
+	const share = await prisma.customerLedgerShare.create({
+		data: { token: crypto.randomBytes(32).toString('hex'), customerId, storeId },
+	});
+	return share;
+}
+
+async function getPublicCustomerLedger(token) {
+	const share = await prisma.customerLedgerShare.findFirst({
+		where: { token, revokedAt: null, OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }] },
+		select: { customerId: true, storeId: true },
+	});
+	if (!share) return null;
+	const { getCustomerLedger } = require('./customerLedger.service');
+	return getCustomerLedger(share.customerId, share.storeId);
+}
+
 
 
 module.exports={
@@ -111,4 +166,8 @@ getCustomers,
 getCustomerById,
 createCustomer,
 updateCustomer
+,
+getCustomerSales
+	,createCustomerLedgerShare
+	,getPublicCustomerLedger
 };

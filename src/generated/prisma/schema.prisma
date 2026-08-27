@@ -159,7 +159,7 @@ enum UnitType {
 }
 
 model Customer {
-  id             String         @id @default(cuid())
+  id             String                @id @default(cuid())
   storeId        String
   name           String
   phone          String?
@@ -170,23 +170,39 @@ model Customer {
   city           String?
   state          String?
   pincode        String?
-  creditLimit    Decimal        @default(0) @db.Decimal(14, 2)
-  creditDays     Int            @default(0)
-  openingBalance Decimal        @default(0) @db.Decimal(14, 2)
-  status         CustomerStatus @default(ACTIVE)
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
-  store          Store          @relation(fields: [storeId], references: [id])
+  creditLimit    Decimal               @default(0) @db.Decimal(14, 2)
+  creditDays     Int                   @default(0)
+  openingBalance Decimal               @default(0) @db.Decimal(14, 2)
+  status         CustomerStatus        @default(ACTIVE)
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+  store          Store                 @relation(fields: [storeId], references: [id])
   ledgerEntries  LedgerEntry[]
   payments       Payment[]
   prescriptions  Prescription[]
   sales          Sale[]
   salesReturns   SalesReturn[]
+  ledgerShares   CustomerLedgerShare[]
 
   @@index([storeId])
   @@index([name])
   @@index([phone])
   @@index([gstin])
+}
+
+model CustomerLedgerShare {
+  id         String    @id @default(cuid())
+  token      String    @unique
+  customerId String
+  storeId    String
+  createdAt  DateTime  @default(now())
+  expiresAt  DateTime?
+  revokedAt  DateTime?
+  customer   Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  store      Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@index([storeId])
 }
 
 enum CustomerStatus {
@@ -256,6 +272,46 @@ model StockMovement {
   @@index([createdAt])
 }
 
+model InventoryAudit {
+  id          String               @id @default(cuid())
+  storeId     String
+  auditDate   DateTime
+  condition   String               @default("all")
+  status      InventoryAuditStatus @default(OPEN)
+  createdById String?
+  completedAt DateTime?
+  createdAt   DateTime             @default(now())
+  store       Store                @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  items       InventoryAuditItem[]
+
+  @@index([storeId])
+  @@index([auditDate])
+  @@index([status])
+}
+
+model InventoryAuditItem {
+  id          String         @id @default(cuid())
+  auditId     String
+  productId   String
+  batchId     String
+  expectedQty Decimal        @db.Decimal(14, 3)
+  countedQty  Decimal?       @db.Decimal(14, 3)
+  variance    Decimal?       @db.Decimal(14, 3)
+  audit       InventoryAudit @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  product     Product        @relation(fields: [productId], references: [id])
+  batch       ProductBatch   @relation(fields: [batchId], references: [id])
+
+  @@unique([auditId, batchId])
+  @@index([productId])
+  @@index([batchId])
+}
+
+enum InventoryAuditStatus {
+  OPEN
+  COMPLETED
+  CANCELLED
+}
+
 enum StockMovementType {
   PURCHASE
   SALE
@@ -309,9 +365,9 @@ enum NotificationType {
 }
 
 model Store {
-  id              String           @id @default(cuid())
+  id              String                @id @default(cuid())
   name            String
-  code            String           @unique
+  code            String                @unique
   address         String?
   city            String?
   state           String?
@@ -319,9 +375,9 @@ model Store {
   phone           String?
   email           String?
   gstin           String?
-  isActive        Boolean          @default(true)
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  isActive        Boolean               @default(true)
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
   auditLogs       AuditLog[]
   customers       Customer[]
   ledgerEntries   LedgerEntry[]
@@ -337,6 +393,8 @@ model Store {
   stocks          Stock[]
   suppliers       Supplier[]
   users           User[]
+  ledgerShares    CustomerLedgerShare[]
+  inventoryAudits InventoryAudit[]
 
   @@index([name])
 }
@@ -433,6 +491,7 @@ model Product {
   saleItems           SaleItem[]
   salesReturnItems    SalesReturnItem[]
   stocks              Stock[]
+  auditItems          InventoryAuditItem[]
   salts               ProductSalt[]
 
   @@unique([storeId, sku])
@@ -542,6 +601,7 @@ model ProductBatch {
   saleItems           SaleItem[]
   salesReturnItems    SalesReturnItem[]
   stocks              Stock[]
+  auditItems          InventoryAuditItem[]
 
   @@unique([storeId, productId, batchNumber])
   @@index([storeId])

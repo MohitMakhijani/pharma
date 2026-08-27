@@ -27,6 +27,8 @@ model Store {
   stocks          Stock[]
   suppliers       Supplier[]
   users           User[]
+  ledgerShares    CustomerLedgerShare[]
+  inventoryAudits InventoryAudit[]
 
   @@index([name])
 }

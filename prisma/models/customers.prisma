@@ -22,11 +22,27 @@ model Customer {
   prescriptions  Prescription[]
   sales          Sale[]
   salesReturns   SalesReturn[]
+  ledgerShares   CustomerLedgerShare[]
 
   @@index([storeId])
   @@index([name])
   @@index([phone])
   @@index([gstin])
+}
+
+model CustomerLedgerShare {
+  id         String   @id @default(cuid())
+  token      String   @unique
+  customerId String
+  storeId    String
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime?
+  revokedAt  DateTime?
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  store      Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@index([storeId])
 }
 
 enum CustomerStatus {

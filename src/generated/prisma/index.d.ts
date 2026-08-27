@@ -49,6 +49,11 @@ export type Unit = $Result.DefaultSelection<Prisma.$UnitPayload>
  */
 export type Customer = $Result.DefaultSelection<Prisma.$CustomerPayload>
 /**
+ * Model CustomerLedgerShare
+ * 
+ */
+export type CustomerLedgerShare = $Result.DefaultSelection<Prisma.$CustomerLedgerSharePayload>
+/**
  * Model Stock
  * 
  */
@@ -58,6 +63,16 @@ export type Stock = $Result.DefaultSelection<Prisma.$StockPayload>
  * 
  */
 export type StockMovement = $Result.DefaultSelection<Prisma.$StockMovementPayload>
+/**
+ * Model InventoryAudit
+ * 
+ */
+export type InventoryAudit = $Result.DefaultSelection<Prisma.$InventoryAuditPayload>
+/**
+ * Model InventoryAuditItem
+ * 
+ */
+export type InventoryAuditItem = $Result.DefaultSelection<Prisma.$InventoryAuditItemPayload>
 /**
  * Model Notification
  * 
@@ -249,6 +264,15 @@ export const CustomerStatus: {
 export type CustomerStatus = (typeof CustomerStatus)[keyof typeof CustomerStatus]
 
 
+export const InventoryAuditStatus: {
+  OPEN: 'OPEN',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+};
+
+export type InventoryAuditStatus = (typeof InventoryAuditStatus)[keyof typeof InventoryAuditStatus]
+
+
 export const StockMovementType: {
   PURCHASE: 'PURCHASE',
   SALE: 'SALE',
@@ -419,6 +443,10 @@ export const UnitType: typeof $Enums.UnitType
 export type CustomerStatus = $Enums.CustomerStatus
 
 export const CustomerStatus: typeof $Enums.CustomerStatus
+
+export type InventoryAuditStatus = $Enums.InventoryAuditStatus
+
+export const InventoryAuditStatus: typeof $Enums.InventoryAuditStatus
 
 export type StockMovementType = $Enums.StockMovementType
 
@@ -668,6 +696,16 @@ export class PrismaClient<
   get customer(): Prisma.CustomerDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.customerLedgerShare`: Exposes CRUD operations for the **CustomerLedgerShare** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerLedgerShares
+    * const customerLedgerShares = await prisma.customerLedgerShare.findMany()
+    * ```
+    */
+  get customerLedgerShare(): Prisma.CustomerLedgerShareDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.stock`: Exposes CRUD operations for the **Stock** model.
     * Example usage:
     * ```ts
@@ -686,6 +724,26 @@ export class PrismaClient<
     * ```
     */
   get stockMovement(): Prisma.StockMovementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.inventoryAudit`: Exposes CRUD operations for the **InventoryAudit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more InventoryAudits
+    * const inventoryAudits = await prisma.inventoryAudit.findMany()
+    * ```
+    */
+  get inventoryAudit(): Prisma.InventoryAuditDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.inventoryAuditItem`: Exposes CRUD operations for the **InventoryAuditItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more InventoryAuditItems
+    * const inventoryAuditItems = await prisma.inventoryAuditItem.findMany()
+    * ```
+    */
+  get inventoryAuditItem(): Prisma.InventoryAuditItemDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
@@ -1370,8 +1428,11 @@ export namespace Prisma {
     Manufacturer: 'Manufacturer',
     Unit: 'Unit',
     Customer: 'Customer',
+    CustomerLedgerShare: 'CustomerLedgerShare',
     Stock: 'Stock',
     StockMovement: 'StockMovement',
+    InventoryAudit: 'InventoryAudit',
+    InventoryAuditItem: 'InventoryAuditItem',
     Notification: 'Notification',
     Store: 'Store',
     Prescription: 'Prescription',
@@ -1410,7 +1471,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "ledgerEntry" | "payment" | "auditLog" | "category" | "manufacturer" | "unit" | "customer" | "stock" | "stockMovement" | "notification" | "store" | "prescription" | "prescriptionItem" | "product" | "salt" | "productSalt" | "productPackaging" | "productBatch" | "productSupplier" | "purchase" | "purchaseItem" | "purchasePayment" | "purchaseReturn" | "purchaseReturnItem" | "sale" | "saleItem" | "salePayment" | "salesReturn" | "salesReturnItem" | "supplier" | "role" | "user"
+      modelProps: "ledgerEntry" | "payment" | "auditLog" | "category" | "manufacturer" | "unit" | "customer" | "customerLedgerShare" | "stock" | "stockMovement" | "inventoryAudit" | "inventoryAuditItem" | "notification" | "store" | "prescription" | "prescriptionItem" | "product" | "salt" | "productSalt" | "productPackaging" | "productBatch" | "productSupplier" | "purchase" | "purchaseItem" | "purchasePayment" | "purchaseReturn" | "purchaseReturnItem" | "sale" | "saleItem" | "salePayment" | "salesReturn" | "salesReturnItem" | "supplier" | "role" | "user"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1932,6 +1993,80 @@ export namespace Prisma {
           }
         }
       }
+      CustomerLedgerShare: {
+        payload: Prisma.$CustomerLedgerSharePayload<ExtArgs>
+        fields: Prisma.CustomerLedgerShareFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomerLedgerShareFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerSharePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomerLedgerShareFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerSharePayload>
+          }
+          findFirst: {
+            args: Prisma.CustomerLedgerShareFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerSharePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomerLedgerShareFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerSharePayload>
+          }
+          findMany: {
+            args: Prisma.CustomerLedgerShareFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerSharePayload>[]
+          }
+          create: {
+            args: Prisma.CustomerLedgerShareCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerSharePayload>
+          }
+          createMany: {
+            args: Prisma.CustomerLedgerShareCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomerLedgerShareCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerSharePayload>[]
+          }
+          delete: {
+            args: Prisma.CustomerLedgerShareDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerSharePayload>
+          }
+          update: {
+            args: Prisma.CustomerLedgerShareUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerSharePayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomerLedgerShareDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomerLedgerShareUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CustomerLedgerShareUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerSharePayload>[]
+          }
+          upsert: {
+            args: Prisma.CustomerLedgerShareUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerLedgerSharePayload>
+          }
+          aggregate: {
+            args: Prisma.CustomerLedgerShareAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomerLedgerShare>
+          }
+          groupBy: {
+            args: Prisma.CustomerLedgerShareGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomerLedgerShareGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomerLedgerShareCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomerLedgerShareCountAggregateOutputType> | number
+          }
+        }
+      }
       Stock: {
         payload: Prisma.$StockPayload<ExtArgs>
         fields: Prisma.StockFieldRefs
@@ -2077,6 +2212,154 @@ export namespace Prisma {
           count: {
             args: Prisma.StockMovementCountArgs<ExtArgs>
             result: $Utils.Optional<StockMovementCountAggregateOutputType> | number
+          }
+        }
+      }
+      InventoryAudit: {
+        payload: Prisma.$InventoryAuditPayload<ExtArgs>
+        fields: Prisma.InventoryAuditFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InventoryAuditFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InventoryAuditFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditPayload>
+          }
+          findFirst: {
+            args: Prisma.InventoryAuditFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InventoryAuditFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditPayload>
+          }
+          findMany: {
+            args: Prisma.InventoryAuditFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditPayload>[]
+          }
+          create: {
+            args: Prisma.InventoryAuditCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditPayload>
+          }
+          createMany: {
+            args: Prisma.InventoryAuditCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InventoryAuditCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditPayload>[]
+          }
+          delete: {
+            args: Prisma.InventoryAuditDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditPayload>
+          }
+          update: {
+            args: Prisma.InventoryAuditUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditPayload>
+          }
+          deleteMany: {
+            args: Prisma.InventoryAuditDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InventoryAuditUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InventoryAuditUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditPayload>[]
+          }
+          upsert: {
+            args: Prisma.InventoryAuditUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditPayload>
+          }
+          aggregate: {
+            args: Prisma.InventoryAuditAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInventoryAudit>
+          }
+          groupBy: {
+            args: Prisma.InventoryAuditGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InventoryAuditGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InventoryAuditCountArgs<ExtArgs>
+            result: $Utils.Optional<InventoryAuditCountAggregateOutputType> | number
+          }
+        }
+      }
+      InventoryAuditItem: {
+        payload: Prisma.$InventoryAuditItemPayload<ExtArgs>
+        fields: Prisma.InventoryAuditItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InventoryAuditItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InventoryAuditItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditItemPayload>
+          }
+          findFirst: {
+            args: Prisma.InventoryAuditItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InventoryAuditItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditItemPayload>
+          }
+          findMany: {
+            args: Prisma.InventoryAuditItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditItemPayload>[]
+          }
+          create: {
+            args: Prisma.InventoryAuditItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditItemPayload>
+          }
+          createMany: {
+            args: Prisma.InventoryAuditItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InventoryAuditItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditItemPayload>[]
+          }
+          delete: {
+            args: Prisma.InventoryAuditItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditItemPayload>
+          }
+          update: {
+            args: Prisma.InventoryAuditItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.InventoryAuditItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InventoryAuditItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InventoryAuditItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.InventoryAuditItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryAuditItemPayload>
+          }
+          aggregate: {
+            args: Prisma.InventoryAuditItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInventoryAuditItem>
+          }
+          groupBy: {
+            args: Prisma.InventoryAuditItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InventoryAuditItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InventoryAuditItemCountArgs<ExtArgs>
+            result: $Utils.Optional<InventoryAuditItemCountAggregateOutputType> | number
           }
         }
       }
@@ -3912,8 +4195,11 @@ export namespace Prisma {
     manufacturer?: ManufacturerOmit
     unit?: UnitOmit
     customer?: CustomerOmit
+    customerLedgerShare?: CustomerLedgerShareOmit
     stock?: StockOmit
     stockMovement?: StockMovementOmit
+    inventoryAudit?: InventoryAuditOmit
+    inventoryAuditItem?: InventoryAuditItemOmit
     notification?: NotificationOmit
     store?: StoreOmit
     prescription?: PrescriptionOmit
@@ -4133,6 +4419,7 @@ export namespace Prisma {
     prescriptions: number
     sales: number
     salesReturns: number
+    ledgerShares: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4141,6 +4428,7 @@ export namespace Prisma {
     prescriptions?: boolean | CustomerCountOutputTypeCountPrescriptionsArgs
     sales?: boolean | CustomerCountOutputTypeCountSalesArgs
     salesReturns?: boolean | CustomerCountOutputTypeCountSalesReturnsArgs
+    ledgerShares?: boolean | CustomerCountOutputTypeCountLedgerSharesArgs
   }
 
   // Custom InputTypes
@@ -4189,6 +4477,13 @@ export namespace Prisma {
     where?: SalesReturnWhereInput
   }
 
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountLedgerSharesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerLedgerShareWhereInput
+  }
+
 
   /**
    * Count Type StockCountOutputType
@@ -4222,6 +4517,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type InventoryAuditCountOutputType
+   */
+
+  export type InventoryAuditCountOutputType = {
+    items: number
+  }
+
+  export type InventoryAuditCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    items?: boolean | InventoryAuditCountOutputTypeCountItemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * InventoryAuditCountOutputType without action
+   */
+  export type InventoryAuditCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditCountOutputType
+     */
+    select?: InventoryAuditCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * InventoryAuditCountOutputType without action
+   */
+  export type InventoryAuditCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryAuditItemWhereInput
+  }
+
+
+  /**
    * Count Type StoreCountOutputType
    */
 
@@ -4241,6 +4567,8 @@ export namespace Prisma {
     stocks: number
     suppliers: number
     users: number
+    ledgerShares: number
+    inventoryAudits: number
   }
 
   export type StoreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4259,6 +4587,8 @@ export namespace Prisma {
     stocks?: boolean | StoreCountOutputTypeCountStocksArgs
     suppliers?: boolean | StoreCountOutputTypeCountSuppliersArgs
     users?: boolean | StoreCountOutputTypeCountUsersArgs
+    ledgerShares?: boolean | StoreCountOutputTypeCountLedgerSharesArgs
+    inventoryAudits?: boolean | StoreCountOutputTypeCountInventoryAuditsArgs
   }
 
   // Custom InputTypes
@@ -4377,6 +4707,20 @@ export namespace Prisma {
     where?: UserWhereInput
   }
 
+  /**
+   * StoreCountOutputType without action
+   */
+  export type StoreCountOutputTypeCountLedgerSharesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerLedgerShareWhereInput
+  }
+
+  /**
+   * StoreCountOutputType without action
+   */
+  export type StoreCountOutputTypeCountInventoryAuditsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryAuditWhereInput
+  }
+
 
   /**
    * Count Type PrescriptionCountOutputType
@@ -4423,6 +4767,7 @@ export namespace Prisma {
     saleItems: number
     salesReturnItems: number
     stocks: number
+    auditItems: number
     salts: number
   }
 
@@ -4436,6 +4781,7 @@ export namespace Prisma {
     saleItems?: boolean | ProductCountOutputTypeCountSaleItemsArgs
     salesReturnItems?: boolean | ProductCountOutputTypeCountSalesReturnItemsArgs
     stocks?: boolean | ProductCountOutputTypeCountStocksArgs
+    auditItems?: boolean | ProductCountOutputTypeCountAuditItemsArgs
     salts?: boolean | ProductCountOutputTypeCountSaltsArgs
   }
 
@@ -4511,6 +4857,13 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountStocksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StockWhereInput
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountAuditItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryAuditItemWhereInput
   }
 
   /**
@@ -4621,6 +4974,7 @@ export namespace Prisma {
     saleItems: number
     salesReturnItems: number
     stocks: number
+    auditItems: number
   }
 
   export type ProductBatchCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4630,6 +4984,7 @@ export namespace Prisma {
     saleItems?: boolean | ProductBatchCountOutputTypeCountSaleItemsArgs
     salesReturnItems?: boolean | ProductBatchCountOutputTypeCountSalesReturnItemsArgs
     stocks?: boolean | ProductBatchCountOutputTypeCountStocksArgs
+    auditItems?: boolean | ProductBatchCountOutputTypeCountAuditItemsArgs
   }
 
   // Custom InputTypes
@@ -4683,6 +5038,13 @@ export namespace Prisma {
    */
   export type ProductBatchCountOutputTypeCountStocksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StockWhereInput
+  }
+
+  /**
+   * ProductBatchCountOutputType without action
+   */
+  export type ProductBatchCountOutputTypeCountAuditItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryAuditItemWhereInput
   }
 
 
@@ -12351,6 +12713,7 @@ export namespace Prisma {
     prescriptions?: boolean | Customer$prescriptionsArgs<ExtArgs>
     sales?: boolean | Customer$salesArgs<ExtArgs>
     salesReturns?: boolean | Customer$salesReturnsArgs<ExtArgs>
+    ledgerShares?: boolean | Customer$ledgerSharesArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
@@ -12424,6 +12787,7 @@ export namespace Prisma {
     prescriptions?: boolean | Customer$prescriptionsArgs<ExtArgs>
     sales?: boolean | Customer$salesArgs<ExtArgs>
     salesReturns?: boolean | Customer$salesReturnsArgs<ExtArgs>
+    ledgerShares?: boolean | Customer$ledgerSharesArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12442,6 +12806,7 @@ export namespace Prisma {
       prescriptions: Prisma.$PrescriptionPayload<ExtArgs>[]
       sales: Prisma.$SalePayload<ExtArgs>[]
       salesReturns: Prisma.$SalesReturnPayload<ExtArgs>[]
+      ledgerShares: Prisma.$CustomerLedgerSharePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12861,6 +13226,7 @@ export namespace Prisma {
     prescriptions<T extends Customer$prescriptionsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$prescriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrescriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sales<T extends Customer$salesArgs<ExtArgs> = {}>(args?: Subset<T, Customer$salesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salesReturns<T extends Customer$salesReturnsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$salesReturnsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalesReturnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ledgerShares<T extends Customer$ledgerSharesArgs<ExtArgs> = {}>(args?: Subset<T, Customer$ledgerSharesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13428,6 +13794,30 @@ export namespace Prisma {
   }
 
   /**
+   * Customer.ledgerShares
+   */
+  export type Customer$ledgerSharesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareInclude<ExtArgs> | null
+    where?: CustomerLedgerShareWhereInput
+    orderBy?: CustomerLedgerShareOrderByWithRelationInput | CustomerLedgerShareOrderByWithRelationInput[]
+    cursor?: CustomerLedgerShareWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerLedgerShareScalarFieldEnum | CustomerLedgerShareScalarFieldEnum[]
+  }
+
+  /**
    * Customer without action
    */
   export type CustomerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13443,6 +13833,1103 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CustomerInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CustomerLedgerShare
+   */
+
+  export type AggregateCustomerLedgerShare = {
+    _count: CustomerLedgerShareCountAggregateOutputType | null
+    _min: CustomerLedgerShareMinAggregateOutputType | null
+    _max: CustomerLedgerShareMaxAggregateOutputType | null
+  }
+
+  export type CustomerLedgerShareMinAggregateOutputType = {
+    id: string | null
+    token: string | null
+    customerId: string | null
+    storeId: string | null
+    createdAt: Date | null
+    expiresAt: Date | null
+    revokedAt: Date | null
+  }
+
+  export type CustomerLedgerShareMaxAggregateOutputType = {
+    id: string | null
+    token: string | null
+    customerId: string | null
+    storeId: string | null
+    createdAt: Date | null
+    expiresAt: Date | null
+    revokedAt: Date | null
+  }
+
+  export type CustomerLedgerShareCountAggregateOutputType = {
+    id: number
+    token: number
+    customerId: number
+    storeId: number
+    createdAt: number
+    expiresAt: number
+    revokedAt: number
+    _all: number
+  }
+
+
+  export type CustomerLedgerShareMinAggregateInputType = {
+    id?: true
+    token?: true
+    customerId?: true
+    storeId?: true
+    createdAt?: true
+    expiresAt?: true
+    revokedAt?: true
+  }
+
+  export type CustomerLedgerShareMaxAggregateInputType = {
+    id?: true
+    token?: true
+    customerId?: true
+    storeId?: true
+    createdAt?: true
+    expiresAt?: true
+    revokedAt?: true
+  }
+
+  export type CustomerLedgerShareCountAggregateInputType = {
+    id?: true
+    token?: true
+    customerId?: true
+    storeId?: true
+    createdAt?: true
+    expiresAt?: true
+    revokedAt?: true
+    _all?: true
+  }
+
+  export type CustomerLedgerShareAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerLedgerShare to aggregate.
+     */
+    where?: CustomerLedgerShareWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerLedgerShares to fetch.
+     */
+    orderBy?: CustomerLedgerShareOrderByWithRelationInput | CustomerLedgerShareOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerLedgerShareWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerLedgerShares from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerLedgerShares.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerLedgerShares
+    **/
+    _count?: true | CustomerLedgerShareCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerLedgerShareMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerLedgerShareMaxAggregateInputType
+  }
+
+  export type GetCustomerLedgerShareAggregateType<T extends CustomerLedgerShareAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerLedgerShare]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerLedgerShare[P]>
+      : GetScalarType<T[P], AggregateCustomerLedgerShare[P]>
+  }
+
+
+
+
+  export type CustomerLedgerShareGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerLedgerShareWhereInput
+    orderBy?: CustomerLedgerShareOrderByWithAggregationInput | CustomerLedgerShareOrderByWithAggregationInput[]
+    by: CustomerLedgerShareScalarFieldEnum[] | CustomerLedgerShareScalarFieldEnum
+    having?: CustomerLedgerShareScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerLedgerShareCountAggregateInputType | true
+    _min?: CustomerLedgerShareMinAggregateInputType
+    _max?: CustomerLedgerShareMaxAggregateInputType
+  }
+
+  export type CustomerLedgerShareGroupByOutputType = {
+    id: string
+    token: string
+    customerId: string
+    storeId: string
+    createdAt: Date
+    expiresAt: Date | null
+    revokedAt: Date | null
+    _count: CustomerLedgerShareCountAggregateOutputType | null
+    _min: CustomerLedgerShareMinAggregateOutputType | null
+    _max: CustomerLedgerShareMaxAggregateOutputType | null
+  }
+
+  type GetCustomerLedgerShareGroupByPayload<T extends CustomerLedgerShareGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomerLedgerShareGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerLedgerShareGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerLedgerShareGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerLedgerShareGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerLedgerShareSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    customerId?: boolean
+    storeId?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerLedgerShare"]>
+
+  export type CustomerLedgerShareSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    customerId?: boolean
+    storeId?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerLedgerShare"]>
+
+  export type CustomerLedgerShareSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    customerId?: boolean
+    storeId?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerLedgerShare"]>
+
+  export type CustomerLedgerShareSelectScalar = {
+    id?: boolean
+    token?: boolean
+    customerId?: boolean
+    storeId?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+  }
+
+  export type CustomerLedgerShareOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "customerId" | "storeId" | "createdAt" | "expiresAt" | "revokedAt", ExtArgs["result"]["customerLedgerShare"]>
+  export type CustomerLedgerShareInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
+  export type CustomerLedgerShareIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
+  export type CustomerLedgerShareIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
+
+  export type $CustomerLedgerSharePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomerLedgerShare"
+    objects: {
+      customer: Prisma.$CustomerPayload<ExtArgs>
+      store: Prisma.$StorePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      token: string
+      customerId: string
+      storeId: string
+      createdAt: Date
+      expiresAt: Date | null
+      revokedAt: Date | null
+    }, ExtArgs["result"]["customerLedgerShare"]>
+    composites: {}
+  }
+
+  type CustomerLedgerShareGetPayload<S extends boolean | null | undefined | CustomerLedgerShareDefaultArgs> = $Result.GetResult<Prisma.$CustomerLedgerSharePayload, S>
+
+  type CustomerLedgerShareCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CustomerLedgerShareFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CustomerLedgerShareCountAggregateInputType | true
+    }
+
+  export interface CustomerLedgerShareDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomerLedgerShare'], meta: { name: 'CustomerLedgerShare' } }
+    /**
+     * Find zero or one CustomerLedgerShare that matches the filter.
+     * @param {CustomerLedgerShareFindUniqueArgs} args - Arguments to find a CustomerLedgerShare
+     * @example
+     * // Get one CustomerLedgerShare
+     * const customerLedgerShare = await prisma.customerLedgerShare.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomerLedgerShareFindUniqueArgs>(args: SelectSubset<T, CustomerLedgerShareFindUniqueArgs<ExtArgs>>): Prisma__CustomerLedgerShareClient<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CustomerLedgerShare that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CustomerLedgerShareFindUniqueOrThrowArgs} args - Arguments to find a CustomerLedgerShare
+     * @example
+     * // Get one CustomerLedgerShare
+     * const customerLedgerShare = await prisma.customerLedgerShare.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomerLedgerShareFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomerLedgerShareFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomerLedgerShareClient<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomerLedgerShare that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerShareFindFirstArgs} args - Arguments to find a CustomerLedgerShare
+     * @example
+     * // Get one CustomerLedgerShare
+     * const customerLedgerShare = await prisma.customerLedgerShare.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomerLedgerShareFindFirstArgs>(args?: SelectSubset<T, CustomerLedgerShareFindFirstArgs<ExtArgs>>): Prisma__CustomerLedgerShareClient<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomerLedgerShare that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerShareFindFirstOrThrowArgs} args - Arguments to find a CustomerLedgerShare
+     * @example
+     * // Get one CustomerLedgerShare
+     * const customerLedgerShare = await prisma.customerLedgerShare.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomerLedgerShareFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomerLedgerShareFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomerLedgerShareClient<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CustomerLedgerShares that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerShareFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerLedgerShares
+     * const customerLedgerShares = await prisma.customerLedgerShare.findMany()
+     * 
+     * // Get first 10 CustomerLedgerShares
+     * const customerLedgerShares = await prisma.customerLedgerShare.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerLedgerShareWithIdOnly = await prisma.customerLedgerShare.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomerLedgerShareFindManyArgs>(args?: SelectSubset<T, CustomerLedgerShareFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CustomerLedgerShare.
+     * @param {CustomerLedgerShareCreateArgs} args - Arguments to create a CustomerLedgerShare.
+     * @example
+     * // Create one CustomerLedgerShare
+     * const CustomerLedgerShare = await prisma.customerLedgerShare.create({
+     *   data: {
+     *     // ... data to create a CustomerLedgerShare
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomerLedgerShareCreateArgs>(args: SelectSubset<T, CustomerLedgerShareCreateArgs<ExtArgs>>): Prisma__CustomerLedgerShareClient<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CustomerLedgerShares.
+     * @param {CustomerLedgerShareCreateManyArgs} args - Arguments to create many CustomerLedgerShares.
+     * @example
+     * // Create many CustomerLedgerShares
+     * const customerLedgerShare = await prisma.customerLedgerShare.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomerLedgerShareCreateManyArgs>(args?: SelectSubset<T, CustomerLedgerShareCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomerLedgerShares and returns the data saved in the database.
+     * @param {CustomerLedgerShareCreateManyAndReturnArgs} args - Arguments to create many CustomerLedgerShares.
+     * @example
+     * // Create many CustomerLedgerShares
+     * const customerLedgerShare = await prisma.customerLedgerShare.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomerLedgerShares and only return the `id`
+     * const customerLedgerShareWithIdOnly = await prisma.customerLedgerShare.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomerLedgerShareCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomerLedgerShareCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CustomerLedgerShare.
+     * @param {CustomerLedgerShareDeleteArgs} args - Arguments to delete one CustomerLedgerShare.
+     * @example
+     * // Delete one CustomerLedgerShare
+     * const CustomerLedgerShare = await prisma.customerLedgerShare.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerLedgerShare
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomerLedgerShareDeleteArgs>(args: SelectSubset<T, CustomerLedgerShareDeleteArgs<ExtArgs>>): Prisma__CustomerLedgerShareClient<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CustomerLedgerShare.
+     * @param {CustomerLedgerShareUpdateArgs} args - Arguments to update one CustomerLedgerShare.
+     * @example
+     * // Update one CustomerLedgerShare
+     * const customerLedgerShare = await prisma.customerLedgerShare.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomerLedgerShareUpdateArgs>(args: SelectSubset<T, CustomerLedgerShareUpdateArgs<ExtArgs>>): Prisma__CustomerLedgerShareClient<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CustomerLedgerShares.
+     * @param {CustomerLedgerShareDeleteManyArgs} args - Arguments to filter CustomerLedgerShares to delete.
+     * @example
+     * // Delete a few CustomerLedgerShares
+     * const { count } = await prisma.customerLedgerShare.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomerLedgerShareDeleteManyArgs>(args?: SelectSubset<T, CustomerLedgerShareDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerLedgerShares.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerShareUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerLedgerShares
+     * const customerLedgerShare = await prisma.customerLedgerShare.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomerLedgerShareUpdateManyArgs>(args: SelectSubset<T, CustomerLedgerShareUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerLedgerShares and returns the data updated in the database.
+     * @param {CustomerLedgerShareUpdateManyAndReturnArgs} args - Arguments to update many CustomerLedgerShares.
+     * @example
+     * // Update many CustomerLedgerShares
+     * const customerLedgerShare = await prisma.customerLedgerShare.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CustomerLedgerShares and only return the `id`
+     * const customerLedgerShareWithIdOnly = await prisma.customerLedgerShare.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CustomerLedgerShareUpdateManyAndReturnArgs>(args: SelectSubset<T, CustomerLedgerShareUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CustomerLedgerShare.
+     * @param {CustomerLedgerShareUpsertArgs} args - Arguments to update or create a CustomerLedgerShare.
+     * @example
+     * // Update or create a CustomerLedgerShare
+     * const customerLedgerShare = await prisma.customerLedgerShare.upsert({
+     *   create: {
+     *     // ... data to create a CustomerLedgerShare
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerLedgerShare we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomerLedgerShareUpsertArgs>(args: SelectSubset<T, CustomerLedgerShareUpsertArgs<ExtArgs>>): Prisma__CustomerLedgerShareClient<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CustomerLedgerShares.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerShareCountArgs} args - Arguments to filter CustomerLedgerShares to count.
+     * @example
+     * // Count the number of CustomerLedgerShares
+     * const count = await prisma.customerLedgerShare.count({
+     *   where: {
+     *     // ... the filter for the CustomerLedgerShares we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerLedgerShareCountArgs>(
+      args?: Subset<T, CustomerLedgerShareCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerLedgerShareCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerLedgerShare.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerShareAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerLedgerShareAggregateArgs>(args: Subset<T, CustomerLedgerShareAggregateArgs>): Prisma.PrismaPromise<GetCustomerLedgerShareAggregateType<T>>
+
+    /**
+     * Group by CustomerLedgerShare.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerLedgerShareGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerLedgerShareGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerLedgerShareGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerLedgerShareGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerLedgerShareGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerLedgerShareGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomerLedgerShare model
+   */
+  readonly fields: CustomerLedgerShareFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerLedgerShare.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomerLedgerShareClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomerLedgerShare model
+   */
+  interface CustomerLedgerShareFieldRefs {
+    readonly id: FieldRef<"CustomerLedgerShare", 'String'>
+    readonly token: FieldRef<"CustomerLedgerShare", 'String'>
+    readonly customerId: FieldRef<"CustomerLedgerShare", 'String'>
+    readonly storeId: FieldRef<"CustomerLedgerShare", 'String'>
+    readonly createdAt: FieldRef<"CustomerLedgerShare", 'DateTime'>
+    readonly expiresAt: FieldRef<"CustomerLedgerShare", 'DateTime'>
+    readonly revokedAt: FieldRef<"CustomerLedgerShare", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomerLedgerShare findUnique
+   */
+  export type CustomerLedgerShareFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerLedgerShare to fetch.
+     */
+    where: CustomerLedgerShareWhereUniqueInput
+  }
+
+  /**
+   * CustomerLedgerShare findUniqueOrThrow
+   */
+  export type CustomerLedgerShareFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerLedgerShare to fetch.
+     */
+    where: CustomerLedgerShareWhereUniqueInput
+  }
+
+  /**
+   * CustomerLedgerShare findFirst
+   */
+  export type CustomerLedgerShareFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerLedgerShare to fetch.
+     */
+    where?: CustomerLedgerShareWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerLedgerShares to fetch.
+     */
+    orderBy?: CustomerLedgerShareOrderByWithRelationInput | CustomerLedgerShareOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerLedgerShares.
+     */
+    cursor?: CustomerLedgerShareWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerLedgerShares from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerLedgerShares.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerLedgerShares.
+     */
+    distinct?: CustomerLedgerShareScalarFieldEnum | CustomerLedgerShareScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerLedgerShare findFirstOrThrow
+   */
+  export type CustomerLedgerShareFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerLedgerShare to fetch.
+     */
+    where?: CustomerLedgerShareWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerLedgerShares to fetch.
+     */
+    orderBy?: CustomerLedgerShareOrderByWithRelationInput | CustomerLedgerShareOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerLedgerShares.
+     */
+    cursor?: CustomerLedgerShareWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerLedgerShares from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerLedgerShares.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerLedgerShares.
+     */
+    distinct?: CustomerLedgerShareScalarFieldEnum | CustomerLedgerShareScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerLedgerShare findMany
+   */
+  export type CustomerLedgerShareFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerLedgerShares to fetch.
+     */
+    where?: CustomerLedgerShareWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerLedgerShares to fetch.
+     */
+    orderBy?: CustomerLedgerShareOrderByWithRelationInput | CustomerLedgerShareOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerLedgerShares.
+     */
+    cursor?: CustomerLedgerShareWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerLedgerShares from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerLedgerShares.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerLedgerShares.
+     */
+    distinct?: CustomerLedgerShareScalarFieldEnum | CustomerLedgerShareScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerLedgerShare create
+   */
+  export type CustomerLedgerShareCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomerLedgerShare.
+     */
+    data: XOR<CustomerLedgerShareCreateInput, CustomerLedgerShareUncheckedCreateInput>
+  }
+
+  /**
+   * CustomerLedgerShare createMany
+   */
+  export type CustomerLedgerShareCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomerLedgerShares.
+     */
+    data: CustomerLedgerShareCreateManyInput | CustomerLedgerShareCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CustomerLedgerShare createManyAndReturn
+   */
+  export type CustomerLedgerShareCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * The data used to create many CustomerLedgerShares.
+     */
+    data: CustomerLedgerShareCreateManyInput | CustomerLedgerShareCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerLedgerShare update
+   */
+  export type CustomerLedgerShareUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomerLedgerShare.
+     */
+    data: XOR<CustomerLedgerShareUpdateInput, CustomerLedgerShareUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerLedgerShare to update.
+     */
+    where: CustomerLedgerShareWhereUniqueInput
+  }
+
+  /**
+   * CustomerLedgerShare updateMany
+   */
+  export type CustomerLedgerShareUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomerLedgerShares.
+     */
+    data: XOR<CustomerLedgerShareUpdateManyMutationInput, CustomerLedgerShareUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerLedgerShares to update
+     */
+    where?: CustomerLedgerShareWhereInput
+    /**
+     * Limit how many CustomerLedgerShares to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomerLedgerShare updateManyAndReturn
+   */
+  export type CustomerLedgerShareUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * The data used to update CustomerLedgerShares.
+     */
+    data: XOR<CustomerLedgerShareUpdateManyMutationInput, CustomerLedgerShareUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerLedgerShares to update
+     */
+    where?: CustomerLedgerShareWhereInput
+    /**
+     * Limit how many CustomerLedgerShares to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerLedgerShare upsert
+   */
+  export type CustomerLedgerShareUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomerLedgerShare to update in case it exists.
+     */
+    where: CustomerLedgerShareWhereUniqueInput
+    /**
+     * In case the CustomerLedgerShare found by the `where` argument doesn't exist, create a new CustomerLedgerShare with this data.
+     */
+    create: XOR<CustomerLedgerShareCreateInput, CustomerLedgerShareUncheckedCreateInput>
+    /**
+     * In case the CustomerLedgerShare was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerLedgerShareUpdateInput, CustomerLedgerShareUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomerLedgerShare delete
+   */
+  export type CustomerLedgerShareDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareInclude<ExtArgs> | null
+    /**
+     * Filter which CustomerLedgerShare to delete.
+     */
+    where: CustomerLedgerShareWhereUniqueInput
+  }
+
+  /**
+   * CustomerLedgerShare deleteMany
+   */
+  export type CustomerLedgerShareDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerLedgerShares to delete
+     */
+    where?: CustomerLedgerShareWhereInput
+    /**
+     * Limit how many CustomerLedgerShares to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomerLedgerShare without action
+   */
+  export type CustomerLedgerShareDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareInclude<ExtArgs> | null
   }
 
 
@@ -15908,6 +17395,2285 @@ export namespace Prisma {
 
 
   /**
+   * Model InventoryAudit
+   */
+
+  export type AggregateInventoryAudit = {
+    _count: InventoryAuditCountAggregateOutputType | null
+    _min: InventoryAuditMinAggregateOutputType | null
+    _max: InventoryAuditMaxAggregateOutputType | null
+  }
+
+  export type InventoryAuditMinAggregateOutputType = {
+    id: string | null
+    storeId: string | null
+    auditDate: Date | null
+    condition: string | null
+    status: $Enums.InventoryAuditStatus | null
+    createdById: string | null
+    completedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type InventoryAuditMaxAggregateOutputType = {
+    id: string | null
+    storeId: string | null
+    auditDate: Date | null
+    condition: string | null
+    status: $Enums.InventoryAuditStatus | null
+    createdById: string | null
+    completedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type InventoryAuditCountAggregateOutputType = {
+    id: number
+    storeId: number
+    auditDate: number
+    condition: number
+    status: number
+    createdById: number
+    completedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type InventoryAuditMinAggregateInputType = {
+    id?: true
+    storeId?: true
+    auditDate?: true
+    condition?: true
+    status?: true
+    createdById?: true
+    completedAt?: true
+    createdAt?: true
+  }
+
+  export type InventoryAuditMaxAggregateInputType = {
+    id?: true
+    storeId?: true
+    auditDate?: true
+    condition?: true
+    status?: true
+    createdById?: true
+    completedAt?: true
+    createdAt?: true
+  }
+
+  export type InventoryAuditCountAggregateInputType = {
+    id?: true
+    storeId?: true
+    auditDate?: true
+    condition?: true
+    status?: true
+    createdById?: true
+    completedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type InventoryAuditAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InventoryAudit to aggregate.
+     */
+    where?: InventoryAuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryAudits to fetch.
+     */
+    orderBy?: InventoryAuditOrderByWithRelationInput | InventoryAuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InventoryAuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryAudits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryAudits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned InventoryAudits
+    **/
+    _count?: true | InventoryAuditCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InventoryAuditMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InventoryAuditMaxAggregateInputType
+  }
+
+  export type GetInventoryAuditAggregateType<T extends InventoryAuditAggregateArgs> = {
+        [P in keyof T & keyof AggregateInventoryAudit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInventoryAudit[P]>
+      : GetScalarType<T[P], AggregateInventoryAudit[P]>
+  }
+
+
+
+
+  export type InventoryAuditGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryAuditWhereInput
+    orderBy?: InventoryAuditOrderByWithAggregationInput | InventoryAuditOrderByWithAggregationInput[]
+    by: InventoryAuditScalarFieldEnum[] | InventoryAuditScalarFieldEnum
+    having?: InventoryAuditScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InventoryAuditCountAggregateInputType | true
+    _min?: InventoryAuditMinAggregateInputType
+    _max?: InventoryAuditMaxAggregateInputType
+  }
+
+  export type InventoryAuditGroupByOutputType = {
+    id: string
+    storeId: string
+    auditDate: Date
+    condition: string
+    status: $Enums.InventoryAuditStatus
+    createdById: string | null
+    completedAt: Date | null
+    createdAt: Date
+    _count: InventoryAuditCountAggregateOutputType | null
+    _min: InventoryAuditMinAggregateOutputType | null
+    _max: InventoryAuditMaxAggregateOutputType | null
+  }
+
+  type GetInventoryAuditGroupByPayload<T extends InventoryAuditGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InventoryAuditGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InventoryAuditGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InventoryAuditGroupByOutputType[P]>
+            : GetScalarType<T[P], InventoryAuditGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InventoryAuditSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    auditDate?: boolean
+    condition?: boolean
+    status?: boolean
+    createdById?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+    items?: boolean | InventoryAudit$itemsArgs<ExtArgs>
+    _count?: boolean | InventoryAuditCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inventoryAudit"]>
+
+  export type InventoryAuditSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    auditDate?: boolean
+    condition?: boolean
+    status?: boolean
+    createdById?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inventoryAudit"]>
+
+  export type InventoryAuditSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    auditDate?: boolean
+    condition?: boolean
+    status?: boolean
+    createdById?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inventoryAudit"]>
+
+  export type InventoryAuditSelectScalar = {
+    id?: boolean
+    storeId?: boolean
+    auditDate?: boolean
+    condition?: boolean
+    status?: boolean
+    createdById?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type InventoryAuditOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "auditDate" | "condition" | "status" | "createdById" | "completedAt" | "createdAt", ExtArgs["result"]["inventoryAudit"]>
+  export type InventoryAuditInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+    items?: boolean | InventoryAudit$itemsArgs<ExtArgs>
+    _count?: boolean | InventoryAuditCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type InventoryAuditIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
+  export type InventoryAuditIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
+
+  export type $InventoryAuditPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "InventoryAudit"
+    objects: {
+      store: Prisma.$StorePayload<ExtArgs>
+      items: Prisma.$InventoryAuditItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      storeId: string
+      auditDate: Date
+      condition: string
+      status: $Enums.InventoryAuditStatus
+      createdById: string | null
+      completedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["inventoryAudit"]>
+    composites: {}
+  }
+
+  type InventoryAuditGetPayload<S extends boolean | null | undefined | InventoryAuditDefaultArgs> = $Result.GetResult<Prisma.$InventoryAuditPayload, S>
+
+  type InventoryAuditCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InventoryAuditFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InventoryAuditCountAggregateInputType | true
+    }
+
+  export interface InventoryAuditDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['InventoryAudit'], meta: { name: 'InventoryAudit' } }
+    /**
+     * Find zero or one InventoryAudit that matches the filter.
+     * @param {InventoryAuditFindUniqueArgs} args - Arguments to find a InventoryAudit
+     * @example
+     * // Get one InventoryAudit
+     * const inventoryAudit = await prisma.inventoryAudit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InventoryAuditFindUniqueArgs>(args: SelectSubset<T, InventoryAuditFindUniqueArgs<ExtArgs>>): Prisma__InventoryAuditClient<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one InventoryAudit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InventoryAuditFindUniqueOrThrowArgs} args - Arguments to find a InventoryAudit
+     * @example
+     * // Get one InventoryAudit
+     * const inventoryAudit = await prisma.inventoryAudit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InventoryAuditFindUniqueOrThrowArgs>(args: SelectSubset<T, InventoryAuditFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InventoryAuditClient<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InventoryAudit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditFindFirstArgs} args - Arguments to find a InventoryAudit
+     * @example
+     * // Get one InventoryAudit
+     * const inventoryAudit = await prisma.inventoryAudit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InventoryAuditFindFirstArgs>(args?: SelectSubset<T, InventoryAuditFindFirstArgs<ExtArgs>>): Prisma__InventoryAuditClient<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InventoryAudit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditFindFirstOrThrowArgs} args - Arguments to find a InventoryAudit
+     * @example
+     * // Get one InventoryAudit
+     * const inventoryAudit = await prisma.inventoryAudit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InventoryAuditFindFirstOrThrowArgs>(args?: SelectSubset<T, InventoryAuditFindFirstOrThrowArgs<ExtArgs>>): Prisma__InventoryAuditClient<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more InventoryAudits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all InventoryAudits
+     * const inventoryAudits = await prisma.inventoryAudit.findMany()
+     * 
+     * // Get first 10 InventoryAudits
+     * const inventoryAudits = await prisma.inventoryAudit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const inventoryAuditWithIdOnly = await prisma.inventoryAudit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InventoryAuditFindManyArgs>(args?: SelectSubset<T, InventoryAuditFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a InventoryAudit.
+     * @param {InventoryAuditCreateArgs} args - Arguments to create a InventoryAudit.
+     * @example
+     * // Create one InventoryAudit
+     * const InventoryAudit = await prisma.inventoryAudit.create({
+     *   data: {
+     *     // ... data to create a InventoryAudit
+     *   }
+     * })
+     * 
+     */
+    create<T extends InventoryAuditCreateArgs>(args: SelectSubset<T, InventoryAuditCreateArgs<ExtArgs>>): Prisma__InventoryAuditClient<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many InventoryAudits.
+     * @param {InventoryAuditCreateManyArgs} args - Arguments to create many InventoryAudits.
+     * @example
+     * // Create many InventoryAudits
+     * const inventoryAudit = await prisma.inventoryAudit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InventoryAuditCreateManyArgs>(args?: SelectSubset<T, InventoryAuditCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many InventoryAudits and returns the data saved in the database.
+     * @param {InventoryAuditCreateManyAndReturnArgs} args - Arguments to create many InventoryAudits.
+     * @example
+     * // Create many InventoryAudits
+     * const inventoryAudit = await prisma.inventoryAudit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many InventoryAudits and only return the `id`
+     * const inventoryAuditWithIdOnly = await prisma.inventoryAudit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InventoryAuditCreateManyAndReturnArgs>(args?: SelectSubset<T, InventoryAuditCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a InventoryAudit.
+     * @param {InventoryAuditDeleteArgs} args - Arguments to delete one InventoryAudit.
+     * @example
+     * // Delete one InventoryAudit
+     * const InventoryAudit = await prisma.inventoryAudit.delete({
+     *   where: {
+     *     // ... filter to delete one InventoryAudit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InventoryAuditDeleteArgs>(args: SelectSubset<T, InventoryAuditDeleteArgs<ExtArgs>>): Prisma__InventoryAuditClient<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one InventoryAudit.
+     * @param {InventoryAuditUpdateArgs} args - Arguments to update one InventoryAudit.
+     * @example
+     * // Update one InventoryAudit
+     * const inventoryAudit = await prisma.inventoryAudit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InventoryAuditUpdateArgs>(args: SelectSubset<T, InventoryAuditUpdateArgs<ExtArgs>>): Prisma__InventoryAuditClient<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more InventoryAudits.
+     * @param {InventoryAuditDeleteManyArgs} args - Arguments to filter InventoryAudits to delete.
+     * @example
+     * // Delete a few InventoryAudits
+     * const { count } = await prisma.inventoryAudit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InventoryAuditDeleteManyArgs>(args?: SelectSubset<T, InventoryAuditDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InventoryAudits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many InventoryAudits
+     * const inventoryAudit = await prisma.inventoryAudit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InventoryAuditUpdateManyArgs>(args: SelectSubset<T, InventoryAuditUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InventoryAudits and returns the data updated in the database.
+     * @param {InventoryAuditUpdateManyAndReturnArgs} args - Arguments to update many InventoryAudits.
+     * @example
+     * // Update many InventoryAudits
+     * const inventoryAudit = await prisma.inventoryAudit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more InventoryAudits and only return the `id`
+     * const inventoryAuditWithIdOnly = await prisma.inventoryAudit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InventoryAuditUpdateManyAndReturnArgs>(args: SelectSubset<T, InventoryAuditUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one InventoryAudit.
+     * @param {InventoryAuditUpsertArgs} args - Arguments to update or create a InventoryAudit.
+     * @example
+     * // Update or create a InventoryAudit
+     * const inventoryAudit = await prisma.inventoryAudit.upsert({
+     *   create: {
+     *     // ... data to create a InventoryAudit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the InventoryAudit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InventoryAuditUpsertArgs>(args: SelectSubset<T, InventoryAuditUpsertArgs<ExtArgs>>): Prisma__InventoryAuditClient<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of InventoryAudits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditCountArgs} args - Arguments to filter InventoryAudits to count.
+     * @example
+     * // Count the number of InventoryAudits
+     * const count = await prisma.inventoryAudit.count({
+     *   where: {
+     *     // ... the filter for the InventoryAudits we want to count
+     *   }
+     * })
+    **/
+    count<T extends InventoryAuditCountArgs>(
+      args?: Subset<T, InventoryAuditCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InventoryAuditCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a InventoryAudit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InventoryAuditAggregateArgs>(args: Subset<T, InventoryAuditAggregateArgs>): Prisma.PrismaPromise<GetInventoryAuditAggregateType<T>>
+
+    /**
+     * Group by InventoryAudit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InventoryAuditGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InventoryAuditGroupByArgs['orderBy'] }
+        : { orderBy?: InventoryAuditGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InventoryAuditGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInventoryAuditGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the InventoryAudit model
+   */
+  readonly fields: InventoryAuditFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for InventoryAudit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InventoryAuditClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    items<T extends InventoryAudit$itemsArgs<ExtArgs> = {}>(args?: Subset<T, InventoryAudit$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the InventoryAudit model
+   */
+  interface InventoryAuditFieldRefs {
+    readonly id: FieldRef<"InventoryAudit", 'String'>
+    readonly storeId: FieldRef<"InventoryAudit", 'String'>
+    readonly auditDate: FieldRef<"InventoryAudit", 'DateTime'>
+    readonly condition: FieldRef<"InventoryAudit", 'String'>
+    readonly status: FieldRef<"InventoryAudit", 'InventoryAuditStatus'>
+    readonly createdById: FieldRef<"InventoryAudit", 'String'>
+    readonly completedAt: FieldRef<"InventoryAudit", 'DateTime'>
+    readonly createdAt: FieldRef<"InventoryAudit", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * InventoryAudit findUnique
+   */
+  export type InventoryAuditFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryAudit to fetch.
+     */
+    where: InventoryAuditWhereUniqueInput
+  }
+
+  /**
+   * InventoryAudit findUniqueOrThrow
+   */
+  export type InventoryAuditFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryAudit to fetch.
+     */
+    where: InventoryAuditWhereUniqueInput
+  }
+
+  /**
+   * InventoryAudit findFirst
+   */
+  export type InventoryAuditFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryAudit to fetch.
+     */
+    where?: InventoryAuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryAudits to fetch.
+     */
+    orderBy?: InventoryAuditOrderByWithRelationInput | InventoryAuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InventoryAudits.
+     */
+    cursor?: InventoryAuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryAudits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryAudits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InventoryAudits.
+     */
+    distinct?: InventoryAuditScalarFieldEnum | InventoryAuditScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryAudit findFirstOrThrow
+   */
+  export type InventoryAuditFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryAudit to fetch.
+     */
+    where?: InventoryAuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryAudits to fetch.
+     */
+    orderBy?: InventoryAuditOrderByWithRelationInput | InventoryAuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InventoryAudits.
+     */
+    cursor?: InventoryAuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryAudits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryAudits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InventoryAudits.
+     */
+    distinct?: InventoryAuditScalarFieldEnum | InventoryAuditScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryAudit findMany
+   */
+  export type InventoryAuditFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryAudits to fetch.
+     */
+    where?: InventoryAuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryAudits to fetch.
+     */
+    orderBy?: InventoryAuditOrderByWithRelationInput | InventoryAuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing InventoryAudits.
+     */
+    cursor?: InventoryAuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryAudits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryAudits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InventoryAudits.
+     */
+    distinct?: InventoryAuditScalarFieldEnum | InventoryAuditScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryAudit create
+   */
+  export type InventoryAuditCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditInclude<ExtArgs> | null
+    /**
+     * The data needed to create a InventoryAudit.
+     */
+    data: XOR<InventoryAuditCreateInput, InventoryAuditUncheckedCreateInput>
+  }
+
+  /**
+   * InventoryAudit createMany
+   */
+  export type InventoryAuditCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many InventoryAudits.
+     */
+    data: InventoryAuditCreateManyInput | InventoryAuditCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * InventoryAudit createManyAndReturn
+   */
+  export type InventoryAuditCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * The data used to create many InventoryAudits.
+     */
+    data: InventoryAuditCreateManyInput | InventoryAuditCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * InventoryAudit update
+   */
+  export type InventoryAuditUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditInclude<ExtArgs> | null
+    /**
+     * The data needed to update a InventoryAudit.
+     */
+    data: XOR<InventoryAuditUpdateInput, InventoryAuditUncheckedUpdateInput>
+    /**
+     * Choose, which InventoryAudit to update.
+     */
+    where: InventoryAuditWhereUniqueInput
+  }
+
+  /**
+   * InventoryAudit updateMany
+   */
+  export type InventoryAuditUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update InventoryAudits.
+     */
+    data: XOR<InventoryAuditUpdateManyMutationInput, InventoryAuditUncheckedUpdateManyInput>
+    /**
+     * Filter which InventoryAudits to update
+     */
+    where?: InventoryAuditWhereInput
+    /**
+     * Limit how many InventoryAudits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * InventoryAudit updateManyAndReturn
+   */
+  export type InventoryAuditUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * The data used to update InventoryAudits.
+     */
+    data: XOR<InventoryAuditUpdateManyMutationInput, InventoryAuditUncheckedUpdateManyInput>
+    /**
+     * Filter which InventoryAudits to update
+     */
+    where?: InventoryAuditWhereInput
+    /**
+     * Limit how many InventoryAudits to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * InventoryAudit upsert
+   */
+  export type InventoryAuditUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditInclude<ExtArgs> | null
+    /**
+     * The filter to search for the InventoryAudit to update in case it exists.
+     */
+    where: InventoryAuditWhereUniqueInput
+    /**
+     * In case the InventoryAudit found by the `where` argument doesn't exist, create a new InventoryAudit with this data.
+     */
+    create: XOR<InventoryAuditCreateInput, InventoryAuditUncheckedCreateInput>
+    /**
+     * In case the InventoryAudit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InventoryAuditUpdateInput, InventoryAuditUncheckedUpdateInput>
+  }
+
+  /**
+   * InventoryAudit delete
+   */
+  export type InventoryAuditDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditInclude<ExtArgs> | null
+    /**
+     * Filter which InventoryAudit to delete.
+     */
+    where: InventoryAuditWhereUniqueInput
+  }
+
+  /**
+   * InventoryAudit deleteMany
+   */
+  export type InventoryAuditDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InventoryAudits to delete
+     */
+    where?: InventoryAuditWhereInput
+    /**
+     * Limit how many InventoryAudits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * InventoryAudit.items
+   */
+  export type InventoryAudit$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+    where?: InventoryAuditItemWhereInput
+    orderBy?: InventoryAuditItemOrderByWithRelationInput | InventoryAuditItemOrderByWithRelationInput[]
+    cursor?: InventoryAuditItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InventoryAuditItemScalarFieldEnum | InventoryAuditItemScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryAudit without action
+   */
+  export type InventoryAuditDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model InventoryAuditItem
+   */
+
+  export type AggregateInventoryAuditItem = {
+    _count: InventoryAuditItemCountAggregateOutputType | null
+    _avg: InventoryAuditItemAvgAggregateOutputType | null
+    _sum: InventoryAuditItemSumAggregateOutputType | null
+    _min: InventoryAuditItemMinAggregateOutputType | null
+    _max: InventoryAuditItemMaxAggregateOutputType | null
+  }
+
+  export type InventoryAuditItemAvgAggregateOutputType = {
+    expectedQty: Decimal | null
+    countedQty: Decimal | null
+    variance: Decimal | null
+  }
+
+  export type InventoryAuditItemSumAggregateOutputType = {
+    expectedQty: Decimal | null
+    countedQty: Decimal | null
+    variance: Decimal | null
+  }
+
+  export type InventoryAuditItemMinAggregateOutputType = {
+    id: string | null
+    auditId: string | null
+    productId: string | null
+    batchId: string | null
+    expectedQty: Decimal | null
+    countedQty: Decimal | null
+    variance: Decimal | null
+  }
+
+  export type InventoryAuditItemMaxAggregateOutputType = {
+    id: string | null
+    auditId: string | null
+    productId: string | null
+    batchId: string | null
+    expectedQty: Decimal | null
+    countedQty: Decimal | null
+    variance: Decimal | null
+  }
+
+  export type InventoryAuditItemCountAggregateOutputType = {
+    id: number
+    auditId: number
+    productId: number
+    batchId: number
+    expectedQty: number
+    countedQty: number
+    variance: number
+    _all: number
+  }
+
+
+  export type InventoryAuditItemAvgAggregateInputType = {
+    expectedQty?: true
+    countedQty?: true
+    variance?: true
+  }
+
+  export type InventoryAuditItemSumAggregateInputType = {
+    expectedQty?: true
+    countedQty?: true
+    variance?: true
+  }
+
+  export type InventoryAuditItemMinAggregateInputType = {
+    id?: true
+    auditId?: true
+    productId?: true
+    batchId?: true
+    expectedQty?: true
+    countedQty?: true
+    variance?: true
+  }
+
+  export type InventoryAuditItemMaxAggregateInputType = {
+    id?: true
+    auditId?: true
+    productId?: true
+    batchId?: true
+    expectedQty?: true
+    countedQty?: true
+    variance?: true
+  }
+
+  export type InventoryAuditItemCountAggregateInputType = {
+    id?: true
+    auditId?: true
+    productId?: true
+    batchId?: true
+    expectedQty?: true
+    countedQty?: true
+    variance?: true
+    _all?: true
+  }
+
+  export type InventoryAuditItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InventoryAuditItem to aggregate.
+     */
+    where?: InventoryAuditItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryAuditItems to fetch.
+     */
+    orderBy?: InventoryAuditItemOrderByWithRelationInput | InventoryAuditItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InventoryAuditItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryAuditItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryAuditItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned InventoryAuditItems
+    **/
+    _count?: true | InventoryAuditItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: InventoryAuditItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InventoryAuditItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InventoryAuditItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InventoryAuditItemMaxAggregateInputType
+  }
+
+  export type GetInventoryAuditItemAggregateType<T extends InventoryAuditItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateInventoryAuditItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInventoryAuditItem[P]>
+      : GetScalarType<T[P], AggregateInventoryAuditItem[P]>
+  }
+
+
+
+
+  export type InventoryAuditItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryAuditItemWhereInput
+    orderBy?: InventoryAuditItemOrderByWithAggregationInput | InventoryAuditItemOrderByWithAggregationInput[]
+    by: InventoryAuditItemScalarFieldEnum[] | InventoryAuditItemScalarFieldEnum
+    having?: InventoryAuditItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InventoryAuditItemCountAggregateInputType | true
+    _avg?: InventoryAuditItemAvgAggregateInputType
+    _sum?: InventoryAuditItemSumAggregateInputType
+    _min?: InventoryAuditItemMinAggregateInputType
+    _max?: InventoryAuditItemMaxAggregateInputType
+  }
+
+  export type InventoryAuditItemGroupByOutputType = {
+    id: string
+    auditId: string
+    productId: string
+    batchId: string
+    expectedQty: Decimal
+    countedQty: Decimal | null
+    variance: Decimal | null
+    _count: InventoryAuditItemCountAggregateOutputType | null
+    _avg: InventoryAuditItemAvgAggregateOutputType | null
+    _sum: InventoryAuditItemSumAggregateOutputType | null
+    _min: InventoryAuditItemMinAggregateOutputType | null
+    _max: InventoryAuditItemMaxAggregateOutputType | null
+  }
+
+  type GetInventoryAuditItemGroupByPayload<T extends InventoryAuditItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InventoryAuditItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InventoryAuditItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InventoryAuditItemGroupByOutputType[P]>
+            : GetScalarType<T[P], InventoryAuditItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InventoryAuditItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    auditId?: boolean
+    productId?: boolean
+    batchId?: boolean
+    expectedQty?: boolean
+    countedQty?: boolean
+    variance?: boolean
+    audit?: boolean | InventoryAuditDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    batch?: boolean | ProductBatchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inventoryAuditItem"]>
+
+  export type InventoryAuditItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    auditId?: boolean
+    productId?: boolean
+    batchId?: boolean
+    expectedQty?: boolean
+    countedQty?: boolean
+    variance?: boolean
+    audit?: boolean | InventoryAuditDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    batch?: boolean | ProductBatchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inventoryAuditItem"]>
+
+  export type InventoryAuditItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    auditId?: boolean
+    productId?: boolean
+    batchId?: boolean
+    expectedQty?: boolean
+    countedQty?: boolean
+    variance?: boolean
+    audit?: boolean | InventoryAuditDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    batch?: boolean | ProductBatchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inventoryAuditItem"]>
+
+  export type InventoryAuditItemSelectScalar = {
+    id?: boolean
+    auditId?: boolean
+    productId?: boolean
+    batchId?: boolean
+    expectedQty?: boolean
+    countedQty?: boolean
+    variance?: boolean
+  }
+
+  export type InventoryAuditItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "auditId" | "productId" | "batchId" | "expectedQty" | "countedQty" | "variance", ExtArgs["result"]["inventoryAuditItem"]>
+  export type InventoryAuditItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    audit?: boolean | InventoryAuditDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    batch?: boolean | ProductBatchDefaultArgs<ExtArgs>
+  }
+  export type InventoryAuditItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    audit?: boolean | InventoryAuditDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    batch?: boolean | ProductBatchDefaultArgs<ExtArgs>
+  }
+  export type InventoryAuditItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    audit?: boolean | InventoryAuditDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+    batch?: boolean | ProductBatchDefaultArgs<ExtArgs>
+  }
+
+  export type $InventoryAuditItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "InventoryAuditItem"
+    objects: {
+      audit: Prisma.$InventoryAuditPayload<ExtArgs>
+      product: Prisma.$ProductPayload<ExtArgs>
+      batch: Prisma.$ProductBatchPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      auditId: string
+      productId: string
+      batchId: string
+      expectedQty: Prisma.Decimal
+      countedQty: Prisma.Decimal | null
+      variance: Prisma.Decimal | null
+    }, ExtArgs["result"]["inventoryAuditItem"]>
+    composites: {}
+  }
+
+  type InventoryAuditItemGetPayload<S extends boolean | null | undefined | InventoryAuditItemDefaultArgs> = $Result.GetResult<Prisma.$InventoryAuditItemPayload, S>
+
+  type InventoryAuditItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InventoryAuditItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InventoryAuditItemCountAggregateInputType | true
+    }
+
+  export interface InventoryAuditItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['InventoryAuditItem'], meta: { name: 'InventoryAuditItem' } }
+    /**
+     * Find zero or one InventoryAuditItem that matches the filter.
+     * @param {InventoryAuditItemFindUniqueArgs} args - Arguments to find a InventoryAuditItem
+     * @example
+     * // Get one InventoryAuditItem
+     * const inventoryAuditItem = await prisma.inventoryAuditItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InventoryAuditItemFindUniqueArgs>(args: SelectSubset<T, InventoryAuditItemFindUniqueArgs<ExtArgs>>): Prisma__InventoryAuditItemClient<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one InventoryAuditItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InventoryAuditItemFindUniqueOrThrowArgs} args - Arguments to find a InventoryAuditItem
+     * @example
+     * // Get one InventoryAuditItem
+     * const inventoryAuditItem = await prisma.inventoryAuditItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InventoryAuditItemFindUniqueOrThrowArgs>(args: SelectSubset<T, InventoryAuditItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InventoryAuditItemClient<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InventoryAuditItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditItemFindFirstArgs} args - Arguments to find a InventoryAuditItem
+     * @example
+     * // Get one InventoryAuditItem
+     * const inventoryAuditItem = await prisma.inventoryAuditItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InventoryAuditItemFindFirstArgs>(args?: SelectSubset<T, InventoryAuditItemFindFirstArgs<ExtArgs>>): Prisma__InventoryAuditItemClient<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InventoryAuditItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditItemFindFirstOrThrowArgs} args - Arguments to find a InventoryAuditItem
+     * @example
+     * // Get one InventoryAuditItem
+     * const inventoryAuditItem = await prisma.inventoryAuditItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InventoryAuditItemFindFirstOrThrowArgs>(args?: SelectSubset<T, InventoryAuditItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__InventoryAuditItemClient<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more InventoryAuditItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all InventoryAuditItems
+     * const inventoryAuditItems = await prisma.inventoryAuditItem.findMany()
+     * 
+     * // Get first 10 InventoryAuditItems
+     * const inventoryAuditItems = await prisma.inventoryAuditItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const inventoryAuditItemWithIdOnly = await prisma.inventoryAuditItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InventoryAuditItemFindManyArgs>(args?: SelectSubset<T, InventoryAuditItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a InventoryAuditItem.
+     * @param {InventoryAuditItemCreateArgs} args - Arguments to create a InventoryAuditItem.
+     * @example
+     * // Create one InventoryAuditItem
+     * const InventoryAuditItem = await prisma.inventoryAuditItem.create({
+     *   data: {
+     *     // ... data to create a InventoryAuditItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends InventoryAuditItemCreateArgs>(args: SelectSubset<T, InventoryAuditItemCreateArgs<ExtArgs>>): Prisma__InventoryAuditItemClient<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many InventoryAuditItems.
+     * @param {InventoryAuditItemCreateManyArgs} args - Arguments to create many InventoryAuditItems.
+     * @example
+     * // Create many InventoryAuditItems
+     * const inventoryAuditItem = await prisma.inventoryAuditItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InventoryAuditItemCreateManyArgs>(args?: SelectSubset<T, InventoryAuditItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many InventoryAuditItems and returns the data saved in the database.
+     * @param {InventoryAuditItemCreateManyAndReturnArgs} args - Arguments to create many InventoryAuditItems.
+     * @example
+     * // Create many InventoryAuditItems
+     * const inventoryAuditItem = await prisma.inventoryAuditItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many InventoryAuditItems and only return the `id`
+     * const inventoryAuditItemWithIdOnly = await prisma.inventoryAuditItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InventoryAuditItemCreateManyAndReturnArgs>(args?: SelectSubset<T, InventoryAuditItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a InventoryAuditItem.
+     * @param {InventoryAuditItemDeleteArgs} args - Arguments to delete one InventoryAuditItem.
+     * @example
+     * // Delete one InventoryAuditItem
+     * const InventoryAuditItem = await prisma.inventoryAuditItem.delete({
+     *   where: {
+     *     // ... filter to delete one InventoryAuditItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InventoryAuditItemDeleteArgs>(args: SelectSubset<T, InventoryAuditItemDeleteArgs<ExtArgs>>): Prisma__InventoryAuditItemClient<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one InventoryAuditItem.
+     * @param {InventoryAuditItemUpdateArgs} args - Arguments to update one InventoryAuditItem.
+     * @example
+     * // Update one InventoryAuditItem
+     * const inventoryAuditItem = await prisma.inventoryAuditItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InventoryAuditItemUpdateArgs>(args: SelectSubset<T, InventoryAuditItemUpdateArgs<ExtArgs>>): Prisma__InventoryAuditItemClient<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more InventoryAuditItems.
+     * @param {InventoryAuditItemDeleteManyArgs} args - Arguments to filter InventoryAuditItems to delete.
+     * @example
+     * // Delete a few InventoryAuditItems
+     * const { count } = await prisma.inventoryAuditItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InventoryAuditItemDeleteManyArgs>(args?: SelectSubset<T, InventoryAuditItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InventoryAuditItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many InventoryAuditItems
+     * const inventoryAuditItem = await prisma.inventoryAuditItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InventoryAuditItemUpdateManyArgs>(args: SelectSubset<T, InventoryAuditItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InventoryAuditItems and returns the data updated in the database.
+     * @param {InventoryAuditItemUpdateManyAndReturnArgs} args - Arguments to update many InventoryAuditItems.
+     * @example
+     * // Update many InventoryAuditItems
+     * const inventoryAuditItem = await prisma.inventoryAuditItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more InventoryAuditItems and only return the `id`
+     * const inventoryAuditItemWithIdOnly = await prisma.inventoryAuditItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InventoryAuditItemUpdateManyAndReturnArgs>(args: SelectSubset<T, InventoryAuditItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one InventoryAuditItem.
+     * @param {InventoryAuditItemUpsertArgs} args - Arguments to update or create a InventoryAuditItem.
+     * @example
+     * // Update or create a InventoryAuditItem
+     * const inventoryAuditItem = await prisma.inventoryAuditItem.upsert({
+     *   create: {
+     *     // ... data to create a InventoryAuditItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the InventoryAuditItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InventoryAuditItemUpsertArgs>(args: SelectSubset<T, InventoryAuditItemUpsertArgs<ExtArgs>>): Prisma__InventoryAuditItemClient<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of InventoryAuditItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditItemCountArgs} args - Arguments to filter InventoryAuditItems to count.
+     * @example
+     * // Count the number of InventoryAuditItems
+     * const count = await prisma.inventoryAuditItem.count({
+     *   where: {
+     *     // ... the filter for the InventoryAuditItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends InventoryAuditItemCountArgs>(
+      args?: Subset<T, InventoryAuditItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InventoryAuditItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a InventoryAuditItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InventoryAuditItemAggregateArgs>(args: Subset<T, InventoryAuditItemAggregateArgs>): Prisma.PrismaPromise<GetInventoryAuditItemAggregateType<T>>
+
+    /**
+     * Group by InventoryAuditItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryAuditItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InventoryAuditItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InventoryAuditItemGroupByArgs['orderBy'] }
+        : { orderBy?: InventoryAuditItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InventoryAuditItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInventoryAuditItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the InventoryAuditItem model
+   */
+  readonly fields: InventoryAuditItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for InventoryAuditItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InventoryAuditItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    audit<T extends InventoryAuditDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InventoryAuditDefaultArgs<ExtArgs>>): Prisma__InventoryAuditClient<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    batch<T extends ProductBatchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductBatchDefaultArgs<ExtArgs>>): Prisma__ProductBatchClient<$Result.GetResult<Prisma.$ProductBatchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the InventoryAuditItem model
+   */
+  interface InventoryAuditItemFieldRefs {
+    readonly id: FieldRef<"InventoryAuditItem", 'String'>
+    readonly auditId: FieldRef<"InventoryAuditItem", 'String'>
+    readonly productId: FieldRef<"InventoryAuditItem", 'String'>
+    readonly batchId: FieldRef<"InventoryAuditItem", 'String'>
+    readonly expectedQty: FieldRef<"InventoryAuditItem", 'Decimal'>
+    readonly countedQty: FieldRef<"InventoryAuditItem", 'Decimal'>
+    readonly variance: FieldRef<"InventoryAuditItem", 'Decimal'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * InventoryAuditItem findUnique
+   */
+  export type InventoryAuditItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryAuditItem to fetch.
+     */
+    where: InventoryAuditItemWhereUniqueInput
+  }
+
+  /**
+   * InventoryAuditItem findUniqueOrThrow
+   */
+  export type InventoryAuditItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryAuditItem to fetch.
+     */
+    where: InventoryAuditItemWhereUniqueInput
+  }
+
+  /**
+   * InventoryAuditItem findFirst
+   */
+  export type InventoryAuditItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryAuditItem to fetch.
+     */
+    where?: InventoryAuditItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryAuditItems to fetch.
+     */
+    orderBy?: InventoryAuditItemOrderByWithRelationInput | InventoryAuditItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InventoryAuditItems.
+     */
+    cursor?: InventoryAuditItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryAuditItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryAuditItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InventoryAuditItems.
+     */
+    distinct?: InventoryAuditItemScalarFieldEnum | InventoryAuditItemScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryAuditItem findFirstOrThrow
+   */
+  export type InventoryAuditItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryAuditItem to fetch.
+     */
+    where?: InventoryAuditItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryAuditItems to fetch.
+     */
+    orderBy?: InventoryAuditItemOrderByWithRelationInput | InventoryAuditItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InventoryAuditItems.
+     */
+    cursor?: InventoryAuditItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryAuditItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryAuditItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InventoryAuditItems.
+     */
+    distinct?: InventoryAuditItemScalarFieldEnum | InventoryAuditItemScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryAuditItem findMany
+   */
+  export type InventoryAuditItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryAuditItems to fetch.
+     */
+    where?: InventoryAuditItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryAuditItems to fetch.
+     */
+    orderBy?: InventoryAuditItemOrderByWithRelationInput | InventoryAuditItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing InventoryAuditItems.
+     */
+    cursor?: InventoryAuditItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryAuditItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryAuditItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InventoryAuditItems.
+     */
+    distinct?: InventoryAuditItemScalarFieldEnum | InventoryAuditItemScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryAuditItem create
+   */
+  export type InventoryAuditItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a InventoryAuditItem.
+     */
+    data: XOR<InventoryAuditItemCreateInput, InventoryAuditItemUncheckedCreateInput>
+  }
+
+  /**
+   * InventoryAuditItem createMany
+   */
+  export type InventoryAuditItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many InventoryAuditItems.
+     */
+    data: InventoryAuditItemCreateManyInput | InventoryAuditItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * InventoryAuditItem createManyAndReturn
+   */
+  export type InventoryAuditItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many InventoryAuditItems.
+     */
+    data: InventoryAuditItemCreateManyInput | InventoryAuditItemCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * InventoryAuditItem update
+   */
+  export type InventoryAuditItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a InventoryAuditItem.
+     */
+    data: XOR<InventoryAuditItemUpdateInput, InventoryAuditItemUncheckedUpdateInput>
+    /**
+     * Choose, which InventoryAuditItem to update.
+     */
+    where: InventoryAuditItemWhereUniqueInput
+  }
+
+  /**
+   * InventoryAuditItem updateMany
+   */
+  export type InventoryAuditItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update InventoryAuditItems.
+     */
+    data: XOR<InventoryAuditItemUpdateManyMutationInput, InventoryAuditItemUncheckedUpdateManyInput>
+    /**
+     * Filter which InventoryAuditItems to update
+     */
+    where?: InventoryAuditItemWhereInput
+    /**
+     * Limit how many InventoryAuditItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * InventoryAuditItem updateManyAndReturn
+   */
+  export type InventoryAuditItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * The data used to update InventoryAuditItems.
+     */
+    data: XOR<InventoryAuditItemUpdateManyMutationInput, InventoryAuditItemUncheckedUpdateManyInput>
+    /**
+     * Filter which InventoryAuditItems to update
+     */
+    where?: InventoryAuditItemWhereInput
+    /**
+     * Limit how many InventoryAuditItems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * InventoryAuditItem upsert
+   */
+  export type InventoryAuditItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the InventoryAuditItem to update in case it exists.
+     */
+    where: InventoryAuditItemWhereUniqueInput
+    /**
+     * In case the InventoryAuditItem found by the `where` argument doesn't exist, create a new InventoryAuditItem with this data.
+     */
+    create: XOR<InventoryAuditItemCreateInput, InventoryAuditItemUncheckedCreateInput>
+    /**
+     * In case the InventoryAuditItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InventoryAuditItemUpdateInput, InventoryAuditItemUncheckedUpdateInput>
+  }
+
+  /**
+   * InventoryAuditItem delete
+   */
+  export type InventoryAuditItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+    /**
+     * Filter which InventoryAuditItem to delete.
+     */
+    where: InventoryAuditItemWhereUniqueInput
+  }
+
+  /**
+   * InventoryAuditItem deleteMany
+   */
+  export type InventoryAuditItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InventoryAuditItems to delete
+     */
+    where?: InventoryAuditItemWhereInput
+    /**
+     * Limit how many InventoryAuditItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * InventoryAuditItem without action
+   */
+  export type InventoryAuditItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Notification
    */
 
@@ -17305,6 +21071,8 @@ export namespace Prisma {
     stocks?: boolean | Store$stocksArgs<ExtArgs>
     suppliers?: boolean | Store$suppliersArgs<ExtArgs>
     users?: boolean | Store$usersArgs<ExtArgs>
+    ledgerShares?: boolean | Store$ledgerSharesArgs<ExtArgs>
+    inventoryAudits?: boolean | Store$inventoryAuditsArgs<ExtArgs>
     _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["store"]>
 
@@ -17373,6 +21141,8 @@ export namespace Prisma {
     stocks?: boolean | Store$stocksArgs<ExtArgs>
     suppliers?: boolean | Store$suppliersArgs<ExtArgs>
     users?: boolean | Store$usersArgs<ExtArgs>
+    ledgerShares?: boolean | Store$ledgerSharesArgs<ExtArgs>
+    inventoryAudits?: boolean | Store$inventoryAuditsArgs<ExtArgs>
     _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StoreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -17396,6 +21166,8 @@ export namespace Prisma {
       stocks: Prisma.$StockPayload<ExtArgs>[]
       suppliers: Prisma.$SupplierPayload<ExtArgs>[]
       users: Prisma.$UserPayload<ExtArgs>[]
+      ledgerShares: Prisma.$CustomerLedgerSharePayload<ExtArgs>[]
+      inventoryAudits: Prisma.$InventoryAuditPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -17820,6 +21592,8 @@ export namespace Prisma {
     stocks<T extends Store$stocksArgs<ExtArgs> = {}>(args?: Subset<T, Store$stocksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     suppliers<T extends Store$suppliersArgs<ExtArgs> = {}>(args?: Subset<T, Store$suppliersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     users<T extends Store$usersArgs<ExtArgs> = {}>(args?: Subset<T, Store$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ledgerShares<T extends Store$ledgerSharesArgs<ExtArgs> = {}>(args?: Subset<T, Store$ledgerSharesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    inventoryAudits<T extends Store$inventoryAuditsArgs<ExtArgs> = {}>(args?: Subset<T, Store$inventoryAuditsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18612,6 +22386,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * Store.ledgerShares
+   */
+  export type Store$ledgerSharesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerLedgerShare
+     */
+    select?: CustomerLedgerShareSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerLedgerShare
+     */
+    omit?: CustomerLedgerShareOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerLedgerShareInclude<ExtArgs> | null
+    where?: CustomerLedgerShareWhereInput
+    orderBy?: CustomerLedgerShareOrderByWithRelationInput | CustomerLedgerShareOrderByWithRelationInput[]
+    cursor?: CustomerLedgerShareWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerLedgerShareScalarFieldEnum | CustomerLedgerShareScalarFieldEnum[]
+  }
+
+  /**
+   * Store.inventoryAudits
+   */
+  export type Store$inventoryAuditsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAudit
+     */
+    select?: InventoryAuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAudit
+     */
+    omit?: InventoryAuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditInclude<ExtArgs> | null
+    where?: InventoryAuditWhereInput
+    orderBy?: InventoryAuditOrderByWithRelationInput | InventoryAuditOrderByWithRelationInput[]
+    cursor?: InventoryAuditWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InventoryAuditScalarFieldEnum | InventoryAuditScalarFieldEnum[]
   }
 
   /**
@@ -21390,6 +25212,7 @@ export namespace Prisma {
     saleItems?: boolean | Product$saleItemsArgs<ExtArgs>
     salesReturnItems?: boolean | Product$salesReturnItemsArgs<ExtArgs>
     stocks?: boolean | Product$stocksArgs<ExtArgs>
+    auditItems?: boolean | Product$auditItemsArgs<ExtArgs>
     salts?: boolean | Product$saltsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
@@ -21501,6 +25324,7 @@ export namespace Prisma {
     saleItems?: boolean | Product$saleItemsArgs<ExtArgs>
     salesReturnItems?: boolean | Product$salesReturnItemsArgs<ExtArgs>
     stocks?: boolean | Product$stocksArgs<ExtArgs>
+    auditItems?: boolean | Product$auditItemsArgs<ExtArgs>
     salts?: boolean | Product$saltsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -21536,6 +25360,7 @@ export namespace Prisma {
       saleItems: Prisma.$SaleItemPayload<ExtArgs>[]
       salesReturnItems: Prisma.$SalesReturnItemPayload<ExtArgs>[]
       stocks: Prisma.$StockPayload<ExtArgs>[]
+      auditItems: Prisma.$InventoryAuditItemPayload<ExtArgs>[]
       salts: Prisma.$ProductSaltPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -21977,6 +25802,7 @@ export namespace Prisma {
     saleItems<T extends Product$saleItemsArgs<ExtArgs> = {}>(args?: Subset<T, Product$saleItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salesReturnItems<T extends Product$salesReturnItemsArgs<ExtArgs> = {}>(args?: Subset<T, Product$salesReturnItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalesReturnItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     stocks<T extends Product$stocksArgs<ExtArgs> = {}>(args?: Subset<T, Product$stocksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    auditItems<T extends Product$auditItemsArgs<ExtArgs> = {}>(args?: Subset<T, Product$auditItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salts<T extends Product$saltsArgs<ExtArgs> = {}>(args?: Subset<T, Product$saltsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductSaltPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -22702,6 +26528,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
+  }
+
+  /**
+   * Product.auditItems
+   */
+  export type Product$auditItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+    where?: InventoryAuditItemWhereInput
+    orderBy?: InventoryAuditItemOrderByWithRelationInput | InventoryAuditItemOrderByWithRelationInput[]
+    cursor?: InventoryAuditItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InventoryAuditItemScalarFieldEnum | InventoryAuditItemScalarFieldEnum[]
   }
 
   /**
@@ -26506,6 +30356,7 @@ export namespace Prisma {
     saleItems?: boolean | ProductBatch$saleItemsArgs<ExtArgs>
     salesReturnItems?: boolean | ProductBatch$salesReturnItemsArgs<ExtArgs>
     stocks?: boolean | ProductBatch$stocksArgs<ExtArgs>
+    auditItems?: boolean | ProductBatch$auditItemsArgs<ExtArgs>
     _count?: boolean | ProductBatchCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productBatch"]>
 
@@ -26571,6 +30422,7 @@ export namespace Prisma {
     saleItems?: boolean | ProductBatch$saleItemsArgs<ExtArgs>
     salesReturnItems?: boolean | ProductBatch$salesReturnItemsArgs<ExtArgs>
     stocks?: boolean | ProductBatch$stocksArgs<ExtArgs>
+    auditItems?: boolean | ProductBatch$auditItemsArgs<ExtArgs>
     _count?: boolean | ProductBatchCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProductBatchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -26593,6 +30445,7 @@ export namespace Prisma {
       saleItems: Prisma.$SaleItemPayload<ExtArgs>[]
       salesReturnItems: Prisma.$SalesReturnItemPayload<ExtArgs>[]
       stocks: Prisma.$StockPayload<ExtArgs>[]
+      auditItems: Prisma.$InventoryAuditItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -27019,6 +30872,7 @@ export namespace Prisma {
     saleItems<T extends ProductBatch$saleItemsArgs<ExtArgs> = {}>(args?: Subset<T, ProductBatch$saleItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salesReturnItems<T extends ProductBatch$salesReturnItemsArgs<ExtArgs> = {}>(args?: Subset<T, ProductBatch$salesReturnItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalesReturnItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     stocks<T extends ProductBatch$stocksArgs<ExtArgs> = {}>(args?: Subset<T, ProductBatch$stocksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    auditItems<T extends ProductBatch$auditItemsArgs<ExtArgs> = {}>(args?: Subset<T, ProductBatch$auditItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryAuditItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -27603,6 +31457,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: StockScalarFieldEnum | StockScalarFieldEnum[]
+  }
+
+  /**
+   * ProductBatch.auditItems
+   */
+  export type ProductBatch$auditItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryAuditItem
+     */
+    select?: InventoryAuditItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryAuditItem
+     */
+    omit?: InventoryAuditItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryAuditItemInclude<ExtArgs> | null
+    where?: InventoryAuditItemWhereInput
+    orderBy?: InventoryAuditItemOrderByWithRelationInput | InventoryAuditItemOrderByWithRelationInput[]
+    cursor?: InventoryAuditItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InventoryAuditItemScalarFieldEnum | InventoryAuditItemScalarFieldEnum[]
   }
 
   /**
@@ -45846,6 +49724,19 @@ export namespace Prisma {
   export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
 
 
+  export const CustomerLedgerShareScalarFieldEnum: {
+    id: 'id',
+    token: 'token',
+    customerId: 'customerId',
+    storeId: 'storeId',
+    createdAt: 'createdAt',
+    expiresAt: 'expiresAt',
+    revokedAt: 'revokedAt'
+  };
+
+  export type CustomerLedgerShareScalarFieldEnum = (typeof CustomerLedgerShareScalarFieldEnum)[keyof typeof CustomerLedgerShareScalarFieldEnum]
+
+
   export const StockScalarFieldEnum: {
     id: 'id',
     storeId: 'storeId',
@@ -45880,6 +49771,33 @@ export namespace Prisma {
   };
 
   export type StockMovementScalarFieldEnum = (typeof StockMovementScalarFieldEnum)[keyof typeof StockMovementScalarFieldEnum]
+
+
+  export const InventoryAuditScalarFieldEnum: {
+    id: 'id',
+    storeId: 'storeId',
+    auditDate: 'auditDate',
+    condition: 'condition',
+    status: 'status',
+    createdById: 'createdById',
+    completedAt: 'completedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type InventoryAuditScalarFieldEnum = (typeof InventoryAuditScalarFieldEnum)[keyof typeof InventoryAuditScalarFieldEnum]
+
+
+  export const InventoryAuditItemScalarFieldEnum: {
+    id: 'id',
+    auditId: 'auditId',
+    productId: 'productId',
+    batchId: 'batchId',
+    expectedQty: 'expectedQty',
+    countedQty: 'countedQty',
+    variance: 'variance'
+  };
+
+  export type InventoryAuditItemScalarFieldEnum = (typeof InventoryAuditItemScalarFieldEnum)[keyof typeof InventoryAuditItemScalarFieldEnum]
 
 
   export const NotificationScalarFieldEnum: {
@@ -46556,6 +50474,20 @@ export namespace Prisma {
    * Reference to a field of type 'StockReferenceType[]'
    */
   export type ListEnumStockReferenceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StockReferenceType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'InventoryAuditStatus'
+   */
+  export type EnumInventoryAuditStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryAuditStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'InventoryAuditStatus[]'
+   */
+  export type ListEnumInventoryAuditStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryAuditStatus[]'>
     
 
 
@@ -47251,6 +51183,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionListRelationFilter
     sales?: SaleListRelationFilter
     salesReturns?: SalesReturnListRelationFilter
+    ledgerShares?: CustomerLedgerShareListRelationFilter
   }
 
   export type CustomerOrderByWithRelationInput = {
@@ -47277,6 +51210,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionOrderByRelationAggregateInput
     sales?: SaleOrderByRelationAggregateInput
     salesReturns?: SalesReturnOrderByRelationAggregateInput
+    ledgerShares?: CustomerLedgerShareOrderByRelationAggregateInput
   }
 
   export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -47306,6 +51240,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionListRelationFilter
     sales?: SaleListRelationFilter
     salesReturns?: SalesReturnListRelationFilter
+    ledgerShares?: CustomerLedgerShareListRelationFilter
   }, "id">
 
   export type CustomerOrderByWithAggregationInput = {
@@ -47354,6 +51289,74 @@ export namespace Prisma {
     status?: EnumCustomerStatusWithAggregatesFilter<"Customer"> | $Enums.CustomerStatus
     createdAt?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
+  }
+
+  export type CustomerLedgerShareWhereInput = {
+    AND?: CustomerLedgerShareWhereInput | CustomerLedgerShareWhereInput[]
+    OR?: CustomerLedgerShareWhereInput[]
+    NOT?: CustomerLedgerShareWhereInput | CustomerLedgerShareWhereInput[]
+    id?: StringFilter<"CustomerLedgerShare"> | string
+    token?: StringFilter<"CustomerLedgerShare"> | string
+    customerId?: StringFilter<"CustomerLedgerShare"> | string
+    storeId?: StringFilter<"CustomerLedgerShare"> | string
+    createdAt?: DateTimeFilter<"CustomerLedgerShare"> | Date | string
+    expiresAt?: DateTimeNullableFilter<"CustomerLedgerShare"> | Date | string | null
+    revokedAt?: DateTimeNullableFilter<"CustomerLedgerShare"> | Date | string | null
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+  }
+
+  export type CustomerLedgerShareOrderByWithRelationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    customerId?: SortOrder
+    storeId?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    revokedAt?: SortOrderInput | SortOrder
+    customer?: CustomerOrderByWithRelationInput
+    store?: StoreOrderByWithRelationInput
+  }
+
+  export type CustomerLedgerShareWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    token?: string
+    AND?: CustomerLedgerShareWhereInput | CustomerLedgerShareWhereInput[]
+    OR?: CustomerLedgerShareWhereInput[]
+    NOT?: CustomerLedgerShareWhereInput | CustomerLedgerShareWhereInput[]
+    customerId?: StringFilter<"CustomerLedgerShare"> | string
+    storeId?: StringFilter<"CustomerLedgerShare"> | string
+    createdAt?: DateTimeFilter<"CustomerLedgerShare"> | Date | string
+    expiresAt?: DateTimeNullableFilter<"CustomerLedgerShare"> | Date | string | null
+    revokedAt?: DateTimeNullableFilter<"CustomerLedgerShare"> | Date | string | null
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+  }, "id" | "token">
+
+  export type CustomerLedgerShareOrderByWithAggregationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    customerId?: SortOrder
+    storeId?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    revokedAt?: SortOrderInput | SortOrder
+    _count?: CustomerLedgerShareCountOrderByAggregateInput
+    _max?: CustomerLedgerShareMaxOrderByAggregateInput
+    _min?: CustomerLedgerShareMinOrderByAggregateInput
+  }
+
+  export type CustomerLedgerShareScalarWhereWithAggregatesInput = {
+    AND?: CustomerLedgerShareScalarWhereWithAggregatesInput | CustomerLedgerShareScalarWhereWithAggregatesInput[]
+    OR?: CustomerLedgerShareScalarWhereWithAggregatesInput[]
+    NOT?: CustomerLedgerShareScalarWhereWithAggregatesInput | CustomerLedgerShareScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CustomerLedgerShare"> | string
+    token?: StringWithAggregatesFilter<"CustomerLedgerShare"> | string
+    customerId?: StringWithAggregatesFilter<"CustomerLedgerShare"> | string
+    storeId?: StringWithAggregatesFilter<"CustomerLedgerShare"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"CustomerLedgerShare"> | Date | string
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"CustomerLedgerShare"> | Date | string | null
+    revokedAt?: DateTimeNullableWithAggregatesFilter<"CustomerLedgerShare"> | Date | string | null
   }
 
   export type StockWhereInput = {
@@ -47550,6 +51553,153 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"StockMovement"> | Date | string
   }
 
+  export type InventoryAuditWhereInput = {
+    AND?: InventoryAuditWhereInput | InventoryAuditWhereInput[]
+    OR?: InventoryAuditWhereInput[]
+    NOT?: InventoryAuditWhereInput | InventoryAuditWhereInput[]
+    id?: StringFilter<"InventoryAudit"> | string
+    storeId?: StringFilter<"InventoryAudit"> | string
+    auditDate?: DateTimeFilter<"InventoryAudit"> | Date | string
+    condition?: StringFilter<"InventoryAudit"> | string
+    status?: EnumInventoryAuditStatusFilter<"InventoryAudit"> | $Enums.InventoryAuditStatus
+    createdById?: StringNullableFilter<"InventoryAudit"> | string | null
+    completedAt?: DateTimeNullableFilter<"InventoryAudit"> | Date | string | null
+    createdAt?: DateTimeFilter<"InventoryAudit"> | Date | string
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+    items?: InventoryAuditItemListRelationFilter
+  }
+
+  export type InventoryAuditOrderByWithRelationInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    auditDate?: SortOrder
+    condition?: SortOrder
+    status?: SortOrder
+    createdById?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    store?: StoreOrderByWithRelationInput
+    items?: InventoryAuditItemOrderByRelationAggregateInput
+  }
+
+  export type InventoryAuditWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: InventoryAuditWhereInput | InventoryAuditWhereInput[]
+    OR?: InventoryAuditWhereInput[]
+    NOT?: InventoryAuditWhereInput | InventoryAuditWhereInput[]
+    storeId?: StringFilter<"InventoryAudit"> | string
+    auditDate?: DateTimeFilter<"InventoryAudit"> | Date | string
+    condition?: StringFilter<"InventoryAudit"> | string
+    status?: EnumInventoryAuditStatusFilter<"InventoryAudit"> | $Enums.InventoryAuditStatus
+    createdById?: StringNullableFilter<"InventoryAudit"> | string | null
+    completedAt?: DateTimeNullableFilter<"InventoryAudit"> | Date | string | null
+    createdAt?: DateTimeFilter<"InventoryAudit"> | Date | string
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+    items?: InventoryAuditItemListRelationFilter
+  }, "id">
+
+  export type InventoryAuditOrderByWithAggregationInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    auditDate?: SortOrder
+    condition?: SortOrder
+    status?: SortOrder
+    createdById?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: InventoryAuditCountOrderByAggregateInput
+    _max?: InventoryAuditMaxOrderByAggregateInput
+    _min?: InventoryAuditMinOrderByAggregateInput
+  }
+
+  export type InventoryAuditScalarWhereWithAggregatesInput = {
+    AND?: InventoryAuditScalarWhereWithAggregatesInput | InventoryAuditScalarWhereWithAggregatesInput[]
+    OR?: InventoryAuditScalarWhereWithAggregatesInput[]
+    NOT?: InventoryAuditScalarWhereWithAggregatesInput | InventoryAuditScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"InventoryAudit"> | string
+    storeId?: StringWithAggregatesFilter<"InventoryAudit"> | string
+    auditDate?: DateTimeWithAggregatesFilter<"InventoryAudit"> | Date | string
+    condition?: StringWithAggregatesFilter<"InventoryAudit"> | string
+    status?: EnumInventoryAuditStatusWithAggregatesFilter<"InventoryAudit"> | $Enums.InventoryAuditStatus
+    createdById?: StringNullableWithAggregatesFilter<"InventoryAudit"> | string | null
+    completedAt?: DateTimeNullableWithAggregatesFilter<"InventoryAudit"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"InventoryAudit"> | Date | string
+  }
+
+  export type InventoryAuditItemWhereInput = {
+    AND?: InventoryAuditItemWhereInput | InventoryAuditItemWhereInput[]
+    OR?: InventoryAuditItemWhereInput[]
+    NOT?: InventoryAuditItemWhereInput | InventoryAuditItemWhereInput[]
+    id?: StringFilter<"InventoryAuditItem"> | string
+    auditId?: StringFilter<"InventoryAuditItem"> | string
+    productId?: StringFilter<"InventoryAuditItem"> | string
+    batchId?: StringFilter<"InventoryAuditItem"> | string
+    expectedQty?: DecimalFilter<"InventoryAuditItem"> | Decimal | DecimalJsLike | number | string
+    countedQty?: DecimalNullableFilter<"InventoryAuditItem"> | Decimal | DecimalJsLike | number | string | null
+    variance?: DecimalNullableFilter<"InventoryAuditItem"> | Decimal | DecimalJsLike | number | string | null
+    audit?: XOR<InventoryAuditScalarRelationFilter, InventoryAuditWhereInput>
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    batch?: XOR<ProductBatchScalarRelationFilter, ProductBatchWhereInput>
+  }
+
+  export type InventoryAuditItemOrderByWithRelationInput = {
+    id?: SortOrder
+    auditId?: SortOrder
+    productId?: SortOrder
+    batchId?: SortOrder
+    expectedQty?: SortOrder
+    countedQty?: SortOrderInput | SortOrder
+    variance?: SortOrderInput | SortOrder
+    audit?: InventoryAuditOrderByWithRelationInput
+    product?: ProductOrderByWithRelationInput
+    batch?: ProductBatchOrderByWithRelationInput
+  }
+
+  export type InventoryAuditItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    auditId_batchId?: InventoryAuditItemAuditIdBatchIdCompoundUniqueInput
+    AND?: InventoryAuditItemWhereInput | InventoryAuditItemWhereInput[]
+    OR?: InventoryAuditItemWhereInput[]
+    NOT?: InventoryAuditItemWhereInput | InventoryAuditItemWhereInput[]
+    auditId?: StringFilter<"InventoryAuditItem"> | string
+    productId?: StringFilter<"InventoryAuditItem"> | string
+    batchId?: StringFilter<"InventoryAuditItem"> | string
+    expectedQty?: DecimalFilter<"InventoryAuditItem"> | Decimal | DecimalJsLike | number | string
+    countedQty?: DecimalNullableFilter<"InventoryAuditItem"> | Decimal | DecimalJsLike | number | string | null
+    variance?: DecimalNullableFilter<"InventoryAuditItem"> | Decimal | DecimalJsLike | number | string | null
+    audit?: XOR<InventoryAuditScalarRelationFilter, InventoryAuditWhereInput>
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+    batch?: XOR<ProductBatchScalarRelationFilter, ProductBatchWhereInput>
+  }, "id" | "auditId_batchId">
+
+  export type InventoryAuditItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    auditId?: SortOrder
+    productId?: SortOrder
+    batchId?: SortOrder
+    expectedQty?: SortOrder
+    countedQty?: SortOrderInput | SortOrder
+    variance?: SortOrderInput | SortOrder
+    _count?: InventoryAuditItemCountOrderByAggregateInput
+    _avg?: InventoryAuditItemAvgOrderByAggregateInput
+    _max?: InventoryAuditItemMaxOrderByAggregateInput
+    _min?: InventoryAuditItemMinOrderByAggregateInput
+    _sum?: InventoryAuditItemSumOrderByAggregateInput
+  }
+
+  export type InventoryAuditItemScalarWhereWithAggregatesInput = {
+    AND?: InventoryAuditItemScalarWhereWithAggregatesInput | InventoryAuditItemScalarWhereWithAggregatesInput[]
+    OR?: InventoryAuditItemScalarWhereWithAggregatesInput[]
+    NOT?: InventoryAuditItemScalarWhereWithAggregatesInput | InventoryAuditItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"InventoryAuditItem"> | string
+    auditId?: StringWithAggregatesFilter<"InventoryAuditItem"> | string
+    productId?: StringWithAggregatesFilter<"InventoryAuditItem"> | string
+    batchId?: StringWithAggregatesFilter<"InventoryAuditItem"> | string
+    expectedQty?: DecimalWithAggregatesFilter<"InventoryAuditItem"> | Decimal | DecimalJsLike | number | string
+    countedQty?: DecimalNullableWithAggregatesFilter<"InventoryAuditItem"> | Decimal | DecimalJsLike | number | string | null
+    variance?: DecimalNullableWithAggregatesFilter<"InventoryAuditItem"> | Decimal | DecimalJsLike | number | string | null
+  }
+
   export type NotificationWhereInput = {
     AND?: NotificationWhereInput | NotificationWhereInput[]
     OR?: NotificationWhereInput[]
@@ -47665,6 +51815,8 @@ export namespace Prisma {
     stocks?: StockListRelationFilter
     suppliers?: SupplierListRelationFilter
     users?: UserListRelationFilter
+    ledgerShares?: CustomerLedgerShareListRelationFilter
+    inventoryAudits?: InventoryAuditListRelationFilter
   }
 
   export type StoreOrderByWithRelationInput = {
@@ -47696,6 +51848,8 @@ export namespace Prisma {
     stocks?: StockOrderByRelationAggregateInput
     suppliers?: SupplierOrderByRelationAggregateInput
     users?: UserOrderByRelationAggregateInput
+    ledgerShares?: CustomerLedgerShareOrderByRelationAggregateInput
+    inventoryAudits?: InventoryAuditOrderByRelationAggregateInput
   }
 
   export type StoreWhereUniqueInput = Prisma.AtLeast<{
@@ -47730,6 +51884,8 @@ export namespace Prisma {
     stocks?: StockListRelationFilter
     suppliers?: SupplierListRelationFilter
     users?: UserListRelationFilter
+    ledgerShares?: CustomerLedgerShareListRelationFilter
+    inventoryAudits?: InventoryAuditListRelationFilter
   }, "id" | "code">
 
   export type StoreOrderByWithAggregationInput = {
@@ -47994,6 +52150,7 @@ export namespace Prisma {
     saleItems?: SaleItemListRelationFilter
     salesReturnItems?: SalesReturnItemListRelationFilter
     stocks?: StockListRelationFilter
+    auditItems?: InventoryAuditItemListRelationFilter
     salts?: ProductSaltListRelationFilter
   }
 
@@ -48036,6 +52193,7 @@ export namespace Prisma {
     saleItems?: SaleItemOrderByRelationAggregateInput
     salesReturnItems?: SalesReturnItemOrderByRelationAggregateInput
     stocks?: StockOrderByRelationAggregateInput
+    auditItems?: InventoryAuditItemOrderByRelationAggregateInput
     salts?: ProductSaltOrderByRelationAggregateInput
   }
 
@@ -48082,6 +52240,7 @@ export namespace Prisma {
     saleItems?: SaleItemListRelationFilter
     salesReturnItems?: SalesReturnItemListRelationFilter
     stocks?: StockListRelationFilter
+    auditItems?: InventoryAuditItemListRelationFilter
     salts?: ProductSaltListRelationFilter
   }, "id" | "storeId_sku">
 
@@ -48384,6 +52543,7 @@ export namespace Prisma {
     saleItems?: SaleItemListRelationFilter
     salesReturnItems?: SalesReturnItemListRelationFilter
     stocks?: StockListRelationFilter
+    auditItems?: InventoryAuditItemListRelationFilter
   }
 
   export type ProductBatchOrderByWithRelationInput = {
@@ -48408,6 +52568,7 @@ export namespace Prisma {
     saleItems?: SaleItemOrderByRelationAggregateInput
     salesReturnItems?: SalesReturnItemOrderByRelationAggregateInput
     stocks?: StockOrderByRelationAggregateInput
+    auditItems?: InventoryAuditItemOrderByRelationAggregateInput
   }
 
   export type ProductBatchWhereUniqueInput = Prisma.AtLeast<{
@@ -48436,6 +52597,7 @@ export namespace Prisma {
     saleItems?: SaleItemListRelationFilter
     salesReturnItems?: SalesReturnItemListRelationFilter
     stocks?: StockListRelationFilter
+    auditItems?: InventoryAuditItemListRelationFilter
   }, "id" | "storeId_productId_batchNumber">
 
   export type ProductBatchOrderByWithAggregationInput = {
@@ -50597,6 +54759,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionCreateNestedManyWithoutCustomerInput
     sales?: SaleCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateInput = {
@@ -50622,6 +54785,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutCustomerInput
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUpdateInput = {
@@ -50647,6 +54811,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUpdateManyWithoutCustomerNestedInput
     sales?: SaleUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateInput = {
@@ -50672,6 +54837,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutCustomerNestedInput
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateManyInput = {
@@ -50731,6 +54897,74 @@ export namespace Prisma {
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerLedgerShareCreateInput = {
+    id?: string
+    token: string
+    createdAt?: Date | string
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+    customer: CustomerCreateNestedOneWithoutLedgerSharesInput
+    store: StoreCreateNestedOneWithoutLedgerSharesInput
+  }
+
+  export type CustomerLedgerShareUncheckedCreateInput = {
+    id?: string
+    token: string
+    customerId: string
+    storeId: string
+    createdAt?: Date | string
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+  }
+
+  export type CustomerLedgerShareUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    customer?: CustomerUpdateOneRequiredWithoutLedgerSharesNestedInput
+    store?: StoreUpdateOneRequiredWithoutLedgerSharesNestedInput
+  }
+
+  export type CustomerLedgerShareUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CustomerLedgerShareCreateManyInput = {
+    id?: string
+    token: string
+    customerId: string
+    storeId: string
+    createdAt?: Date | string
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+  }
+
+  export type CustomerLedgerShareUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CustomerLedgerShareUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StockCreateInput = {
@@ -50943,6 +55177,153 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type InventoryAuditCreateInput = {
+    id?: string
+    auditDate: Date | string
+    condition?: string
+    status?: $Enums.InventoryAuditStatus
+    createdById?: string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    store: StoreCreateNestedOneWithoutInventoryAuditsInput
+    items?: InventoryAuditItemCreateNestedManyWithoutAuditInput
+  }
+
+  export type InventoryAuditUncheckedCreateInput = {
+    id?: string
+    storeId: string
+    auditDate: Date | string
+    condition?: string
+    status?: $Enums.InventoryAuditStatus
+    createdById?: string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    items?: InventoryAuditItemUncheckedCreateNestedManyWithoutAuditInput
+  }
+
+  export type InventoryAuditUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    condition?: StringFieldUpdateOperationsInput | string
+    status?: EnumInventoryAuditStatusFieldUpdateOperationsInput | $Enums.InventoryAuditStatus
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store?: StoreUpdateOneRequiredWithoutInventoryAuditsNestedInput
+    items?: InventoryAuditItemUpdateManyWithoutAuditNestedInput
+  }
+
+  export type InventoryAuditUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    auditDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    condition?: StringFieldUpdateOperationsInput | string
+    status?: EnumInventoryAuditStatusFieldUpdateOperationsInput | $Enums.InventoryAuditStatus
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: InventoryAuditItemUncheckedUpdateManyWithoutAuditNestedInput
+  }
+
+  export type InventoryAuditCreateManyInput = {
+    id?: string
+    storeId: string
+    auditDate: Date | string
+    condition?: string
+    status?: $Enums.InventoryAuditStatus
+    createdById?: string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type InventoryAuditUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    condition?: StringFieldUpdateOperationsInput | string
+    status?: EnumInventoryAuditStatusFieldUpdateOperationsInput | $Enums.InventoryAuditStatus
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryAuditUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    auditDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    condition?: StringFieldUpdateOperationsInput | string
+    status?: EnumInventoryAuditStatusFieldUpdateOperationsInput | $Enums.InventoryAuditStatus
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryAuditItemCreateInput = {
+    id?: string
+    expectedQty: Decimal | DecimalJsLike | number | string
+    countedQty?: Decimal | DecimalJsLike | number | string | null
+    variance?: Decimal | DecimalJsLike | number | string | null
+    audit: InventoryAuditCreateNestedOneWithoutItemsInput
+    product: ProductCreateNestedOneWithoutAuditItemsInput
+    batch: ProductBatchCreateNestedOneWithoutAuditItemsInput
+  }
+
+  export type InventoryAuditItemUncheckedCreateInput = {
+    id?: string
+    auditId: string
+    productId: string
+    batchId: string
+    expectedQty: Decimal | DecimalJsLike | number | string
+    countedQty?: Decimal | DecimalJsLike | number | string | null
+    variance?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InventoryAuditItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    audit?: InventoryAuditUpdateOneRequiredWithoutItemsNestedInput
+    product?: ProductUpdateOneRequiredWithoutAuditItemsNestedInput
+    batch?: ProductBatchUpdateOneRequiredWithoutAuditItemsNestedInput
+  }
+
+  export type InventoryAuditItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    batchId?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InventoryAuditItemCreateManyInput = {
+    id?: string
+    auditId: string
+    productId: string
+    batchId: string
+    expectedQty: Decimal | DecimalJsLike | number | string
+    countedQty?: Decimal | DecimalJsLike | number | string | null
+    variance?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InventoryAuditItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InventoryAuditItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    batchId?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
   export type NotificationCreateInput = {
     id?: string
     type: $Enums.NotificationType
@@ -51061,6 +55442,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateInput = {
@@ -51092,6 +55475,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUpdateInput = {
@@ -51123,6 +55508,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateInput = {
@@ -51154,6 +55541,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreCreateManyInput = {
@@ -51434,6 +55823,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -51471,6 +55861,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -51508,6 +55899,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -51545,6 +55937,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -51863,6 +56256,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutBatchInput
     stocks?: StockCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchUncheckedCreateInput = {
@@ -51885,6 +56279,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutBatchInput
     stocks?: StockUncheckedCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchUpdateInput = {
@@ -51907,6 +56302,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutBatchNestedInput
     stocks?: StockUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductBatchUncheckedUpdateInput = {
@@ -51929,6 +56325,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutBatchNestedInput
     stocks?: StockUncheckedUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductBatchCreateManyInput = {
@@ -54307,6 +58704,12 @@ export namespace Prisma {
     none?: SalesReturnWhereInput
   }
 
+  export type CustomerLedgerShareListRelationFilter = {
+    every?: CustomerLedgerShareWhereInput
+    some?: CustomerLedgerShareWhereInput
+    none?: CustomerLedgerShareWhereInput
+  }
+
   export type LedgerEntryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -54324,6 +58727,10 @@ export namespace Prisma {
   }
 
   export type SalesReturnOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CustomerLedgerShareOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -54423,6 +58830,66 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumCustomerStatusFilter<$PrismaModel>
     _max?: NestedEnumCustomerStatusFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type CustomerScalarRelationFilter = {
+    is?: CustomerWhereInput
+    isNot?: CustomerWhereInput
+  }
+
+  export type CustomerLedgerShareCountOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    customerId?: SortOrder
+    storeId?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrder
+  }
+
+  export type CustomerLedgerShareMaxOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    customerId?: SortOrder
+    storeId?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrder
+  }
+
+  export type CustomerLedgerShareMinOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    customerId?: SortOrder
+    storeId?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type ProductBatchScalarRelationFilter = {
@@ -54631,22 +59098,123 @@ export namespace Prisma {
     _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
+  export type EnumInventoryAuditStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.InventoryAuditStatus | EnumInventoryAuditStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InventoryAuditStatus[] | ListEnumInventoryAuditStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InventoryAuditStatus[] | ListEnumInventoryAuditStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInventoryAuditStatusFilter<$PrismaModel> | $Enums.InventoryAuditStatus
+  }
+
+  export type InventoryAuditItemListRelationFilter = {
+    every?: InventoryAuditItemWhereInput
+    some?: InventoryAuditItemWhereInput
+    none?: InventoryAuditItemWhereInput
+  }
+
+  export type InventoryAuditItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InventoryAuditCountOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    auditDate?: SortOrder
+    condition?: SortOrder
+    status?: SortOrder
+    createdById?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type InventoryAuditMaxOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    auditDate?: SortOrder
+    condition?: SortOrder
+    status?: SortOrder
+    createdById?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type InventoryAuditMinOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    auditDate?: SortOrder
+    condition?: SortOrder
+    status?: SortOrder
+    createdById?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumInventoryAuditStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.InventoryAuditStatus | EnumInventoryAuditStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InventoryAuditStatus[] | ListEnumInventoryAuditStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InventoryAuditStatus[] | ListEnumInventoryAuditStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInventoryAuditStatusWithAggregatesFilter<$PrismaModel> | $Enums.InventoryAuditStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumInventoryAuditStatusFilter<$PrismaModel>
+    _max?: NestedEnumInventoryAuditStatusFilter<$PrismaModel>
+  }
+
+  export type InventoryAuditScalarRelationFilter = {
+    is?: InventoryAuditWhereInput
+    isNot?: InventoryAuditWhereInput
+  }
+
+  export type InventoryAuditItemAuditIdBatchIdCompoundUniqueInput = {
+    auditId: string
+    batchId: string
+  }
+
+  export type InventoryAuditItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    auditId?: SortOrder
+    productId?: SortOrder
+    batchId?: SortOrder
+    expectedQty?: SortOrder
+    countedQty?: SortOrder
+    variance?: SortOrder
+  }
+
+  export type InventoryAuditItemAvgOrderByAggregateInput = {
+    expectedQty?: SortOrder
+    countedQty?: SortOrder
+    variance?: SortOrder
+  }
+
+  export type InventoryAuditItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    auditId?: SortOrder
+    productId?: SortOrder
+    batchId?: SortOrder
+    expectedQty?: SortOrder
+    countedQty?: SortOrder
+    variance?: SortOrder
+  }
+
+  export type InventoryAuditItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    auditId?: SortOrder
+    productId?: SortOrder
+    batchId?: SortOrder
+    expectedQty?: SortOrder
+    countedQty?: SortOrder
+    variance?: SortOrder
+  }
+
+  export type InventoryAuditItemSumOrderByAggregateInput = {
+    expectedQty?: SortOrder
+    countedQty?: SortOrder
+    variance?: SortOrder
+  }
+
   export type EnumNotificationTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
     in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumNotificationTypeFilter<$PrismaModel> | $Enums.NotificationType
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NotificationCountOrderByAggregateInput = {
@@ -54696,20 +59264,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumNotificationTypeFilter<$PrismaModel>
     _max?: NestedEnumNotificationTypeFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type AuditLogListRelationFilter = {
@@ -54766,6 +59320,12 @@ export namespace Prisma {
     none?: UserWhereInput
   }
 
+  export type InventoryAuditListRelationFilter = {
+    every?: InventoryAuditWhereInput
+    some?: InventoryAuditWhereInput
+    none?: InventoryAuditWhereInput
+  }
+
   export type AuditLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -54799,6 +59359,10 @@ export namespace Prisma {
   }
 
   export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InventoryAuditOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -57009,6 +61573,13 @@ export namespace Prisma {
     connect?: SalesReturnWhereUniqueInput | SalesReturnWhereUniqueInput[]
   }
 
+  export type CustomerLedgerShareCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<CustomerLedgerShareCreateWithoutCustomerInput, CustomerLedgerShareUncheckedCreateWithoutCustomerInput> | CustomerLedgerShareCreateWithoutCustomerInput[] | CustomerLedgerShareUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerLedgerShareCreateOrConnectWithoutCustomerInput | CustomerLedgerShareCreateOrConnectWithoutCustomerInput[]
+    createMany?: CustomerLedgerShareCreateManyCustomerInputEnvelope
+    connect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+  }
+
   export type LedgerEntryUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<LedgerEntryCreateWithoutCustomerInput, LedgerEntryUncheckedCreateWithoutCustomerInput> | LedgerEntryCreateWithoutCustomerInput[] | LedgerEntryUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: LedgerEntryCreateOrConnectWithoutCustomerInput | LedgerEntryCreateOrConnectWithoutCustomerInput[]
@@ -57042,6 +61613,13 @@ export namespace Prisma {
     connectOrCreate?: SalesReturnCreateOrConnectWithoutCustomerInput | SalesReturnCreateOrConnectWithoutCustomerInput[]
     createMany?: SalesReturnCreateManyCustomerInputEnvelope
     connect?: SalesReturnWhereUniqueInput | SalesReturnWhereUniqueInput[]
+  }
+
+  export type CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<CustomerLedgerShareCreateWithoutCustomerInput, CustomerLedgerShareUncheckedCreateWithoutCustomerInput> | CustomerLedgerShareCreateWithoutCustomerInput[] | CustomerLedgerShareUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerLedgerShareCreateOrConnectWithoutCustomerInput | CustomerLedgerShareCreateOrConnectWithoutCustomerInput[]
+    createMany?: CustomerLedgerShareCreateManyCustomerInputEnvelope
+    connect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -57134,6 +61712,20 @@ export namespace Prisma {
     deleteMany?: SalesReturnScalarWhereInput | SalesReturnScalarWhereInput[]
   }
 
+  export type CustomerLedgerShareUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<CustomerLedgerShareCreateWithoutCustomerInput, CustomerLedgerShareUncheckedCreateWithoutCustomerInput> | CustomerLedgerShareCreateWithoutCustomerInput[] | CustomerLedgerShareUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerLedgerShareCreateOrConnectWithoutCustomerInput | CustomerLedgerShareCreateOrConnectWithoutCustomerInput[]
+    upsert?: CustomerLedgerShareUpsertWithWhereUniqueWithoutCustomerInput | CustomerLedgerShareUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: CustomerLedgerShareCreateManyCustomerInputEnvelope
+    set?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    disconnect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    delete?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    connect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    update?: CustomerLedgerShareUpdateWithWhereUniqueWithoutCustomerInput | CustomerLedgerShareUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: CustomerLedgerShareUpdateManyWithWhereWithoutCustomerInput | CustomerLedgerShareUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: CustomerLedgerShareScalarWhereInput | CustomerLedgerShareScalarWhereInput[]
+  }
+
   export type LedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput = {
     create?: XOR<LedgerEntryCreateWithoutCustomerInput, LedgerEntryUncheckedCreateWithoutCustomerInput> | LedgerEntryCreateWithoutCustomerInput[] | LedgerEntryUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: LedgerEntryCreateOrConnectWithoutCustomerInput | LedgerEntryCreateOrConnectWithoutCustomerInput[]
@@ -57202,6 +61794,52 @@ export namespace Prisma {
     update?: SalesReturnUpdateWithWhereUniqueWithoutCustomerInput | SalesReturnUpdateWithWhereUniqueWithoutCustomerInput[]
     updateMany?: SalesReturnUpdateManyWithWhereWithoutCustomerInput | SalesReturnUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: SalesReturnScalarWhereInput | SalesReturnScalarWhereInput[]
+  }
+
+  export type CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<CustomerLedgerShareCreateWithoutCustomerInput, CustomerLedgerShareUncheckedCreateWithoutCustomerInput> | CustomerLedgerShareCreateWithoutCustomerInput[] | CustomerLedgerShareUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerLedgerShareCreateOrConnectWithoutCustomerInput | CustomerLedgerShareCreateOrConnectWithoutCustomerInput[]
+    upsert?: CustomerLedgerShareUpsertWithWhereUniqueWithoutCustomerInput | CustomerLedgerShareUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: CustomerLedgerShareCreateManyCustomerInputEnvelope
+    set?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    disconnect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    delete?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    connect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    update?: CustomerLedgerShareUpdateWithWhereUniqueWithoutCustomerInput | CustomerLedgerShareUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: CustomerLedgerShareUpdateManyWithWhereWithoutCustomerInput | CustomerLedgerShareUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: CustomerLedgerShareScalarWhereInput | CustomerLedgerShareScalarWhereInput[]
+  }
+
+  export type CustomerCreateNestedOneWithoutLedgerSharesInput = {
+    create?: XOR<CustomerCreateWithoutLedgerSharesInput, CustomerUncheckedCreateWithoutLedgerSharesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutLedgerSharesInput
+    connect?: CustomerWhereUniqueInput
+  }
+
+  export type StoreCreateNestedOneWithoutLedgerSharesInput = {
+    create?: XOR<StoreCreateWithoutLedgerSharesInput, StoreUncheckedCreateWithoutLedgerSharesInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutLedgerSharesInput
+    connect?: StoreWhereUniqueInput
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type CustomerUpdateOneRequiredWithoutLedgerSharesNestedInput = {
+    create?: XOR<CustomerCreateWithoutLedgerSharesInput, CustomerUncheckedCreateWithoutLedgerSharesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutLedgerSharesInput
+    upsert?: CustomerUpsertWithoutLedgerSharesInput
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutLedgerSharesInput, CustomerUpdateWithoutLedgerSharesInput>, CustomerUncheckedUpdateWithoutLedgerSharesInput>
+  }
+
+  export type StoreUpdateOneRequiredWithoutLedgerSharesNestedInput = {
+    create?: XOR<StoreCreateWithoutLedgerSharesInput, StoreUncheckedCreateWithoutLedgerSharesInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutLedgerSharesInput
+    upsert?: StoreUpsertWithoutLedgerSharesInput
+    connect?: StoreWhereUniqueInput
+    update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutLedgerSharesInput, StoreUpdateWithoutLedgerSharesInput>, StoreUncheckedUpdateWithoutLedgerSharesInput>
   }
 
   export type ProductBatchCreateNestedOneWithoutStocksInput = {
@@ -57318,6 +61956,108 @@ export namespace Prisma {
     update?: XOR<XOR<StockUpdateToOneWithWhereWithoutMovementsInput, StockUpdateWithoutMovementsInput>, StockUncheckedUpdateWithoutMovementsInput>
   }
 
+  export type StoreCreateNestedOneWithoutInventoryAuditsInput = {
+    create?: XOR<StoreCreateWithoutInventoryAuditsInput, StoreUncheckedCreateWithoutInventoryAuditsInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutInventoryAuditsInput
+    connect?: StoreWhereUniqueInput
+  }
+
+  export type InventoryAuditItemCreateNestedManyWithoutAuditInput = {
+    create?: XOR<InventoryAuditItemCreateWithoutAuditInput, InventoryAuditItemUncheckedCreateWithoutAuditInput> | InventoryAuditItemCreateWithoutAuditInput[] | InventoryAuditItemUncheckedCreateWithoutAuditInput[]
+    connectOrCreate?: InventoryAuditItemCreateOrConnectWithoutAuditInput | InventoryAuditItemCreateOrConnectWithoutAuditInput[]
+    createMany?: InventoryAuditItemCreateManyAuditInputEnvelope
+    connect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+  }
+
+  export type InventoryAuditItemUncheckedCreateNestedManyWithoutAuditInput = {
+    create?: XOR<InventoryAuditItemCreateWithoutAuditInput, InventoryAuditItemUncheckedCreateWithoutAuditInput> | InventoryAuditItemCreateWithoutAuditInput[] | InventoryAuditItemUncheckedCreateWithoutAuditInput[]
+    connectOrCreate?: InventoryAuditItemCreateOrConnectWithoutAuditInput | InventoryAuditItemCreateOrConnectWithoutAuditInput[]
+    createMany?: InventoryAuditItemCreateManyAuditInputEnvelope
+    connect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+  }
+
+  export type EnumInventoryAuditStatusFieldUpdateOperationsInput = {
+    set?: $Enums.InventoryAuditStatus
+  }
+
+  export type StoreUpdateOneRequiredWithoutInventoryAuditsNestedInput = {
+    create?: XOR<StoreCreateWithoutInventoryAuditsInput, StoreUncheckedCreateWithoutInventoryAuditsInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutInventoryAuditsInput
+    upsert?: StoreUpsertWithoutInventoryAuditsInput
+    connect?: StoreWhereUniqueInput
+    update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutInventoryAuditsInput, StoreUpdateWithoutInventoryAuditsInput>, StoreUncheckedUpdateWithoutInventoryAuditsInput>
+  }
+
+  export type InventoryAuditItemUpdateManyWithoutAuditNestedInput = {
+    create?: XOR<InventoryAuditItemCreateWithoutAuditInput, InventoryAuditItemUncheckedCreateWithoutAuditInput> | InventoryAuditItemCreateWithoutAuditInput[] | InventoryAuditItemUncheckedCreateWithoutAuditInput[]
+    connectOrCreate?: InventoryAuditItemCreateOrConnectWithoutAuditInput | InventoryAuditItemCreateOrConnectWithoutAuditInput[]
+    upsert?: InventoryAuditItemUpsertWithWhereUniqueWithoutAuditInput | InventoryAuditItemUpsertWithWhereUniqueWithoutAuditInput[]
+    createMany?: InventoryAuditItemCreateManyAuditInputEnvelope
+    set?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    disconnect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    delete?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    connect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    update?: InventoryAuditItemUpdateWithWhereUniqueWithoutAuditInput | InventoryAuditItemUpdateWithWhereUniqueWithoutAuditInput[]
+    updateMany?: InventoryAuditItemUpdateManyWithWhereWithoutAuditInput | InventoryAuditItemUpdateManyWithWhereWithoutAuditInput[]
+    deleteMany?: InventoryAuditItemScalarWhereInput | InventoryAuditItemScalarWhereInput[]
+  }
+
+  export type InventoryAuditItemUncheckedUpdateManyWithoutAuditNestedInput = {
+    create?: XOR<InventoryAuditItemCreateWithoutAuditInput, InventoryAuditItemUncheckedCreateWithoutAuditInput> | InventoryAuditItemCreateWithoutAuditInput[] | InventoryAuditItemUncheckedCreateWithoutAuditInput[]
+    connectOrCreate?: InventoryAuditItemCreateOrConnectWithoutAuditInput | InventoryAuditItemCreateOrConnectWithoutAuditInput[]
+    upsert?: InventoryAuditItemUpsertWithWhereUniqueWithoutAuditInput | InventoryAuditItemUpsertWithWhereUniqueWithoutAuditInput[]
+    createMany?: InventoryAuditItemCreateManyAuditInputEnvelope
+    set?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    disconnect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    delete?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    connect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    update?: InventoryAuditItemUpdateWithWhereUniqueWithoutAuditInput | InventoryAuditItemUpdateWithWhereUniqueWithoutAuditInput[]
+    updateMany?: InventoryAuditItemUpdateManyWithWhereWithoutAuditInput | InventoryAuditItemUpdateManyWithWhereWithoutAuditInput[]
+    deleteMany?: InventoryAuditItemScalarWhereInput | InventoryAuditItemScalarWhereInput[]
+  }
+
+  export type InventoryAuditCreateNestedOneWithoutItemsInput = {
+    create?: XOR<InventoryAuditCreateWithoutItemsInput, InventoryAuditUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: InventoryAuditCreateOrConnectWithoutItemsInput
+    connect?: InventoryAuditWhereUniqueInput
+  }
+
+  export type ProductCreateNestedOneWithoutAuditItemsInput = {
+    create?: XOR<ProductCreateWithoutAuditItemsInput, ProductUncheckedCreateWithoutAuditItemsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutAuditItemsInput
+    connect?: ProductWhereUniqueInput
+  }
+
+  export type ProductBatchCreateNestedOneWithoutAuditItemsInput = {
+    create?: XOR<ProductBatchCreateWithoutAuditItemsInput, ProductBatchUncheckedCreateWithoutAuditItemsInput>
+    connectOrCreate?: ProductBatchCreateOrConnectWithoutAuditItemsInput
+    connect?: ProductBatchWhereUniqueInput
+  }
+
+  export type InventoryAuditUpdateOneRequiredWithoutItemsNestedInput = {
+    create?: XOR<InventoryAuditCreateWithoutItemsInput, InventoryAuditUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: InventoryAuditCreateOrConnectWithoutItemsInput
+    upsert?: InventoryAuditUpsertWithoutItemsInput
+    connect?: InventoryAuditWhereUniqueInput
+    update?: XOR<XOR<InventoryAuditUpdateToOneWithWhereWithoutItemsInput, InventoryAuditUpdateWithoutItemsInput>, InventoryAuditUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type ProductUpdateOneRequiredWithoutAuditItemsNestedInput = {
+    create?: XOR<ProductCreateWithoutAuditItemsInput, ProductUncheckedCreateWithoutAuditItemsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutAuditItemsInput
+    upsert?: ProductUpsertWithoutAuditItemsInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutAuditItemsInput, ProductUpdateWithoutAuditItemsInput>, ProductUncheckedUpdateWithoutAuditItemsInput>
+  }
+
+  export type ProductBatchUpdateOneRequiredWithoutAuditItemsNestedInput = {
+    create?: XOR<ProductBatchCreateWithoutAuditItemsInput, ProductBatchUncheckedCreateWithoutAuditItemsInput>
+    connectOrCreate?: ProductBatchCreateOrConnectWithoutAuditItemsInput
+    upsert?: ProductBatchUpsertWithoutAuditItemsInput
+    connect?: ProductBatchWhereUniqueInput
+    update?: XOR<XOR<ProductBatchUpdateToOneWithWhereWithoutAuditItemsInput, ProductBatchUpdateWithoutAuditItemsInput>, ProductBatchUncheckedUpdateWithoutAuditItemsInput>
+  }
+
   export type StoreCreateNestedOneWithoutNotificationsInput = {
     create?: XOR<StoreCreateWithoutNotificationsInput, StoreUncheckedCreateWithoutNotificationsInput>
     connectOrCreate?: StoreCreateOrConnectWithoutNotificationsInput
@@ -57332,10 +62072,6 @@ export namespace Prisma {
 
   export type EnumNotificationTypeFieldUpdateOperationsInput = {
     set?: $Enums.NotificationType
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type StoreUpdateOneRequiredWithoutNotificationsNestedInput = {
@@ -57461,6 +62197,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type CustomerLedgerShareCreateNestedManyWithoutStoreInput = {
+    create?: XOR<CustomerLedgerShareCreateWithoutStoreInput, CustomerLedgerShareUncheckedCreateWithoutStoreInput> | CustomerLedgerShareCreateWithoutStoreInput[] | CustomerLedgerShareUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: CustomerLedgerShareCreateOrConnectWithoutStoreInput | CustomerLedgerShareCreateOrConnectWithoutStoreInput[]
+    createMany?: CustomerLedgerShareCreateManyStoreInputEnvelope
+    connect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+  }
+
+  export type InventoryAuditCreateNestedManyWithoutStoreInput = {
+    create?: XOR<InventoryAuditCreateWithoutStoreInput, InventoryAuditUncheckedCreateWithoutStoreInput> | InventoryAuditCreateWithoutStoreInput[] | InventoryAuditUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: InventoryAuditCreateOrConnectWithoutStoreInput | InventoryAuditCreateOrConnectWithoutStoreInput[]
+    createMany?: InventoryAuditCreateManyStoreInputEnvelope
+    connect?: InventoryAuditWhereUniqueInput | InventoryAuditWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutStoreInput = {
     create?: XOR<AuditLogCreateWithoutStoreInput, AuditLogUncheckedCreateWithoutStoreInput> | AuditLogCreateWithoutStoreInput[] | AuditLogUncheckedCreateWithoutStoreInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutStoreInput | AuditLogCreateOrConnectWithoutStoreInput[]
@@ -57564,6 +62314,20 @@ export namespace Prisma {
     connectOrCreate?: UserCreateOrConnectWithoutStoreInput | UserCreateOrConnectWithoutStoreInput[]
     createMany?: UserCreateManyStoreInputEnvelope
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput = {
+    create?: XOR<CustomerLedgerShareCreateWithoutStoreInput, CustomerLedgerShareUncheckedCreateWithoutStoreInput> | CustomerLedgerShareCreateWithoutStoreInput[] | CustomerLedgerShareUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: CustomerLedgerShareCreateOrConnectWithoutStoreInput | CustomerLedgerShareCreateOrConnectWithoutStoreInput[]
+    createMany?: CustomerLedgerShareCreateManyStoreInputEnvelope
+    connect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+  }
+
+  export type InventoryAuditUncheckedCreateNestedManyWithoutStoreInput = {
+    create?: XOR<InventoryAuditCreateWithoutStoreInput, InventoryAuditUncheckedCreateWithoutStoreInput> | InventoryAuditCreateWithoutStoreInput[] | InventoryAuditUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: InventoryAuditCreateOrConnectWithoutStoreInput | InventoryAuditCreateOrConnectWithoutStoreInput[]
+    createMany?: InventoryAuditCreateManyStoreInputEnvelope
+    connect?: InventoryAuditWhereUniqueInput | InventoryAuditWhereUniqueInput[]
   }
 
   export type AuditLogUpdateManyWithoutStoreNestedInput = {
@@ -57776,6 +62540,34 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type CustomerLedgerShareUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<CustomerLedgerShareCreateWithoutStoreInput, CustomerLedgerShareUncheckedCreateWithoutStoreInput> | CustomerLedgerShareCreateWithoutStoreInput[] | CustomerLedgerShareUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: CustomerLedgerShareCreateOrConnectWithoutStoreInput | CustomerLedgerShareCreateOrConnectWithoutStoreInput[]
+    upsert?: CustomerLedgerShareUpsertWithWhereUniqueWithoutStoreInput | CustomerLedgerShareUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: CustomerLedgerShareCreateManyStoreInputEnvelope
+    set?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    disconnect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    delete?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    connect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    update?: CustomerLedgerShareUpdateWithWhereUniqueWithoutStoreInput | CustomerLedgerShareUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: CustomerLedgerShareUpdateManyWithWhereWithoutStoreInput | CustomerLedgerShareUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: CustomerLedgerShareScalarWhereInput | CustomerLedgerShareScalarWhereInput[]
+  }
+
+  export type InventoryAuditUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<InventoryAuditCreateWithoutStoreInput, InventoryAuditUncheckedCreateWithoutStoreInput> | InventoryAuditCreateWithoutStoreInput[] | InventoryAuditUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: InventoryAuditCreateOrConnectWithoutStoreInput | InventoryAuditCreateOrConnectWithoutStoreInput[]
+    upsert?: InventoryAuditUpsertWithWhereUniqueWithoutStoreInput | InventoryAuditUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: InventoryAuditCreateManyStoreInputEnvelope
+    set?: InventoryAuditWhereUniqueInput | InventoryAuditWhereUniqueInput[]
+    disconnect?: InventoryAuditWhereUniqueInput | InventoryAuditWhereUniqueInput[]
+    delete?: InventoryAuditWhereUniqueInput | InventoryAuditWhereUniqueInput[]
+    connect?: InventoryAuditWhereUniqueInput | InventoryAuditWhereUniqueInput[]
+    update?: InventoryAuditUpdateWithWhereUniqueWithoutStoreInput | InventoryAuditUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: InventoryAuditUpdateManyWithWhereWithoutStoreInput | InventoryAuditUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: InventoryAuditScalarWhereInput | InventoryAuditScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutStoreNestedInput = {
     create?: XOR<AuditLogCreateWithoutStoreInput, AuditLogUncheckedCreateWithoutStoreInput> | AuditLogCreateWithoutStoreInput[] | AuditLogUncheckedCreateWithoutStoreInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutStoreInput | AuditLogCreateOrConnectWithoutStoreInput[]
@@ -57986,6 +62778,34 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<CustomerLedgerShareCreateWithoutStoreInput, CustomerLedgerShareUncheckedCreateWithoutStoreInput> | CustomerLedgerShareCreateWithoutStoreInput[] | CustomerLedgerShareUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: CustomerLedgerShareCreateOrConnectWithoutStoreInput | CustomerLedgerShareCreateOrConnectWithoutStoreInput[]
+    upsert?: CustomerLedgerShareUpsertWithWhereUniqueWithoutStoreInput | CustomerLedgerShareUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: CustomerLedgerShareCreateManyStoreInputEnvelope
+    set?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    disconnect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    delete?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    connect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
+    update?: CustomerLedgerShareUpdateWithWhereUniqueWithoutStoreInput | CustomerLedgerShareUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: CustomerLedgerShareUpdateManyWithWhereWithoutStoreInput | CustomerLedgerShareUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: CustomerLedgerShareScalarWhereInput | CustomerLedgerShareScalarWhereInput[]
+  }
+
+  export type InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<InventoryAuditCreateWithoutStoreInput, InventoryAuditUncheckedCreateWithoutStoreInput> | InventoryAuditCreateWithoutStoreInput[] | InventoryAuditUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: InventoryAuditCreateOrConnectWithoutStoreInput | InventoryAuditCreateOrConnectWithoutStoreInput[]
+    upsert?: InventoryAuditUpsertWithWhereUniqueWithoutStoreInput | InventoryAuditUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: InventoryAuditCreateManyStoreInputEnvelope
+    set?: InventoryAuditWhereUniqueInput | InventoryAuditWhereUniqueInput[]
+    disconnect?: InventoryAuditWhereUniqueInput | InventoryAuditWhereUniqueInput[]
+    delete?: InventoryAuditWhereUniqueInput | InventoryAuditWhereUniqueInput[]
+    connect?: InventoryAuditWhereUniqueInput | InventoryAuditWhereUniqueInput[]
+    update?: InventoryAuditUpdateWithWhereUniqueWithoutStoreInput | InventoryAuditUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: InventoryAuditUpdateManyWithWhereWithoutStoreInput | InventoryAuditUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: InventoryAuditScalarWhereInput | InventoryAuditScalarWhereInput[]
+  }
+
   export type CustomerCreateNestedOneWithoutPrescriptionsInput = {
     create?: XOR<CustomerCreateWithoutPrescriptionsInput, CustomerUncheckedCreateWithoutPrescriptionsInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutPrescriptionsInput
@@ -58183,6 +63003,13 @@ export namespace Prisma {
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
   }
 
+  export type InventoryAuditItemCreateNestedManyWithoutProductInput = {
+    create?: XOR<InventoryAuditItemCreateWithoutProductInput, InventoryAuditItemUncheckedCreateWithoutProductInput> | InventoryAuditItemCreateWithoutProductInput[] | InventoryAuditItemUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: InventoryAuditItemCreateOrConnectWithoutProductInput | InventoryAuditItemCreateOrConnectWithoutProductInput[]
+    createMany?: InventoryAuditItemCreateManyProductInputEnvelope
+    connect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+  }
+
   export type ProductSaltCreateNestedManyWithoutProductInput = {
     create?: XOR<ProductSaltCreateWithoutProductInput, ProductSaltUncheckedCreateWithoutProductInput> | ProductSaltCreateWithoutProductInput[] | ProductSaltUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductSaltCreateOrConnectWithoutProductInput | ProductSaltCreateOrConnectWithoutProductInput[]
@@ -58251,6 +63078,13 @@ export namespace Prisma {
     connectOrCreate?: StockCreateOrConnectWithoutProductInput | StockCreateOrConnectWithoutProductInput[]
     createMany?: StockCreateManyProductInputEnvelope
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+  }
+
+  export type InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<InventoryAuditItemCreateWithoutProductInput, InventoryAuditItemUncheckedCreateWithoutProductInput> | InventoryAuditItemCreateWithoutProductInput[] | InventoryAuditItemUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: InventoryAuditItemCreateOrConnectWithoutProductInput | InventoryAuditItemCreateOrConnectWithoutProductInput[]
+    createMany?: InventoryAuditItemCreateManyProductInputEnvelope
+    connect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
   }
 
   export type ProductSaltUncheckedCreateNestedManyWithoutProductInput = {
@@ -58436,6 +63270,20 @@ export namespace Prisma {
     deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
   }
 
+  export type InventoryAuditItemUpdateManyWithoutProductNestedInput = {
+    create?: XOR<InventoryAuditItemCreateWithoutProductInput, InventoryAuditItemUncheckedCreateWithoutProductInput> | InventoryAuditItemCreateWithoutProductInput[] | InventoryAuditItemUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: InventoryAuditItemCreateOrConnectWithoutProductInput | InventoryAuditItemCreateOrConnectWithoutProductInput[]
+    upsert?: InventoryAuditItemUpsertWithWhereUniqueWithoutProductInput | InventoryAuditItemUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: InventoryAuditItemCreateManyProductInputEnvelope
+    set?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    disconnect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    delete?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    connect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    update?: InventoryAuditItemUpdateWithWhereUniqueWithoutProductInput | InventoryAuditItemUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: InventoryAuditItemUpdateManyWithWhereWithoutProductInput | InventoryAuditItemUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: InventoryAuditItemScalarWhereInput | InventoryAuditItemScalarWhereInput[]
+  }
+
   export type ProductSaltUpdateManyWithoutProductNestedInput = {
     create?: XOR<ProductSaltCreateWithoutProductInput, ProductSaltUncheckedCreateWithoutProductInput> | ProductSaltCreateWithoutProductInput[] | ProductSaltUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductSaltCreateOrConnectWithoutProductInput | ProductSaltCreateOrConnectWithoutProductInput[]
@@ -58574,6 +63422,20 @@ export namespace Prisma {
     update?: StockUpdateWithWhereUniqueWithoutProductInput | StockUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: StockUpdateManyWithWhereWithoutProductInput | StockUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
+  }
+
+  export type InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<InventoryAuditItemCreateWithoutProductInput, InventoryAuditItemUncheckedCreateWithoutProductInput> | InventoryAuditItemCreateWithoutProductInput[] | InventoryAuditItemUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: InventoryAuditItemCreateOrConnectWithoutProductInput | InventoryAuditItemCreateOrConnectWithoutProductInput[]
+    upsert?: InventoryAuditItemUpsertWithWhereUniqueWithoutProductInput | InventoryAuditItemUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: InventoryAuditItemCreateManyProductInputEnvelope
+    set?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    disconnect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    delete?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    connect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    update?: InventoryAuditItemUpdateWithWhereUniqueWithoutProductInput | InventoryAuditItemUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: InventoryAuditItemUpdateManyWithWhereWithoutProductInput | InventoryAuditItemUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: InventoryAuditItemScalarWhereInput | InventoryAuditItemScalarWhereInput[]
   }
 
   export type ProductSaltUncheckedUpdateManyWithoutProductNestedInput = {
@@ -58910,6 +63772,13 @@ export namespace Prisma {
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
   }
 
+  export type InventoryAuditItemCreateNestedManyWithoutBatchInput = {
+    create?: XOR<InventoryAuditItemCreateWithoutBatchInput, InventoryAuditItemUncheckedCreateWithoutBatchInput> | InventoryAuditItemCreateWithoutBatchInput[] | InventoryAuditItemUncheckedCreateWithoutBatchInput[]
+    connectOrCreate?: InventoryAuditItemCreateOrConnectWithoutBatchInput | InventoryAuditItemCreateOrConnectWithoutBatchInput[]
+    createMany?: InventoryAuditItemCreateManyBatchInputEnvelope
+    connect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+  }
+
   export type ProductSupplierUncheckedCreateNestedManyWithoutProductBatchInput = {
     create?: XOR<ProductSupplierCreateWithoutProductBatchInput, ProductSupplierUncheckedCreateWithoutProductBatchInput> | ProductSupplierCreateWithoutProductBatchInput[] | ProductSupplierUncheckedCreateWithoutProductBatchInput[]
     connectOrCreate?: ProductSupplierCreateOrConnectWithoutProductBatchInput | ProductSupplierCreateOrConnectWithoutProductBatchInput[]
@@ -58950,6 +63819,13 @@ export namespace Prisma {
     connectOrCreate?: StockCreateOrConnectWithoutBatchInput | StockCreateOrConnectWithoutBatchInput[]
     createMany?: StockCreateManyBatchInputEnvelope
     connect?: StockWhereUniqueInput | StockWhereUniqueInput[]
+  }
+
+  export type InventoryAuditItemUncheckedCreateNestedManyWithoutBatchInput = {
+    create?: XOR<InventoryAuditItemCreateWithoutBatchInput, InventoryAuditItemUncheckedCreateWithoutBatchInput> | InventoryAuditItemCreateWithoutBatchInput[] | InventoryAuditItemUncheckedCreateWithoutBatchInput[]
+    connectOrCreate?: InventoryAuditItemCreateOrConnectWithoutBatchInput | InventoryAuditItemCreateOrConnectWithoutBatchInput[]
+    createMany?: InventoryAuditItemCreateManyBatchInputEnvelope
+    connect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
   }
 
   export type EnumBatchStatusFieldUpdateOperationsInput = {
@@ -59056,6 +63932,20 @@ export namespace Prisma {
     deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
   }
 
+  export type InventoryAuditItemUpdateManyWithoutBatchNestedInput = {
+    create?: XOR<InventoryAuditItemCreateWithoutBatchInput, InventoryAuditItemUncheckedCreateWithoutBatchInput> | InventoryAuditItemCreateWithoutBatchInput[] | InventoryAuditItemUncheckedCreateWithoutBatchInput[]
+    connectOrCreate?: InventoryAuditItemCreateOrConnectWithoutBatchInput | InventoryAuditItemCreateOrConnectWithoutBatchInput[]
+    upsert?: InventoryAuditItemUpsertWithWhereUniqueWithoutBatchInput | InventoryAuditItemUpsertWithWhereUniqueWithoutBatchInput[]
+    createMany?: InventoryAuditItemCreateManyBatchInputEnvelope
+    set?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    disconnect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    delete?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    connect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    update?: InventoryAuditItemUpdateWithWhereUniqueWithoutBatchInput | InventoryAuditItemUpdateWithWhereUniqueWithoutBatchInput[]
+    updateMany?: InventoryAuditItemUpdateManyWithWhereWithoutBatchInput | InventoryAuditItemUpdateManyWithWhereWithoutBatchInput[]
+    deleteMany?: InventoryAuditItemScalarWhereInput | InventoryAuditItemScalarWhereInput[]
+  }
+
   export type ProductSupplierUncheckedUpdateManyWithoutProductBatchNestedInput = {
     create?: XOR<ProductSupplierCreateWithoutProductBatchInput, ProductSupplierUncheckedCreateWithoutProductBatchInput> | ProductSupplierCreateWithoutProductBatchInput[] | ProductSupplierUncheckedCreateWithoutProductBatchInput[]
     connectOrCreate?: ProductSupplierCreateOrConnectWithoutProductBatchInput | ProductSupplierCreateOrConnectWithoutProductBatchInput[]
@@ -59138,6 +64028,20 @@ export namespace Prisma {
     update?: StockUpdateWithWhereUniqueWithoutBatchInput | StockUpdateWithWhereUniqueWithoutBatchInput[]
     updateMany?: StockUpdateManyWithWhereWithoutBatchInput | StockUpdateManyWithWhereWithoutBatchInput[]
     deleteMany?: StockScalarWhereInput | StockScalarWhereInput[]
+  }
+
+  export type InventoryAuditItemUncheckedUpdateManyWithoutBatchNestedInput = {
+    create?: XOR<InventoryAuditItemCreateWithoutBatchInput, InventoryAuditItemUncheckedCreateWithoutBatchInput> | InventoryAuditItemCreateWithoutBatchInput[] | InventoryAuditItemUncheckedCreateWithoutBatchInput[]
+    connectOrCreate?: InventoryAuditItemCreateOrConnectWithoutBatchInput | InventoryAuditItemCreateOrConnectWithoutBatchInput[]
+    upsert?: InventoryAuditItemUpsertWithWhereUniqueWithoutBatchInput | InventoryAuditItemUpsertWithWhereUniqueWithoutBatchInput[]
+    createMany?: InventoryAuditItemCreateManyBatchInputEnvelope
+    set?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    disconnect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    delete?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    connect?: InventoryAuditItemWhereUniqueInput | InventoryAuditItemWhereUniqueInput[]
+    update?: InventoryAuditItemUpdateWithWhereUniqueWithoutBatchInput | InventoryAuditItemUpdateWithWhereUniqueWithoutBatchInput[]
+    updateMany?: InventoryAuditItemUpdateManyWithWhereWithoutBatchInput | InventoryAuditItemUpdateManyWithWhereWithoutBatchInput[]
+    deleteMany?: InventoryAuditItemScalarWhereInput | InventoryAuditItemScalarWhereInput[]
   }
 
   export type ProductBatchCreateNestedOneWithoutSuppliersInput = {
@@ -60703,6 +65607,31 @@ export namespace Prisma {
     _max?: NestedEnumCustomerStatusFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumStockMovementTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.StockMovementType | EnumStockMovementTypeFieldRefInput<$PrismaModel>
     in?: $Enums.StockMovementType[] | ListEnumStockMovementTypeFieldRefInput<$PrismaModel>
@@ -60764,22 +65693,28 @@ export namespace Prisma {
     _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumInventoryAuditStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.InventoryAuditStatus | EnumInventoryAuditStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InventoryAuditStatus[] | ListEnumInventoryAuditStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InventoryAuditStatus[] | ListEnumInventoryAuditStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInventoryAuditStatusFilter<$PrismaModel> | $Enums.InventoryAuditStatus
+  }
+
+  export type NestedEnumInventoryAuditStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.InventoryAuditStatus | EnumInventoryAuditStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.InventoryAuditStatus[] | ListEnumInventoryAuditStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.InventoryAuditStatus[] | ListEnumInventoryAuditStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumInventoryAuditStatusWithAggregatesFilter<$PrismaModel> | $Enums.InventoryAuditStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumInventoryAuditStatusFilter<$PrismaModel>
+    _max?: NestedEnumInventoryAuditStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumNotificationTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
     in?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.NotificationType[] | ListEnumNotificationTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumNotificationTypeFilter<$PrismaModel> | $Enums.NotificationType
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedEnumNotificationTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -60790,20 +65725,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumNotificationTypeFilter<$PrismaModel>
     _max?: NestedEnumNotificationTypeFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumPrescriptionStatusFilter<$PrismaModel = never> = {
@@ -61042,6 +65963,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionCreateNestedManyWithoutCustomerInput
     sales?: SaleCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutLedgerEntriesInput = {
@@ -61066,6 +65988,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutCustomerInput
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutLedgerEntriesInput = {
@@ -61101,6 +66024,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutLedgerEntriesInput = {
@@ -61131,6 +66056,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutLedgerEntriesInput = {
@@ -61228,6 +66155,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUpdateManyWithoutCustomerNestedInput
     sales?: SaleUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutLedgerEntriesInput = {
@@ -61252,6 +66180,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutCustomerNestedInput
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type StoreUpsertWithoutLedgerEntriesInput = {
@@ -61293,6 +66222,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutLedgerEntriesInput = {
@@ -61323,6 +66254,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SupplierUpsertWithoutLedgerEntriesInput = {
@@ -61410,6 +66343,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionCreateNestedManyWithoutCustomerInput
     sales?: SaleCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutPaymentsInput = {
@@ -61434,6 +66368,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutCustomerInput
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutPaymentsInput = {
@@ -61469,6 +66404,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutPaymentsInput = {
@@ -61499,6 +66436,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutPaymentsInput = {
@@ -61596,6 +66535,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUpdateManyWithoutCustomerNestedInput
     sales?: SaleUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutPaymentsInput = {
@@ -61620,6 +66560,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutCustomerNestedInput
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type StoreUpsertWithoutPaymentsInput = {
@@ -61661,6 +66602,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutPaymentsInput = {
@@ -61691,6 +66634,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SupplierUpsertWithoutPaymentsInput = {
@@ -61784,6 +66729,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutAuditLogsInput = {
@@ -61814,6 +66761,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutAuditLogsInput = {
@@ -61893,6 +66842,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutAuditLogsInput = {
@@ -61923,6 +66874,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type UserUpsertWithoutAuditLogsInput = {
@@ -61997,6 +66950,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -62033,6 +66987,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -62125,6 +67080,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -62161,6 +67117,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -62223,6 +67180,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -62259,6 +67217,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -62305,6 +67264,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -62341,6 +67301,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -62497,6 +67458,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutCustomersInput = {
@@ -62527,6 +67490,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutCustomersInput = {
@@ -62752,6 +67717,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CustomerLedgerShareCreateWithoutCustomerInput = {
+    id?: string
+    token: string
+    createdAt?: Date | string
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+    store: StoreCreateNestedOneWithoutLedgerSharesInput
+  }
+
+  export type CustomerLedgerShareUncheckedCreateWithoutCustomerInput = {
+    id?: string
+    token: string
+    storeId: string
+    createdAt?: Date | string
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+  }
+
+  export type CustomerLedgerShareCreateOrConnectWithoutCustomerInput = {
+    where: CustomerLedgerShareWhereUniqueInput
+    create: XOR<CustomerLedgerShareCreateWithoutCustomerInput, CustomerLedgerShareUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type CustomerLedgerShareCreateManyCustomerInputEnvelope = {
+    data: CustomerLedgerShareCreateManyCustomerInput | CustomerLedgerShareCreateManyCustomerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type StoreUpsertWithoutCustomersInput = {
     update: XOR<StoreUpdateWithoutCustomersInput, StoreUncheckedUpdateWithoutCustomersInput>
     create: XOR<StoreCreateWithoutCustomersInput, StoreUncheckedCreateWithoutCustomersInput>
@@ -62791,6 +67784,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutCustomersInput = {
@@ -62821,6 +67816,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type LedgerEntryUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -63002,6 +67999,295 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"SalesReturn"> | Date | string
   }
 
+  export type CustomerLedgerShareUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: CustomerLedgerShareWhereUniqueInput
+    update: XOR<CustomerLedgerShareUpdateWithoutCustomerInput, CustomerLedgerShareUncheckedUpdateWithoutCustomerInput>
+    create: XOR<CustomerLedgerShareCreateWithoutCustomerInput, CustomerLedgerShareUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type CustomerLedgerShareUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: CustomerLedgerShareWhereUniqueInput
+    data: XOR<CustomerLedgerShareUpdateWithoutCustomerInput, CustomerLedgerShareUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type CustomerLedgerShareUpdateManyWithWhereWithoutCustomerInput = {
+    where: CustomerLedgerShareScalarWhereInput
+    data: XOR<CustomerLedgerShareUpdateManyMutationInput, CustomerLedgerShareUncheckedUpdateManyWithoutCustomerInput>
+  }
+
+  export type CustomerLedgerShareScalarWhereInput = {
+    AND?: CustomerLedgerShareScalarWhereInput | CustomerLedgerShareScalarWhereInput[]
+    OR?: CustomerLedgerShareScalarWhereInput[]
+    NOT?: CustomerLedgerShareScalarWhereInput | CustomerLedgerShareScalarWhereInput[]
+    id?: StringFilter<"CustomerLedgerShare"> | string
+    token?: StringFilter<"CustomerLedgerShare"> | string
+    customerId?: StringFilter<"CustomerLedgerShare"> | string
+    storeId?: StringFilter<"CustomerLedgerShare"> | string
+    createdAt?: DateTimeFilter<"CustomerLedgerShare"> | Date | string
+    expiresAt?: DateTimeNullableFilter<"CustomerLedgerShare"> | Date | string | null
+    revokedAt?: DateTimeNullableFilter<"CustomerLedgerShare"> | Date | string | null
+  }
+
+  export type CustomerCreateWithoutLedgerSharesInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    alternatePhone?: string | null
+    email?: string | null
+    gstin?: string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string
+    creditDays?: number
+    openingBalance?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CustomerStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    store: StoreCreateNestedOneWithoutCustomersInput
+    ledgerEntries?: LedgerEntryCreateNestedManyWithoutCustomerInput
+    payments?: PaymentCreateNestedManyWithoutCustomerInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutCustomerInput
+    sales?: SaleCreateNestedManyWithoutCustomerInput
+    salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutLedgerSharesInput = {
+    id?: string
+    storeId: string
+    name: string
+    phone?: string | null
+    alternatePhone?: string | null
+    email?: string | null
+    gstin?: string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string
+    creditDays?: number
+    openingBalance?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CustomerStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutCustomerInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutCustomerInput
+    sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
+    salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutLedgerSharesInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutLedgerSharesInput, CustomerUncheckedCreateWithoutLedgerSharesInput>
+  }
+
+  export type StoreCreateWithoutLedgerSharesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
+    phone?: string | null
+    email?: string | null
+    gstin?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogCreateNestedManyWithoutStoreInput
+    customers?: CustomerCreateNestedManyWithoutStoreInput
+    ledgerEntries?: LedgerEntryCreateNestedManyWithoutStoreInput
+    notifications?: NotificationCreateNestedManyWithoutStoreInput
+    payments?: PaymentCreateNestedManyWithoutStoreInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutStoreInput
+    products?: ProductCreateNestedManyWithoutStoreInput
+    batches?: ProductBatchCreateNestedManyWithoutStoreInput
+    purchases?: PurchaseCreateNestedManyWithoutStoreInput
+    purchaseReturns?: PurchaseReturnCreateNestedManyWithoutStoreInput
+    sales?: SaleCreateNestedManyWithoutStoreInput
+    salesReturns?: SalesReturnCreateNestedManyWithoutStoreInput
+    stocks?: StockCreateNestedManyWithoutStoreInput
+    suppliers?: SupplierCreateNestedManyWithoutStoreInput
+    users?: UserCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreUncheckedCreateWithoutLedgerSharesInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
+    phone?: string | null
+    email?: string | null
+    gstin?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutStoreInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutStoreInput
+    ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutStoreInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutStoreInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutStoreInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutStoreInput
+    products?: ProductUncheckedCreateNestedManyWithoutStoreInput
+    batches?: ProductBatchUncheckedCreateNestedManyWithoutStoreInput
+    purchases?: PurchaseUncheckedCreateNestedManyWithoutStoreInput
+    purchaseReturns?: PurchaseReturnUncheckedCreateNestedManyWithoutStoreInput
+    sales?: SaleUncheckedCreateNestedManyWithoutStoreInput
+    salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutStoreInput
+    stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
+    suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
+    users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreCreateOrConnectWithoutLedgerSharesInput = {
+    where: StoreWhereUniqueInput
+    create: XOR<StoreCreateWithoutLedgerSharesInput, StoreUncheckedCreateWithoutLedgerSharesInput>
+  }
+
+  export type CustomerUpsertWithoutLedgerSharesInput = {
+    update: XOR<CustomerUpdateWithoutLedgerSharesInput, CustomerUncheckedUpdateWithoutLedgerSharesInput>
+    create: XOR<CustomerCreateWithoutLedgerSharesInput, CustomerUncheckedCreateWithoutLedgerSharesInput>
+    where?: CustomerWhereInput
+  }
+
+  export type CustomerUpdateToOneWithWhereWithoutLedgerSharesInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutLedgerSharesInput, CustomerUncheckedUpdateWithoutLedgerSharesInput>
+  }
+
+  export type CustomerUpdateWithoutLedgerSharesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    creditDays?: IntFieldUpdateOperationsInput | number
+    openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store?: StoreUpdateOneRequiredWithoutCustomersNestedInput
+    ledgerEntries?: LedgerEntryUpdateManyWithoutCustomerNestedInput
+    payments?: PaymentUpdateManyWithoutCustomerNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutCustomerNestedInput
+    sales?: SaleUpdateManyWithoutCustomerNestedInput
+    salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutLedgerSharesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    creditDays?: IntFieldUpdateOperationsInput | number
+    openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutCustomerNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutCustomerNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
+    salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type StoreUpsertWithoutLedgerSharesInput = {
+    update: XOR<StoreUpdateWithoutLedgerSharesInput, StoreUncheckedUpdateWithoutLedgerSharesInput>
+    create: XOR<StoreCreateWithoutLedgerSharesInput, StoreUncheckedCreateWithoutLedgerSharesInput>
+    where?: StoreWhereInput
+  }
+
+  export type StoreUpdateToOneWithWhereWithoutLedgerSharesInput = {
+    where?: StoreWhereInput
+    data: XOR<StoreUpdateWithoutLedgerSharesInput, StoreUncheckedUpdateWithoutLedgerSharesInput>
+  }
+
+  export type StoreUpdateWithoutLedgerSharesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUpdateManyWithoutStoreNestedInput
+    customers?: CustomerUpdateManyWithoutStoreNestedInput
+    ledgerEntries?: LedgerEntryUpdateManyWithoutStoreNestedInput
+    notifications?: NotificationUpdateManyWithoutStoreNestedInput
+    payments?: PaymentUpdateManyWithoutStoreNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutStoreNestedInput
+    products?: ProductUpdateManyWithoutStoreNestedInput
+    batches?: ProductBatchUpdateManyWithoutStoreNestedInput
+    purchases?: PurchaseUpdateManyWithoutStoreNestedInput
+    purchaseReturns?: PurchaseReturnUpdateManyWithoutStoreNestedInput
+    sales?: SaleUpdateManyWithoutStoreNestedInput
+    salesReturns?: SalesReturnUpdateManyWithoutStoreNestedInput
+    stocks?: StockUpdateManyWithoutStoreNestedInput
+    suppliers?: SupplierUpdateManyWithoutStoreNestedInput
+    users?: UserUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StoreUncheckedUpdateWithoutLedgerSharesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutStoreNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutStoreNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutStoreNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutStoreNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutStoreNestedInput
+    products?: ProductUncheckedUpdateManyWithoutStoreNestedInput
+    batches?: ProductBatchUncheckedUpdateManyWithoutStoreNestedInput
+    purchases?: PurchaseUncheckedUpdateManyWithoutStoreNestedInput
+    purchaseReturns?: PurchaseReturnUncheckedUpdateManyWithoutStoreNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutStoreNestedInput
+    salesReturns?: SalesReturnUncheckedUpdateManyWithoutStoreNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
+    suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
+    users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+  }
+
   export type ProductBatchCreateWithoutStocksInput = {
     id?: string
     batchNumber: string
@@ -63021,6 +68307,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemCreateNestedManyWithoutBatchInput
     saleItems?: SaleItemCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchUncheckedCreateWithoutStocksInput = {
@@ -63042,6 +68329,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedCreateNestedManyWithoutBatchInput
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchCreateOrConnectWithoutStocksInput = {
@@ -63082,6 +68370,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemCreateNestedManyWithoutProductInput
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -63118,6 +68407,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedCreateNestedManyWithoutProductInput
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -63154,6 +68444,8 @@ export namespace Prisma {
     salesReturns?: SalesReturnCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutStocksInput = {
@@ -63184,6 +68476,8 @@ export namespace Prisma {
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutStocksInput = {
@@ -63267,6 +68561,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUpdateManyWithoutBatchNestedInput
     saleItems?: SaleItemUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductBatchUncheckedUpdateWithoutStocksInput = {
@@ -63288,6 +68583,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedUpdateManyWithoutBatchNestedInput
     saleItems?: SaleItemUncheckedUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductUpsertWithoutStocksInput = {
@@ -63334,6 +68630,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUpdateManyWithoutProductNestedInput
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -63370,6 +68667,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedUpdateManyWithoutProductNestedInput
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -63412,6 +68710,8 @@ export namespace Prisma {
     salesReturns?: SalesReturnUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutStocksInput = {
@@ -63442,6 +68742,8 @@ export namespace Prisma {
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type StockMovementUpsertWithWhereUniqueWithoutStockInput = {
@@ -63542,6 +68844,535 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type StoreCreateWithoutInventoryAuditsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
+    phone?: string | null
+    email?: string | null
+    gstin?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogCreateNestedManyWithoutStoreInput
+    customers?: CustomerCreateNestedManyWithoutStoreInput
+    ledgerEntries?: LedgerEntryCreateNestedManyWithoutStoreInput
+    notifications?: NotificationCreateNestedManyWithoutStoreInput
+    payments?: PaymentCreateNestedManyWithoutStoreInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutStoreInput
+    products?: ProductCreateNestedManyWithoutStoreInput
+    batches?: ProductBatchCreateNestedManyWithoutStoreInput
+    purchases?: PurchaseCreateNestedManyWithoutStoreInput
+    purchaseReturns?: PurchaseReturnCreateNestedManyWithoutStoreInput
+    sales?: SaleCreateNestedManyWithoutStoreInput
+    salesReturns?: SalesReturnCreateNestedManyWithoutStoreInput
+    stocks?: StockCreateNestedManyWithoutStoreInput
+    suppliers?: SupplierCreateNestedManyWithoutStoreInput
+    users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreUncheckedCreateWithoutInventoryAuditsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
+    phone?: string | null
+    email?: string | null
+    gstin?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutStoreInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutStoreInput
+    ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutStoreInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutStoreInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutStoreInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutStoreInput
+    products?: ProductUncheckedCreateNestedManyWithoutStoreInput
+    batches?: ProductBatchUncheckedCreateNestedManyWithoutStoreInput
+    purchases?: PurchaseUncheckedCreateNestedManyWithoutStoreInput
+    purchaseReturns?: PurchaseReturnUncheckedCreateNestedManyWithoutStoreInput
+    sales?: SaleUncheckedCreateNestedManyWithoutStoreInput
+    salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutStoreInput
+    stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
+    suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
+    users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreCreateOrConnectWithoutInventoryAuditsInput = {
+    where: StoreWhereUniqueInput
+    create: XOR<StoreCreateWithoutInventoryAuditsInput, StoreUncheckedCreateWithoutInventoryAuditsInput>
+  }
+
+  export type InventoryAuditItemCreateWithoutAuditInput = {
+    id?: string
+    expectedQty: Decimal | DecimalJsLike | number | string
+    countedQty?: Decimal | DecimalJsLike | number | string | null
+    variance?: Decimal | DecimalJsLike | number | string | null
+    product: ProductCreateNestedOneWithoutAuditItemsInput
+    batch: ProductBatchCreateNestedOneWithoutAuditItemsInput
+  }
+
+  export type InventoryAuditItemUncheckedCreateWithoutAuditInput = {
+    id?: string
+    productId: string
+    batchId: string
+    expectedQty: Decimal | DecimalJsLike | number | string
+    countedQty?: Decimal | DecimalJsLike | number | string | null
+    variance?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InventoryAuditItemCreateOrConnectWithoutAuditInput = {
+    where: InventoryAuditItemWhereUniqueInput
+    create: XOR<InventoryAuditItemCreateWithoutAuditInput, InventoryAuditItemUncheckedCreateWithoutAuditInput>
+  }
+
+  export type InventoryAuditItemCreateManyAuditInputEnvelope = {
+    data: InventoryAuditItemCreateManyAuditInput | InventoryAuditItemCreateManyAuditInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StoreUpsertWithoutInventoryAuditsInput = {
+    update: XOR<StoreUpdateWithoutInventoryAuditsInput, StoreUncheckedUpdateWithoutInventoryAuditsInput>
+    create: XOR<StoreCreateWithoutInventoryAuditsInput, StoreUncheckedCreateWithoutInventoryAuditsInput>
+    where?: StoreWhereInput
+  }
+
+  export type StoreUpdateToOneWithWhereWithoutInventoryAuditsInput = {
+    where?: StoreWhereInput
+    data: XOR<StoreUpdateWithoutInventoryAuditsInput, StoreUncheckedUpdateWithoutInventoryAuditsInput>
+  }
+
+  export type StoreUpdateWithoutInventoryAuditsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUpdateManyWithoutStoreNestedInput
+    customers?: CustomerUpdateManyWithoutStoreNestedInput
+    ledgerEntries?: LedgerEntryUpdateManyWithoutStoreNestedInput
+    notifications?: NotificationUpdateManyWithoutStoreNestedInput
+    payments?: PaymentUpdateManyWithoutStoreNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutStoreNestedInput
+    products?: ProductUpdateManyWithoutStoreNestedInput
+    batches?: ProductBatchUpdateManyWithoutStoreNestedInput
+    purchases?: PurchaseUpdateManyWithoutStoreNestedInput
+    purchaseReturns?: PurchaseReturnUpdateManyWithoutStoreNestedInput
+    sales?: SaleUpdateManyWithoutStoreNestedInput
+    salesReturns?: SalesReturnUpdateManyWithoutStoreNestedInput
+    stocks?: StockUpdateManyWithoutStoreNestedInput
+    suppliers?: SupplierUpdateManyWithoutStoreNestedInput
+    users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StoreUncheckedUpdateWithoutInventoryAuditsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutStoreNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutStoreNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutStoreNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutStoreNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutStoreNestedInput
+    products?: ProductUncheckedUpdateManyWithoutStoreNestedInput
+    batches?: ProductBatchUncheckedUpdateManyWithoutStoreNestedInput
+    purchases?: PurchaseUncheckedUpdateManyWithoutStoreNestedInput
+    purchaseReturns?: PurchaseReturnUncheckedUpdateManyWithoutStoreNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutStoreNestedInput
+    salesReturns?: SalesReturnUncheckedUpdateManyWithoutStoreNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
+    suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
+    users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+  }
+
+  export type InventoryAuditItemUpsertWithWhereUniqueWithoutAuditInput = {
+    where: InventoryAuditItemWhereUniqueInput
+    update: XOR<InventoryAuditItemUpdateWithoutAuditInput, InventoryAuditItemUncheckedUpdateWithoutAuditInput>
+    create: XOR<InventoryAuditItemCreateWithoutAuditInput, InventoryAuditItemUncheckedCreateWithoutAuditInput>
+  }
+
+  export type InventoryAuditItemUpdateWithWhereUniqueWithoutAuditInput = {
+    where: InventoryAuditItemWhereUniqueInput
+    data: XOR<InventoryAuditItemUpdateWithoutAuditInput, InventoryAuditItemUncheckedUpdateWithoutAuditInput>
+  }
+
+  export type InventoryAuditItemUpdateManyWithWhereWithoutAuditInput = {
+    where: InventoryAuditItemScalarWhereInput
+    data: XOR<InventoryAuditItemUpdateManyMutationInput, InventoryAuditItemUncheckedUpdateManyWithoutAuditInput>
+  }
+
+  export type InventoryAuditItemScalarWhereInput = {
+    AND?: InventoryAuditItemScalarWhereInput | InventoryAuditItemScalarWhereInput[]
+    OR?: InventoryAuditItemScalarWhereInput[]
+    NOT?: InventoryAuditItemScalarWhereInput | InventoryAuditItemScalarWhereInput[]
+    id?: StringFilter<"InventoryAuditItem"> | string
+    auditId?: StringFilter<"InventoryAuditItem"> | string
+    productId?: StringFilter<"InventoryAuditItem"> | string
+    batchId?: StringFilter<"InventoryAuditItem"> | string
+    expectedQty?: DecimalFilter<"InventoryAuditItem"> | Decimal | DecimalJsLike | number | string
+    countedQty?: DecimalNullableFilter<"InventoryAuditItem"> | Decimal | DecimalJsLike | number | string | null
+    variance?: DecimalNullableFilter<"InventoryAuditItem"> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InventoryAuditCreateWithoutItemsInput = {
+    id?: string
+    auditDate: Date | string
+    condition?: string
+    status?: $Enums.InventoryAuditStatus
+    createdById?: string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    store: StoreCreateNestedOneWithoutInventoryAuditsInput
+  }
+
+  export type InventoryAuditUncheckedCreateWithoutItemsInput = {
+    id?: string
+    storeId: string
+    auditDate: Date | string
+    condition?: string
+    status?: $Enums.InventoryAuditStatus
+    createdById?: string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type InventoryAuditCreateOrConnectWithoutItemsInput = {
+    where: InventoryAuditWhereUniqueInput
+    create: XOR<InventoryAuditCreateWithoutItemsInput, InventoryAuditUncheckedCreateWithoutItemsInput>
+  }
+
+  export type ProductCreateWithoutAuditItemsInput = {
+    id?: string
+    name: string
+    genericName?: string | null
+    brandName?: string | null
+    sku: string
+    barcode?: string | null
+    hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
+    dosageForm?: string | null
+    strength?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    gstPercent?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.ProductStatus
+    minimumStock?: Decimal | DecimalJsLike | number | string
+    reorderLevel?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
+    baseUnit: UnitCreateNestedOneWithoutBaseProductsInput
+    category?: CategoryCreateNestedOneWithoutProductsInput
+    manufacturer?: ManufacturerCreateNestedOneWithoutProductsInput
+    store: StoreCreateNestedOneWithoutProductsInput
+    strengthUnit?: UnitCreateNestedOneWithoutStrengthProductsInput
+    batches?: ProductBatchCreateNestedManyWithoutProductInput
+    packaging?: ProductPackagingCreateNestedManyWithoutProductInput
+    suppliers?: ProductSupplierCreateNestedManyWithoutProductInput
+    purchaseItems?: PurchaseItemCreateNestedManyWithoutProductInput
+    purchaseReturnItems?: PurchaseReturnItemCreateNestedManyWithoutProductInput
+    saleItems?: SaleItemCreateNestedManyWithoutProductInput
+    salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
+    stocks?: StockCreateNestedManyWithoutProductInput
+    salts?: ProductSaltCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutAuditItemsInput = {
+    id?: string
+    storeId: string
+    name: string
+    genericName?: string | null
+    brandName?: string | null
+    sku: string
+    barcode?: string | null
+    hsnCode?: string | null
+    rack?: string | null
+    scheduling?: string | null
+    prescriptionOnly?: boolean
+    dosageForm?: string | null
+    strength?: Decimal | DecimalJsLike | number | string | null
+    strengthUnitId?: string | null
+    categoryId?: string | null
+    manufacturerId?: string | null
+    description?: string | null
+    gstPercent?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.ProductStatus
+    baseUnitId: string
+    minimumStock?: Decimal | DecimalJsLike | number | string
+    reorderLevel?: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
+    batches?: ProductBatchUncheckedCreateNestedManyWithoutProductInput
+    packaging?: ProductPackagingUncheckedCreateNestedManyWithoutProductInput
+    suppliers?: ProductSupplierUncheckedCreateNestedManyWithoutProductInput
+    purchaseItems?: PurchaseItemUncheckedCreateNestedManyWithoutProductInput
+    purchaseReturnItems?: PurchaseReturnItemUncheckedCreateNestedManyWithoutProductInput
+    saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
+    salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
+    stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutAuditItemsInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutAuditItemsInput, ProductUncheckedCreateWithoutAuditItemsInput>
+  }
+
+  export type ProductBatchCreateWithoutAuditItemsInput = {
+    id?: string
+    batchNumber: string
+    manufacturingDate?: Date | string | null
+    expiryDate: Date | string
+    purchasePrice: Decimal | DecimalJsLike | number | string
+    costPerBaseUnit: Decimal | DecimalJsLike | number | string
+    mrp: Decimal | DecimalJsLike | number | string
+    sellingPrice: Decimal | DecimalJsLike | number | string
+    status?: $Enums.BatchStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    product: ProductCreateNestedOneWithoutBatchesInput
+    store: StoreCreateNestedOneWithoutBatchesInput
+    suppliers?: ProductSupplierCreateNestedManyWithoutProductBatchInput
+    purchaseItems?: PurchaseItemCreateNestedManyWithoutBatchInput
+    purchaseReturnItems?: PurchaseReturnItemCreateNestedManyWithoutBatchInput
+    saleItems?: SaleItemCreateNestedManyWithoutBatchInput
+    salesReturnItems?: SalesReturnItemCreateNestedManyWithoutBatchInput
+    stocks?: StockCreateNestedManyWithoutBatchInput
+  }
+
+  export type ProductBatchUncheckedCreateWithoutAuditItemsInput = {
+    id?: string
+    productId: string
+    storeId: string
+    batchNumber: string
+    manufacturingDate?: Date | string | null
+    expiryDate: Date | string
+    purchasePrice: Decimal | DecimalJsLike | number | string
+    costPerBaseUnit: Decimal | DecimalJsLike | number | string
+    mrp: Decimal | DecimalJsLike | number | string
+    sellingPrice: Decimal | DecimalJsLike | number | string
+    status?: $Enums.BatchStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    suppliers?: ProductSupplierUncheckedCreateNestedManyWithoutProductBatchInput
+    purchaseItems?: PurchaseItemUncheckedCreateNestedManyWithoutBatchInput
+    purchaseReturnItems?: PurchaseReturnItemUncheckedCreateNestedManyWithoutBatchInput
+    saleItems?: SaleItemUncheckedCreateNestedManyWithoutBatchInput
+    salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutBatchInput
+    stocks?: StockUncheckedCreateNestedManyWithoutBatchInput
+  }
+
+  export type ProductBatchCreateOrConnectWithoutAuditItemsInput = {
+    where: ProductBatchWhereUniqueInput
+    create: XOR<ProductBatchCreateWithoutAuditItemsInput, ProductBatchUncheckedCreateWithoutAuditItemsInput>
+  }
+
+  export type InventoryAuditUpsertWithoutItemsInput = {
+    update: XOR<InventoryAuditUpdateWithoutItemsInput, InventoryAuditUncheckedUpdateWithoutItemsInput>
+    create: XOR<InventoryAuditCreateWithoutItemsInput, InventoryAuditUncheckedCreateWithoutItemsInput>
+    where?: InventoryAuditWhereInput
+  }
+
+  export type InventoryAuditUpdateToOneWithWhereWithoutItemsInput = {
+    where?: InventoryAuditWhereInput
+    data: XOR<InventoryAuditUpdateWithoutItemsInput, InventoryAuditUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type InventoryAuditUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    condition?: StringFieldUpdateOperationsInput | string
+    status?: EnumInventoryAuditStatusFieldUpdateOperationsInput | $Enums.InventoryAuditStatus
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store?: StoreUpdateOneRequiredWithoutInventoryAuditsNestedInput
+  }
+
+  export type InventoryAuditUncheckedUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    auditDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    condition?: StringFieldUpdateOperationsInput | string
+    status?: EnumInventoryAuditStatusFieldUpdateOperationsInput | $Enums.InventoryAuditStatus
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductUpsertWithoutAuditItemsInput = {
+    update: XOR<ProductUpdateWithoutAuditItemsInput, ProductUncheckedUpdateWithoutAuditItemsInput>
+    create: XOR<ProductCreateWithoutAuditItemsInput, ProductUncheckedCreateWithoutAuditItemsInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutAuditItemsInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutAuditItemsInput, ProductUncheckedUpdateWithoutAuditItemsInput>
+  }
+
+  export type ProductUpdateWithoutAuditItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    genericName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    sku?: StringFieldUpdateOperationsInput | string
+    barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
+    dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
+    strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gstPercent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+    minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
+    baseUnit?: UnitUpdateOneRequiredWithoutBaseProductsNestedInput
+    category?: CategoryUpdateOneWithoutProductsNestedInput
+    manufacturer?: ManufacturerUpdateOneWithoutProductsNestedInput
+    store?: StoreUpdateOneRequiredWithoutProductsNestedInput
+    strengthUnit?: UnitUpdateOneWithoutStrengthProductsNestedInput
+    batches?: ProductBatchUpdateManyWithoutProductNestedInput
+    packaging?: ProductPackagingUpdateManyWithoutProductNestedInput
+    suppliers?: ProductSupplierUpdateManyWithoutProductNestedInput
+    purchaseItems?: PurchaseItemUpdateManyWithoutProductNestedInput
+    purchaseReturnItems?: PurchaseReturnItemUpdateManyWithoutProductNestedInput
+    saleItems?: SaleItemUpdateManyWithoutProductNestedInput
+    salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
+    stocks?: StockUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutAuditItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    genericName?: NullableStringFieldUpdateOperationsInput | string | null
+    brandName?: NullableStringFieldUpdateOperationsInput | string | null
+    sku?: StringFieldUpdateOperationsInput | string
+    barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    hsnCode?: NullableStringFieldUpdateOperationsInput | string | null
+    rack?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduling?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionOnly?: BoolFieldUpdateOperationsInput | boolean
+    dosageForm?: NullableStringFieldUpdateOperationsInput | string | null
+    strength?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    strengthUnitId?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    manufacturerId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    gstPercent?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
+    baseUnitId?: StringFieldUpdateOperationsInput | string
+    minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
+    batches?: ProductBatchUncheckedUpdateManyWithoutProductNestedInput
+    packaging?: ProductPackagingUncheckedUpdateManyWithoutProductNestedInput
+    suppliers?: ProductSupplierUncheckedUpdateManyWithoutProductNestedInput
+    purchaseItems?: PurchaseItemUncheckedUpdateManyWithoutProductNestedInput
+    purchaseReturnItems?: PurchaseReturnItemUncheckedUpdateManyWithoutProductNestedInput
+    saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
+    salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductBatchUpsertWithoutAuditItemsInput = {
+    update: XOR<ProductBatchUpdateWithoutAuditItemsInput, ProductBatchUncheckedUpdateWithoutAuditItemsInput>
+    create: XOR<ProductBatchCreateWithoutAuditItemsInput, ProductBatchUncheckedCreateWithoutAuditItemsInput>
+    where?: ProductBatchWhereInput
+  }
+
+  export type ProductBatchUpdateToOneWithWhereWithoutAuditItemsInput = {
+    where?: ProductBatchWhereInput
+    data: XOR<ProductBatchUpdateWithoutAuditItemsInput, ProductBatchUncheckedUpdateWithoutAuditItemsInput>
+  }
+
+  export type ProductBatchUpdateWithoutAuditItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    manufacturingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchasePrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    costPerBaseUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    mrp?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumBatchStatusFieldUpdateOperationsInput | $Enums.BatchStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutBatchesNestedInput
+    store?: StoreUpdateOneRequiredWithoutBatchesNestedInput
+    suppliers?: ProductSupplierUpdateManyWithoutProductBatchNestedInput
+    purchaseItems?: PurchaseItemUpdateManyWithoutBatchNestedInput
+    purchaseReturnItems?: PurchaseReturnItemUpdateManyWithoutBatchNestedInput
+    saleItems?: SaleItemUpdateManyWithoutBatchNestedInput
+    salesReturnItems?: SalesReturnItemUpdateManyWithoutBatchNestedInput
+    stocks?: StockUpdateManyWithoutBatchNestedInput
+  }
+
+  export type ProductBatchUncheckedUpdateWithoutAuditItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    batchNumber?: StringFieldUpdateOperationsInput | string
+    manufacturingDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiryDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    purchasePrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    costPerBaseUnit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    mrp?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumBatchStatusFieldUpdateOperationsInput | $Enums.BatchStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    suppliers?: ProductSupplierUncheckedUpdateManyWithoutProductBatchNestedInput
+    purchaseItems?: PurchaseItemUncheckedUpdateManyWithoutBatchNestedInput
+    purchaseReturnItems?: PurchaseReturnItemUncheckedUpdateManyWithoutBatchNestedInput
+    saleItems?: SaleItemUncheckedUpdateManyWithoutBatchNestedInput
+    salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutBatchNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutBatchNestedInput
+  }
+
   export type StoreCreateWithoutNotificationsInput = {
     id?: string
     name: string
@@ -63570,6 +69401,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutNotificationsInput = {
@@ -63600,6 +69433,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutNotificationsInput = {
@@ -63679,6 +69514,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutNotificationsInput = {
@@ -63709,6 +69546,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type UserUpsertWithoutNotificationsInput = {
@@ -63808,6 +69647,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionCreateNestedManyWithoutCustomerInput
     sales?: SaleCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutStoreInput = {
@@ -63832,6 +69672,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutCustomerInput
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutStoreInput = {
@@ -64025,6 +69866,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -64061,6 +69903,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -64093,6 +69936,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutBatchInput
     stocks?: StockCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchUncheckedCreateWithoutStoreInput = {
@@ -64114,6 +69958,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutBatchInput
     stocks?: StockUncheckedCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchCreateOrConnectWithoutStoreInput = {
@@ -64463,6 +70308,66 @@ export namespace Prisma {
 
   export type UserCreateManyStoreInputEnvelope = {
     data: UserCreateManyStoreInput | UserCreateManyStoreInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerLedgerShareCreateWithoutStoreInput = {
+    id?: string
+    token: string
+    createdAt?: Date | string
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+    customer: CustomerCreateNestedOneWithoutLedgerSharesInput
+  }
+
+  export type CustomerLedgerShareUncheckedCreateWithoutStoreInput = {
+    id?: string
+    token: string
+    customerId: string
+    createdAt?: Date | string
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+  }
+
+  export type CustomerLedgerShareCreateOrConnectWithoutStoreInput = {
+    where: CustomerLedgerShareWhereUniqueInput
+    create: XOR<CustomerLedgerShareCreateWithoutStoreInput, CustomerLedgerShareUncheckedCreateWithoutStoreInput>
+  }
+
+  export type CustomerLedgerShareCreateManyStoreInputEnvelope = {
+    data: CustomerLedgerShareCreateManyStoreInput | CustomerLedgerShareCreateManyStoreInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InventoryAuditCreateWithoutStoreInput = {
+    id?: string
+    auditDate: Date | string
+    condition?: string
+    status?: $Enums.InventoryAuditStatus
+    createdById?: string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    items?: InventoryAuditItemCreateNestedManyWithoutAuditInput
+  }
+
+  export type InventoryAuditUncheckedCreateWithoutStoreInput = {
+    id?: string
+    auditDate: Date | string
+    condition?: string
+    status?: $Enums.InventoryAuditStatus
+    createdById?: string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    items?: InventoryAuditItemUncheckedCreateNestedManyWithoutAuditInput
+  }
+
+  export type InventoryAuditCreateOrConnectWithoutStoreInput = {
+    where: InventoryAuditWhereUniqueInput
+    create: XOR<InventoryAuditCreateWithoutStoreInput, InventoryAuditUncheckedCreateWithoutStoreInput>
+  }
+
+  export type InventoryAuditCreateManyStoreInputEnvelope = {
+    data: InventoryAuditCreateManyStoreInput | InventoryAuditCreateManyStoreInput[]
     skipDuplicates?: boolean
   }
 
@@ -64883,6 +70788,52 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
   }
 
+  export type CustomerLedgerShareUpsertWithWhereUniqueWithoutStoreInput = {
+    where: CustomerLedgerShareWhereUniqueInput
+    update: XOR<CustomerLedgerShareUpdateWithoutStoreInput, CustomerLedgerShareUncheckedUpdateWithoutStoreInput>
+    create: XOR<CustomerLedgerShareCreateWithoutStoreInput, CustomerLedgerShareUncheckedCreateWithoutStoreInput>
+  }
+
+  export type CustomerLedgerShareUpdateWithWhereUniqueWithoutStoreInput = {
+    where: CustomerLedgerShareWhereUniqueInput
+    data: XOR<CustomerLedgerShareUpdateWithoutStoreInput, CustomerLedgerShareUncheckedUpdateWithoutStoreInput>
+  }
+
+  export type CustomerLedgerShareUpdateManyWithWhereWithoutStoreInput = {
+    where: CustomerLedgerShareScalarWhereInput
+    data: XOR<CustomerLedgerShareUpdateManyMutationInput, CustomerLedgerShareUncheckedUpdateManyWithoutStoreInput>
+  }
+
+  export type InventoryAuditUpsertWithWhereUniqueWithoutStoreInput = {
+    where: InventoryAuditWhereUniqueInput
+    update: XOR<InventoryAuditUpdateWithoutStoreInput, InventoryAuditUncheckedUpdateWithoutStoreInput>
+    create: XOR<InventoryAuditCreateWithoutStoreInput, InventoryAuditUncheckedCreateWithoutStoreInput>
+  }
+
+  export type InventoryAuditUpdateWithWhereUniqueWithoutStoreInput = {
+    where: InventoryAuditWhereUniqueInput
+    data: XOR<InventoryAuditUpdateWithoutStoreInput, InventoryAuditUncheckedUpdateWithoutStoreInput>
+  }
+
+  export type InventoryAuditUpdateManyWithWhereWithoutStoreInput = {
+    where: InventoryAuditScalarWhereInput
+    data: XOR<InventoryAuditUpdateManyMutationInput, InventoryAuditUncheckedUpdateManyWithoutStoreInput>
+  }
+
+  export type InventoryAuditScalarWhereInput = {
+    AND?: InventoryAuditScalarWhereInput | InventoryAuditScalarWhereInput[]
+    OR?: InventoryAuditScalarWhereInput[]
+    NOT?: InventoryAuditScalarWhereInput | InventoryAuditScalarWhereInput[]
+    id?: StringFilter<"InventoryAudit"> | string
+    storeId?: StringFilter<"InventoryAudit"> | string
+    auditDate?: DateTimeFilter<"InventoryAudit"> | Date | string
+    condition?: StringFilter<"InventoryAudit"> | string
+    status?: EnumInventoryAuditStatusFilter<"InventoryAudit"> | $Enums.InventoryAuditStatus
+    createdById?: StringNullableFilter<"InventoryAudit"> | string | null
+    completedAt?: DateTimeNullableFilter<"InventoryAudit"> | Date | string | null
+    createdAt?: DateTimeFilter<"InventoryAudit"> | Date | string
+  }
+
   export type CustomerCreateWithoutPrescriptionsInput = {
     id?: string
     name: string
@@ -64905,6 +70856,7 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutCustomerInput
     sales?: SaleCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutPrescriptionsInput = {
@@ -64929,6 +70881,7 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutCustomerInput
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutPrescriptionsInput = {
@@ -64964,6 +70917,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutPrescriptionsInput = {
@@ -64994,6 +70949,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutPrescriptionsInput = {
@@ -65066,6 +71023,7 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutCustomerNestedInput
     sales?: SaleUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutPrescriptionsInput = {
@@ -65090,6 +71048,7 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutCustomerNestedInput
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type StoreUpsertWithoutPrescriptionsInput = {
@@ -65131,6 +71090,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutPrescriptionsInput = {
@@ -65161,6 +71122,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type PrescriptionItemUpsertWithWhereUniqueWithoutPrescriptionInput = {
@@ -65264,6 +71227,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -65300,6 +71264,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -65395,6 +71360,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -65431,6 +71397,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -65575,6 +71542,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutProductsInput = {
@@ -65605,6 +71574,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutProductsInput = {
@@ -65660,6 +71631,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutBatchInput
     stocks?: StockCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchUncheckedCreateWithoutProductInput = {
@@ -65681,6 +71653,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutBatchInput
     stocks?: StockUncheckedCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchCreateOrConnectWithoutProductInput = {
@@ -66013,6 +71986,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type InventoryAuditItemCreateWithoutProductInput = {
+    id?: string
+    expectedQty: Decimal | DecimalJsLike | number | string
+    countedQty?: Decimal | DecimalJsLike | number | string | null
+    variance?: Decimal | DecimalJsLike | number | string | null
+    audit: InventoryAuditCreateNestedOneWithoutItemsInput
+    batch: ProductBatchCreateNestedOneWithoutAuditItemsInput
+  }
+
+  export type InventoryAuditItemUncheckedCreateWithoutProductInput = {
+    id?: string
+    auditId: string
+    batchId: string
+    expectedQty: Decimal | DecimalJsLike | number | string
+    countedQty?: Decimal | DecimalJsLike | number | string | null
+    variance?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InventoryAuditItemCreateOrConnectWithoutProductInput = {
+    where: InventoryAuditItemWhereUniqueInput
+    create: XOR<InventoryAuditItemCreateWithoutProductInput, InventoryAuditItemUncheckedCreateWithoutProductInput>
+  }
+
+  export type InventoryAuditItemCreateManyProductInputEnvelope = {
+    data: InventoryAuditItemCreateManyProductInput | InventoryAuditItemCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProductSaltCreateWithoutProductInput = {
     id?: string
     salt: SaltCreateNestedOneWithoutProductsInput
@@ -66187,6 +72188,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutProductsInput = {
@@ -66217,6 +72220,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type UnitUpsertWithoutStrengthProductsInput = {
@@ -66495,6 +72500,22 @@ export namespace Prisma {
     data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyWithoutProductInput>
   }
 
+  export type InventoryAuditItemUpsertWithWhereUniqueWithoutProductInput = {
+    where: InventoryAuditItemWhereUniqueInput
+    update: XOR<InventoryAuditItemUpdateWithoutProductInput, InventoryAuditItemUncheckedUpdateWithoutProductInput>
+    create: XOR<InventoryAuditItemCreateWithoutProductInput, InventoryAuditItemUncheckedCreateWithoutProductInput>
+  }
+
+  export type InventoryAuditItemUpdateWithWhereUniqueWithoutProductInput = {
+    where: InventoryAuditItemWhereUniqueInput
+    data: XOR<InventoryAuditItemUpdateWithoutProductInput, InventoryAuditItemUncheckedUpdateWithoutProductInput>
+  }
+
+  export type InventoryAuditItemUpdateManyWithWhereWithoutProductInput = {
+    where: InventoryAuditItemScalarWhereInput
+    data: XOR<InventoryAuditItemUpdateManyMutationInput, InventoryAuditItemUncheckedUpdateManyWithoutProductInput>
+  }
+
   export type ProductSaltUpsertWithWhereUniqueWithoutProductInput = {
     where: ProductSaltWhereUniqueInput
     update: XOR<ProductSaltUpdateWithoutProductInput, ProductSaltUncheckedUpdateWithoutProductInput>
@@ -66590,6 +72611,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutSaltsInput = {
@@ -66626,6 +72648,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutSaltsInput = {
@@ -66697,6 +72720,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutSaltsInput = {
@@ -66733,6 +72757,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type SaltUpsertWithoutProductsInput = {
@@ -66793,6 +72818,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -66829,6 +72855,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -67110,6 +73137,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -67146,6 +73174,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -67281,6 +73310,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -67317,6 +73347,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -67353,6 +73384,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutBatchesInput = {
@@ -67383,6 +73416,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutBatchesInput = {
@@ -67662,6 +73697,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type InventoryAuditItemCreateWithoutBatchInput = {
+    id?: string
+    expectedQty: Decimal | DecimalJsLike | number | string
+    countedQty?: Decimal | DecimalJsLike | number | string | null
+    variance?: Decimal | DecimalJsLike | number | string | null
+    audit: InventoryAuditCreateNestedOneWithoutItemsInput
+    product: ProductCreateNestedOneWithoutAuditItemsInput
+  }
+
+  export type InventoryAuditItemUncheckedCreateWithoutBatchInput = {
+    id?: string
+    auditId: string
+    productId: string
+    expectedQty: Decimal | DecimalJsLike | number | string
+    countedQty?: Decimal | DecimalJsLike | number | string | null
+    variance?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InventoryAuditItemCreateOrConnectWithoutBatchInput = {
+    where: InventoryAuditItemWhereUniqueInput
+    create: XOR<InventoryAuditItemCreateWithoutBatchInput, InventoryAuditItemUncheckedCreateWithoutBatchInput>
+  }
+
+  export type InventoryAuditItemCreateManyBatchInputEnvelope = {
+    data: InventoryAuditItemCreateManyBatchInput | InventoryAuditItemCreateManyBatchInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProductUpsertWithoutBatchesInput = {
     update: XOR<ProductUpdateWithoutBatchesInput, ProductUncheckedUpdateWithoutBatchesInput>
     create: XOR<ProductCreateWithoutBatchesInput, ProductUncheckedCreateWithoutBatchesInput>
@@ -67706,6 +73769,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -67742,6 +73806,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -67784,6 +73849,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutBatchesInput = {
@@ -67814,6 +73881,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type ProductSupplierUpsertWithWhereUniqueWithoutProductBatchInput = {
@@ -67912,6 +73981,22 @@ export namespace Prisma {
     data: XOR<StockUpdateManyMutationInput, StockUncheckedUpdateManyWithoutBatchInput>
   }
 
+  export type InventoryAuditItemUpsertWithWhereUniqueWithoutBatchInput = {
+    where: InventoryAuditItemWhereUniqueInput
+    update: XOR<InventoryAuditItemUpdateWithoutBatchInput, InventoryAuditItemUncheckedUpdateWithoutBatchInput>
+    create: XOR<InventoryAuditItemCreateWithoutBatchInput, InventoryAuditItemUncheckedCreateWithoutBatchInput>
+  }
+
+  export type InventoryAuditItemUpdateWithWhereUniqueWithoutBatchInput = {
+    where: InventoryAuditItemWhereUniqueInput
+    data: XOR<InventoryAuditItemUpdateWithoutBatchInput, InventoryAuditItemUncheckedUpdateWithoutBatchInput>
+  }
+
+  export type InventoryAuditItemUpdateManyWithWhereWithoutBatchInput = {
+    where: InventoryAuditItemScalarWhereInput
+    data: XOR<InventoryAuditItemUpdateManyMutationInput, InventoryAuditItemUncheckedUpdateManyWithoutBatchInput>
+  }
+
   export type ProductBatchCreateWithoutSuppliersInput = {
     id?: string
     batchNumber: string
@@ -67931,6 +74016,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutBatchInput
     stocks?: StockCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchUncheckedCreateWithoutSuppliersInput = {
@@ -67952,6 +74038,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutBatchInput
     stocks?: StockUncheckedCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchCreateOrConnectWithoutSuppliersInput = {
@@ -67992,6 +74079,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -68028,6 +74116,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -68123,6 +74212,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutBatchNestedInput
     stocks?: StockUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductBatchUncheckedUpdateWithoutSuppliersInput = {
@@ -68144,6 +74234,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutBatchNestedInput
     stocks?: StockUncheckedUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductUpsertWithoutSuppliersInput = {
@@ -68190,6 +74281,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -68226,6 +74318,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -68320,6 +74413,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutPurchasesInput = {
@@ -68350,6 +74445,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutPurchasesInput = {
@@ -68547,6 +74644,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutPurchasesInput = {
@@ -68577,6 +74676,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SupplierUpsertWithoutPurchasesInput = {
@@ -68707,6 +74808,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutBatchInput
     stocks?: StockCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchUncheckedCreateWithoutPurchaseItemsInput = {
@@ -68728,6 +74830,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutBatchInput
     stocks?: StockUncheckedCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchCreateOrConnectWithoutPurchaseItemsInput = {
@@ -68811,6 +74914,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -68847,6 +74951,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -68980,6 +75085,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutBatchNestedInput
     stocks?: StockUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductBatchUncheckedUpdateWithoutPurchaseItemsInput = {
@@ -69001,6 +75107,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutBatchNestedInput
     stocks?: StockUncheckedUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductPackagingUpsertWithoutPurchaseItemsInput = {
@@ -69096,6 +75203,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -69132,6 +75240,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -69362,6 +75471,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutPurchaseReturnsInput = {
@@ -69392,6 +75503,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutPurchaseReturnsInput = {
@@ -69533,6 +75646,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutPurchaseReturnsInput = {
@@ -69563,6 +75678,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SupplierUpsertWithoutPurchaseReturnsInput = {
@@ -69663,6 +75780,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutBatchInput
     stocks?: StockCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchUncheckedCreateWithoutPurchaseReturnItemsInput = {
@@ -69684,6 +75802,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutBatchInput
     stocks?: StockUncheckedCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchCreateOrConnectWithoutPurchaseReturnItemsInput = {
@@ -69767,6 +75886,7 @@ export namespace Prisma {
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -69803,6 +75923,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -69937,6 +76058,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutBatchNestedInput
     stocks?: StockUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductBatchUncheckedUpdateWithoutPurchaseReturnItemsInput = {
@@ -69958,6 +76080,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutBatchNestedInput
     stocks?: StockUncheckedUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductPackagingUpsertWithoutPurchaseReturnItemsInput = {
@@ -70053,6 +76176,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -70089,6 +76213,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -70222,6 +76347,7 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutCustomerInput
     prescriptions?: PrescriptionCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutSalesInput = {
@@ -70246,6 +76372,7 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutCustomerInput
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutSalesInput = {
@@ -70281,6 +76408,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutSalesInput = {
@@ -70311,6 +76440,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutSalesInput = {
@@ -70485,6 +76616,7 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutCustomerNestedInput
     prescriptions?: PrescriptionUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutSalesInput = {
@@ -70509,6 +76641,7 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutCustomerNestedInput
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type StoreUpsertWithoutSalesInput = {
@@ -70550,6 +76683,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutSalesInput = {
@@ -70580,6 +76715,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SaleItemUpsertWithWhereUniqueWithoutSaleInput = {
@@ -70663,6 +76800,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutBatchInput
     stocks?: StockCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchUncheckedCreateWithoutSaleItemsInput = {
@@ -70684,6 +76822,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedCreateNestedManyWithoutBatchInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutBatchInput
     stocks?: StockUncheckedCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchCreateOrConnectWithoutSaleItemsInput = {
@@ -70767,6 +76906,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -70803,6 +76943,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedCreateNestedManyWithoutProductInput
     salesReturnItems?: SalesReturnItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -70934,6 +77075,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutBatchNestedInput
     stocks?: StockUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductBatchUncheckedUpdateWithoutSaleItemsInput = {
@@ -70955,6 +77097,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutBatchNestedInput
     stocks?: StockUncheckedUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductPackagingUpsertWithoutSaleItemsInput = {
@@ -71050,6 +77193,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -71086,6 +77230,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -71304,6 +77449,7 @@ export namespace Prisma {
     payments?: PaymentCreateNestedManyWithoutCustomerInput
     prescriptions?: PrescriptionCreateNestedManyWithoutCustomerInput
     sales?: SaleCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutSalesReturnsInput = {
@@ -71328,6 +77474,7 @@ export namespace Prisma {
     payments?: PaymentUncheckedCreateNestedManyWithoutCustomerInput
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutCustomerInput
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutSalesReturnsInput = {
@@ -71418,6 +77565,8 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutSalesReturnsInput = {
@@ -71448,6 +77597,8 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutSalesReturnsInput = {
@@ -71526,6 +77677,7 @@ export namespace Prisma {
     payments?: PaymentUpdateManyWithoutCustomerNestedInput
     prescriptions?: PrescriptionUpdateManyWithoutCustomerNestedInput
     sales?: SaleUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutSalesReturnsInput = {
@@ -71550,6 +77702,7 @@ export namespace Prisma {
     payments?: PaymentUncheckedUpdateManyWithoutCustomerNestedInput
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutCustomerNestedInput
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type SaleUpsertWithoutSalesReturnsInput = {
@@ -71652,6 +77805,8 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutSalesReturnsInput = {
@@ -71682,6 +77837,8 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SalesReturnItemUpsertWithWhereUniqueWithoutSalesReturnInput = {
@@ -71719,6 +77876,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemCreateNestedManyWithoutBatchInput
     saleItems?: SaleItemCreateNestedManyWithoutBatchInput
     stocks?: StockCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchUncheckedCreateWithoutSalesReturnItemsInput = {
@@ -71740,6 +77898,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedCreateNestedManyWithoutBatchInput
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutBatchInput
     stocks?: StockUncheckedCreateNestedManyWithoutBatchInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutBatchInput
   }
 
   export type ProductBatchCreateOrConnectWithoutSalesReturnItemsInput = {
@@ -71823,6 +77982,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemCreateNestedManyWithoutProductInput
     saleItems?: SaleItemCreateNestedManyWithoutProductInput
     stocks?: StockCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemCreateNestedManyWithoutProductInput
     salts?: ProductSaltCreateNestedManyWithoutProductInput
   }
 
@@ -71859,6 +78019,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedCreateNestedManyWithoutProductInput
     saleItems?: SaleItemUncheckedCreateNestedManyWithoutProductInput
     stocks?: StockUncheckedCreateNestedManyWithoutProductInput
+    auditItems?: InventoryAuditItemUncheckedCreateNestedManyWithoutProductInput
     salts?: ProductSaltUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -71991,6 +78152,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUpdateManyWithoutBatchNestedInput
     saleItems?: SaleItemUpdateManyWithoutBatchNestedInput
     stocks?: StockUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductBatchUncheckedUpdateWithoutSalesReturnItemsInput = {
@@ -72012,6 +78174,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedUpdateManyWithoutBatchNestedInput
     saleItems?: SaleItemUncheckedUpdateManyWithoutBatchNestedInput
     stocks?: StockUncheckedUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductPackagingUpsertWithoutSalesReturnItemsInput = {
@@ -72107,6 +78270,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUpdateManyWithoutProductNestedInput
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -72143,6 +78307,7 @@ export namespace Prisma {
     purchaseReturnItems?: PurchaseReturnItemUncheckedUpdateManyWithoutProductNestedInput
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -72496,6 +78661,8 @@ export namespace Prisma {
     salesReturns?: SalesReturnCreateNestedManyWithoutStoreInput
     stocks?: StockCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutSuppliersInput = {
@@ -72526,6 +78693,8 @@ export namespace Prisma {
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutStoreInput
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutSuppliersInput = {
@@ -72652,6 +78821,8 @@ export namespace Prisma {
     salesReturns?: SalesReturnUpdateManyWithoutStoreNestedInput
     stocks?: StockUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutSuppliersInput = {
@@ -72682,6 +78853,8 @@ export namespace Prisma {
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutStoreNestedInput
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type UserCreateWithoutRoleInput = {
@@ -72857,6 +79030,8 @@ export namespace Prisma {
     salesReturns?: SalesReturnCreateNestedManyWithoutStoreInput
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutUsersInput = {
@@ -72887,6 +79062,8 @@ export namespace Prisma {
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutStoreInput
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutUsersInput = {
@@ -72992,6 +79169,8 @@ export namespace Prisma {
     salesReturns?: SalesReturnUpdateManyWithoutStoreNestedInput
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutUsersInput = {
@@ -73022,6 +79201,8 @@ export namespace Prisma {
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutStoreNestedInput
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type ProductCreateManyCategoryInput = {
@@ -73083,6 +79264,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -73119,6 +79301,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -73207,6 +79390,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -73243,6 +79427,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -73372,6 +79557,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -73408,6 +79594,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -73470,6 +79657,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -73506,6 +79694,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -73665,6 +79854,15 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type CustomerLedgerShareCreateManyCustomerInput = {
+    id?: string
+    token: string
+    storeId: string
+    createdAt?: Date | string
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
   }
 
   export type LedgerEntryUpdateWithoutCustomerInput = {
@@ -73914,6 +80112,33 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CustomerLedgerShareUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    store?: StoreUpdateOneRequiredWithoutLedgerSharesNestedInput
+  }
+
+  export type CustomerLedgerShareUncheckedUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CustomerLedgerShareUncheckedUpdateManyWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type StockMovementCreateManyStockInput = {
     id?: string
     storeId: string
@@ -73984,6 +80209,42 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryAuditItemCreateManyAuditInput = {
+    id?: string
+    productId: string
+    batchId: string
+    expectedQty: Decimal | DecimalJsLike | number | string
+    countedQty?: Decimal | DecimalJsLike | number | string | null
+    variance?: Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InventoryAuditItemUpdateWithoutAuditInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    product?: ProductUpdateOneRequiredWithoutAuditItemsNestedInput
+    batch?: ProductBatchUpdateOneRequiredWithoutAuditItemsNestedInput
+  }
+
+  export type InventoryAuditItemUncheckedUpdateWithoutAuditInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    batchId?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InventoryAuditItemUncheckedUpdateManyWithoutAuditInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    batchId?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type AuditLogCreateManyStoreInput = {
@@ -74232,6 +80493,25 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type CustomerLedgerShareCreateManyStoreInput = {
+    id?: string
+    token: string
+    customerId: string
+    createdAt?: Date | string
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+  }
+
+  export type InventoryAuditCreateManyStoreInput = {
+    id?: string
+    auditDate: Date | string
+    condition?: string
+    status?: $Enums.InventoryAuditStatus
+    createdById?: string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
   export type AuditLogUpdateWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     action?: EnumAuditActionFieldUpdateOperationsInput | $Enums.AuditAction
@@ -74293,6 +80573,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUpdateManyWithoutCustomerNestedInput
     sales?: SaleUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutStoreInput = {
@@ -74317,6 +80598,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutCustomerNestedInput
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutStoreInput = {
@@ -74532,6 +80814,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutProductNestedInput
     stocks?: StockUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUpdateManyWithoutProductNestedInput
   }
 
@@ -74568,6 +80851,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutProductNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutProductNestedInput
     stocks?: StockUncheckedUpdateManyWithoutProductNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutProductNestedInput
     salts?: ProductSaltUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -74616,6 +80900,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutBatchNestedInput
     stocks?: StockUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductBatchUncheckedUpdateWithoutStoreInput = {
@@ -74637,6 +80922,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutBatchNestedInput
     stocks?: StockUncheckedUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductBatchUncheckedUpdateManyWithoutStoreInput = {
@@ -75044,6 +81330,65 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CustomerLedgerShareUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    customer?: CustomerUpdateOneRequiredWithoutLedgerSharesNestedInput
+  }
+
+  export type CustomerLedgerShareUncheckedUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CustomerLedgerShareUncheckedUpdateManyWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type InventoryAuditUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    condition?: StringFieldUpdateOperationsInput | string
+    status?: EnumInventoryAuditStatusFieldUpdateOperationsInput | $Enums.InventoryAuditStatus
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: InventoryAuditItemUpdateManyWithoutAuditNestedInput
+  }
+
+  export type InventoryAuditUncheckedUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    condition?: StringFieldUpdateOperationsInput | string
+    status?: EnumInventoryAuditStatusFieldUpdateOperationsInput | $Enums.InventoryAuditStatus
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: InventoryAuditItemUncheckedUpdateManyWithoutAuditNestedInput
+  }
+
+  export type InventoryAuditUncheckedUpdateManyWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    condition?: StringFieldUpdateOperationsInput | string
+    status?: EnumInventoryAuditStatusFieldUpdateOperationsInput | $Enums.InventoryAuditStatus
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PrescriptionItemCreateManyPrescriptionInput = {
     id?: string
     productId: string
@@ -75232,6 +81577,15 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type InventoryAuditItemCreateManyProductInput = {
+    id?: string
+    auditId: string
+    batchId: string
+    expectedQty: Decimal | DecimalJsLike | number | string
+    countedQty?: Decimal | DecimalJsLike | number | string | null
+    variance?: Decimal | DecimalJsLike | number | string | null
+  }
+
   export type ProductSaltCreateManyProductInput = {
     id?: string
     saltId: string
@@ -75289,6 +81643,7 @@ export namespace Prisma {
     saleItems?: SaleItemUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUpdateManyWithoutBatchNestedInput
     stocks?: StockUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductBatchUncheckedUpdateWithoutProductInput = {
@@ -75310,6 +81665,7 @@ export namespace Prisma {
     saleItems?: SaleItemUncheckedUpdateManyWithoutBatchNestedInput
     salesReturnItems?: SalesReturnItemUncheckedUpdateManyWithoutBatchNestedInput
     stocks?: StockUncheckedUpdateManyWithoutBatchNestedInput
+    auditItems?: InventoryAuditItemUncheckedUpdateManyWithoutBatchNestedInput
   }
 
   export type ProductBatchUncheckedUpdateManyWithoutProductInput = {
@@ -75693,6 +82049,33 @@ export namespace Prisma {
     reservedQuantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryAuditItemUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    audit?: InventoryAuditUpdateOneRequiredWithoutItemsNestedInput
+    batch?: ProductBatchUpdateOneRequiredWithoutAuditItemsNestedInput
+  }
+
+  export type InventoryAuditItemUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditId?: StringFieldUpdateOperationsInput | string
+    batchId?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InventoryAuditItemUncheckedUpdateManyWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditId?: StringFieldUpdateOperationsInput | string
+    batchId?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type ProductSaltUpdateWithoutProductInput = {
@@ -76149,6 +82532,15 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type InventoryAuditItemCreateManyBatchInput = {
+    id?: string
+    auditId: string
+    productId: string
+    expectedQty: Decimal | DecimalJsLike | number | string
+    countedQty?: Decimal | DecimalJsLike | number | string | null
+    variance?: Decimal | DecimalJsLike | number | string | null
+  }
+
   export type ProductSupplierUpdateWithoutProductBatchInput = {
     id?: StringFieldUpdateOperationsInput | string
     supplierSku?: NullableStringFieldUpdateOperationsInput | string | null
@@ -76462,6 +82854,33 @@ export namespace Prisma {
     reservedQuantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryAuditItemUpdateWithoutBatchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    audit?: InventoryAuditUpdateOneRequiredWithoutItemsNestedInput
+    product?: ProductUpdateOneRequiredWithoutAuditItemsNestedInput
+  }
+
+  export type InventoryAuditItemUncheckedUpdateWithoutBatchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type InventoryAuditItemUncheckedUpdateManyWithoutBatchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    auditId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    expectedQty?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    countedQty?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    variance?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
   export type PurchaseItemCreateManyPurchaseInput = {

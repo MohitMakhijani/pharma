@@ -59,6 +59,46 @@ model StockMovement {
   @@index([createdAt])
 }
 
+model InventoryAudit {
+  id          String              @id @default(cuid())
+  storeId     String
+  auditDate   DateTime
+  condition   String              @default("all")
+  status      InventoryAuditStatus @default(OPEN)
+  createdById String?
+  completedAt DateTime?
+  createdAt   DateTime            @default(now())
+  store       Store               @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  items       InventoryAuditItem[]
+
+  @@index([storeId])
+  @@index([auditDate])
+  @@index([status])
+}
+
+model InventoryAuditItem {
+  id           String         @id @default(cuid())
+  auditId      String
+  productId    String
+  batchId      String
+  expectedQty  Decimal        @db.Decimal(14, 3)
+  countedQty   Decimal?       @db.Decimal(14, 3)
+  variance     Decimal?       @db.Decimal(14, 3)
+  audit        InventoryAudit @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  product      Product        @relation(fields: [productId], references: [id])
+  batch        ProductBatch   @relation(fields: [batchId], references: [id])
+
+  @@unique([auditId, batchId])
+  @@index([productId])
+  @@index([batchId])
+}
+
+enum InventoryAuditStatus {
+  OPEN
+  COMPLETED
+  CANCELLED
+}
+
 enum StockMovementType {
   PURCHASE
   SALE

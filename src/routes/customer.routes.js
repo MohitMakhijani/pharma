@@ -29,6 +29,18 @@ router.get(
   controller.getCustomerById
 );
 
+router.get(
+  '/:id/sales',
+  authorize('ADMIN','PHARMACIST'),
+  controller.getCustomerSales
+);
+
+router.post(
+  '/:id/ledger-shares',
+  authorize('ADMIN','PHARMACIST'),
+  controller.createCustomerLedgerShare
+);
+
 
 router.post(
   '/',

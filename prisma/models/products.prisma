@@ -41,6 +41,7 @@ model Product {
   saleItems           SaleItem[]
   salesReturnItems    SalesReturnItem[]
   stocks              Stock[]
+  auditItems          InventoryAuditItem[]
   salts               ProductSalt[]
 
   @@unique([storeId, sku])
@@ -150,6 +151,7 @@ model ProductBatch {
   saleItems           SaleItem[]
   salesReturnItems    SalesReturnItem[]
   stocks              Stock[]
+  auditItems          InventoryAuditItem[]
 
   @@unique([storeId, productId, batchNumber])
   @@index([storeId])

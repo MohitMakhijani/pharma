@@ -213,6 +213,16 @@ exports.Prisma.CustomerScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CustomerLedgerShareScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  customerId: 'customerId',
+  storeId: 'storeId',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt'
+};
+
 exports.Prisma.StockScalarFieldEnum = {
   id: 'id',
   storeId: 'storeId',
@@ -241,6 +251,27 @@ exports.Prisma.StockMovementScalarFieldEnum = {
   createdById: 'createdById',
   stockId: 'stockId',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.InventoryAuditScalarFieldEnum = {
+  id: 'id',
+  storeId: 'storeId',
+  auditDate: 'auditDate',
+  condition: 'condition',
+  status: 'status',
+  createdById: 'createdById',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.InventoryAuditItemScalarFieldEnum = {
+  id: 'id',
+  auditId: 'auditId',
+  productId: 'productId',
+  batchId: 'batchId',
+  expectedQty: 'expectedQty',
+  countedQty: 'countedQty',
+  variance: 'variance'
 };
 
 exports.Prisma.NotificationScalarFieldEnum = {
@@ -718,6 +749,12 @@ exports.StockReferenceType = exports.$Enums.StockReferenceType = {
   MANUAL: 'MANUAL'
 };
 
+exports.InventoryAuditStatus = exports.$Enums.InventoryAuditStatus = {
+  OPEN: 'OPEN',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+};
+
 exports.NotificationType = exports.$Enums.NotificationType = {
   LOW_STOCK: 'LOW_STOCK',
   EXPIRY_WARNING: 'EXPIRY_WARNING',
@@ -806,8 +843,11 @@ exports.Prisma.ModelName = {
   Manufacturer: 'Manufacturer',
   Unit: 'Unit',
   Customer: 'Customer',
+  CustomerLedgerShare: 'CustomerLedgerShare',
   Stock: 'Stock',
   StockMovement: 'StockMovement',
+  InventoryAudit: 'InventoryAudit',
+  InventoryAuditItem: 'InventoryAuditItem',
   Notification: 'Notification',
   Store: 'Store',
   Prescription: 'Prescription',

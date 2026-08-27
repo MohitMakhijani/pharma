@@ -95,10 +95,38 @@ async function getSupplierLedger(req, res) {
   }
 }
 
+async function addSupplierPayment(req, res) {
+  try {
+    const payment = await supplierService.addSupplierPayment({ supplierId: req.params.id, storeId: req.user.storeId, amount: req.body.amount, paymentMethod: req.body.paymentMethod, referenceNumber: req.body.referenceNumber, notes: req.body.notes });
+    return res.status(201).json({ success: true, message: 'Supplier payment recorded successfully', data: payment });
+  } catch (error) {
+    return res.status(error.statusCode || 400).json({ success: false, message: error.message || 'Failed to record supplier payment' });
+  }
+}
+
+async function exportSuppliers(req, res, next) {
+  try {
+    const csv = await supplierService.exportSuppliers(req.user.storeId, req.body?.columns || []);
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+    res.setHeader('Content-Disposition', `attachment; filename="suppliers-${new Date().toISOString().slice(0, 10)}.csv"`);
+    res.send(csv);
+  } catch (error) { next(error); }
+}
+
+async function importSuppliers(req, res, next) {
+  try {
+    const result = await supplierService.importSuppliers(req.user.storeId, req.body.rows);
+    res.status(201).json({ success: true, message: 'Suppliers imported successfully', data: result });
+  } catch (error) { next(error); }
+}
+
 module.exports = {
   getSuppliers,
   getSupplierById,
   createSupplier,
   updateSupplier,
   getSupplierLedger,
+  addSupplierPayment,
+  exportSuppliers,
+  importSuppliers,
 };

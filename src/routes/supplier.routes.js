@@ -6,6 +6,9 @@ const {
   createSupplier,
   updateSupplier,
   getSupplierLedger,
+  addSupplierPayment,
+  exportSuppliers,
+  importSuppliers,
 } = require('../controllers/supplier.controller');
 
 const { authenticate } = require('../middleware/auth.middleware');
@@ -20,6 +23,10 @@ router.get(
   authorize('ADMIN', 'PHARMACIST'),
   getSuppliers
 );
+
+router.post('/export', authorize('ADMIN', 'PHARMACIST'), exportSuppliers);
+
+router.post('/import', authorize('ADMIN', 'PHARMACIST'), importSuppliers);
 
 router.get(
   '/:id',
@@ -43,6 +50,12 @@ router.patch(
 router.get(
   '/:supplierId/ledger',
   getSupplierLedger
+);
+
+router.post(
+  '/:id/payments',
+  authorize('ADMIN', 'PHARMACIST'),
+  addSupplierPayment
 );
 
 module.exports = router;

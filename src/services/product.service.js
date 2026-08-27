@@ -68,7 +68,7 @@ async function getProduct(productId, storeId) {
       id: { not: product.id },
       salts: { some: { saltId: { in: product.salts.map((mapping) => mapping.saltId) } } },
     },
-    select: { id: true, name: true, genericName: true, brandName: true, sku: true },
+    select: { id: true, name: true, genericName: true, brandName: true, dosageForm: true, sku: true },
     orderBy: { name: 'asc' },
   });
 

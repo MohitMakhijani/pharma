@@ -7,6 +7,12 @@ const { authenticate } = require('../middleware/auth.middleware');
 
 router.use(authenticate);
 
+router.get('/inventory/export', controller.exportStock);
+router.post('/inventory/audits', controller.createInventoryAudit);
+router.get('/inventory/audits/:auditId', controller.getInventoryAudit);
+router.post('/inventory/audits/:auditId/complete', controller.completeInventoryAudit);
+router.post('/inventory/import', controller.importStock);
+
 router.get(
   '/products/:productId/stock',
   controller.getProductStock

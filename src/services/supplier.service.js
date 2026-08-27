@@ -1,10 +1,47 @@
 const prisma = require('../config/prisma');
 
+const supplierImportFields = ['name', 'phone', 'alternatePhone', 'email', 'gstin', 'drugLicenseNo', 'address', 'city', 'state', 'pincode', 'creditLimit', 'creditDays', 'openingBalance', 'status'];
+const supplierExportFields = [...supplierImportFields, 'createdAt', 'lastPayment', 'outstanding', 'margin'];
+
+function csvEscape(value) { return `"${String(value ?? '').replaceAll('"', '""')}"`; }
+
 async function getSuppliers(storeId) {
-  return prisma.supplier.findMany({
+  const suppliers = await prisma.supplier.findMany({
     where: { storeId },
     orderBy: { createdAt: 'desc' },
   });
+  const entries = await prisma.ledgerEntry.findMany({ where: { storeId, ledgerType: 'SUPPLIER', supplierId: { not: null } }, select: { supplierId: true, amount: true, entryType: true, entryDate: true }, orderBy: { entryDate: 'desc' } });
+  const supplierProducts = await prisma.productSupplier.findMany({ where: { supplier: { storeId } }, select: { supplierId: true, purchasePrice: true, productBatch: { select: { sellingPrice: true } } } });
+  const margins = new Map();
+  supplierProducts.forEach((link) => { const cost = Number(link.purchasePrice || 0); const selling = Number(link.productBatch?.sellingPrice || 0); if (cost > 0 && selling > 0) { const current = margins.get(link.supplierId) || { total: 0, count: 0 }; current.total += ((selling - cost) / cost) * 100; current.count += 1; margins.set(link.supplierId, current); } });
+  const summaries = new Map();
+  entries.forEach((entry) => { const summary = summaries.get(entry.supplierId) || { balance: 0, lastPayment: null }; summary.balance += Number(entry.amount || 0); if (entry.entryType === 'PURCHASE_PAYMENT' && !summary.lastPayment) summary.lastPayment = entry.entryDate; summaries.set(entry.supplierId, summary); });
+  return suppliers.map((supplier) => ({ ...supplier, outstanding: summaries.get(supplier.id)?.balance ?? Number(supplier.openingBalance || 0), lastPayment: summaries.get(supplier.id)?.lastPayment || null, margin: margins.get(supplier.id) ? margins.get(supplier.id).total / margins.get(supplier.id).count : null }));
+}
+
+async function exportSuppliers(storeId, columns = supplierImportFields) {
+  const suppliers = await getSuppliers(storeId);
+  const allowedColumns = columns.filter((column) => supplierExportFields.includes(column));
+  const exportColumns = ['name', ...allowedColumns.filter((column) => column !== 'name')];
+  const labels = { name: 'Name', phone: 'Phone', email: 'Email', address: 'Address', gstin: 'GSTIN', drugLicenseNo: 'DL', contactPerson: 'Contact Name', state: 'State', createdAt: 'Created At', lastPayment: 'Last Payment', outstanding: 'Outstanding', margin: 'Margin %' };
+  const rows = suppliers.map((supplier) => exportColumns.map((column) => supplier[column]));
+  return [exportColumns.map((column) => labels[column] || column), ...rows].map((row) => row.map(csvEscape).join(',')).join('\r\n');
+}
+
+async function importSuppliers(storeId, rows) {
+  if (!Array.isArray(rows) || rows.length === 0) throw new Error('Import must contain at least one supplier');
+  if (rows.length > 1000) throw new Error('Import is limited to 1000 suppliers per file');
+  const existing = await prisma.supplier.findMany({ where: { storeId }, select: { phone: true, email: true, gstin: true } });
+  const used = { phone: new Set(existing.map((row) => row.phone).filter(Boolean)), email: new Set(existing.map((row) => row.email).filter(Boolean)), gstin: new Set(existing.map((row) => row.gstin).filter(Boolean)) };
+  const data = rows.map((row, index) => {
+    const name = String(row.name || '').trim();
+    if (!name) throw new Error(`Row ${index + 2}: Name is required`);
+    const normalized = Object.fromEntries(supplierImportFields.map((field) => [field, row[field] === undefined ? null : String(row[field]).trim() || null]));
+    for (const key of ['phone', 'email', 'gstin']) { if (normalized[key] && used[key].has(normalized[key])) throw new Error(`Row ${index + 2}: ${key} already exists`); if (normalized[key]) used[key].add(normalized[key]); }
+    return { storeId, name, contactPerson: normalized.contactPerson, phone: normalized.phone, alternatePhone: normalized.alternatePhone, email: normalized.email, gstin: normalized.gstin, drugLicenseNo: normalized.drugLicenseNo, address: normalized.address, city: normalized.city, state: normalized.state, pincode: normalized.pincode, creditLimit: Number(normalized.creditLimit || 0), creditDays: Number(normalized.creditDays || 0), openingBalance: Number(normalized.openingBalance || 0), status: ['ACTIVE', 'INACTIVE', 'BLOCKED'].includes(normalized.status) ? normalized.status : 'ACTIVE' };
+  });
+  await prisma.$transaction(data.map((supplier) => prisma.supplier.create({ data: supplier })));
+  return { imported: data.length };
 }
 
 async function getSupplierById(supplierId, storeId) {
@@ -186,8 +223,19 @@ async function getSupplierLedger(supplierId, storeId) {
       debit: amount > 0 ? amount : 0,
       credit: amount < 0 ? Math.abs(amount) : 0,
       balance,
+      paymentMethod: null,
     };
   });
+
+  const paymentIds = ledger.filter((entry) => entry.entryType === 'PURCHASE_PAYMENT').map((entry) => entry.referenceId).filter(Boolean);
+  if (paymentIds.length) {
+    const [payments, purchasePayments] = await Promise.all([
+      prisma.payment.findMany({ where: { id: { in: paymentIds }, supplierId, storeId }, select: { id: true, paymentMethod: true } }),
+      prisma.purchasePayment.findMany({ where: { id: { in: paymentIds }, purchase: { supplierId, storeId } }, select: { id: true, paymentMethod: true } }),
+    ]);
+    const paymentMethods = new Map([...payments, ...purchasePayments].map((payment) => [payment.id, payment.paymentMethod]));
+    ledger.forEach((entry) => { entry.paymentMethod = paymentMethods.get(entry.referenceId) || null; });
+  }
 
   return {
     supplier: {
@@ -204,10 +252,26 @@ async function getSupplierLedger(supplierId, storeId) {
   };
 }
 
+async function addSupplierPayment({ supplierId, storeId, amount, paymentMethod, referenceNumber, notes }) {
+  const paymentAmount = Number(amount);
+  if (!Number.isFinite(paymentAmount) || paymentAmount <= 0) throw new Error('Payment amount must be greater than 0');
+  if (!paymentMethod) throw new Error('Payment method is required');
+  const supplier = await prisma.supplier.findFirst({ where: { id: supplierId, storeId }, select: { id: true, name: true } });
+  if (!supplier) { const error = new Error('Supplier not found'); error.statusCode = 404; throw error; }
+  return prisma.$transaction(async (tx) => {
+    const payment = await tx.payment.create({ data: { storeId, supplierId, amount: paymentAmount, paymentMethod, referenceNumber: referenceNumber || null, notes: notes || null } });
+    await tx.ledgerEntry.create({ data: { storeId, supplierId, ledgerType: 'SUPPLIER', entryType: 'PURCHASE_PAYMENT', amount: -paymentAmount, referenceId: payment.id, referenceNumber: referenceNumber || null, description: `Payment made to ${supplier.name}` } });
+    return payment;
+  });
+}
+
 module.exports = {
   getSuppliers,
   getSupplierById,
   createSupplier,
   updateSupplier,
   getSupplierLedger,
+  addSupplierPayment,
+  exportSuppliers,
+  importSuppliers,
 };
