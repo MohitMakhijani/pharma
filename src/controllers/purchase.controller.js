@@ -9,11 +9,13 @@ async function createPurchase(req, res) {
       invoiceDate: req.body.invoiceDate,
       items: req.body.items,
       notes: req.body.notes,
+      status: req.body.status,
+      purchaseId: req.body.purchaseId,
     });
 
     return res.status(201).json({
       success: true,
-      message: 'Purchase created successfully',
+      message: req.body.status === 'DRAFT' ? 'Purchase draft saved successfully' : 'Purchase created successfully',
       data: purchase,
     });
   } catch (error) {
@@ -26,10 +28,43 @@ async function createPurchase(req, res) {
   }
 }
 
+async function updatePurchase(req, res) {
+  try {
+    const purchase = await purchaseService.createPurchase({
+      storeId: req.user.storeId,
+      supplierId: req.body.supplierId,
+      invoiceNumber: req.body.invoiceNumber,
+      invoiceDate: req.body.invoiceDate,
+      items: req.body.items,
+      notes: req.body.notes,
+      status: req.body.status,
+      purchaseId: req.params.purchaseId,
+    });
+
+    return res.json({
+      success: true,
+      message: req.body.status === 'DRAFT' ? 'Purchase draft updated successfully' : 'Purchase saved successfully',
+      data: purchase,
+    });
+  } catch (error) {
+    console.error('Update purchase error:', error);
+
+    return res.status(400).json({
+      success: false,
+      message: error.message || 'Failed to update purchase',
+    });
+  }
+}
+
 async function getPurchases(req, res) {
   try {
     const purchases = await purchaseService.getPurchases(
-      req.user.storeId
+      req.user.storeId,
+      {
+        search: String(req.query.search || '').trim(),
+        fromDate: req.query.fromDate,
+        toDate: req.query.toDate,
+      }
     );
 
     return res.json({
@@ -42,6 +77,46 @@ async function getPurchases(req, res) {
     return res.status(500).json({
       success: false,
       message: error.message || 'Failed to fetch purchases',
+    });
+  }
+}
+
+async function getPurchaseDrafts(req, res) {
+  try {
+    const drafts = await purchaseService.getDraftPurchases(req.user.storeId);
+
+    return res.json({
+      success: true,
+      data: drafts,
+    });
+  } catch (error) {
+    console.error('Get purchase drafts error:', error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message || 'Failed to fetch purchase drafts',
+    });
+  }
+}
+
+async function deletePurchase(req, res) {
+  try {
+    const purchase = await purchaseService.deletePurchase(
+      req.user.storeId,
+      req.params.purchaseId
+    );
+
+    return res.json({
+      success: true,
+      message: 'Purchase deleted successfully',
+      data: purchase,
+    });
+  } catch (error) {
+    console.error('Delete purchase error:', error);
+
+    return res.status(400).json({
+      success: false,
+      message: error.message || 'Failed to delete purchase',
     });
   }
 }
@@ -82,7 +157,9 @@ async function createPurchaseReturn(req, res) {
       await require('../services/purchaseReturn.service')
         .createPurchaseReturn({
           storeId: req.user.storeId,
-          purchaseId: req.params.purchaseId,
+          purchaseId: req.params.purchaseId || req.body.originalPurchaseId,
+          supplierId: req.body.supplierId,
+          returnDate: req.body.returnDate,
           items: req.body.items,
           reason: req.body.reason,
           notes: req.body.notes,
@@ -107,7 +184,10 @@ async function createPurchaseReturn(req, res) {
 
 module.exports = {
   createPurchase,
+  updatePurchase,
   getPurchases,
+  getPurchaseDrafts,
+  deletePurchase,
   getPurchaseById,
   createPurchaseReturn,
 };

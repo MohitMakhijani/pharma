@@ -7,6 +7,8 @@ async function createSale(req, res) {
       customerId: req.body.customerId,
       invoiceNumber: req.body.invoiceNumber,
       invoiceDate: req.body.invoiceDate,
+      discountPercent: req.body.discountPercent,
+      status: req.body.status,
       items: req.body.items,
       notes: req.body.notes,
     });

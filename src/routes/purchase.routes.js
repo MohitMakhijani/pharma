@@ -12,9 +12,24 @@ router.post(
   controller.createPurchase
 );
 
+router.patch(
+  '/purchases/:purchaseId',
+  controller.updatePurchase
+);
+
+router.delete(
+  '/purchases/:purchaseId',
+  controller.deletePurchase
+);
+
 router.get(
   '/purchases',
   controller.getPurchases
+);
+
+router.get(
+  '/purchases/drafts',
+  controller.getPurchaseDrafts
 );
 
 router.get(

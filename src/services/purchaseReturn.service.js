@@ -1,10 +1,9 @@
 const prisma = require('../config/prisma');
-const stockService = require('./stock.service');
-
-
 async function createPurchaseReturn({
   storeId,
   purchaseId,
+  supplierId,
+  returnDate,
   items,
   reason,
   notes,
@@ -22,6 +21,10 @@ async function createPurchaseReturn({
     throw new Error('At least one purchase return item is required');
   }
 
+  if (returnDate && Number.isNaN(new Date(returnDate).getTime())) {
+    throw new Error('Return date must be a valid date');
+  }
+
 
   return prisma.$transaction(async (tx) => {
 
@@ -34,13 +37,21 @@ async function createPurchaseReturn({
         storeId,
       },
       include: {
-        items: true,
+        items: {
+          include: {
+            batch: true,
+          },
+        },
       },
     });
 
 
     if (!purchase) {
       throw new Error('Purchase not found');
+    }
+
+    if (supplierId && supplierId !== purchase.supplierId) {
+      throw new Error('Supplier does not match the original purchase');
     }
 
 
@@ -71,12 +82,7 @@ async function createPurchaseReturn({
 
     for (const item of items) {
 
-      if (!item.purchaseItemId) {
-        throw new Error('Purchase item ID is required');
-      }
-
-
-      const qty = Number(item.quantity);
+      const qty = Number(item.returnQty ?? item.quantity);
 
 
       if (!Number.isFinite(qty) || qty <= 0) {
@@ -84,9 +90,11 @@ async function createPurchaseReturn({
       }
 
 
-      const purchaseItem = purchase.items.find(
-        (pi) => pi.id === item.purchaseItemId
-      );
+      const purchaseItemId = item.purchaseItemId;
+      const purchaseItem = purchase.items.find((pi) => {
+        if (purchaseItemId) return pi.id === purchaseItemId;
+        return pi.productId === item.productId && pi.batch?.batchNumber === item.batchNo;
+      });
 
 
       if (!purchaseItem) {
@@ -102,7 +110,7 @@ async function createPurchaseReturn({
       const returnedResult =
         await tx.purchaseReturnItem.aggregate({
           where: {
-            purchaseItemId: item.purchaseItemId,
+            purchaseItemId: purchaseItem.id,
             purchaseReturn: {
               is: {
                 status: 'COMPLETED',
@@ -120,7 +128,7 @@ async function createPurchaseReturn({
 
 
       const previousRequested =
-        requestedByItem.get(item.purchaseItemId) || 0;
+        requestedByItem.get(purchaseItem.id) || 0;
 
 
       const requestedTotal =
@@ -156,16 +164,20 @@ async function createPurchaseReturn({
 
 
       requestedByItem.set(
-        item.purchaseItemId,
+        purchaseItem.id,
         requestedTotal
       );
 
 
-      const amount =
-        qty * Number(purchaseItem.purchasePrice);
+      const rate = item.rate !== undefined ? Number(item.rate) : Number(purchaseItem.purchasePrice);
+      if (!Number.isFinite(rate) || rate < 0) throw new Error('Return rate must be a valid non-negative number');
+      const taxPercent = Number(item.taxPercent || 0);
+      if (!Number.isFinite(taxPercent) || taxPercent < 0) throw new Error('Tax percent must be valid');
+      const amount = qty * rate;
+      const taxAmount = amount * (taxPercent / 100);
 
 
-      totalAmount += amount;
+      totalAmount += amount + taxAmount;
 
 
       returnItems.push({
@@ -190,7 +202,7 @@ async function createPurchaseReturn({
         unitPrice:
           purchaseItem.purchasePrice,
 
-        totalAmount: amount,
+        totalAmount: amount + taxAmount,
 
         reason:
           item.reason || reason || null,
@@ -216,14 +228,14 @@ async function createPurchaseReturn({
           returnNumber:
             `PR-${Date.now()}`,
 
-          returnDate:
-            new Date(),
+          returnDate: returnDate ? new Date(returnDate) : new Date(),
 
           status:
             'COMPLETED',
 
-          subtotal:
-            totalAmount,
+          subtotal: returnItems.reduce((sum, item) => sum + Number(item.quantity) * Number(item.unitPrice), 0),
+
+          taxAmount: returnItems.reduce((sum, item) => sum + (Number(item.totalAmount) - Number(item.quantity) * Number(item.unitPrice)), 0),
 
           totalAmount,
 
@@ -246,22 +258,36 @@ async function createPurchaseReturn({
      * Remove returned stock.
      */
     for (const item of returnItems) {
+      const stock = await tx.stock.findFirst({
+        where: { storeId, productId: item.productId, batchId: item.batchId },
+      });
+      if (!stock) throw new Error(`Stock not found for product ${item.productId} and batch ${item.batchId}`);
 
-      await stockService.purchaseReturn(
-        item.batchId,
-        storeId,
-        null,
-        {
-          quantity:
-            item.baseQuantity,
+      const currentQuantity = Number(stock.quantity);
+      const reservedQuantity = Number(stock.reservedQuantity);
+      const availableQuantity = currentQuantity - reservedQuantity;
+      if (Number(item.baseQuantity) > availableQuantity) {
+        throw new Error(`Insufficient available stock. Available: ${availableQuantity}`);
+      }
 
-          referenceId:
-            purchaseReturn.id,
-
-          reason:
-            `Purchase return ${purchaseReturn.returnNumber}`,
-        }
-      );
+      const quantityAfter = currentQuantity - Number(item.baseQuantity);
+      await tx.stock.update({ where: { id: stock.id }, data: { quantity: quantityAfter } });
+      await tx.stockMovement.create({
+        data: {
+          storeId,
+          productId: item.productId,
+          batchId: item.batchId,
+          stockId: stock.id,
+          type: 'PURCHASE_RETURN',
+          referenceType: 'PURCHASE_RETURN',
+          quantity: -Number(item.baseQuantity),
+          quantityBefore: currentQuantity,
+          quantityAfter,
+          unitCost: item.unitPrice,
+          referenceId: purchaseReturn.id,
+          reason: `Purchase return ${purchaseReturn.returnNumber}`,
+        },
+      });
 
     }
 

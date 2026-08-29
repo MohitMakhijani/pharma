@@ -6,6 +6,8 @@ async function createSale({
   customerId,
   invoiceNumber,
   invoiceDate,
+  discountPercent,
+  status,
   items,
   notes,
 }) {
@@ -109,6 +111,11 @@ async function createSale({
     }
 
 
+    const discountRate = Math.max(0, Math.min(100, Number(discountPercent || 0))) / 100;
+    const discountAmount = subtotal * discountRate;
+    totalAmount = subtotal - discountAmount;
+
+    const saleStatus = status === 'DRAFT' ? 'DRAFT' : 'COMPLETED';
     const sale = await tx.sale.create({
       data: {
         storeId,
@@ -118,10 +125,11 @@ async function createSale({
           ? new Date(invoiceDate)
           : new Date(),
 
-        status: 'COMPLETED',
+        status: saleStatus,
 
         subtotal,
-        taxableAmount: subtotal,
+        discountAmount,
+        taxableAmount: totalAmount,
         totalAmount,
 
         dueAmount: totalAmount,
@@ -144,7 +152,11 @@ async function createSale({
 
 
 
-    for (const item of items) {
+    if (saleStatus !== 'DRAFT') for (const item of items) {
+      const packaging = item.packagingId
+        ? await tx.productPackaging.findFirst({ where: { id: item.packagingId, productId: item.productId, isSellable: true } })
+        : null;
+      const baseQuantity = Number(item.quantity) * (packaging ? Number(packaging.conversionToBase) : 1);
 
       await stockService.sellStock(
         item.batchId,
@@ -162,7 +174,7 @@ async function createSale({
 
 
 
-    if (customerId) {
+    if (customerId && saleStatus !== 'DRAFT') {
 
       await tx.ledgerEntry.create({
         data: {
