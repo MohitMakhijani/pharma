@@ -43,5 +43,20 @@ router.post(
   controller.createPurchaseReturn
 );
 
+router.get(
+  '/purchase-returns',
+  controller.getPurchaseReturns
+);
+
+router.get(
+  '/purchase-returns/:returnId',
+  controller.getPurchaseReturnById
+);
+
+router.post(
+  '/purchase-returns/:returnId/cancel',
+  controller.cancelPurchaseReturn
+);
+
 
 module.exports = router;

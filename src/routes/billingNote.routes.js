@@ -1,31 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/salesReturn.controller');
+const controller = require('../controllers/billingNote.controller');
 const { authenticate } = require('../middleware/auth.middleware');
 const { authorize } = require('../middleware/role.middleware');
 
 router.use(authenticate);
 
 router.get(
-  '/sales-returns',
-  controller.getSalesReturns
-);
-
-router.get(
-  '/sales-returns/:id',
-  controller.getSalesReturnById
+  '/',
+  controller.getBillingNotes
 );
 
 router.post(
-  '/sales-returns/:id/cancel',
+  '/',
   authorize('ADMIN', 'PHARMACIST'),
-  controller.cancelSalesReturn
+  controller.createBillingNote
 );
 
-router.post(
-  '/sales/:saleId/return',
+router.delete(
+  '/:id',
   authorize('ADMIN', 'PHARMACIST'),
-  controller.createSalesReturn
+  controller.deleteBillingNote
 );
 
 module.exports = router;

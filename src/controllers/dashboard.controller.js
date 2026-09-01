@@ -2,8 +2,10 @@ const dashboardService = require('../services/dashboard.service');
 
 async function getDashboard(req, res) {
   try {
-    const data = await dashboardService.getDashboard(
-      req.user.storeId
+    const timeRange = req.query.timeRange || '30d';
+    const data = await dashboardService.getDashboardSummary(
+      req.user.storeId,
+      timeRange
     );
 
     return res.status(200).json({
@@ -23,4 +25,5 @@ async function getDashboard(req, res) {
 
 module.exports = {
   getDashboard,
+  getDashboardSummary: getDashboard,
 };

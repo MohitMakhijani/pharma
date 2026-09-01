@@ -7,6 +7,9 @@ async function createPurchase(req, res) {
       supplierId: req.body.supplierId,
       invoiceNumber: req.body.invoiceNumber,
       invoiceDate: req.body.invoiceDate,
+      dueDate: req.body.dueDate,
+      paymentMethod: req.body.paymentMethod,
+      paymentStatus: req.body.paymentStatus,
       items: req.body.items,
       notes: req.body.notes,
       status: req.body.status,
@@ -35,6 +38,9 @@ async function updatePurchase(req, res) {
       supplierId: req.body.supplierId,
       invoiceNumber: req.body.invoiceNumber,
       invoiceDate: req.body.invoiceDate,
+      dueDate: req.body.dueDate,
+      paymentMethod: req.body.paymentMethod,
+      paymentStatus: req.body.paymentStatus,
       items: req.body.items,
       notes: req.body.notes,
       status: req.body.status,
@@ -181,6 +187,72 @@ async function createPurchaseReturn(req, res) {
   }
 }
 
+async function getPurchaseReturns(req, res) {
+  try {
+    const purchaseReturns = await require('../services/purchaseReturn.service')
+      .getPurchaseReturns(
+        req.user.storeId,
+        {
+          search: String(req.query.search || '').trim(),
+          fromDate: req.query.fromDate,
+          toDate: req.query.toDate,
+          supplierId: req.query.supplierId,
+        }
+      );
+
+    return res.json({
+      success: true,
+      data: purchaseReturns,
+    });
+  } catch (error) {
+    console.error('Get purchase returns error:', error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message || 'Failed to fetch purchase returns',
+    });
+  }
+}
+
+async function getPurchaseReturnById(req, res) {
+  try {
+    const purchaseReturn = await require('../services/purchaseReturn.service')
+      .getPurchaseReturnById(req.user.storeId, req.params.returnId);
+
+    return res.json({
+      success: true,
+      data: purchaseReturn,
+    });
+  } catch (error) {
+    console.error('Get purchase return error:', error);
+
+    return res.status(error.message === 'Purchase return not found' ? 404 : 500).json({
+      success: false,
+      message: error.message || 'Failed to fetch purchase return',
+    });
+  }
+}
+
+async function cancelPurchaseReturn(req, res) {
+  try {
+    const purchaseReturn = await require('../services/purchaseReturn.service')
+      .cancelPurchaseReturn(req.user.storeId, req.params.returnId);
+
+    return res.json({
+      success: true,
+      message: 'Purchase return cancelled successfully',
+      data: purchaseReturn,
+    });
+  } catch (error) {
+    console.error('Cancel purchase return error:', error);
+
+    return res.status(error.message.includes('not found') ? 404 : 400).json({
+      success: false,
+      message: error.message || 'Failed to cancel purchase return',
+    });
+  }
+}
+
 
 module.exports = {
   createPurchase,
@@ -190,4 +262,7 @@ module.exports = {
   deletePurchase,
   getPurchaseById,
   createPurchaseReturn,
+  getPurchaseReturns,
+  getPurchaseReturnById,
+  cancelPurchaseReturn,
 };

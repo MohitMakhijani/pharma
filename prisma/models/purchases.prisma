@@ -4,9 +4,11 @@ model Purchase {
   supplierId     String
   invoiceNumber  String
   invoiceDate    DateTime
+  dueDate        DateTime?
   receivedDate   DateTime?
   status         PurchaseStatus    @default(RECEIVED)
   paymentStatus  PaymentStatus     @default(UNPAID)
+  paymentMethod  PaymentMethod     @default(CASH)
   subtotal       Decimal           @default(0) @db.Decimal(14, 2)
   discountAmount Decimal           @default(0) @db.Decimal(14, 2)
   taxableAmount  Decimal           @default(0) @db.Decimal(14, 2)

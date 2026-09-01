@@ -303,10 +303,27 @@ exports.Prisma.StoreScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DoctorScalarFieldEnum = {
+  id: 'id',
+  storeId: 'storeId',
+  name: 'name',
+  phone: 'phone',
+  email: 'email',
+  specialization: 'specialization',
+  registrationNo: 'registrationNo',
+  hospital: 'hospital',
+  address: 'address',
+  notes: 'notes',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.PrescriptionScalarFieldEnum = {
   id: 'id',
   storeId: 'storeId',
   customerId: 'customerId',
+  doctorId: 'doctorId',
   prescriptionNumber: 'prescriptionNumber',
   prescriptionDate: 'prescriptionDate',
   validUntil: 'validUntil',
@@ -368,7 +385,8 @@ exports.Prisma.SaltScalarFieldEnum = {
 exports.Prisma.ProductSaltScalarFieldEnum = {
   id: 'id',
   productId: 'productId',
-  saltId: 'saltId'
+  saltId: 'saltId',
+  strength: 'strength'
 };
 
 exports.Prisma.ProductPackagingScalarFieldEnum = {
@@ -425,9 +443,11 @@ exports.Prisma.PurchaseScalarFieldEnum = {
   supplierId: 'supplierId',
   invoiceNumber: 'invoiceNumber',
   invoiceDate: 'invoiceDate',
+  dueDate: 'dueDate',
   receivedDate: 'receivedDate',
   status: 'status',
   paymentStatus: 'paymentStatus',
+  paymentMethod: 'paymentMethod',
   subtotal: 'subtotal',
   discountAmount: 'discountAmount',
   taxableAmount: 'taxableAmount',
@@ -517,6 +537,7 @@ exports.Prisma.SaleScalarFieldEnum = {
   id: 'id',
   storeId: 'storeId',
   customerId: 'customerId',
+  doctorId: 'doctorId',
   invoiceNumber: 'invoiceNumber',
   invoiceDate: 'invoiceDate',
   status: 'status',
@@ -531,7 +552,10 @@ exports.Prisma.SaleScalarFieldEnum = {
   totalAmount: 'totalAmount',
   paidAmount: 'paidAmount',
   dueAmount: 'dueAmount',
+  doctor: 'doctor',
+  dueDate: 'dueDate',
   notes: 'notes',
+  prescriptions: 'prescriptions',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -760,7 +784,8 @@ exports.NotificationType = exports.$Enums.NotificationType = {
   EXPIRY_WARNING: 'EXPIRY_WARNING',
   EXPIRED: 'EXPIRED',
   PAYMENT_DUE: 'PAYMENT_DUE',
-  SYSTEM: 'SYSTEM'
+  SYSTEM: 'SYSTEM',
+  BILLING_NOTE: 'BILLING_NOTE'
 };
 
 exports.PrescriptionStatus = exports.$Enums.PrescriptionStatus = {
@@ -850,6 +875,7 @@ exports.Prisma.ModelName = {
   InventoryAuditItem: 'InventoryAuditItem',
   Notification: 'Notification',
   Store: 'Store',
+  Doctor: 'Doctor',
   Prescription: 'Prescription',
   PrescriptionItem: 'PrescriptionItem',
   Product: 'Product',

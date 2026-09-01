@@ -1,10 +1,114 @@
 const prisma = require('../config/prisma');
 
+function inferPackagingDetails(packingString, fallbackDosageForm = null) {
+  const raw = String(packingString || '').trim();
+  const lower = raw.toLowerCase();
+
+  let conversion = 1;
+  let dosageForm = fallbackDosageForm || 'Tablet';
+
+  // Infer Multiplier / Conversion to base units
+  // Check patterns like 1x10, 1*10, 10x10, 1x15, 1x30, 10's, etc.
+  const multiplierMatch = lower.match(/^(\d+)\s*[x*×]\s*(\d+)$/i);
+  if (multiplierMatch) {
+    const p1 = Number(multiplierMatch[1]);
+    const p2 = Number(multiplierMatch[2]);
+    conversion = (p1 > 0 && p2 > 0) ? (p1 * p2) : (p2 || p1 || 1);
+  } else {
+    const singleMultiplier = lower.match(/^(\d+)\s*['s|s|tab|caps]?$/i);
+    if (singleMultiplier && Number(singleMultiplier[1]) > 0 && Number(singleMultiplier[1]) <= 1000) {
+      conversion = Number(singleMultiplier[1]);
+    }
+  }
+
+  // Infer Dosage Form
+  if (
+    lower.includes('vial') ||
+    lower.includes('ampoule') ||
+    lower.includes('pfs') ||
+    lower.includes('syringe') ||
+    lower.includes('iv bag') ||
+    lower.includes('injection') ||
+    lower.endsWith('ml')
+  ) {
+    if (lower.includes('syrup') || lower.includes('suspension') || lower.includes('liquid') || lower.includes('bottle')) {
+      dosageForm = 'Liquid';
+      conversion = 1;
+    } else if (lower.includes('drop')) {
+      dosageForm = 'Drops';
+      conversion = 1;
+    } else {
+      dosageForm = 'Injection';
+      conversion = 1;
+    }
+  } else if (
+    lower.includes('lami tube') ||
+    lower.includes('tube') ||
+    lower.includes('ointment') ||
+    lower.includes('cream') ||
+    lower.includes('gel') ||
+    lower.endsWith('gm')
+  ) {
+    dosageForm = lower.includes('gel') ? 'Gel' : 'Cream';
+    conversion = 1;
+  } else if (lower.includes('inhaler') || lower.includes('rotacap')) {
+    dosageForm = 'Inhaler';
+    conversion = 1;
+  } else if (lower.includes('suppository')) {
+    dosageForm = 'Suppository';
+  } else if (lower.includes('capsule') || lower.includes('cap')) {
+    dosageForm = 'Capsule';
+    if (conversion === 1 && (lower.includes('strip') || lower.includes('blister'))) conversion = 10;
+  } else if (lower.includes('strip') || lower.includes('blister') || lower.includes('alu') || lower.includes('tablet') || lower.includes('tab') || /\d+\s*[x*×]\s*\d+/i.test(lower)) {
+    dosageForm = 'Tablet';
+    if (conversion === 1 && (lower.includes('strip') || lower.includes('blister') || lower.includes('alu'))) conversion = 10;
+  } else if (lower.includes('bar')) {
+    dosageForm = 'Bar';
+    conversion = 1;
+  }
+
+  if (fallbackDosageForm) {
+    dosageForm = fallbackDosageForm;
+  }
+
+  return {
+    name: raw || (conversion > 1 ? `1x${conversion}` : '1x1'),
+    conversionToBase: conversion,
+    dosageForm,
+  };
+}
+
+async function ensureUniquePurchaseInvoiceNumber(tx, storeId, candidate, currentPurchaseId = null) {
+  const baseInvoice = (candidate && String(candidate).trim()) || `PO-${Date.now()}`;
+  let invoiceNumber = baseInvoice;
+  let counter = 1;
+
+  while (true) {
+    const existingPurchase = await tx.purchase.findFirst({
+      where: {
+        storeId,
+        invoiceNumber,
+        ...(currentPurchaseId ? { id: { not: currentPurchaseId } } : {}),
+      },
+      select: { id: true },
+    });
+
+    if (!existingPurchase) return invoiceNumber;
+
+    const suffix = `-${Date.now()}-${counter}`;
+    invoiceNumber = `${baseInvoice}${suffix}`.slice(0, 80);
+    counter += 1;
+  }
+}
+
 async function createPurchase({
   storeId,
   supplierId,
   invoiceNumber,
   invoiceDate,
+  dueDate,
+  paymentMethod = 'CASH',
+  paymentStatus = null,
   items,
   notes,
   status = 'RECEIVED',
@@ -75,6 +179,8 @@ async function createPurchase({
   }
 
   return prisma.$transaction(async (tx) => {
+    const uniqueInvoiceNumber = await ensureUniquePurchaseInvoiceNumber(tx, storeId, resolvedInvoiceNumber, purchaseId);
+
     let subtotal = 0;
     let discountAmount = 0;
     let taxableAmount = 0;
@@ -104,7 +210,84 @@ async function createPurchase({
         if (normalizedStatus === 'DRAFT') {
           continue;
         }
-        throw new Error('Product ID is required');
+
+        const productName = String(item.productName || '').trim().replace(/\s+/g, ' ');
+        if (!productName) {
+          throw new Error('Product ID or product name is required');
+        }
+
+        // Existing product: use productId if it is already in the store.
+        // Custom product: no productId, so backend checks by name and creates a real Product row.
+        let autoProduct = await tx.product.findFirst({
+          where: {
+            storeId,
+            name: { equals: productName, mode: 'insensitive' },
+          },
+          select: { id: true, name: true },
+        });
+
+        const packagingInfo = inferPackagingDetails(item.packing || item.packagingName, item.dosageForm);
+
+        if (!autoProduct) {
+          const gstPercent = Number(item.cgstPercent || 0) + Number(item.sgstPercent || 0);
+
+          const defaultUnit = await tx.unit.findFirst({
+            select: { id: true },
+            orderBy: { createdAt: 'asc' },
+          });
+
+          if (!defaultUnit) {
+            throw new Error('Please add a unit in Products setup before creating purchases');
+          }
+
+          const skuBase = productName.replace(/\s+/g, '-').toLowerCase().slice(0, 20);
+          const existingSKUs = await tx.product.findMany({
+            where: {
+              storeId,
+              sku: { startsWith: skuBase },
+            },
+            select: { sku: true },
+          });
+
+          const skuNumber = existingSKUs.length + 1;
+          const sku = `${skuBase}-${skuNumber}`;
+
+          autoProduct = await tx.product.create({
+            data: {
+              storeId,
+              name: productName,
+              sku,
+              hsnCode: item.hsnCode ? String(item.hsnCode).trim() : null,
+              gstPercent: gstPercent > 0 ? gstPercent : 12,
+              baseUnitId: defaultUnit.id,
+              status: 'ACTIVE',
+              prescriptionOnly: false,
+              dosageForm: packagingInfo.dosageForm,
+              description: item.description || null,
+              minimumStock: 0,
+              reorderLevel: 0,
+            },
+          });
+
+          // Automatically create default packaging with inferred multiplier
+          const createdPackaging = await tx.productPackaging.create({
+            data: {
+              productId: autoProduct.id,
+              name: packagingInfo.name,
+              unitId: defaultUnit.id,
+              conversionToBase: packagingInfo.conversionToBase,
+              isSellable: true,
+              isPurchaseUnit: true,
+              isDefault: true,
+              sellingPrice: Number(item.sellingPrice || item.mrp || 0),
+              mrp: Number(item.mrp || 0),
+            },
+          });
+
+          item.packagingId = createdPackaging.id;
+        }
+
+        item.productId = autoProduct.id;
       }
 
       if (!Number.isFinite(quantity) || quantity <= 0) {
@@ -137,7 +320,7 @@ async function createPurchase({
 
       const product = await tx.product.findFirst({
         where: { id: item.productId, storeId },
-        select: { id: true },
+        select: { id: true, dosageForm: true, baseUnitId: true },
       });
 
       if (!product) {
@@ -147,11 +330,36 @@ async function createPurchase({
         throw new Error('Product does not belong to this store');
       }
 
-      const packaging = item.packagingId
+      // If product exists and has packing specified in purchase, ensure productPackaging exists
+      let packaging = item.packagingId
         ? await tx.productPackaging.findFirst({
             where: { id: item.packagingId, productId: item.productId, isPurchaseUnit: true },
           })
         : null;
+
+      if (!packaging && (item.packing || item.packagingName)) {
+        const packagingInfo = inferPackagingDetails(item.packing || item.packagingName, product.dosageForm);
+        packaging = await tx.productPackaging.findFirst({
+          where: { productId: item.productId, name: packagingInfo.name },
+        });
+
+        if (!packaging) {
+          packaging = await tx.productPackaging.create({
+            data: {
+              productId: item.productId,
+              name: packagingInfo.name,
+              unitId: product.baseUnitId,
+              conversionToBase: packagingInfo.conversionToBase,
+              isSellable: true,
+              isPurchaseUnit: true,
+              isDefault: false,
+              sellingPrice: Number(item.sellingPrice || item.mrp || 0),
+              mrp: Number(item.mrp || 0),
+            },
+          });
+        }
+        item.packagingId = packaging.id;
+      }
       if (item.packagingId && !packaging) {
         if (normalizedStatus === 'DRAFT') {
           continue;
@@ -196,6 +404,36 @@ async function createPurchase({
             },
           });
           batchId = batch.id;
+        }
+      }
+
+      // Automatically link Supplier to Product and ProductBatch
+      if (supplierId && item.productId) {
+        const existingProductSupplier = await tx.productSupplier.findUnique({
+          where: {
+            productId_supplierId: {
+              productId: item.productId,
+              supplierId,
+            },
+          },
+        });
+
+        if (!existingProductSupplier) {
+          await tx.productSupplier.create({
+            data: {
+              productId: item.productId,
+              supplierId,
+              productBatchId: batchId || null,
+              purchasePrice: Number(item.purchasePrice || 0),
+              isPreferred: true,
+              isActive: true,
+            },
+          });
+        } else if (batchId && !existingProductSupplier.productBatchId) {
+          await tx.productSupplier.update({
+            where: { id: existingProductSupplier.id },
+            data: { productBatchId: batchId, purchasePrice: Number(item.purchasePrice || 0) },
+          });
         }
       }
 
@@ -259,14 +497,25 @@ async function createPurchase({
       totalAmount += itemTotal;
     }
 
+    const normalizedPaymentMethod = ['CASH', 'UPI', 'CARD', 'BANK_TRANSFER', 'CHEQUE', 'OTHER'].includes(String(paymentMethod || '').toUpperCase())
+      ? String(paymentMethod).toUpperCase()
+      : 'CASH';
+
+    const isFullCashPayment = String(paymentStatus || '').toUpperCase() === 'PAID' || String(paymentMethod || '').toUpperCase() === 'CASH' && String(paymentStatus || '').toUpperCase() !== 'UNPAID';
+    const computedPaymentStatus = String(paymentStatus || '').toUpperCase() === 'PAID' ? 'PAID' : 'UNPAID';
+    const initialPaidAmount = computedPaymentStatus === 'PAID' ? totalAmount : 0;
+    const initialDueAmount = computedPaymentStatus === 'PAID' ? 0 : totalAmount;
+
     const purchasePayload = {
       storeId,
       supplierId: resolvedSupplierId,
-      invoiceNumber: resolvedInvoiceNumber,
+      invoiceNumber: uniqueInvoiceNumber,
       invoiceDate: new Date(resolvedInvoiceDate),
+      dueDate: dueDate ? new Date(dueDate) : null,
       receivedDate: normalizedStatus === 'RECEIVED' ? new Date() : null,
       status: normalizedStatus,
-      paymentStatus: 'UNPAID',
+      paymentStatus: computedPaymentStatus,
+      paymentMethod: normalizedPaymentMethod,
       subtotal,
       discountAmount,
       taxableAmount,
@@ -276,8 +525,8 @@ async function createPurchase({
       otherTaxAmount: 0,
       roundOff: 0,
       totalAmount,
-      paidAmount: 0,
-      dueAmount: totalAmount,
+      paidAmount: initialPaidAmount,
+      dueAmount: initialDueAmount,
       notes: notes || null,
     };
 
@@ -418,7 +667,7 @@ async function createPurchase({
             quantityAfter,
             unitCost: item.costPerBaseUnit || batch.costPerBaseUnit,
             referenceId: purchase.id,
-            reason: `Purchase ${invoiceNumber}`,
+            reason: `Purchase ${uniqueInvoiceNumber}`,
           },
         });
       }
@@ -431,11 +680,36 @@ async function createPurchase({
           entryType: 'PURCHASE',
           amount: totalAmount,
           referenceId: purchase.id,
-          referenceNumber: resolvedInvoiceNumber,
-          description: `Purchase ${resolvedInvoiceNumber}`,
+          referenceNumber: uniqueInvoiceNumber,
+          description: `Purchase ${uniqueInvoiceNumber}`,
           entryDate: new Date(resolvedInvoiceDate),
         },
       });
+
+      if (computedPaymentStatus === 'PAID' && totalAmount > 0) {
+        await tx.purchasePayment.create({
+          data: {
+            purchaseId: purchase.id,
+            amount: totalAmount,
+            paymentMethod: normalizedPaymentMethod,
+            notes: `Paid via ${normalizedPaymentMethod}`,
+          },
+        });
+
+        await tx.ledgerEntry.create({
+          data: {
+            storeId,
+            supplierId,
+            ledgerType: 'SUPPLIER',
+            entryType: 'PURCHASE_PAYMENT',
+            amount: -totalAmount,
+            referenceId: purchase.id,
+            referenceNumber: uniqueInvoiceNumber,
+            description: `Payment for Purchase ${uniqueInvoiceNumber} (${normalizedPaymentMethod})`,
+            entryDate: new Date(),
+          },
+        });
+      }
     }
 
     return purchase;

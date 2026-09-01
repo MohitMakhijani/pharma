@@ -84,6 +84,11 @@ export type Notification = $Result.DefaultSelection<Prisma.$NotificationPayload>
  */
 export type Store = $Result.DefaultSelection<Prisma.$StorePayload>
 /**
+ * Model Doctor
+ * 
+ */
+export type Doctor = $Result.DefaultSelection<Prisma.$DoctorPayload>
+/**
  * Model Prescription
  * 
  */
@@ -308,7 +313,8 @@ export const NotificationType: {
   EXPIRY_WARNING: 'EXPIRY_WARNING',
   EXPIRED: 'EXPIRED',
   PAYMENT_DUE: 'PAYMENT_DUE',
-  SYSTEM: 'SYSTEM'
+  SYSTEM: 'SYSTEM',
+  BILLING_NOTE: 'BILLING_NOTE'
 };
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
@@ -764,6 +770,16 @@ export class PrismaClient<
     * ```
     */
   get store(): Prisma.StoreDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.doctor`: Exposes CRUD operations for the **Doctor** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Doctors
+    * const doctors = await prisma.doctor.findMany()
+    * ```
+    */
+  get doctor(): Prisma.DoctorDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.prescription`: Exposes CRUD operations for the **Prescription** model.
@@ -1435,6 +1451,7 @@ export namespace Prisma {
     InventoryAuditItem: 'InventoryAuditItem',
     Notification: 'Notification',
     Store: 'Store',
+    Doctor: 'Doctor',
     Prescription: 'Prescription',
     PrescriptionItem: 'PrescriptionItem',
     Product: 'Product',
@@ -1471,7 +1488,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "ledgerEntry" | "payment" | "auditLog" | "category" | "manufacturer" | "unit" | "customer" | "customerLedgerShare" | "stock" | "stockMovement" | "inventoryAudit" | "inventoryAuditItem" | "notification" | "store" | "prescription" | "prescriptionItem" | "product" | "salt" | "productSalt" | "productPackaging" | "productBatch" | "productSupplier" | "purchase" | "purchaseItem" | "purchasePayment" | "purchaseReturn" | "purchaseReturnItem" | "sale" | "saleItem" | "salePayment" | "salesReturn" | "salesReturnItem" | "supplier" | "role" | "user"
+      modelProps: "ledgerEntry" | "payment" | "auditLog" | "category" | "manufacturer" | "unit" | "customer" | "customerLedgerShare" | "stock" | "stockMovement" | "inventoryAudit" | "inventoryAuditItem" | "notification" | "store" | "doctor" | "prescription" | "prescriptionItem" | "product" | "salt" | "productSalt" | "productPackaging" | "productBatch" | "productSupplier" | "purchase" | "purchaseItem" | "purchasePayment" | "purchaseReturn" | "purchaseReturnItem" | "sale" | "saleItem" | "salePayment" | "salesReturn" | "salesReturnItem" | "supplier" | "role" | "user"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2508,6 +2525,80 @@ export namespace Prisma {
           count: {
             args: Prisma.StoreCountArgs<ExtArgs>
             result: $Utils.Optional<StoreCountAggregateOutputType> | number
+          }
+        }
+      }
+      Doctor: {
+        payload: Prisma.$DoctorPayload<ExtArgs>
+        fields: Prisma.DoctorFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DoctorFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoctorPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DoctorFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoctorPayload>
+          }
+          findFirst: {
+            args: Prisma.DoctorFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoctorPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DoctorFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoctorPayload>
+          }
+          findMany: {
+            args: Prisma.DoctorFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoctorPayload>[]
+          }
+          create: {
+            args: Prisma.DoctorCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoctorPayload>
+          }
+          createMany: {
+            args: Prisma.DoctorCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DoctorCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoctorPayload>[]
+          }
+          delete: {
+            args: Prisma.DoctorDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoctorPayload>
+          }
+          update: {
+            args: Prisma.DoctorUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoctorPayload>
+          }
+          deleteMany: {
+            args: Prisma.DoctorDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DoctorUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DoctorUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoctorPayload>[]
+          }
+          upsert: {
+            args: Prisma.DoctorUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoctorPayload>
+          }
+          aggregate: {
+            args: Prisma.DoctorAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDoctor>
+          }
+          groupBy: {
+            args: Prisma.DoctorGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DoctorGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DoctorCountArgs<ExtArgs>
+            result: $Utils.Optional<DoctorCountAggregateOutputType> | number
           }
         }
       }
@@ -4202,6 +4293,7 @@ export namespace Prisma {
     inventoryAuditItem?: InventoryAuditItemOmit
     notification?: NotificationOmit
     store?: StoreOmit
+    doctor?: DoctorOmit
     prescription?: PrescriptionOmit
     prescriptionItem?: PrescriptionItemOmit
     product?: ProductOmit
@@ -4567,6 +4659,7 @@ export namespace Prisma {
     stocks: number
     suppliers: number
     users: number
+    doctors: number
     ledgerShares: number
     inventoryAudits: number
   }
@@ -4587,6 +4680,7 @@ export namespace Prisma {
     stocks?: boolean | StoreCountOutputTypeCountStocksArgs
     suppliers?: boolean | StoreCountOutputTypeCountSuppliersArgs
     users?: boolean | StoreCountOutputTypeCountUsersArgs
+    doctors?: boolean | StoreCountOutputTypeCountDoctorsArgs
     ledgerShares?: boolean | StoreCountOutputTypeCountLedgerSharesArgs
     inventoryAudits?: boolean | StoreCountOutputTypeCountInventoryAuditsArgs
   }
@@ -4710,6 +4804,13 @@ export namespace Prisma {
   /**
    * StoreCountOutputType without action
    */
+  export type StoreCountOutputTypeCountDoctorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DoctorWhereInput
+  }
+
+  /**
+   * StoreCountOutputType without action
+   */
   export type StoreCountOutputTypeCountLedgerSharesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CustomerLedgerShareWhereInput
   }
@@ -4719,6 +4820,46 @@ export namespace Prisma {
    */
   export type StoreCountOutputTypeCountInventoryAuditsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InventoryAuditWhereInput
+  }
+
+
+  /**
+   * Count Type DoctorCountOutputType
+   */
+
+  export type DoctorCountOutputType = {
+    sales: number
+    prescriptions: number
+  }
+
+  export type DoctorCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sales?: boolean | DoctorCountOutputTypeCountSalesArgs
+    prescriptions?: boolean | DoctorCountOutputTypeCountPrescriptionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DoctorCountOutputType without action
+   */
+  export type DoctorCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DoctorCountOutputType
+     */
+    select?: DoctorCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DoctorCountOutputType without action
+   */
+  export type DoctorCountOutputTypeCountSalesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SaleWhereInput
+  }
+
+  /**
+   * DoctorCountOutputType without action
+   */
+  export type DoctorCountOutputTypeCountPrescriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PrescriptionWhereInput
   }
 
 
@@ -21071,6 +21212,7 @@ export namespace Prisma {
     stocks?: boolean | Store$stocksArgs<ExtArgs>
     suppliers?: boolean | Store$suppliersArgs<ExtArgs>
     users?: boolean | Store$usersArgs<ExtArgs>
+    doctors?: boolean | Store$doctorsArgs<ExtArgs>
     ledgerShares?: boolean | Store$ledgerSharesArgs<ExtArgs>
     inventoryAudits?: boolean | Store$inventoryAuditsArgs<ExtArgs>
     _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
@@ -21141,6 +21283,7 @@ export namespace Prisma {
     stocks?: boolean | Store$stocksArgs<ExtArgs>
     suppliers?: boolean | Store$suppliersArgs<ExtArgs>
     users?: boolean | Store$usersArgs<ExtArgs>
+    doctors?: boolean | Store$doctorsArgs<ExtArgs>
     ledgerShares?: boolean | Store$ledgerSharesArgs<ExtArgs>
     inventoryAudits?: boolean | Store$inventoryAuditsArgs<ExtArgs>
     _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
@@ -21166,6 +21309,7 @@ export namespace Prisma {
       stocks: Prisma.$StockPayload<ExtArgs>[]
       suppliers: Prisma.$SupplierPayload<ExtArgs>[]
       users: Prisma.$UserPayload<ExtArgs>[]
+      doctors: Prisma.$DoctorPayload<ExtArgs>[]
       ledgerShares: Prisma.$CustomerLedgerSharePayload<ExtArgs>[]
       inventoryAudits: Prisma.$InventoryAuditPayload<ExtArgs>[]
     }
@@ -21592,6 +21736,7 @@ export namespace Prisma {
     stocks<T extends Store$stocksArgs<ExtArgs> = {}>(args?: Subset<T, Store$stocksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     suppliers<T extends Store$suppliersArgs<ExtArgs> = {}>(args?: Subset<T, Store$suppliersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     users<T extends Store$usersArgs<ExtArgs> = {}>(args?: Subset<T, Store$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    doctors<T extends Store$doctorsArgs<ExtArgs> = {}>(args?: Subset<T, Store$doctorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ledgerShares<T extends Store$ledgerSharesArgs<ExtArgs> = {}>(args?: Subset<T, Store$ledgerSharesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inventoryAudits<T extends Store$inventoryAuditsArgs<ExtArgs> = {}>(args?: Subset<T, Store$inventoryAuditsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -22389,6 +22534,30 @@ export namespace Prisma {
   }
 
   /**
+   * Store.doctors
+   */
+  export type Store$doctorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+    where?: DoctorWhereInput
+    orderBy?: DoctorOrderByWithRelationInput | DoctorOrderByWithRelationInput[]
+    cursor?: DoctorWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DoctorScalarFieldEnum | DoctorScalarFieldEnum[]
+  }
+
+  /**
    * Store.ledgerShares
    */
   export type Store$ledgerSharesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -22456,6 +22625,1231 @@ export namespace Prisma {
 
 
   /**
+   * Model Doctor
+   */
+
+  export type AggregateDoctor = {
+    _count: DoctorCountAggregateOutputType | null
+    _min: DoctorMinAggregateOutputType | null
+    _max: DoctorMaxAggregateOutputType | null
+  }
+
+  export type DoctorMinAggregateOutputType = {
+    id: string | null
+    storeId: string | null
+    name: string | null
+    phone: string | null
+    email: string | null
+    specialization: string | null
+    registrationNo: string | null
+    hospital: string | null
+    address: string | null
+    notes: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DoctorMaxAggregateOutputType = {
+    id: string | null
+    storeId: string | null
+    name: string | null
+    phone: string | null
+    email: string | null
+    specialization: string | null
+    registrationNo: string | null
+    hospital: string | null
+    address: string | null
+    notes: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DoctorCountAggregateOutputType = {
+    id: number
+    storeId: number
+    name: number
+    phone: number
+    email: number
+    specialization: number
+    registrationNo: number
+    hospital: number
+    address: number
+    notes: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DoctorMinAggregateInputType = {
+    id?: true
+    storeId?: true
+    name?: true
+    phone?: true
+    email?: true
+    specialization?: true
+    registrationNo?: true
+    hospital?: true
+    address?: true
+    notes?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DoctorMaxAggregateInputType = {
+    id?: true
+    storeId?: true
+    name?: true
+    phone?: true
+    email?: true
+    specialization?: true
+    registrationNo?: true
+    hospital?: true
+    address?: true
+    notes?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DoctorCountAggregateInputType = {
+    id?: true
+    storeId?: true
+    name?: true
+    phone?: true
+    email?: true
+    specialization?: true
+    registrationNo?: true
+    hospital?: true
+    address?: true
+    notes?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DoctorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Doctor to aggregate.
+     */
+    where?: DoctorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Doctors to fetch.
+     */
+    orderBy?: DoctorOrderByWithRelationInput | DoctorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DoctorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Doctors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Doctors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Doctors
+    **/
+    _count?: true | DoctorCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DoctorMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DoctorMaxAggregateInputType
+  }
+
+  export type GetDoctorAggregateType<T extends DoctorAggregateArgs> = {
+        [P in keyof T & keyof AggregateDoctor]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDoctor[P]>
+      : GetScalarType<T[P], AggregateDoctor[P]>
+  }
+
+
+
+
+  export type DoctorGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DoctorWhereInput
+    orderBy?: DoctorOrderByWithAggregationInput | DoctorOrderByWithAggregationInput[]
+    by: DoctorScalarFieldEnum[] | DoctorScalarFieldEnum
+    having?: DoctorScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DoctorCountAggregateInputType | true
+    _min?: DoctorMinAggregateInputType
+    _max?: DoctorMaxAggregateInputType
+  }
+
+  export type DoctorGroupByOutputType = {
+    id: string
+    storeId: string
+    name: string
+    phone: string | null
+    email: string | null
+    specialization: string | null
+    registrationNo: string | null
+    hospital: string | null
+    address: string | null
+    notes: string | null
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DoctorCountAggregateOutputType | null
+    _min: DoctorMinAggregateOutputType | null
+    _max: DoctorMaxAggregateOutputType | null
+  }
+
+  type GetDoctorGroupByPayload<T extends DoctorGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DoctorGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DoctorGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DoctorGroupByOutputType[P]>
+            : GetScalarType<T[P], DoctorGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DoctorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    name?: boolean
+    phone?: boolean
+    email?: boolean
+    specialization?: boolean
+    registrationNo?: boolean
+    hospital?: boolean
+    address?: boolean
+    notes?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+    sales?: boolean | Doctor$salesArgs<ExtArgs>
+    prescriptions?: boolean | Doctor$prescriptionsArgs<ExtArgs>
+    _count?: boolean | DoctorCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["doctor"]>
+
+  export type DoctorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    name?: boolean
+    phone?: boolean
+    email?: boolean
+    specialization?: boolean
+    registrationNo?: boolean
+    hospital?: boolean
+    address?: boolean
+    notes?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["doctor"]>
+
+  export type DoctorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    name?: boolean
+    phone?: boolean
+    email?: boolean
+    specialization?: boolean
+    registrationNo?: boolean
+    hospital?: boolean
+    address?: boolean
+    notes?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["doctor"]>
+
+  export type DoctorSelectScalar = {
+    id?: boolean
+    storeId?: boolean
+    name?: boolean
+    phone?: boolean
+    email?: boolean
+    specialization?: boolean
+    registrationNo?: boolean
+    hospital?: boolean
+    address?: boolean
+    notes?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DoctorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "phone" | "email" | "specialization" | "registrationNo" | "hospital" | "address" | "notes" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["doctor"]>
+  export type DoctorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+    sales?: boolean | Doctor$salesArgs<ExtArgs>
+    prescriptions?: boolean | Doctor$prescriptionsArgs<ExtArgs>
+    _count?: boolean | DoctorCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DoctorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
+  export type DoctorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
+
+  export type $DoctorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Doctor"
+    objects: {
+      store: Prisma.$StorePayload<ExtArgs>
+      sales: Prisma.$SalePayload<ExtArgs>[]
+      prescriptions: Prisma.$PrescriptionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      storeId: string
+      name: string
+      phone: string | null
+      email: string | null
+      specialization: string | null
+      registrationNo: string | null
+      hospital: string | null
+      address: string | null
+      notes: string | null
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["doctor"]>
+    composites: {}
+  }
+
+  type DoctorGetPayload<S extends boolean | null | undefined | DoctorDefaultArgs> = $Result.GetResult<Prisma.$DoctorPayload, S>
+
+  type DoctorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DoctorFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DoctorCountAggregateInputType | true
+    }
+
+  export interface DoctorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Doctor'], meta: { name: 'Doctor' } }
+    /**
+     * Find zero or one Doctor that matches the filter.
+     * @param {DoctorFindUniqueArgs} args - Arguments to find a Doctor
+     * @example
+     * // Get one Doctor
+     * const doctor = await prisma.doctor.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DoctorFindUniqueArgs>(args: SelectSubset<T, DoctorFindUniqueArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Doctor that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DoctorFindUniqueOrThrowArgs} args - Arguments to find a Doctor
+     * @example
+     * // Get one Doctor
+     * const doctor = await prisma.doctor.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DoctorFindUniqueOrThrowArgs>(args: SelectSubset<T, DoctorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Doctor that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoctorFindFirstArgs} args - Arguments to find a Doctor
+     * @example
+     * // Get one Doctor
+     * const doctor = await prisma.doctor.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DoctorFindFirstArgs>(args?: SelectSubset<T, DoctorFindFirstArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Doctor that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoctorFindFirstOrThrowArgs} args - Arguments to find a Doctor
+     * @example
+     * // Get one Doctor
+     * const doctor = await prisma.doctor.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DoctorFindFirstOrThrowArgs>(args?: SelectSubset<T, DoctorFindFirstOrThrowArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Doctors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoctorFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Doctors
+     * const doctors = await prisma.doctor.findMany()
+     * 
+     * // Get first 10 Doctors
+     * const doctors = await prisma.doctor.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const doctorWithIdOnly = await prisma.doctor.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DoctorFindManyArgs>(args?: SelectSubset<T, DoctorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Doctor.
+     * @param {DoctorCreateArgs} args - Arguments to create a Doctor.
+     * @example
+     * // Create one Doctor
+     * const Doctor = await prisma.doctor.create({
+     *   data: {
+     *     // ... data to create a Doctor
+     *   }
+     * })
+     * 
+     */
+    create<T extends DoctorCreateArgs>(args: SelectSubset<T, DoctorCreateArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Doctors.
+     * @param {DoctorCreateManyArgs} args - Arguments to create many Doctors.
+     * @example
+     * // Create many Doctors
+     * const doctor = await prisma.doctor.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DoctorCreateManyArgs>(args?: SelectSubset<T, DoctorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Doctors and returns the data saved in the database.
+     * @param {DoctorCreateManyAndReturnArgs} args - Arguments to create many Doctors.
+     * @example
+     * // Create many Doctors
+     * const doctor = await prisma.doctor.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Doctors and only return the `id`
+     * const doctorWithIdOnly = await prisma.doctor.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DoctorCreateManyAndReturnArgs>(args?: SelectSubset<T, DoctorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Doctor.
+     * @param {DoctorDeleteArgs} args - Arguments to delete one Doctor.
+     * @example
+     * // Delete one Doctor
+     * const Doctor = await prisma.doctor.delete({
+     *   where: {
+     *     // ... filter to delete one Doctor
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DoctorDeleteArgs>(args: SelectSubset<T, DoctorDeleteArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Doctor.
+     * @param {DoctorUpdateArgs} args - Arguments to update one Doctor.
+     * @example
+     * // Update one Doctor
+     * const doctor = await prisma.doctor.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DoctorUpdateArgs>(args: SelectSubset<T, DoctorUpdateArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Doctors.
+     * @param {DoctorDeleteManyArgs} args - Arguments to filter Doctors to delete.
+     * @example
+     * // Delete a few Doctors
+     * const { count } = await prisma.doctor.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DoctorDeleteManyArgs>(args?: SelectSubset<T, DoctorDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Doctors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoctorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Doctors
+     * const doctor = await prisma.doctor.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DoctorUpdateManyArgs>(args: SelectSubset<T, DoctorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Doctors and returns the data updated in the database.
+     * @param {DoctorUpdateManyAndReturnArgs} args - Arguments to update many Doctors.
+     * @example
+     * // Update many Doctors
+     * const doctor = await prisma.doctor.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Doctors and only return the `id`
+     * const doctorWithIdOnly = await prisma.doctor.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DoctorUpdateManyAndReturnArgs>(args: SelectSubset<T, DoctorUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Doctor.
+     * @param {DoctorUpsertArgs} args - Arguments to update or create a Doctor.
+     * @example
+     * // Update or create a Doctor
+     * const doctor = await prisma.doctor.upsert({
+     *   create: {
+     *     // ... data to create a Doctor
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Doctor we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DoctorUpsertArgs>(args: SelectSubset<T, DoctorUpsertArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Doctors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoctorCountArgs} args - Arguments to filter Doctors to count.
+     * @example
+     * // Count the number of Doctors
+     * const count = await prisma.doctor.count({
+     *   where: {
+     *     // ... the filter for the Doctors we want to count
+     *   }
+     * })
+    **/
+    count<T extends DoctorCountArgs>(
+      args?: Subset<T, DoctorCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DoctorCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Doctor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoctorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DoctorAggregateArgs>(args: Subset<T, DoctorAggregateArgs>): Prisma.PrismaPromise<GetDoctorAggregateType<T>>
+
+    /**
+     * Group by Doctor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DoctorGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DoctorGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DoctorGroupByArgs['orderBy'] }
+        : { orderBy?: DoctorGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DoctorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDoctorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Doctor model
+   */
+  readonly fields: DoctorFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Doctor.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DoctorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sales<T extends Doctor$salesArgs<ExtArgs> = {}>(args?: Subset<T, Doctor$salesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    prescriptions<T extends Doctor$prescriptionsArgs<ExtArgs> = {}>(args?: Subset<T, Doctor$prescriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrescriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Doctor model
+   */
+  interface DoctorFieldRefs {
+    readonly id: FieldRef<"Doctor", 'String'>
+    readonly storeId: FieldRef<"Doctor", 'String'>
+    readonly name: FieldRef<"Doctor", 'String'>
+    readonly phone: FieldRef<"Doctor", 'String'>
+    readonly email: FieldRef<"Doctor", 'String'>
+    readonly specialization: FieldRef<"Doctor", 'String'>
+    readonly registrationNo: FieldRef<"Doctor", 'String'>
+    readonly hospital: FieldRef<"Doctor", 'String'>
+    readonly address: FieldRef<"Doctor", 'String'>
+    readonly notes: FieldRef<"Doctor", 'String'>
+    readonly isActive: FieldRef<"Doctor", 'Boolean'>
+    readonly createdAt: FieldRef<"Doctor", 'DateTime'>
+    readonly updatedAt: FieldRef<"Doctor", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Doctor findUnique
+   */
+  export type DoctorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+    /**
+     * Filter, which Doctor to fetch.
+     */
+    where: DoctorWhereUniqueInput
+  }
+
+  /**
+   * Doctor findUniqueOrThrow
+   */
+  export type DoctorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+    /**
+     * Filter, which Doctor to fetch.
+     */
+    where: DoctorWhereUniqueInput
+  }
+
+  /**
+   * Doctor findFirst
+   */
+  export type DoctorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+    /**
+     * Filter, which Doctor to fetch.
+     */
+    where?: DoctorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Doctors to fetch.
+     */
+    orderBy?: DoctorOrderByWithRelationInput | DoctorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Doctors.
+     */
+    cursor?: DoctorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Doctors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Doctors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Doctors.
+     */
+    distinct?: DoctorScalarFieldEnum | DoctorScalarFieldEnum[]
+  }
+
+  /**
+   * Doctor findFirstOrThrow
+   */
+  export type DoctorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+    /**
+     * Filter, which Doctor to fetch.
+     */
+    where?: DoctorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Doctors to fetch.
+     */
+    orderBy?: DoctorOrderByWithRelationInput | DoctorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Doctors.
+     */
+    cursor?: DoctorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Doctors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Doctors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Doctors.
+     */
+    distinct?: DoctorScalarFieldEnum | DoctorScalarFieldEnum[]
+  }
+
+  /**
+   * Doctor findMany
+   */
+  export type DoctorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+    /**
+     * Filter, which Doctors to fetch.
+     */
+    where?: DoctorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Doctors to fetch.
+     */
+    orderBy?: DoctorOrderByWithRelationInput | DoctorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Doctors.
+     */
+    cursor?: DoctorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Doctors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Doctors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Doctors.
+     */
+    distinct?: DoctorScalarFieldEnum | DoctorScalarFieldEnum[]
+  }
+
+  /**
+   * Doctor create
+   */
+  export type DoctorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Doctor.
+     */
+    data: XOR<DoctorCreateInput, DoctorUncheckedCreateInput>
+  }
+
+  /**
+   * Doctor createMany
+   */
+  export type DoctorCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Doctors.
+     */
+    data: DoctorCreateManyInput | DoctorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Doctor createManyAndReturn
+   */
+  export type DoctorCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * The data used to create many Doctors.
+     */
+    data: DoctorCreateManyInput | DoctorCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Doctor update
+   */
+  export type DoctorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Doctor.
+     */
+    data: XOR<DoctorUpdateInput, DoctorUncheckedUpdateInput>
+    /**
+     * Choose, which Doctor to update.
+     */
+    where: DoctorWhereUniqueInput
+  }
+
+  /**
+   * Doctor updateMany
+   */
+  export type DoctorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Doctors.
+     */
+    data: XOR<DoctorUpdateManyMutationInput, DoctorUncheckedUpdateManyInput>
+    /**
+     * Filter which Doctors to update
+     */
+    where?: DoctorWhereInput
+    /**
+     * Limit how many Doctors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Doctor updateManyAndReturn
+   */
+  export type DoctorUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * The data used to update Doctors.
+     */
+    data: XOR<DoctorUpdateManyMutationInput, DoctorUncheckedUpdateManyInput>
+    /**
+     * Filter which Doctors to update
+     */
+    where?: DoctorWhereInput
+    /**
+     * Limit how many Doctors to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Doctor upsert
+   */
+  export type DoctorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Doctor to update in case it exists.
+     */
+    where: DoctorWhereUniqueInput
+    /**
+     * In case the Doctor found by the `where` argument doesn't exist, create a new Doctor with this data.
+     */
+    create: XOR<DoctorCreateInput, DoctorUncheckedCreateInput>
+    /**
+     * In case the Doctor was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DoctorUpdateInput, DoctorUncheckedUpdateInput>
+  }
+
+  /**
+   * Doctor delete
+   */
+  export type DoctorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+    /**
+     * Filter which Doctor to delete.
+     */
+    where: DoctorWhereUniqueInput
+  }
+
+  /**
+   * Doctor deleteMany
+   */
+  export type DoctorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Doctors to delete
+     */
+    where?: DoctorWhereInput
+    /**
+     * Limit how many Doctors to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Doctor.sales
+   */
+  export type Doctor$salesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sale
+     */
+    select?: SaleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sale
+     */
+    omit?: SaleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaleInclude<ExtArgs> | null
+    where?: SaleWhereInput
+    orderBy?: SaleOrderByWithRelationInput | SaleOrderByWithRelationInput[]
+    cursor?: SaleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SaleScalarFieldEnum | SaleScalarFieldEnum[]
+  }
+
+  /**
+   * Doctor.prescriptions
+   */
+  export type Doctor$prescriptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Prescription
+     */
+    select?: PrescriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Prescription
+     */
+    omit?: PrescriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PrescriptionInclude<ExtArgs> | null
+    where?: PrescriptionWhereInput
+    orderBy?: PrescriptionOrderByWithRelationInput | PrescriptionOrderByWithRelationInput[]
+    cursor?: PrescriptionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PrescriptionScalarFieldEnum | PrescriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Doctor without action
+   */
+  export type DoctorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Prescription
    */
 
@@ -22469,6 +23863,7 @@ export namespace Prisma {
     id: string | null
     storeId: string | null
     customerId: string | null
+    doctorId: string | null
     prescriptionNumber: string | null
     prescriptionDate: Date | null
     validUntil: Date | null
@@ -22485,6 +23880,7 @@ export namespace Prisma {
     id: string | null
     storeId: string | null
     customerId: string | null
+    doctorId: string | null
     prescriptionNumber: string | null
     prescriptionDate: Date | null
     validUntil: Date | null
@@ -22501,6 +23897,7 @@ export namespace Prisma {
     id: number
     storeId: number
     customerId: number
+    doctorId: number
     prescriptionNumber: number
     prescriptionDate: number
     validUntil: number
@@ -22519,6 +23916,7 @@ export namespace Prisma {
     id?: true
     storeId?: true
     customerId?: true
+    doctorId?: true
     prescriptionNumber?: true
     prescriptionDate?: true
     validUntil?: true
@@ -22535,6 +23933,7 @@ export namespace Prisma {
     id?: true
     storeId?: true
     customerId?: true
+    doctorId?: true
     prescriptionNumber?: true
     prescriptionDate?: true
     validUntil?: true
@@ -22551,6 +23950,7 @@ export namespace Prisma {
     id?: true
     storeId?: true
     customerId?: true
+    doctorId?: true
     prescriptionNumber?: true
     prescriptionDate?: true
     validUntil?: true
@@ -22640,6 +24040,7 @@ export namespace Prisma {
     id: string
     storeId: string
     customerId: string | null
+    doctorId: string | null
     prescriptionNumber: string | null
     prescriptionDate: Date
     validUntil: Date | null
@@ -22673,6 +24074,7 @@ export namespace Prisma {
     id?: boolean
     storeId?: boolean
     customerId?: boolean
+    doctorId?: boolean
     prescriptionNumber?: boolean
     prescriptionDate?: boolean
     validUntil?: boolean
@@ -22684,6 +24086,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | Prescription$customerArgs<ExtArgs>
+    doctorRel?: boolean | Prescription$doctorRelArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
     items?: boolean | Prescription$itemsArgs<ExtArgs>
     _count?: boolean | PrescriptionCountOutputTypeDefaultArgs<ExtArgs>
@@ -22693,6 +24096,7 @@ export namespace Prisma {
     id?: boolean
     storeId?: boolean
     customerId?: boolean
+    doctorId?: boolean
     prescriptionNumber?: boolean
     prescriptionDate?: boolean
     validUntil?: boolean
@@ -22704,6 +24108,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | Prescription$customerArgs<ExtArgs>
+    doctorRel?: boolean | Prescription$doctorRelArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["prescription"]>
 
@@ -22711,6 +24116,7 @@ export namespace Prisma {
     id?: boolean
     storeId?: boolean
     customerId?: boolean
+    doctorId?: boolean
     prescriptionNumber?: boolean
     prescriptionDate?: boolean
     validUntil?: boolean
@@ -22722,6 +24128,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | Prescription$customerArgs<ExtArgs>
+    doctorRel?: boolean | Prescription$doctorRelArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["prescription"]>
 
@@ -22729,6 +24136,7 @@ export namespace Prisma {
     id?: boolean
     storeId?: boolean
     customerId?: boolean
+    doctorId?: boolean
     prescriptionNumber?: boolean
     prescriptionDate?: boolean
     validUntil?: boolean
@@ -22741,19 +24149,22 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PrescriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "customerId" | "prescriptionNumber" | "prescriptionDate" | "validUntil" | "doctorName" | "doctorRegistrationNo" | "diagnosis" | "notes" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["prescription"]>
+  export type PrescriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "customerId" | "doctorId" | "prescriptionNumber" | "prescriptionDate" | "validUntil" | "doctorName" | "doctorRegistrationNo" | "diagnosis" | "notes" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["prescription"]>
   export type PrescriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | Prescription$customerArgs<ExtArgs>
+    doctorRel?: boolean | Prescription$doctorRelArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
     items?: boolean | Prescription$itemsArgs<ExtArgs>
     _count?: boolean | PrescriptionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PrescriptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | Prescription$customerArgs<ExtArgs>
+    doctorRel?: boolean | Prescription$doctorRelArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
   }
   export type PrescriptionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | Prescription$customerArgs<ExtArgs>
+    doctorRel?: boolean | Prescription$doctorRelArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
   }
 
@@ -22761,6 +24172,7 @@ export namespace Prisma {
     name: "Prescription"
     objects: {
       customer: Prisma.$CustomerPayload<ExtArgs> | null
+      doctorRel: Prisma.$DoctorPayload<ExtArgs> | null
       store: Prisma.$StorePayload<ExtArgs>
       items: Prisma.$PrescriptionItemPayload<ExtArgs>[]
     }
@@ -22768,6 +24180,7 @@ export namespace Prisma {
       id: string
       storeId: string
       customerId: string | null
+      doctorId: string | null
       prescriptionNumber: string | null
       prescriptionDate: Date
       validUntil: Date | null
@@ -23173,6 +24586,7 @@ export namespace Prisma {
   export interface Prisma__PrescriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     customer<T extends Prescription$customerArgs<ExtArgs> = {}>(args?: Subset<T, Prescription$customerArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    doctorRel<T extends Prescription$doctorRelArgs<ExtArgs> = {}>(args?: Subset<T, Prescription$doctorRelArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     items<T extends Prescription$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Prescription$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PrescriptionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -23207,6 +24621,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Prescription", 'String'>
     readonly storeId: FieldRef<"Prescription", 'String'>
     readonly customerId: FieldRef<"Prescription", 'String'>
+    readonly doctorId: FieldRef<"Prescription", 'String'>
     readonly prescriptionNumber: FieldRef<"Prescription", 'String'>
     readonly prescriptionDate: FieldRef<"Prescription", 'DateTime'>
     readonly validUntil: FieldRef<"Prescription", 'DateTime'>
@@ -23634,6 +25049,25 @@ export namespace Prisma {
      */
     include?: CustomerInclude<ExtArgs> | null
     where?: CustomerWhereInput
+  }
+
+  /**
+   * Prescription.doctorRel
+   */
+  export type Prescription$doctorRelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+    where?: DoctorWhereInput
   }
 
   /**
@@ -27673,18 +29107,21 @@ export namespace Prisma {
     id: string | null
     productId: string | null
     saltId: string | null
+    strength: string | null
   }
 
   export type ProductSaltMaxAggregateOutputType = {
     id: string | null
     productId: string | null
     saltId: string | null
+    strength: string | null
   }
 
   export type ProductSaltCountAggregateOutputType = {
     id: number
     productId: number
     saltId: number
+    strength: number
     _all: number
   }
 
@@ -27693,18 +29130,21 @@ export namespace Prisma {
     id?: true
     productId?: true
     saltId?: true
+    strength?: true
   }
 
   export type ProductSaltMaxAggregateInputType = {
     id?: true
     productId?: true
     saltId?: true
+    strength?: true
   }
 
   export type ProductSaltCountAggregateInputType = {
     id?: true
     productId?: true
     saltId?: true
+    strength?: true
     _all?: true
   }
 
@@ -27784,6 +29224,7 @@ export namespace Prisma {
     id: string
     productId: string
     saltId: string
+    strength: string | null
     _count: ProductSaltCountAggregateOutputType | null
     _min: ProductSaltMinAggregateOutputType | null
     _max: ProductSaltMaxAggregateOutputType | null
@@ -27807,6 +29248,7 @@ export namespace Prisma {
     id?: boolean
     productId?: boolean
     saltId?: boolean
+    strength?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
     salt?: boolean | SaltDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productSalt"]>
@@ -27815,6 +29257,7 @@ export namespace Prisma {
     id?: boolean
     productId?: boolean
     saltId?: boolean
+    strength?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
     salt?: boolean | SaltDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productSalt"]>
@@ -27823,6 +29266,7 @@ export namespace Prisma {
     id?: boolean
     productId?: boolean
     saltId?: boolean
+    strength?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
     salt?: boolean | SaltDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productSalt"]>
@@ -27831,9 +29275,10 @@ export namespace Prisma {
     id?: boolean
     productId?: boolean
     saltId?: boolean
+    strength?: boolean
   }
 
-  export type ProductSaltOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productId" | "saltId", ExtArgs["result"]["productSalt"]>
+  export type ProductSaltOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "productId" | "saltId" | "strength", ExtArgs["result"]["productSalt"]>
   export type ProductSaltInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product?: boolean | ProductDefaultArgs<ExtArgs>
     salt?: boolean | SaltDefaultArgs<ExtArgs>
@@ -27857,6 +29302,7 @@ export namespace Prisma {
       id: string
       productId: string
       saltId: string
+      strength: string | null
     }, ExtArgs["result"]["productSalt"]>
     composites: {}
   }
@@ -28285,6 +29731,7 @@ export namespace Prisma {
     readonly id: FieldRef<"ProductSalt", 'String'>
     readonly productId: FieldRef<"ProductSalt", 'String'>
     readonly saltId: FieldRef<"ProductSalt", 'String'>
+    readonly strength: FieldRef<"ProductSalt", 'String'>
   }
     
 
@@ -32792,9 +34239,11 @@ export namespace Prisma {
     supplierId: string | null
     invoiceNumber: string | null
     invoiceDate: Date | null
+    dueDate: Date | null
     receivedDate: Date | null
     status: $Enums.PurchaseStatus | null
     paymentStatus: $Enums.PaymentStatus | null
+    paymentMethod: $Enums.PaymentMethod | null
     subtotal: Decimal | null
     discountAmount: Decimal | null
     taxableAmount: Decimal | null
@@ -32817,9 +34266,11 @@ export namespace Prisma {
     supplierId: string | null
     invoiceNumber: string | null
     invoiceDate: Date | null
+    dueDate: Date | null
     receivedDate: Date | null
     status: $Enums.PurchaseStatus | null
     paymentStatus: $Enums.PaymentStatus | null
+    paymentMethod: $Enums.PaymentMethod | null
     subtotal: Decimal | null
     discountAmount: Decimal | null
     taxableAmount: Decimal | null
@@ -32842,9 +34293,11 @@ export namespace Prisma {
     supplierId: number
     invoiceNumber: number
     invoiceDate: number
+    dueDate: number
     receivedDate: number
     status: number
     paymentStatus: number
+    paymentMethod: number
     subtotal: number
     discountAmount: number
     taxableAmount: number
@@ -32897,9 +34350,11 @@ export namespace Prisma {
     supplierId?: true
     invoiceNumber?: true
     invoiceDate?: true
+    dueDate?: true
     receivedDate?: true
     status?: true
     paymentStatus?: true
+    paymentMethod?: true
     subtotal?: true
     discountAmount?: true
     taxableAmount?: true
@@ -32922,9 +34377,11 @@ export namespace Prisma {
     supplierId?: true
     invoiceNumber?: true
     invoiceDate?: true
+    dueDate?: true
     receivedDate?: true
     status?: true
     paymentStatus?: true
+    paymentMethod?: true
     subtotal?: true
     discountAmount?: true
     taxableAmount?: true
@@ -32947,9 +34404,11 @@ export namespace Prisma {
     supplierId?: true
     invoiceNumber?: true
     invoiceDate?: true
+    dueDate?: true
     receivedDate?: true
     status?: true
     paymentStatus?: true
+    paymentMethod?: true
     subtotal?: true
     discountAmount?: true
     taxableAmount?: true
@@ -33059,9 +34518,11 @@ export namespace Prisma {
     supplierId: string
     invoiceNumber: string
     invoiceDate: Date
+    dueDate: Date | null
     receivedDate: Date | null
     status: $Enums.PurchaseStatus
     paymentStatus: $Enums.PaymentStatus
+    paymentMethod: $Enums.PaymentMethod
     subtotal: Decimal
     discountAmount: Decimal
     taxableAmount: Decimal
@@ -33103,9 +34564,11 @@ export namespace Prisma {
     supplierId?: boolean
     invoiceNumber?: boolean
     invoiceDate?: boolean
+    dueDate?: boolean
     receivedDate?: boolean
     status?: boolean
     paymentStatus?: boolean
+    paymentMethod?: boolean
     subtotal?: boolean
     discountAmount?: boolean
     taxableAmount?: boolean
@@ -33133,9 +34596,11 @@ export namespace Prisma {
     supplierId?: boolean
     invoiceNumber?: boolean
     invoiceDate?: boolean
+    dueDate?: boolean
     receivedDate?: boolean
     status?: boolean
     paymentStatus?: boolean
+    paymentMethod?: boolean
     subtotal?: boolean
     discountAmount?: boolean
     taxableAmount?: boolean
@@ -33160,9 +34625,11 @@ export namespace Prisma {
     supplierId?: boolean
     invoiceNumber?: boolean
     invoiceDate?: boolean
+    dueDate?: boolean
     receivedDate?: boolean
     status?: boolean
     paymentStatus?: boolean
+    paymentMethod?: boolean
     subtotal?: boolean
     discountAmount?: boolean
     taxableAmount?: boolean
@@ -33187,9 +34654,11 @@ export namespace Prisma {
     supplierId?: boolean
     invoiceNumber?: boolean
     invoiceDate?: boolean
+    dueDate?: boolean
     receivedDate?: boolean
     status?: boolean
     paymentStatus?: boolean
+    paymentMethod?: boolean
     subtotal?: boolean
     discountAmount?: boolean
     taxableAmount?: boolean
@@ -33206,7 +34675,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PurchaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "supplierId" | "invoiceNumber" | "invoiceDate" | "receivedDate" | "status" | "paymentStatus" | "subtotal" | "discountAmount" | "taxableAmount" | "cgstAmount" | "sgstAmount" | "igstAmount" | "otherTaxAmount" | "roundOff" | "totalAmount" | "paidAmount" | "dueAmount" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["purchase"]>
+  export type PurchaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "supplierId" | "invoiceNumber" | "invoiceDate" | "dueDate" | "receivedDate" | "status" | "paymentStatus" | "paymentMethod" | "subtotal" | "discountAmount" | "taxableAmount" | "cgstAmount" | "sgstAmount" | "igstAmount" | "otherTaxAmount" | "roundOff" | "totalAmount" | "paidAmount" | "dueAmount" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["purchase"]>
   export type PurchaseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     store?: boolean | StoreDefaultArgs<ExtArgs>
     supplier?: boolean | SupplierDefaultArgs<ExtArgs>
@@ -33237,9 +34706,11 @@ export namespace Prisma {
       supplierId: string
       invoiceNumber: string
       invoiceDate: Date
+      dueDate: Date | null
       receivedDate: Date | null
       status: $Enums.PurchaseStatus
       paymentStatus: $Enums.PaymentStatus
+      paymentMethod: $Enums.PaymentMethod
       subtotal: Prisma.Decimal
       discountAmount: Prisma.Decimal
       taxableAmount: Prisma.Decimal
@@ -33686,9 +35157,11 @@ export namespace Prisma {
     readonly supplierId: FieldRef<"Purchase", 'String'>
     readonly invoiceNumber: FieldRef<"Purchase", 'String'>
     readonly invoiceDate: FieldRef<"Purchase", 'DateTime'>
+    readonly dueDate: FieldRef<"Purchase", 'DateTime'>
     readonly receivedDate: FieldRef<"Purchase", 'DateTime'>
     readonly status: FieldRef<"Purchase", 'PurchaseStatus'>
     readonly paymentStatus: FieldRef<"Purchase", 'PaymentStatus'>
+    readonly paymentMethod: FieldRef<"Purchase", 'PaymentMethod'>
     readonly subtotal: FieldRef<"Purchase", 'Decimal'>
     readonly discountAmount: FieldRef<"Purchase", 'Decimal'>
     readonly taxableAmount: FieldRef<"Purchase", 'Decimal'>
@@ -39327,6 +40800,7 @@ export namespace Prisma {
     id: string | null
     storeId: string | null
     customerId: string | null
+    doctorId: string | null
     invoiceNumber: string | null
     invoiceDate: Date | null
     status: $Enums.SaleStatus | null
@@ -39341,6 +40815,8 @@ export namespace Prisma {
     totalAmount: Decimal | null
     paidAmount: Decimal | null
     dueAmount: Decimal | null
+    doctor: string | null
+    dueDate: Date | null
     notes: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -39350,6 +40826,7 @@ export namespace Prisma {
     id: string | null
     storeId: string | null
     customerId: string | null
+    doctorId: string | null
     invoiceNumber: string | null
     invoiceDate: Date | null
     status: $Enums.SaleStatus | null
@@ -39364,6 +40841,8 @@ export namespace Prisma {
     totalAmount: Decimal | null
     paidAmount: Decimal | null
     dueAmount: Decimal | null
+    doctor: string | null
+    dueDate: Date | null
     notes: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -39373,6 +40852,7 @@ export namespace Prisma {
     id: number
     storeId: number
     customerId: number
+    doctorId: number
     invoiceNumber: number
     invoiceDate: number
     status: number
@@ -39387,7 +40867,10 @@ export namespace Prisma {
     totalAmount: number
     paidAmount: number
     dueAmount: number
+    doctor: number
+    dueDate: number
     notes: number
+    prescriptions: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -39424,6 +40907,7 @@ export namespace Prisma {
     id?: true
     storeId?: true
     customerId?: true
+    doctorId?: true
     invoiceNumber?: true
     invoiceDate?: true
     status?: true
@@ -39438,6 +40922,8 @@ export namespace Prisma {
     totalAmount?: true
     paidAmount?: true
     dueAmount?: true
+    doctor?: true
+    dueDate?: true
     notes?: true
     createdAt?: true
     updatedAt?: true
@@ -39447,6 +40933,7 @@ export namespace Prisma {
     id?: true
     storeId?: true
     customerId?: true
+    doctorId?: true
     invoiceNumber?: true
     invoiceDate?: true
     status?: true
@@ -39461,6 +40948,8 @@ export namespace Prisma {
     totalAmount?: true
     paidAmount?: true
     dueAmount?: true
+    doctor?: true
+    dueDate?: true
     notes?: true
     createdAt?: true
     updatedAt?: true
@@ -39470,6 +40959,7 @@ export namespace Prisma {
     id?: true
     storeId?: true
     customerId?: true
+    doctorId?: true
     invoiceNumber?: true
     invoiceDate?: true
     status?: true
@@ -39484,7 +40974,10 @@ export namespace Prisma {
     totalAmount?: true
     paidAmount?: true
     dueAmount?: true
+    doctor?: true
+    dueDate?: true
     notes?: true
+    prescriptions?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -39580,6 +41073,7 @@ export namespace Prisma {
     id: string
     storeId: string
     customerId: string | null
+    doctorId: string | null
     invoiceNumber: string
     invoiceDate: Date
     status: $Enums.SaleStatus
@@ -39594,7 +41088,10 @@ export namespace Prisma {
     totalAmount: Decimal
     paidAmount: Decimal
     dueAmount: Decimal
+    doctor: string | null
+    dueDate: Date | null
     notes: string | null
+    prescriptions: string[]
     createdAt: Date
     updatedAt: Date
     _count: SaleCountAggregateOutputType | null
@@ -39622,6 +41119,7 @@ export namespace Prisma {
     id?: boolean
     storeId?: boolean
     customerId?: boolean
+    doctorId?: boolean
     invoiceNumber?: boolean
     invoiceDate?: boolean
     status?: boolean
@@ -39636,10 +41134,14 @@ export namespace Prisma {
     totalAmount?: boolean
     paidAmount?: boolean
     dueAmount?: boolean
+    doctor?: boolean
+    dueDate?: boolean
     notes?: boolean
+    prescriptions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | Sale$customerArgs<ExtArgs>
+    doctorRel?: boolean | Sale$doctorRelArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
     items?: boolean | Sale$itemsArgs<ExtArgs>
     payments?: boolean | Sale$paymentsArgs<ExtArgs>
@@ -39651,6 +41153,7 @@ export namespace Prisma {
     id?: boolean
     storeId?: boolean
     customerId?: boolean
+    doctorId?: boolean
     invoiceNumber?: boolean
     invoiceDate?: boolean
     status?: boolean
@@ -39665,10 +41168,14 @@ export namespace Prisma {
     totalAmount?: boolean
     paidAmount?: boolean
     dueAmount?: boolean
+    doctor?: boolean
+    dueDate?: boolean
     notes?: boolean
+    prescriptions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | Sale$customerArgs<ExtArgs>
+    doctorRel?: boolean | Sale$doctorRelArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sale"]>
 
@@ -39676,6 +41183,7 @@ export namespace Prisma {
     id?: boolean
     storeId?: boolean
     customerId?: boolean
+    doctorId?: boolean
     invoiceNumber?: boolean
     invoiceDate?: boolean
     status?: boolean
@@ -39690,10 +41198,14 @@ export namespace Prisma {
     totalAmount?: boolean
     paidAmount?: boolean
     dueAmount?: boolean
+    doctor?: boolean
+    dueDate?: boolean
     notes?: boolean
+    prescriptions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | Sale$customerArgs<ExtArgs>
+    doctorRel?: boolean | Sale$doctorRelArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sale"]>
 
@@ -39701,6 +41213,7 @@ export namespace Prisma {
     id?: boolean
     storeId?: boolean
     customerId?: boolean
+    doctorId?: boolean
     invoiceNumber?: boolean
     invoiceDate?: boolean
     status?: boolean
@@ -39715,14 +41228,18 @@ export namespace Prisma {
     totalAmount?: boolean
     paidAmount?: boolean
     dueAmount?: boolean
+    doctor?: boolean
+    dueDate?: boolean
     notes?: boolean
+    prescriptions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SaleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "customerId" | "invoiceNumber" | "invoiceDate" | "status" | "paymentStatus" | "subtotal" | "discountAmount" | "taxableAmount" | "cgstAmount" | "sgstAmount" | "igstAmount" | "roundOff" | "totalAmount" | "paidAmount" | "dueAmount" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["sale"]>
+  export type SaleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "customerId" | "doctorId" | "invoiceNumber" | "invoiceDate" | "status" | "paymentStatus" | "subtotal" | "discountAmount" | "taxableAmount" | "cgstAmount" | "sgstAmount" | "igstAmount" | "roundOff" | "totalAmount" | "paidAmount" | "dueAmount" | "doctor" | "dueDate" | "notes" | "prescriptions" | "createdAt" | "updatedAt", ExtArgs["result"]["sale"]>
   export type SaleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | Sale$customerArgs<ExtArgs>
+    doctorRel?: boolean | Sale$doctorRelArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
     items?: boolean | Sale$itemsArgs<ExtArgs>
     payments?: boolean | Sale$paymentsArgs<ExtArgs>
@@ -39731,10 +41248,12 @@ export namespace Prisma {
   }
   export type SaleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | Sale$customerArgs<ExtArgs>
+    doctorRel?: boolean | Sale$doctorRelArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
   }
   export type SaleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | Sale$customerArgs<ExtArgs>
+    doctorRel?: boolean | Sale$doctorRelArgs<ExtArgs>
     store?: boolean | StoreDefaultArgs<ExtArgs>
   }
 
@@ -39742,6 +41261,7 @@ export namespace Prisma {
     name: "Sale"
     objects: {
       customer: Prisma.$CustomerPayload<ExtArgs> | null
+      doctorRel: Prisma.$DoctorPayload<ExtArgs> | null
       store: Prisma.$StorePayload<ExtArgs>
       items: Prisma.$SaleItemPayload<ExtArgs>[]
       payments: Prisma.$SalePaymentPayload<ExtArgs>[]
@@ -39751,6 +41271,7 @@ export namespace Prisma {
       id: string
       storeId: string
       customerId: string | null
+      doctorId: string | null
       invoiceNumber: string
       invoiceDate: Date
       status: $Enums.SaleStatus
@@ -39765,7 +41286,10 @@ export namespace Prisma {
       totalAmount: Prisma.Decimal
       paidAmount: Prisma.Decimal
       dueAmount: Prisma.Decimal
+      doctor: string | null
+      dueDate: Date | null
       notes: string | null
+      prescriptions: string[]
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["sale"]>
@@ -40163,6 +41687,7 @@ export namespace Prisma {
   export interface Prisma__SaleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     customer<T extends Sale$customerArgs<ExtArgs> = {}>(args?: Subset<T, Sale$customerArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    doctorRel<T extends Sale$doctorRelArgs<ExtArgs> = {}>(args?: Subset<T, Sale$doctorRelArgs<ExtArgs>>): Prisma__DoctorClient<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     items<T extends Sale$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Sale$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payments<T extends Sale$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Sale$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalePaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -40199,6 +41724,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Sale", 'String'>
     readonly storeId: FieldRef<"Sale", 'String'>
     readonly customerId: FieldRef<"Sale", 'String'>
+    readonly doctorId: FieldRef<"Sale", 'String'>
     readonly invoiceNumber: FieldRef<"Sale", 'String'>
     readonly invoiceDate: FieldRef<"Sale", 'DateTime'>
     readonly status: FieldRef<"Sale", 'SaleStatus'>
@@ -40213,7 +41739,10 @@ export namespace Prisma {
     readonly totalAmount: FieldRef<"Sale", 'Decimal'>
     readonly paidAmount: FieldRef<"Sale", 'Decimal'>
     readonly dueAmount: FieldRef<"Sale", 'Decimal'>
+    readonly doctor: FieldRef<"Sale", 'String'>
+    readonly dueDate: FieldRef<"Sale", 'DateTime'>
     readonly notes: FieldRef<"Sale", 'String'>
+    readonly prescriptions: FieldRef<"Sale", 'String[]'>
     readonly createdAt: FieldRef<"Sale", 'DateTime'>
     readonly updatedAt: FieldRef<"Sale", 'DateTime'>
   }
@@ -40633,6 +42162,25 @@ export namespace Prisma {
      */
     include?: CustomerInclude<ExtArgs> | null
     where?: CustomerWhereInput
+  }
+
+  /**
+   * Sale.doctorRel
+   */
+  export type Sale$doctorRelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Doctor
+     */
+    select?: DoctorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Doctor
+     */
+    omit?: DoctorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DoctorInclude<ExtArgs> | null
+    where?: DoctorWhereInput
   }
 
   /**
@@ -49835,10 +51383,30 @@ export namespace Prisma {
   export type StoreScalarFieldEnum = (typeof StoreScalarFieldEnum)[keyof typeof StoreScalarFieldEnum]
 
 
+  export const DoctorScalarFieldEnum: {
+    id: 'id',
+    storeId: 'storeId',
+    name: 'name',
+    phone: 'phone',
+    email: 'email',
+    specialization: 'specialization',
+    registrationNo: 'registrationNo',
+    hospital: 'hospital',
+    address: 'address',
+    notes: 'notes',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DoctorScalarFieldEnum = (typeof DoctorScalarFieldEnum)[keyof typeof DoctorScalarFieldEnum]
+
+
   export const PrescriptionScalarFieldEnum: {
     id: 'id',
     storeId: 'storeId',
     customerId: 'customerId',
+    doctorId: 'doctorId',
     prescriptionNumber: 'prescriptionNumber',
     prescriptionDate: 'prescriptionDate',
     validUntil: 'validUntil',
@@ -49912,7 +51480,8 @@ export namespace Prisma {
   export const ProductSaltScalarFieldEnum: {
     id: 'id',
     productId: 'productId',
-    saltId: 'saltId'
+    saltId: 'saltId',
+    strength: 'strength'
   };
 
   export type ProductSaltScalarFieldEnum = (typeof ProductSaltScalarFieldEnum)[keyof typeof ProductSaltScalarFieldEnum]
@@ -49981,9 +51550,11 @@ export namespace Prisma {
     supplierId: 'supplierId',
     invoiceNumber: 'invoiceNumber',
     invoiceDate: 'invoiceDate',
+    dueDate: 'dueDate',
     receivedDate: 'receivedDate',
     status: 'status',
     paymentStatus: 'paymentStatus',
+    paymentMethod: 'paymentMethod',
     subtotal: 'subtotal',
     discountAmount: 'discountAmount',
     taxableAmount: 'taxableAmount',
@@ -50088,6 +51659,7 @@ export namespace Prisma {
     id: 'id',
     storeId: 'storeId',
     customerId: 'customerId',
+    doctorId: 'doctorId',
     invoiceNumber: 'invoiceNumber',
     invoiceDate: 'invoiceDate',
     status: 'status',
@@ -50102,7 +51674,10 @@ export namespace Prisma {
     totalAmount: 'totalAmount',
     paidAmount: 'paidAmount',
     dueAmount: 'dueAmount',
+    doctor: 'doctor',
+    dueDate: 'dueDate',
     notes: 'notes',
+    prescriptions: 'prescriptions',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -51815,6 +53390,7 @@ export namespace Prisma {
     stocks?: StockListRelationFilter
     suppliers?: SupplierListRelationFilter
     users?: UserListRelationFilter
+    doctors?: DoctorListRelationFilter
     ledgerShares?: CustomerLedgerShareListRelationFilter
     inventoryAudits?: InventoryAuditListRelationFilter
   }
@@ -51848,6 +53424,7 @@ export namespace Prisma {
     stocks?: StockOrderByRelationAggregateInput
     suppliers?: SupplierOrderByRelationAggregateInput
     users?: UserOrderByRelationAggregateInput
+    doctors?: DoctorOrderByRelationAggregateInput
     ledgerShares?: CustomerLedgerShareOrderByRelationAggregateInput
     inventoryAudits?: InventoryAuditOrderByRelationAggregateInput
   }
@@ -51884,6 +53461,7 @@ export namespace Prisma {
     stocks?: StockListRelationFilter
     suppliers?: SupplierListRelationFilter
     users?: UserListRelationFilter
+    doctors?: DoctorListRelationFilter
     ledgerShares?: CustomerLedgerShareListRelationFilter
     inventoryAudits?: InventoryAuditListRelationFilter
   }, "id" | "code">
@@ -51926,6 +53504,107 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Store"> | Date | string
   }
 
+  export type DoctorWhereInput = {
+    AND?: DoctorWhereInput | DoctorWhereInput[]
+    OR?: DoctorWhereInput[]
+    NOT?: DoctorWhereInput | DoctorWhereInput[]
+    id?: StringFilter<"Doctor"> | string
+    storeId?: StringFilter<"Doctor"> | string
+    name?: StringFilter<"Doctor"> | string
+    phone?: StringNullableFilter<"Doctor"> | string | null
+    email?: StringNullableFilter<"Doctor"> | string | null
+    specialization?: StringNullableFilter<"Doctor"> | string | null
+    registrationNo?: StringNullableFilter<"Doctor"> | string | null
+    hospital?: StringNullableFilter<"Doctor"> | string | null
+    address?: StringNullableFilter<"Doctor"> | string | null
+    notes?: StringNullableFilter<"Doctor"> | string | null
+    isActive?: BoolFilter<"Doctor"> | boolean
+    createdAt?: DateTimeFilter<"Doctor"> | Date | string
+    updatedAt?: DateTimeFilter<"Doctor"> | Date | string
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+    sales?: SaleListRelationFilter
+    prescriptions?: PrescriptionListRelationFilter
+  }
+
+  export type DoctorOrderByWithRelationInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    name?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    specialization?: SortOrderInput | SortOrder
+    registrationNo?: SortOrderInput | SortOrder
+    hospital?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    store?: StoreOrderByWithRelationInput
+    sales?: SaleOrderByRelationAggregateInput
+    prescriptions?: PrescriptionOrderByRelationAggregateInput
+  }
+
+  export type DoctorWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DoctorWhereInput | DoctorWhereInput[]
+    OR?: DoctorWhereInput[]
+    NOT?: DoctorWhereInput | DoctorWhereInput[]
+    storeId?: StringFilter<"Doctor"> | string
+    name?: StringFilter<"Doctor"> | string
+    phone?: StringNullableFilter<"Doctor"> | string | null
+    email?: StringNullableFilter<"Doctor"> | string | null
+    specialization?: StringNullableFilter<"Doctor"> | string | null
+    registrationNo?: StringNullableFilter<"Doctor"> | string | null
+    hospital?: StringNullableFilter<"Doctor"> | string | null
+    address?: StringNullableFilter<"Doctor"> | string | null
+    notes?: StringNullableFilter<"Doctor"> | string | null
+    isActive?: BoolFilter<"Doctor"> | boolean
+    createdAt?: DateTimeFilter<"Doctor"> | Date | string
+    updatedAt?: DateTimeFilter<"Doctor"> | Date | string
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+    sales?: SaleListRelationFilter
+    prescriptions?: PrescriptionListRelationFilter
+  }, "id">
+
+  export type DoctorOrderByWithAggregationInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    name?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    specialization?: SortOrderInput | SortOrder
+    registrationNo?: SortOrderInput | SortOrder
+    hospital?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DoctorCountOrderByAggregateInput
+    _max?: DoctorMaxOrderByAggregateInput
+    _min?: DoctorMinOrderByAggregateInput
+  }
+
+  export type DoctorScalarWhereWithAggregatesInput = {
+    AND?: DoctorScalarWhereWithAggregatesInput | DoctorScalarWhereWithAggregatesInput[]
+    OR?: DoctorScalarWhereWithAggregatesInput[]
+    NOT?: DoctorScalarWhereWithAggregatesInput | DoctorScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Doctor"> | string
+    storeId?: StringWithAggregatesFilter<"Doctor"> | string
+    name?: StringWithAggregatesFilter<"Doctor"> | string
+    phone?: StringNullableWithAggregatesFilter<"Doctor"> | string | null
+    email?: StringNullableWithAggregatesFilter<"Doctor"> | string | null
+    specialization?: StringNullableWithAggregatesFilter<"Doctor"> | string | null
+    registrationNo?: StringNullableWithAggregatesFilter<"Doctor"> | string | null
+    hospital?: StringNullableWithAggregatesFilter<"Doctor"> | string | null
+    address?: StringNullableWithAggregatesFilter<"Doctor"> | string | null
+    notes?: StringNullableWithAggregatesFilter<"Doctor"> | string | null
+    isActive?: BoolWithAggregatesFilter<"Doctor"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Doctor"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Doctor"> | Date | string
+  }
+
   export type PrescriptionWhereInput = {
     AND?: PrescriptionWhereInput | PrescriptionWhereInput[]
     OR?: PrescriptionWhereInput[]
@@ -51933,6 +53612,7 @@ export namespace Prisma {
     id?: StringFilter<"Prescription"> | string
     storeId?: StringFilter<"Prescription"> | string
     customerId?: StringNullableFilter<"Prescription"> | string | null
+    doctorId?: StringNullableFilter<"Prescription"> | string | null
     prescriptionNumber?: StringNullableFilter<"Prescription"> | string | null
     prescriptionDate?: DateTimeFilter<"Prescription"> | Date | string
     validUntil?: DateTimeNullableFilter<"Prescription"> | Date | string | null
@@ -51944,6 +53624,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Prescription"> | Date | string
     updatedAt?: DateTimeFilter<"Prescription"> | Date | string
     customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
+    doctorRel?: XOR<DoctorNullableScalarRelationFilter, DoctorWhereInput> | null
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
     items?: PrescriptionItemListRelationFilter
   }
@@ -51952,6 +53633,7 @@ export namespace Prisma {
     id?: SortOrder
     storeId?: SortOrder
     customerId?: SortOrderInput | SortOrder
+    doctorId?: SortOrderInput | SortOrder
     prescriptionNumber?: SortOrderInput | SortOrder
     prescriptionDate?: SortOrder
     validUntil?: SortOrderInput | SortOrder
@@ -51963,6 +53645,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     customer?: CustomerOrderByWithRelationInput
+    doctorRel?: DoctorOrderByWithRelationInput
     store?: StoreOrderByWithRelationInput
     items?: PrescriptionItemOrderByRelationAggregateInput
   }
@@ -51975,6 +53658,7 @@ export namespace Prisma {
     NOT?: PrescriptionWhereInput | PrescriptionWhereInput[]
     storeId?: StringFilter<"Prescription"> | string
     customerId?: StringNullableFilter<"Prescription"> | string | null
+    doctorId?: StringNullableFilter<"Prescription"> | string | null
     prescriptionNumber?: StringNullableFilter<"Prescription"> | string | null
     prescriptionDate?: DateTimeFilter<"Prescription"> | Date | string
     validUntil?: DateTimeNullableFilter<"Prescription"> | Date | string | null
@@ -51986,6 +53670,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Prescription"> | Date | string
     updatedAt?: DateTimeFilter<"Prescription"> | Date | string
     customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
+    doctorRel?: XOR<DoctorNullableScalarRelationFilter, DoctorWhereInput> | null
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
     items?: PrescriptionItemListRelationFilter
   }, "id" | "storeId_prescriptionNumber">
@@ -51994,6 +53679,7 @@ export namespace Prisma {
     id?: SortOrder
     storeId?: SortOrder
     customerId?: SortOrderInput | SortOrder
+    doctorId?: SortOrderInput | SortOrder
     prescriptionNumber?: SortOrderInput | SortOrder
     prescriptionDate?: SortOrder
     validUntil?: SortOrderInput | SortOrder
@@ -52016,6 +53702,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Prescription"> | string
     storeId?: StringWithAggregatesFilter<"Prescription"> | string
     customerId?: StringNullableWithAggregatesFilter<"Prescription"> | string | null
+    doctorId?: StringNullableWithAggregatesFilter<"Prescription"> | string | null
     prescriptionNumber?: StringNullableWithAggregatesFilter<"Prescription"> | string | null
     prescriptionDate?: DateTimeWithAggregatesFilter<"Prescription"> | Date | string
     validUntil?: DateTimeNullableWithAggregatesFilter<"Prescription"> | Date | string | null
@@ -52363,6 +54050,7 @@ export namespace Prisma {
     id?: StringFilter<"ProductSalt"> | string
     productId?: StringFilter<"ProductSalt"> | string
     saltId?: StringFilter<"ProductSalt"> | string
+    strength?: StringNullableFilter<"ProductSalt"> | string | null
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     salt?: XOR<SaltScalarRelationFilter, SaltWhereInput>
   }
@@ -52371,6 +54059,7 @@ export namespace Prisma {
     id?: SortOrder
     productId?: SortOrder
     saltId?: SortOrder
+    strength?: SortOrderInput | SortOrder
     product?: ProductOrderByWithRelationInput
     salt?: SaltOrderByWithRelationInput
   }
@@ -52383,6 +54072,7 @@ export namespace Prisma {
     NOT?: ProductSaltWhereInput | ProductSaltWhereInput[]
     productId?: StringFilter<"ProductSalt"> | string
     saltId?: StringFilter<"ProductSalt"> | string
+    strength?: StringNullableFilter<"ProductSalt"> | string | null
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     salt?: XOR<SaltScalarRelationFilter, SaltWhereInput>
   }, "id" | "productId_saltId">
@@ -52391,6 +54081,7 @@ export namespace Prisma {
     id?: SortOrder
     productId?: SortOrder
     saltId?: SortOrder
+    strength?: SortOrderInput | SortOrder
     _count?: ProductSaltCountOrderByAggregateInput
     _max?: ProductSaltMaxOrderByAggregateInput
     _min?: ProductSaltMinOrderByAggregateInput
@@ -52403,6 +54094,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"ProductSalt"> | string
     productId?: StringWithAggregatesFilter<"ProductSalt"> | string
     saltId?: StringWithAggregatesFilter<"ProductSalt"> | string
+    strength?: StringNullableWithAggregatesFilter<"ProductSalt"> | string | null
   }
 
   export type ProductPackagingWhereInput = {
@@ -52753,9 +54445,11 @@ export namespace Prisma {
     supplierId?: StringFilter<"Purchase"> | string
     invoiceNumber?: StringFilter<"Purchase"> | string
     invoiceDate?: DateTimeFilter<"Purchase"> | Date | string
+    dueDate?: DateTimeNullableFilter<"Purchase"> | Date | string | null
     receivedDate?: DateTimeNullableFilter<"Purchase"> | Date | string | null
     status?: EnumPurchaseStatusFilter<"Purchase"> | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFilter<"Purchase"> | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFilter<"Purchase"> | $Enums.PaymentMethod
     subtotal?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
@@ -52782,9 +54476,11 @@ export namespace Prisma {
     supplierId?: SortOrder
     invoiceNumber?: SortOrder
     invoiceDate?: SortOrder
+    dueDate?: SortOrderInput | SortOrder
     receivedDate?: SortOrderInput | SortOrder
     status?: SortOrder
     paymentStatus?: SortOrder
+    paymentMethod?: SortOrder
     subtotal?: SortOrder
     discountAmount?: SortOrder
     taxableAmount?: SortOrder
@@ -52815,9 +54511,11 @@ export namespace Prisma {
     supplierId?: StringFilter<"Purchase"> | string
     invoiceNumber?: StringFilter<"Purchase"> | string
     invoiceDate?: DateTimeFilter<"Purchase"> | Date | string
+    dueDate?: DateTimeNullableFilter<"Purchase"> | Date | string | null
     receivedDate?: DateTimeNullableFilter<"Purchase"> | Date | string | null
     status?: EnumPurchaseStatusFilter<"Purchase"> | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFilter<"Purchase"> | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFilter<"Purchase"> | $Enums.PaymentMethod
     subtotal?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
@@ -52844,9 +54542,11 @@ export namespace Prisma {
     supplierId?: SortOrder
     invoiceNumber?: SortOrder
     invoiceDate?: SortOrder
+    dueDate?: SortOrderInput | SortOrder
     receivedDate?: SortOrderInput | SortOrder
     status?: SortOrder
     paymentStatus?: SortOrder
+    paymentMethod?: SortOrder
     subtotal?: SortOrder
     discountAmount?: SortOrder
     taxableAmount?: SortOrder
@@ -52877,9 +54577,11 @@ export namespace Prisma {
     supplierId?: StringWithAggregatesFilter<"Purchase"> | string
     invoiceNumber?: StringWithAggregatesFilter<"Purchase"> | string
     invoiceDate?: DateTimeWithAggregatesFilter<"Purchase"> | Date | string
+    dueDate?: DateTimeNullableWithAggregatesFilter<"Purchase"> | Date | string | null
     receivedDate?: DateTimeNullableWithAggregatesFilter<"Purchase"> | Date | string | null
     status?: EnumPurchaseStatusWithAggregatesFilter<"Purchase"> | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusWithAggregatesFilter<"Purchase"> | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodWithAggregatesFilter<"Purchase"> | $Enums.PaymentMethod
     subtotal?: DecimalWithAggregatesFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalWithAggregatesFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalWithAggregatesFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
@@ -53347,6 +55049,7 @@ export namespace Prisma {
     id?: StringFilter<"Sale"> | string
     storeId?: StringFilter<"Sale"> | string
     customerId?: StringNullableFilter<"Sale"> | string | null
+    doctorId?: StringNullableFilter<"Sale"> | string | null
     invoiceNumber?: StringFilter<"Sale"> | string
     invoiceDate?: DateTimeFilter<"Sale"> | Date | string
     status?: EnumSaleStatusFilter<"Sale"> | $Enums.SaleStatus
@@ -53361,10 +55064,14 @@ export namespace Prisma {
     totalAmount?: DecimalFilter<"Sale"> | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFilter<"Sale"> | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFilter<"Sale"> | Decimal | DecimalJsLike | number | string
+    doctor?: StringNullableFilter<"Sale"> | string | null
+    dueDate?: DateTimeNullableFilter<"Sale"> | Date | string | null
     notes?: StringNullableFilter<"Sale"> | string | null
+    prescriptions?: StringNullableListFilter<"Sale">
     createdAt?: DateTimeFilter<"Sale"> | Date | string
     updatedAt?: DateTimeFilter<"Sale"> | Date | string
     customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
+    doctorRel?: XOR<DoctorNullableScalarRelationFilter, DoctorWhereInput> | null
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
     items?: SaleItemListRelationFilter
     payments?: SalePaymentListRelationFilter
@@ -53375,6 +55082,7 @@ export namespace Prisma {
     id?: SortOrder
     storeId?: SortOrder
     customerId?: SortOrderInput | SortOrder
+    doctorId?: SortOrderInput | SortOrder
     invoiceNumber?: SortOrder
     invoiceDate?: SortOrder
     status?: SortOrder
@@ -53389,10 +55097,14 @@ export namespace Prisma {
     totalAmount?: SortOrder
     paidAmount?: SortOrder
     dueAmount?: SortOrder
+    doctor?: SortOrderInput | SortOrder
+    dueDate?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    prescriptions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     customer?: CustomerOrderByWithRelationInput
+    doctorRel?: DoctorOrderByWithRelationInput
     store?: StoreOrderByWithRelationInput
     items?: SaleItemOrderByRelationAggregateInput
     payments?: SalePaymentOrderByRelationAggregateInput
@@ -53407,6 +55119,7 @@ export namespace Prisma {
     NOT?: SaleWhereInput | SaleWhereInput[]
     storeId?: StringFilter<"Sale"> | string
     customerId?: StringNullableFilter<"Sale"> | string | null
+    doctorId?: StringNullableFilter<"Sale"> | string | null
     invoiceNumber?: StringFilter<"Sale"> | string
     invoiceDate?: DateTimeFilter<"Sale"> | Date | string
     status?: EnumSaleStatusFilter<"Sale"> | $Enums.SaleStatus
@@ -53421,10 +55134,14 @@ export namespace Prisma {
     totalAmount?: DecimalFilter<"Sale"> | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFilter<"Sale"> | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFilter<"Sale"> | Decimal | DecimalJsLike | number | string
+    doctor?: StringNullableFilter<"Sale"> | string | null
+    dueDate?: DateTimeNullableFilter<"Sale"> | Date | string | null
     notes?: StringNullableFilter<"Sale"> | string | null
+    prescriptions?: StringNullableListFilter<"Sale">
     createdAt?: DateTimeFilter<"Sale"> | Date | string
     updatedAt?: DateTimeFilter<"Sale"> | Date | string
     customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
+    doctorRel?: XOR<DoctorNullableScalarRelationFilter, DoctorWhereInput> | null
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
     items?: SaleItemListRelationFilter
     payments?: SalePaymentListRelationFilter
@@ -53435,6 +55152,7 @@ export namespace Prisma {
     id?: SortOrder
     storeId?: SortOrder
     customerId?: SortOrderInput | SortOrder
+    doctorId?: SortOrderInput | SortOrder
     invoiceNumber?: SortOrder
     invoiceDate?: SortOrder
     status?: SortOrder
@@ -53449,7 +55167,10 @@ export namespace Prisma {
     totalAmount?: SortOrder
     paidAmount?: SortOrder
     dueAmount?: SortOrder
+    doctor?: SortOrderInput | SortOrder
+    dueDate?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    prescriptions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SaleCountOrderByAggregateInput
@@ -53466,6 +55187,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Sale"> | string
     storeId?: StringWithAggregatesFilter<"Sale"> | string
     customerId?: StringNullableWithAggregatesFilter<"Sale"> | string | null
+    doctorId?: StringNullableWithAggregatesFilter<"Sale"> | string | null
     invoiceNumber?: StringWithAggregatesFilter<"Sale"> | string
     invoiceDate?: DateTimeWithAggregatesFilter<"Sale"> | Date | string
     status?: EnumSaleStatusWithAggregatesFilter<"Sale"> | $Enums.SaleStatus
@@ -53480,7 +55202,10 @@ export namespace Prisma {
     totalAmount?: DecimalWithAggregatesFilter<"Sale"> | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalWithAggregatesFilter<"Sale"> | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalWithAggregatesFilter<"Sale"> | Decimal | DecimalJsLike | number | string
+    doctor?: StringNullableWithAggregatesFilter<"Sale"> | string | null
+    dueDate?: DateTimeNullableWithAggregatesFilter<"Sale"> | Date | string | null
     notes?: StringNullableWithAggregatesFilter<"Sale"> | string | null
+    prescriptions?: StringNullableListFilter<"Sale">
     createdAt?: DateTimeWithAggregatesFilter<"Sale"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Sale"> | Date | string
   }
@@ -55442,6 +57167,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -55475,6 +57201,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -55508,6 +57235,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -55541,6 +57269,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -55593,6 +57322,125 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DoctorCreateInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    email?: string | null
+    specialization?: string | null
+    registrationNo?: string | null
+    hospital?: string | null
+    address?: string | null
+    notes?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    store: StoreCreateNestedOneWithoutDoctorsInput
+    sales?: SaleCreateNestedManyWithoutDoctorRelInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutDoctorRelInput
+  }
+
+  export type DoctorUncheckedCreateInput = {
+    id?: string
+    storeId: string
+    name: string
+    phone?: string | null
+    email?: string | null
+    specialization?: string | null
+    registrationNo?: string | null
+    hospital?: string | null
+    address?: string | null
+    notes?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sales?: SaleUncheckedCreateNestedManyWithoutDoctorRelInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutDoctorRelInput
+  }
+
+  export type DoctorUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    hospital?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store?: StoreUpdateOneRequiredWithoutDoctorsNestedInput
+    sales?: SaleUpdateManyWithoutDoctorRelNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutDoctorRelNestedInput
+  }
+
+  export type DoctorUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    hospital?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sales?: SaleUncheckedUpdateManyWithoutDoctorRelNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutDoctorRelNestedInput
+  }
+
+  export type DoctorCreateManyInput = {
+    id?: string
+    storeId: string
+    name: string
+    phone?: string | null
+    email?: string | null
+    specialization?: string | null
+    registrationNo?: string | null
+    hospital?: string | null
+    address?: string | null
+    notes?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DoctorUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    hospital?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DoctorUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    hospital?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PrescriptionCreateInput = {
     id?: string
     prescriptionNumber?: string | null
@@ -55606,6 +57454,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutPrescriptionsInput
+    doctorRel?: DoctorCreateNestedOneWithoutPrescriptionsInput
     store: StoreCreateNestedOneWithoutPrescriptionsInput
     items?: PrescriptionItemCreateNestedManyWithoutPrescriptionInput
   }
@@ -55614,6 +57463,7 @@ export namespace Prisma {
     id?: string
     storeId: string
     customerId?: string | null
+    doctorId?: string | null
     prescriptionNumber?: string | null
     prescriptionDate: Date | string
     validUntil?: Date | string | null
@@ -55640,6 +57490,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutPrescriptionsNestedInput
+    doctorRel?: DoctorUpdateOneWithoutPrescriptionsNestedInput
     store?: StoreUpdateOneRequiredWithoutPrescriptionsNestedInput
     items?: PrescriptionItemUpdateManyWithoutPrescriptionNestedInput
   }
@@ -55648,6 +57499,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionDate?: DateTimeFieldUpdateOperationsInput | Date | string
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -55665,6 +57517,7 @@ export namespace Prisma {
     id?: string
     storeId: string
     customerId?: string | null
+    doctorId?: string | null
     prescriptionNumber?: string | null
     prescriptionDate: Date | string
     validUntil?: Date | string | null
@@ -55695,6 +57548,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionDate?: DateTimeFieldUpdateOperationsInput | Date | string
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -56072,6 +57926,7 @@ export namespace Prisma {
 
   export type ProductSaltCreateInput = {
     id?: string
+    strength?: string | null
     product: ProductCreateNestedOneWithoutSaltsInput
     salt: SaltCreateNestedOneWithoutProductsInput
   }
@@ -56080,10 +57935,12 @@ export namespace Prisma {
     id?: string
     productId: string
     saltId: string
+    strength?: string | null
   }
 
   export type ProductSaltUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
     product?: ProductUpdateOneRequiredWithoutSaltsNestedInput
     salt?: SaltUpdateOneRequiredWithoutProductsNestedInput
   }
@@ -56092,22 +57949,26 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
     saltId?: StringFieldUpdateOperationsInput | string
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductSaltCreateManyInput = {
     id?: string
     productId: string
     saltId: string
+    strength?: string | null
   }
 
   export type ProductSaltUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductSaltUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
     saltId?: StringFieldUpdateOperationsInput | string
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductPackagingCreateInput = {
@@ -56487,9 +58348,11 @@ export namespace Prisma {
     id?: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -56516,9 +58379,11 @@ export namespace Prisma {
     supplierId: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -56541,9 +58406,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -56570,9 +58437,11 @@ export namespace Prisma {
     supplierId?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -56597,9 +58466,11 @@ export namespace Prisma {
     supplierId: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -56620,9 +58491,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -56645,9 +58518,11 @@ export namespace Prisma {
     supplierId?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -57159,10 +59034,14 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutSalesInput
+    doctorRel?: DoctorCreateNestedOneWithoutSalesInput
     store: StoreCreateNestedOneWithoutSalesInput
     items?: SaleItemCreateNestedManyWithoutSaleInput
     payments?: SalePaymentCreateNestedManyWithoutSaleInput
@@ -57173,6 +59052,7 @@ export namespace Prisma {
     id?: string
     storeId: string
     customerId?: string | null
+    doctorId?: string | null
     invoiceNumber: string
     invoiceDate: Date | string
     status?: $Enums.SaleStatus
@@ -57187,7 +59067,10 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
@@ -57211,10 +59094,14 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutSalesNestedInput
+    doctorRel?: DoctorUpdateOneWithoutSalesNestedInput
     store?: StoreUpdateOneRequiredWithoutSalesNestedInput
     items?: SaleItemUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUpdateManyWithoutSaleNestedInput
@@ -57225,6 +59112,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
@@ -57239,7 +59127,10 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
@@ -57251,6 +59142,7 @@ export namespace Prisma {
     id?: string
     storeId: string
     customerId?: string | null
+    doctorId?: string | null
     invoiceNumber: string
     invoiceDate: Date | string
     status?: $Enums.SaleStatus
@@ -57265,7 +59157,10 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -57286,7 +59181,10 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -57295,6 +59193,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
@@ -57309,7 +59208,10 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -59320,6 +61222,12 @@ export namespace Prisma {
     none?: UserWhereInput
   }
 
+  export type DoctorListRelationFilter = {
+    every?: DoctorWhereInput
+    some?: DoctorWhereInput
+    none?: DoctorWhereInput
+  }
+
   export type InventoryAuditListRelationFilter = {
     every?: InventoryAuditWhereInput
     some?: InventoryAuditWhereInput
@@ -59359,6 +61267,10 @@ export namespace Prisma {
   }
 
   export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DoctorOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -59414,11 +61326,64 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type DoctorCountOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    specialization?: SortOrder
+    registrationNo?: SortOrder
+    hospital?: SortOrder
+    address?: SortOrder
+    notes?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DoctorMaxOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    specialization?: SortOrder
+    registrationNo?: SortOrder
+    hospital?: SortOrder
+    address?: SortOrder
+    notes?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DoctorMinOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    name?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    specialization?: SortOrder
+    registrationNo?: SortOrder
+    hospital?: SortOrder
+    address?: SortOrder
+    notes?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type EnumPrescriptionStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.PrescriptionStatus | EnumPrescriptionStatusFieldRefInput<$PrismaModel>
     in?: $Enums.PrescriptionStatus[] | ListEnumPrescriptionStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.PrescriptionStatus[] | ListEnumPrescriptionStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumPrescriptionStatusFilter<$PrismaModel> | $Enums.PrescriptionStatus
+  }
+
+  export type DoctorNullableScalarRelationFilter = {
+    is?: DoctorWhereInput | null
+    isNot?: DoctorWhereInput | null
   }
 
   export type PrescriptionItemListRelationFilter = {
@@ -59440,6 +61405,7 @@ export namespace Prisma {
     id?: SortOrder
     storeId?: SortOrder
     customerId?: SortOrder
+    doctorId?: SortOrder
     prescriptionNumber?: SortOrder
     prescriptionDate?: SortOrder
     validUntil?: SortOrder
@@ -59456,6 +61422,7 @@ export namespace Prisma {
     id?: SortOrder
     storeId?: SortOrder
     customerId?: SortOrder
+    doctorId?: SortOrder
     prescriptionNumber?: SortOrder
     prescriptionDate?: SortOrder
     validUntil?: SortOrder
@@ -59472,6 +61439,7 @@ export namespace Prisma {
     id?: SortOrder
     storeId?: SortOrder
     customerId?: SortOrder
+    doctorId?: SortOrder
     prescriptionNumber?: SortOrder
     prescriptionDate?: SortOrder
     validUntil?: SortOrder
@@ -59775,18 +61743,21 @@ export namespace Prisma {
     id?: SortOrder
     productId?: SortOrder
     saltId?: SortOrder
+    strength?: SortOrder
   }
 
   export type ProductSaltMaxOrderByAggregateInput = {
     id?: SortOrder
     productId?: SortOrder
     saltId?: SortOrder
+    strength?: SortOrder
   }
 
   export type ProductSaltMinOrderByAggregateInput = {
     id?: SortOrder
     productId?: SortOrder
     saltId?: SortOrder
+    strength?: SortOrder
   }
 
   export type ProductPackagingProductIdNameCompoundUniqueInput = {
@@ -60076,9 +62047,11 @@ export namespace Prisma {
     supplierId?: SortOrder
     invoiceNumber?: SortOrder
     invoiceDate?: SortOrder
+    dueDate?: SortOrder
     receivedDate?: SortOrder
     status?: SortOrder
     paymentStatus?: SortOrder
+    paymentMethod?: SortOrder
     subtotal?: SortOrder
     discountAmount?: SortOrder
     taxableAmount?: SortOrder
@@ -60115,9 +62088,11 @@ export namespace Prisma {
     supplierId?: SortOrder
     invoiceNumber?: SortOrder
     invoiceDate?: SortOrder
+    dueDate?: SortOrder
     receivedDate?: SortOrder
     status?: SortOrder
     paymentStatus?: SortOrder
+    paymentMethod?: SortOrder
     subtotal?: SortOrder
     discountAmount?: SortOrder
     taxableAmount?: SortOrder
@@ -60140,9 +62115,11 @@ export namespace Prisma {
     supplierId?: SortOrder
     invoiceNumber?: SortOrder
     invoiceDate?: SortOrder
+    dueDate?: SortOrder
     receivedDate?: SortOrder
     status?: SortOrder
     paymentStatus?: SortOrder
+    paymentMethod?: SortOrder
     subtotal?: SortOrder
     discountAmount?: SortOrder
     taxableAmount?: SortOrder
@@ -60530,6 +62507,14 @@ export namespace Prisma {
     not?: NestedEnumSalePaymentStatusFilter<$PrismaModel> | $Enums.SalePaymentStatus
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type SalePaymentListRelationFilter = {
     every?: SalePaymentWhereInput
     some?: SalePaymentWhereInput
@@ -60549,6 +62534,7 @@ export namespace Prisma {
     id?: SortOrder
     storeId?: SortOrder
     customerId?: SortOrder
+    doctorId?: SortOrder
     invoiceNumber?: SortOrder
     invoiceDate?: SortOrder
     status?: SortOrder
@@ -60563,7 +62549,10 @@ export namespace Prisma {
     totalAmount?: SortOrder
     paidAmount?: SortOrder
     dueAmount?: SortOrder
+    doctor?: SortOrder
+    dueDate?: SortOrder
     notes?: SortOrder
+    prescriptions?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -60585,6 +62574,7 @@ export namespace Prisma {
     id?: SortOrder
     storeId?: SortOrder
     customerId?: SortOrder
+    doctorId?: SortOrder
     invoiceNumber?: SortOrder
     invoiceDate?: SortOrder
     status?: SortOrder
@@ -60599,6 +62589,8 @@ export namespace Prisma {
     totalAmount?: SortOrder
     paidAmount?: SortOrder
     dueAmount?: SortOrder
+    doctor?: SortOrder
+    dueDate?: SortOrder
     notes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -60608,6 +62600,7 @@ export namespace Prisma {
     id?: SortOrder
     storeId?: SortOrder
     customerId?: SortOrder
+    doctorId?: SortOrder
     invoiceNumber?: SortOrder
     invoiceDate?: SortOrder
     status?: SortOrder
@@ -60622,6 +62615,8 @@ export namespace Prisma {
     totalAmount?: SortOrder
     paidAmount?: SortOrder
     dueAmount?: SortOrder
+    doctor?: SortOrder
+    dueDate?: SortOrder
     notes?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -62197,6 +64192,13 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type DoctorCreateNestedManyWithoutStoreInput = {
+    create?: XOR<DoctorCreateWithoutStoreInput, DoctorUncheckedCreateWithoutStoreInput> | DoctorCreateWithoutStoreInput[] | DoctorUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: DoctorCreateOrConnectWithoutStoreInput | DoctorCreateOrConnectWithoutStoreInput[]
+    createMany?: DoctorCreateManyStoreInputEnvelope
+    connect?: DoctorWhereUniqueInput | DoctorWhereUniqueInput[]
+  }
+
   export type CustomerLedgerShareCreateNestedManyWithoutStoreInput = {
     create?: XOR<CustomerLedgerShareCreateWithoutStoreInput, CustomerLedgerShareUncheckedCreateWithoutStoreInput> | CustomerLedgerShareCreateWithoutStoreInput[] | CustomerLedgerShareUncheckedCreateWithoutStoreInput[]
     connectOrCreate?: CustomerLedgerShareCreateOrConnectWithoutStoreInput | CustomerLedgerShareCreateOrConnectWithoutStoreInput[]
@@ -62314,6 +64316,13 @@ export namespace Prisma {
     connectOrCreate?: UserCreateOrConnectWithoutStoreInput | UserCreateOrConnectWithoutStoreInput[]
     createMany?: UserCreateManyStoreInputEnvelope
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type DoctorUncheckedCreateNestedManyWithoutStoreInput = {
+    create?: XOR<DoctorCreateWithoutStoreInput, DoctorUncheckedCreateWithoutStoreInput> | DoctorCreateWithoutStoreInput[] | DoctorUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: DoctorCreateOrConnectWithoutStoreInput | DoctorCreateOrConnectWithoutStoreInput[]
+    createMany?: DoctorCreateManyStoreInputEnvelope
+    connect?: DoctorWhereUniqueInput | DoctorWhereUniqueInput[]
   }
 
   export type CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput = {
@@ -62538,6 +64547,20 @@ export namespace Prisma {
     update?: UserUpdateWithWhereUniqueWithoutStoreInput | UserUpdateWithWhereUniqueWithoutStoreInput[]
     updateMany?: UserUpdateManyWithWhereWithoutStoreInput | UserUpdateManyWithWhereWithoutStoreInput[]
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type DoctorUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<DoctorCreateWithoutStoreInput, DoctorUncheckedCreateWithoutStoreInput> | DoctorCreateWithoutStoreInput[] | DoctorUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: DoctorCreateOrConnectWithoutStoreInput | DoctorCreateOrConnectWithoutStoreInput[]
+    upsert?: DoctorUpsertWithWhereUniqueWithoutStoreInput | DoctorUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: DoctorCreateManyStoreInputEnvelope
+    set?: DoctorWhereUniqueInput | DoctorWhereUniqueInput[]
+    disconnect?: DoctorWhereUniqueInput | DoctorWhereUniqueInput[]
+    delete?: DoctorWhereUniqueInput | DoctorWhereUniqueInput[]
+    connect?: DoctorWhereUniqueInput | DoctorWhereUniqueInput[]
+    update?: DoctorUpdateWithWhereUniqueWithoutStoreInput | DoctorUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: DoctorUpdateManyWithWhereWithoutStoreInput | DoctorUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: DoctorScalarWhereInput | DoctorScalarWhereInput[]
   }
 
   export type CustomerLedgerShareUpdateManyWithoutStoreNestedInput = {
@@ -62778,6 +64801,20 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type DoctorUncheckedUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<DoctorCreateWithoutStoreInput, DoctorUncheckedCreateWithoutStoreInput> | DoctorCreateWithoutStoreInput[] | DoctorUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: DoctorCreateOrConnectWithoutStoreInput | DoctorCreateOrConnectWithoutStoreInput[]
+    upsert?: DoctorUpsertWithWhereUniqueWithoutStoreInput | DoctorUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: DoctorCreateManyStoreInputEnvelope
+    set?: DoctorWhereUniqueInput | DoctorWhereUniqueInput[]
+    disconnect?: DoctorWhereUniqueInput | DoctorWhereUniqueInput[]
+    delete?: DoctorWhereUniqueInput | DoctorWhereUniqueInput[]
+    connect?: DoctorWhereUniqueInput | DoctorWhereUniqueInput[]
+    update?: DoctorUpdateWithWhereUniqueWithoutStoreInput | DoctorUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: DoctorUpdateManyWithWhereWithoutStoreInput | DoctorUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: DoctorScalarWhereInput | DoctorScalarWhereInput[]
+  }
+
   export type CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput = {
     create?: XOR<CustomerLedgerShareCreateWithoutStoreInput, CustomerLedgerShareUncheckedCreateWithoutStoreInput> | CustomerLedgerShareCreateWithoutStoreInput[] | CustomerLedgerShareUncheckedCreateWithoutStoreInput[]
     connectOrCreate?: CustomerLedgerShareCreateOrConnectWithoutStoreInput | CustomerLedgerShareCreateOrConnectWithoutStoreInput[]
@@ -62806,10 +64843,114 @@ export namespace Prisma {
     deleteMany?: InventoryAuditScalarWhereInput | InventoryAuditScalarWhereInput[]
   }
 
+  export type StoreCreateNestedOneWithoutDoctorsInput = {
+    create?: XOR<StoreCreateWithoutDoctorsInput, StoreUncheckedCreateWithoutDoctorsInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutDoctorsInput
+    connect?: StoreWhereUniqueInput
+  }
+
+  export type SaleCreateNestedManyWithoutDoctorRelInput = {
+    create?: XOR<SaleCreateWithoutDoctorRelInput, SaleUncheckedCreateWithoutDoctorRelInput> | SaleCreateWithoutDoctorRelInput[] | SaleUncheckedCreateWithoutDoctorRelInput[]
+    connectOrCreate?: SaleCreateOrConnectWithoutDoctorRelInput | SaleCreateOrConnectWithoutDoctorRelInput[]
+    createMany?: SaleCreateManyDoctorRelInputEnvelope
+    connect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+  }
+
+  export type PrescriptionCreateNestedManyWithoutDoctorRelInput = {
+    create?: XOR<PrescriptionCreateWithoutDoctorRelInput, PrescriptionUncheckedCreateWithoutDoctorRelInput> | PrescriptionCreateWithoutDoctorRelInput[] | PrescriptionUncheckedCreateWithoutDoctorRelInput[]
+    connectOrCreate?: PrescriptionCreateOrConnectWithoutDoctorRelInput | PrescriptionCreateOrConnectWithoutDoctorRelInput[]
+    createMany?: PrescriptionCreateManyDoctorRelInputEnvelope
+    connect?: PrescriptionWhereUniqueInput | PrescriptionWhereUniqueInput[]
+  }
+
+  export type SaleUncheckedCreateNestedManyWithoutDoctorRelInput = {
+    create?: XOR<SaleCreateWithoutDoctorRelInput, SaleUncheckedCreateWithoutDoctorRelInput> | SaleCreateWithoutDoctorRelInput[] | SaleUncheckedCreateWithoutDoctorRelInput[]
+    connectOrCreate?: SaleCreateOrConnectWithoutDoctorRelInput | SaleCreateOrConnectWithoutDoctorRelInput[]
+    createMany?: SaleCreateManyDoctorRelInputEnvelope
+    connect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+  }
+
+  export type PrescriptionUncheckedCreateNestedManyWithoutDoctorRelInput = {
+    create?: XOR<PrescriptionCreateWithoutDoctorRelInput, PrescriptionUncheckedCreateWithoutDoctorRelInput> | PrescriptionCreateWithoutDoctorRelInput[] | PrescriptionUncheckedCreateWithoutDoctorRelInput[]
+    connectOrCreate?: PrescriptionCreateOrConnectWithoutDoctorRelInput | PrescriptionCreateOrConnectWithoutDoctorRelInput[]
+    createMany?: PrescriptionCreateManyDoctorRelInputEnvelope
+    connect?: PrescriptionWhereUniqueInput | PrescriptionWhereUniqueInput[]
+  }
+
+  export type StoreUpdateOneRequiredWithoutDoctorsNestedInput = {
+    create?: XOR<StoreCreateWithoutDoctorsInput, StoreUncheckedCreateWithoutDoctorsInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutDoctorsInput
+    upsert?: StoreUpsertWithoutDoctorsInput
+    connect?: StoreWhereUniqueInput
+    update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutDoctorsInput, StoreUpdateWithoutDoctorsInput>, StoreUncheckedUpdateWithoutDoctorsInput>
+  }
+
+  export type SaleUpdateManyWithoutDoctorRelNestedInput = {
+    create?: XOR<SaleCreateWithoutDoctorRelInput, SaleUncheckedCreateWithoutDoctorRelInput> | SaleCreateWithoutDoctorRelInput[] | SaleUncheckedCreateWithoutDoctorRelInput[]
+    connectOrCreate?: SaleCreateOrConnectWithoutDoctorRelInput | SaleCreateOrConnectWithoutDoctorRelInput[]
+    upsert?: SaleUpsertWithWhereUniqueWithoutDoctorRelInput | SaleUpsertWithWhereUniqueWithoutDoctorRelInput[]
+    createMany?: SaleCreateManyDoctorRelInputEnvelope
+    set?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    disconnect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    delete?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    connect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    update?: SaleUpdateWithWhereUniqueWithoutDoctorRelInput | SaleUpdateWithWhereUniqueWithoutDoctorRelInput[]
+    updateMany?: SaleUpdateManyWithWhereWithoutDoctorRelInput | SaleUpdateManyWithWhereWithoutDoctorRelInput[]
+    deleteMany?: SaleScalarWhereInput | SaleScalarWhereInput[]
+  }
+
+  export type PrescriptionUpdateManyWithoutDoctorRelNestedInput = {
+    create?: XOR<PrescriptionCreateWithoutDoctorRelInput, PrescriptionUncheckedCreateWithoutDoctorRelInput> | PrescriptionCreateWithoutDoctorRelInput[] | PrescriptionUncheckedCreateWithoutDoctorRelInput[]
+    connectOrCreate?: PrescriptionCreateOrConnectWithoutDoctorRelInput | PrescriptionCreateOrConnectWithoutDoctorRelInput[]
+    upsert?: PrescriptionUpsertWithWhereUniqueWithoutDoctorRelInput | PrescriptionUpsertWithWhereUniqueWithoutDoctorRelInput[]
+    createMany?: PrescriptionCreateManyDoctorRelInputEnvelope
+    set?: PrescriptionWhereUniqueInput | PrescriptionWhereUniqueInput[]
+    disconnect?: PrescriptionWhereUniqueInput | PrescriptionWhereUniqueInput[]
+    delete?: PrescriptionWhereUniqueInput | PrescriptionWhereUniqueInput[]
+    connect?: PrescriptionWhereUniqueInput | PrescriptionWhereUniqueInput[]
+    update?: PrescriptionUpdateWithWhereUniqueWithoutDoctorRelInput | PrescriptionUpdateWithWhereUniqueWithoutDoctorRelInput[]
+    updateMany?: PrescriptionUpdateManyWithWhereWithoutDoctorRelInput | PrescriptionUpdateManyWithWhereWithoutDoctorRelInput[]
+    deleteMany?: PrescriptionScalarWhereInput | PrescriptionScalarWhereInput[]
+  }
+
+  export type SaleUncheckedUpdateManyWithoutDoctorRelNestedInput = {
+    create?: XOR<SaleCreateWithoutDoctorRelInput, SaleUncheckedCreateWithoutDoctorRelInput> | SaleCreateWithoutDoctorRelInput[] | SaleUncheckedCreateWithoutDoctorRelInput[]
+    connectOrCreate?: SaleCreateOrConnectWithoutDoctorRelInput | SaleCreateOrConnectWithoutDoctorRelInput[]
+    upsert?: SaleUpsertWithWhereUniqueWithoutDoctorRelInput | SaleUpsertWithWhereUniqueWithoutDoctorRelInput[]
+    createMany?: SaleCreateManyDoctorRelInputEnvelope
+    set?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    disconnect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    delete?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    connect?: SaleWhereUniqueInput | SaleWhereUniqueInput[]
+    update?: SaleUpdateWithWhereUniqueWithoutDoctorRelInput | SaleUpdateWithWhereUniqueWithoutDoctorRelInput[]
+    updateMany?: SaleUpdateManyWithWhereWithoutDoctorRelInput | SaleUpdateManyWithWhereWithoutDoctorRelInput[]
+    deleteMany?: SaleScalarWhereInput | SaleScalarWhereInput[]
+  }
+
+  export type PrescriptionUncheckedUpdateManyWithoutDoctorRelNestedInput = {
+    create?: XOR<PrescriptionCreateWithoutDoctorRelInput, PrescriptionUncheckedCreateWithoutDoctorRelInput> | PrescriptionCreateWithoutDoctorRelInput[] | PrescriptionUncheckedCreateWithoutDoctorRelInput[]
+    connectOrCreate?: PrescriptionCreateOrConnectWithoutDoctorRelInput | PrescriptionCreateOrConnectWithoutDoctorRelInput[]
+    upsert?: PrescriptionUpsertWithWhereUniqueWithoutDoctorRelInput | PrescriptionUpsertWithWhereUniqueWithoutDoctorRelInput[]
+    createMany?: PrescriptionCreateManyDoctorRelInputEnvelope
+    set?: PrescriptionWhereUniqueInput | PrescriptionWhereUniqueInput[]
+    disconnect?: PrescriptionWhereUniqueInput | PrescriptionWhereUniqueInput[]
+    delete?: PrescriptionWhereUniqueInput | PrescriptionWhereUniqueInput[]
+    connect?: PrescriptionWhereUniqueInput | PrescriptionWhereUniqueInput[]
+    update?: PrescriptionUpdateWithWhereUniqueWithoutDoctorRelInput | PrescriptionUpdateWithWhereUniqueWithoutDoctorRelInput[]
+    updateMany?: PrescriptionUpdateManyWithWhereWithoutDoctorRelInput | PrescriptionUpdateManyWithWhereWithoutDoctorRelInput[]
+    deleteMany?: PrescriptionScalarWhereInput | PrescriptionScalarWhereInput[]
+  }
+
   export type CustomerCreateNestedOneWithoutPrescriptionsInput = {
     create?: XOR<CustomerCreateWithoutPrescriptionsInput, CustomerUncheckedCreateWithoutPrescriptionsInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutPrescriptionsInput
     connect?: CustomerWhereUniqueInput
+  }
+
+  export type DoctorCreateNestedOneWithoutPrescriptionsInput = {
+    create?: XOR<DoctorCreateWithoutPrescriptionsInput, DoctorUncheckedCreateWithoutPrescriptionsInput>
+    connectOrCreate?: DoctorCreateOrConnectWithoutPrescriptionsInput
+    connect?: DoctorWhereUniqueInput
   }
 
   export type StoreCreateNestedOneWithoutPrescriptionsInput = {
@@ -62844,6 +64985,16 @@ export namespace Prisma {
     delete?: CustomerWhereInput | boolean
     connect?: CustomerWhereUniqueInput
     update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutPrescriptionsInput, CustomerUpdateWithoutPrescriptionsInput>, CustomerUncheckedUpdateWithoutPrescriptionsInput>
+  }
+
+  export type DoctorUpdateOneWithoutPrescriptionsNestedInput = {
+    create?: XOR<DoctorCreateWithoutPrescriptionsInput, DoctorUncheckedCreateWithoutPrescriptionsInput>
+    connectOrCreate?: DoctorCreateOrConnectWithoutPrescriptionsInput
+    upsert?: DoctorUpsertWithoutPrescriptionsInput
+    disconnect?: DoctorWhereInput | boolean
+    delete?: DoctorWhereInput | boolean
+    connect?: DoctorWhereUniqueInput
+    update?: XOR<XOR<DoctorUpdateToOneWithWhereWithoutPrescriptionsInput, DoctorUpdateWithoutPrescriptionsInput>, DoctorUncheckedUpdateWithoutPrescriptionsInput>
   }
 
   export type StoreUpdateOneRequiredWithoutPrescriptionsNestedInput = {
@@ -64476,10 +66627,20 @@ export namespace Prisma {
     update?: XOR<XOR<PurchaseReturnUpdateToOneWithWhereWithoutItemsInput, PurchaseReturnUpdateWithoutItemsInput>, PurchaseReturnUncheckedUpdateWithoutItemsInput>
   }
 
+  export type SaleCreateprescriptionsInput = {
+    set: string[]
+  }
+
   export type CustomerCreateNestedOneWithoutSalesInput = {
     create?: XOR<CustomerCreateWithoutSalesInput, CustomerUncheckedCreateWithoutSalesInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutSalesInput
     connect?: CustomerWhereUniqueInput
+  }
+
+  export type DoctorCreateNestedOneWithoutSalesInput = {
+    create?: XOR<DoctorCreateWithoutSalesInput, DoctorUncheckedCreateWithoutSalesInput>
+    connectOrCreate?: DoctorCreateOrConnectWithoutSalesInput
+    connect?: DoctorWhereUniqueInput
   }
 
   export type StoreCreateNestedOneWithoutSalesInput = {
@@ -64538,6 +66699,11 @@ export namespace Prisma {
     set?: $Enums.SalePaymentStatus
   }
 
+  export type SaleUpdateprescriptionsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type CustomerUpdateOneWithoutSalesNestedInput = {
     create?: XOR<CustomerCreateWithoutSalesInput, CustomerUncheckedCreateWithoutSalesInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutSalesInput
@@ -64546,6 +66712,16 @@ export namespace Prisma {
     delete?: CustomerWhereInput | boolean
     connect?: CustomerWhereUniqueInput
     update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutSalesInput, CustomerUpdateWithoutSalesInput>, CustomerUncheckedUpdateWithoutSalesInput>
+  }
+
+  export type DoctorUpdateOneWithoutSalesNestedInput = {
+    create?: XOR<DoctorCreateWithoutSalesInput, DoctorUncheckedCreateWithoutSalesInput>
+    connectOrCreate?: DoctorCreateOrConnectWithoutSalesInput
+    upsert?: DoctorUpsertWithoutSalesInput
+    disconnect?: DoctorWhereInput | boolean
+    delete?: DoctorWhereInput | boolean
+    connect?: DoctorWhereUniqueInput
+    update?: XOR<XOR<DoctorUpdateToOneWithWhereWithoutSalesInput, DoctorUpdateWithoutSalesInput>, DoctorUncheckedUpdateWithoutSalesInput>
   }
 
   export type StoreUpdateOneRequiredWithoutSalesNestedInput = {
@@ -66024,6 +68200,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -66056,6 +68233,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -66222,6 +68400,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -66254,6 +68433,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -66404,6 +68584,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -66436,6 +68617,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -66602,6 +68784,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -66634,6 +68817,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -66729,6 +68913,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -66761,6 +68946,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -66842,6 +69028,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -66874,6 +69061,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -67458,6 +69646,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -67490,6 +69679,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -67583,6 +69773,7 @@ export namespace Prisma {
     status?: $Enums.PrescriptionStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    doctorRel?: DoctorCreateNestedOneWithoutPrescriptionsInput
     store: StoreCreateNestedOneWithoutPrescriptionsInput
     items?: PrescriptionItemCreateNestedManyWithoutPrescriptionInput
   }
@@ -67590,6 +69781,7 @@ export namespace Prisma {
   export type PrescriptionUncheckedCreateWithoutCustomerInput = {
     id?: string
     storeId: string
+    doctorId?: string | null
     prescriptionNumber?: string | null
     prescriptionDate: Date | string
     validUntil?: Date | string | null
@@ -67629,9 +69821,13 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
+    doctorRel?: DoctorCreateNestedOneWithoutSalesInput
     store: StoreCreateNestedOneWithoutSalesInput
     items?: SaleItemCreateNestedManyWithoutSaleInput
     payments?: SalePaymentCreateNestedManyWithoutSaleInput
@@ -67641,6 +69837,7 @@ export namespace Prisma {
   export type SaleUncheckedCreateWithoutCustomerInput = {
     id?: string
     storeId: string
+    doctorId?: string | null
     invoiceNumber: string
     invoiceDate: Date | string
     status?: $Enums.SaleStatus
@@ -67655,7 +69852,10 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
@@ -67784,6 +69984,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -67816,6 +70017,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -67909,6 +70111,7 @@ export namespace Prisma {
     id?: StringFilter<"Prescription"> | string
     storeId?: StringFilter<"Prescription"> | string
     customerId?: StringNullableFilter<"Prescription"> | string | null
+    doctorId?: StringNullableFilter<"Prescription"> | string | null
     prescriptionNumber?: StringNullableFilter<"Prescription"> | string | null
     prescriptionDate?: DateTimeFilter<"Prescription"> | Date | string
     validUntil?: DateTimeNullableFilter<"Prescription"> | Date | string | null
@@ -67944,6 +70147,7 @@ export namespace Prisma {
     id?: StringFilter<"Sale"> | string
     storeId?: StringFilter<"Sale"> | string
     customerId?: StringNullableFilter<"Sale"> | string | null
+    doctorId?: StringNullableFilter<"Sale"> | string | null
     invoiceNumber?: StringFilter<"Sale"> | string
     invoiceDate?: DateTimeFilter<"Sale"> | Date | string
     status?: EnumSaleStatusFilter<"Sale"> | $Enums.SaleStatus
@@ -67958,7 +70162,10 @@ export namespace Prisma {
     totalAmount?: DecimalFilter<"Sale"> | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFilter<"Sale"> | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFilter<"Sale"> | Decimal | DecimalJsLike | number | string
+    doctor?: StringNullableFilter<"Sale"> | string | null
+    dueDate?: DateTimeNullableFilter<"Sale"> | Date | string | null
     notes?: StringNullableFilter<"Sale"> | string | null
+    prescriptions?: StringNullableListFilter<"Sale">
     createdAt?: DateTimeFilter<"Sale"> | Date | string
     updatedAt?: DateTimeFilter<"Sale"> | Date | string
   }
@@ -68112,6 +70319,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
 
@@ -68144,6 +70352,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
 
@@ -68253,6 +70462,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
 
@@ -68285,6 +70495,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
@@ -68444,6 +70655,7 @@ export namespace Prisma {
     salesReturns?: SalesReturnCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -68476,6 +70688,7 @@ export namespace Prisma {
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -68710,6 +70923,7 @@ export namespace Prisma {
     salesReturns?: SalesReturnUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -68742,6 +70956,7 @@ export namespace Prisma {
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -68873,6 +71088,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
   }
 
@@ -68905,6 +71121,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
   }
 
@@ -68981,6 +71198,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
   }
 
@@ -69013,6 +71231,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
   }
 
@@ -69401,6 +71620,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -69433,6 +71653,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -69514,6 +71735,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -69546,6 +71768,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -69804,12 +72027,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutPrescriptionsInput
+    doctorRel?: DoctorCreateNestedOneWithoutPrescriptionsInput
     items?: PrescriptionItemCreateNestedManyWithoutPrescriptionInput
   }
 
   export type PrescriptionUncheckedCreateWithoutStoreInput = {
     id?: string
     customerId?: string | null
+    doctorId?: string | null
     prescriptionNumber?: string | null
     prescriptionDate: Date | string
     validUntil?: Date | string | null
@@ -69975,9 +72200,11 @@ export namespace Prisma {
     id?: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -70002,9 +72229,11 @@ export namespace Prisma {
     supplierId: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -70091,10 +72320,14 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutSalesInput
+    doctorRel?: DoctorCreateNestedOneWithoutSalesInput
     items?: SaleItemCreateNestedManyWithoutSaleInput
     payments?: SalePaymentCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnCreateNestedManyWithoutSaleInput
@@ -70103,6 +72336,7 @@ export namespace Prisma {
   export type SaleUncheckedCreateWithoutStoreInput = {
     id?: string
     customerId?: string | null
+    doctorId?: string | null
     invoiceNumber: string
     invoiceDate: Date | string
     status?: $Enums.SaleStatus
@@ -70117,7 +72351,10 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
@@ -70308,6 +72545,50 @@ export namespace Prisma {
 
   export type UserCreateManyStoreInputEnvelope = {
     data: UserCreateManyStoreInput | UserCreateManyStoreInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DoctorCreateWithoutStoreInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    email?: string | null
+    specialization?: string | null
+    registrationNo?: string | null
+    hospital?: string | null
+    address?: string | null
+    notes?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sales?: SaleCreateNestedManyWithoutDoctorRelInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutDoctorRelInput
+  }
+
+  export type DoctorUncheckedCreateWithoutStoreInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    email?: string | null
+    specialization?: string | null
+    registrationNo?: string | null
+    hospital?: string | null
+    address?: string | null
+    notes?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sales?: SaleUncheckedCreateNestedManyWithoutDoctorRelInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutDoctorRelInput
+  }
+
+  export type DoctorCreateOrConnectWithoutStoreInput = {
+    where: DoctorWhereUniqueInput
+    create: XOR<DoctorCreateWithoutStoreInput, DoctorUncheckedCreateWithoutStoreInput>
+  }
+
+  export type DoctorCreateManyStoreInputEnvelope = {
+    data: DoctorCreateManyStoreInput | DoctorCreateManyStoreInput[]
     skipDuplicates?: boolean
   }
 
@@ -70599,9 +72880,11 @@ export namespace Prisma {
     supplierId?: StringFilter<"Purchase"> | string
     invoiceNumber?: StringFilter<"Purchase"> | string
     invoiceDate?: DateTimeFilter<"Purchase"> | Date | string
+    dueDate?: DateTimeNullableFilter<"Purchase"> | Date | string | null
     receivedDate?: DateTimeNullableFilter<"Purchase"> | Date | string | null
     status?: EnumPurchaseStatusFilter<"Purchase"> | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFilter<"Purchase"> | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFilter<"Purchase"> | $Enums.PaymentMethod
     subtotal?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
@@ -70788,6 +73071,41 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
   }
 
+  export type DoctorUpsertWithWhereUniqueWithoutStoreInput = {
+    where: DoctorWhereUniqueInput
+    update: XOR<DoctorUpdateWithoutStoreInput, DoctorUncheckedUpdateWithoutStoreInput>
+    create: XOR<DoctorCreateWithoutStoreInput, DoctorUncheckedCreateWithoutStoreInput>
+  }
+
+  export type DoctorUpdateWithWhereUniqueWithoutStoreInput = {
+    where: DoctorWhereUniqueInput
+    data: XOR<DoctorUpdateWithoutStoreInput, DoctorUncheckedUpdateWithoutStoreInput>
+  }
+
+  export type DoctorUpdateManyWithWhereWithoutStoreInput = {
+    where: DoctorScalarWhereInput
+    data: XOR<DoctorUpdateManyMutationInput, DoctorUncheckedUpdateManyWithoutStoreInput>
+  }
+
+  export type DoctorScalarWhereInput = {
+    AND?: DoctorScalarWhereInput | DoctorScalarWhereInput[]
+    OR?: DoctorScalarWhereInput[]
+    NOT?: DoctorScalarWhereInput | DoctorScalarWhereInput[]
+    id?: StringFilter<"Doctor"> | string
+    storeId?: StringFilter<"Doctor"> | string
+    name?: StringFilter<"Doctor"> | string
+    phone?: StringNullableFilter<"Doctor"> | string | null
+    email?: StringNullableFilter<"Doctor"> | string | null
+    specialization?: StringNullableFilter<"Doctor"> | string | null
+    registrationNo?: StringNullableFilter<"Doctor"> | string | null
+    hospital?: StringNullableFilter<"Doctor"> | string | null
+    address?: StringNullableFilter<"Doctor"> | string | null
+    notes?: StringNullableFilter<"Doctor"> | string | null
+    isActive?: BoolFilter<"Doctor"> | boolean
+    createdAt?: DateTimeFilter<"Doctor"> | Date | string
+    updatedAt?: DateTimeFilter<"Doctor"> | Date | string
+  }
+
   export type CustomerLedgerShareUpsertWithWhereUniqueWithoutStoreInput = {
     where: CustomerLedgerShareWhereUniqueInput
     update: XOR<CustomerLedgerShareUpdateWithoutStoreInput, CustomerLedgerShareUncheckedUpdateWithoutStoreInput>
@@ -70832,6 +73150,298 @@ export namespace Prisma {
     createdById?: StringNullableFilter<"InventoryAudit"> | string | null
     completedAt?: DateTimeNullableFilter<"InventoryAudit"> | Date | string | null
     createdAt?: DateTimeFilter<"InventoryAudit"> | Date | string
+  }
+
+  export type StoreCreateWithoutDoctorsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
+    phone?: string | null
+    email?: string | null
+    gstin?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogCreateNestedManyWithoutStoreInput
+    customers?: CustomerCreateNestedManyWithoutStoreInput
+    ledgerEntries?: LedgerEntryCreateNestedManyWithoutStoreInput
+    notifications?: NotificationCreateNestedManyWithoutStoreInput
+    payments?: PaymentCreateNestedManyWithoutStoreInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutStoreInput
+    products?: ProductCreateNestedManyWithoutStoreInput
+    batches?: ProductBatchCreateNestedManyWithoutStoreInput
+    purchases?: PurchaseCreateNestedManyWithoutStoreInput
+    purchaseReturns?: PurchaseReturnCreateNestedManyWithoutStoreInput
+    sales?: SaleCreateNestedManyWithoutStoreInput
+    salesReturns?: SalesReturnCreateNestedManyWithoutStoreInput
+    stocks?: StockCreateNestedManyWithoutStoreInput
+    suppliers?: SupplierCreateNestedManyWithoutStoreInput
+    users?: UserCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreUncheckedCreateWithoutDoctorsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
+    phone?: string | null
+    email?: string | null
+    gstin?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutStoreInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutStoreInput
+    ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutStoreInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutStoreInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutStoreInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutStoreInput
+    products?: ProductUncheckedCreateNestedManyWithoutStoreInput
+    batches?: ProductBatchUncheckedCreateNestedManyWithoutStoreInput
+    purchases?: PurchaseUncheckedCreateNestedManyWithoutStoreInput
+    purchaseReturns?: PurchaseReturnUncheckedCreateNestedManyWithoutStoreInput
+    sales?: SaleUncheckedCreateNestedManyWithoutStoreInput
+    salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutStoreInput
+    stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
+    suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
+    users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreCreateOrConnectWithoutDoctorsInput = {
+    where: StoreWhereUniqueInput
+    create: XOR<StoreCreateWithoutDoctorsInput, StoreUncheckedCreateWithoutDoctorsInput>
+  }
+
+  export type SaleCreateWithoutDoctorRelInput = {
+    id?: string
+    invoiceNumber: string
+    invoiceDate: Date | string
+    status?: $Enums.SaleStatus
+    paymentStatus?: $Enums.SalePaymentStatus
+    subtotal?: Decimal | DecimalJsLike | number | string
+    discountAmount?: Decimal | DecimalJsLike | number | string
+    taxableAmount?: Decimal | DecimalJsLike | number | string
+    cgstAmount?: Decimal | DecimalJsLike | number | string
+    sgstAmount?: Decimal | DecimalJsLike | number | string
+    igstAmount?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
+    notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer?: CustomerCreateNestedOneWithoutSalesInput
+    store: StoreCreateNestedOneWithoutSalesInput
+    items?: SaleItemCreateNestedManyWithoutSaleInput
+    payments?: SalePaymentCreateNestedManyWithoutSaleInput
+    salesReturns?: SalesReturnCreateNestedManyWithoutSaleInput
+  }
+
+  export type SaleUncheckedCreateWithoutDoctorRelInput = {
+    id?: string
+    storeId: string
+    customerId?: string | null
+    invoiceNumber: string
+    invoiceDate: Date | string
+    status?: $Enums.SaleStatus
+    paymentStatus?: $Enums.SalePaymentStatus
+    subtotal?: Decimal | DecimalJsLike | number | string
+    discountAmount?: Decimal | DecimalJsLike | number | string
+    taxableAmount?: Decimal | DecimalJsLike | number | string
+    cgstAmount?: Decimal | DecimalJsLike | number | string
+    sgstAmount?: Decimal | DecimalJsLike | number | string
+    igstAmount?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
+    notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
+    payments?: SalePaymentUncheckedCreateNestedManyWithoutSaleInput
+    salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutSaleInput
+  }
+
+  export type SaleCreateOrConnectWithoutDoctorRelInput = {
+    where: SaleWhereUniqueInput
+    create: XOR<SaleCreateWithoutDoctorRelInput, SaleUncheckedCreateWithoutDoctorRelInput>
+  }
+
+  export type SaleCreateManyDoctorRelInputEnvelope = {
+    data: SaleCreateManyDoctorRelInput | SaleCreateManyDoctorRelInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PrescriptionCreateWithoutDoctorRelInput = {
+    id?: string
+    prescriptionNumber?: string | null
+    prescriptionDate: Date | string
+    validUntil?: Date | string | null
+    doctorName?: string | null
+    doctorRegistrationNo?: string | null
+    diagnosis?: string | null
+    notes?: string | null
+    status?: $Enums.PrescriptionStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer?: CustomerCreateNestedOneWithoutPrescriptionsInput
+    store: StoreCreateNestedOneWithoutPrescriptionsInput
+    items?: PrescriptionItemCreateNestedManyWithoutPrescriptionInput
+  }
+
+  export type PrescriptionUncheckedCreateWithoutDoctorRelInput = {
+    id?: string
+    storeId: string
+    customerId?: string | null
+    prescriptionNumber?: string | null
+    prescriptionDate: Date | string
+    validUntil?: Date | string | null
+    doctorName?: string | null
+    doctorRegistrationNo?: string | null
+    diagnosis?: string | null
+    notes?: string | null
+    status?: $Enums.PrescriptionStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: PrescriptionItemUncheckedCreateNestedManyWithoutPrescriptionInput
+  }
+
+  export type PrescriptionCreateOrConnectWithoutDoctorRelInput = {
+    where: PrescriptionWhereUniqueInput
+    create: XOR<PrescriptionCreateWithoutDoctorRelInput, PrescriptionUncheckedCreateWithoutDoctorRelInput>
+  }
+
+  export type PrescriptionCreateManyDoctorRelInputEnvelope = {
+    data: PrescriptionCreateManyDoctorRelInput | PrescriptionCreateManyDoctorRelInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StoreUpsertWithoutDoctorsInput = {
+    update: XOR<StoreUpdateWithoutDoctorsInput, StoreUncheckedUpdateWithoutDoctorsInput>
+    create: XOR<StoreCreateWithoutDoctorsInput, StoreUncheckedCreateWithoutDoctorsInput>
+    where?: StoreWhereInput
+  }
+
+  export type StoreUpdateToOneWithWhereWithoutDoctorsInput = {
+    where?: StoreWhereInput
+    data: XOR<StoreUpdateWithoutDoctorsInput, StoreUncheckedUpdateWithoutDoctorsInput>
+  }
+
+  export type StoreUpdateWithoutDoctorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUpdateManyWithoutStoreNestedInput
+    customers?: CustomerUpdateManyWithoutStoreNestedInput
+    ledgerEntries?: LedgerEntryUpdateManyWithoutStoreNestedInput
+    notifications?: NotificationUpdateManyWithoutStoreNestedInput
+    payments?: PaymentUpdateManyWithoutStoreNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutStoreNestedInput
+    products?: ProductUpdateManyWithoutStoreNestedInput
+    batches?: ProductBatchUpdateManyWithoutStoreNestedInput
+    purchases?: PurchaseUpdateManyWithoutStoreNestedInput
+    purchaseReturns?: PurchaseReturnUpdateManyWithoutStoreNestedInput
+    sales?: SaleUpdateManyWithoutStoreNestedInput
+    salesReturns?: SalesReturnUpdateManyWithoutStoreNestedInput
+    stocks?: StockUpdateManyWithoutStoreNestedInput
+    suppliers?: SupplierUpdateManyWithoutStoreNestedInput
+    users?: UserUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StoreUncheckedUpdateWithoutDoctorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutStoreNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutStoreNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutStoreNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutStoreNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutStoreNestedInput
+    products?: ProductUncheckedUpdateManyWithoutStoreNestedInput
+    batches?: ProductBatchUncheckedUpdateManyWithoutStoreNestedInput
+    purchases?: PurchaseUncheckedUpdateManyWithoutStoreNestedInput
+    purchaseReturns?: PurchaseReturnUncheckedUpdateManyWithoutStoreNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutStoreNestedInput
+    salesReturns?: SalesReturnUncheckedUpdateManyWithoutStoreNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
+    suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
+    users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+  }
+
+  export type SaleUpsertWithWhereUniqueWithoutDoctorRelInput = {
+    where: SaleWhereUniqueInput
+    update: XOR<SaleUpdateWithoutDoctorRelInput, SaleUncheckedUpdateWithoutDoctorRelInput>
+    create: XOR<SaleCreateWithoutDoctorRelInput, SaleUncheckedCreateWithoutDoctorRelInput>
+  }
+
+  export type SaleUpdateWithWhereUniqueWithoutDoctorRelInput = {
+    where: SaleWhereUniqueInput
+    data: XOR<SaleUpdateWithoutDoctorRelInput, SaleUncheckedUpdateWithoutDoctorRelInput>
+  }
+
+  export type SaleUpdateManyWithWhereWithoutDoctorRelInput = {
+    where: SaleScalarWhereInput
+    data: XOR<SaleUpdateManyMutationInput, SaleUncheckedUpdateManyWithoutDoctorRelInput>
+  }
+
+  export type PrescriptionUpsertWithWhereUniqueWithoutDoctorRelInput = {
+    where: PrescriptionWhereUniqueInput
+    update: XOR<PrescriptionUpdateWithoutDoctorRelInput, PrescriptionUncheckedUpdateWithoutDoctorRelInput>
+    create: XOR<PrescriptionCreateWithoutDoctorRelInput, PrescriptionUncheckedCreateWithoutDoctorRelInput>
+  }
+
+  export type PrescriptionUpdateWithWhereUniqueWithoutDoctorRelInput = {
+    where: PrescriptionWhereUniqueInput
+    data: XOR<PrescriptionUpdateWithoutDoctorRelInput, PrescriptionUncheckedUpdateWithoutDoctorRelInput>
+  }
+
+  export type PrescriptionUpdateManyWithWhereWithoutDoctorRelInput = {
+    where: PrescriptionScalarWhereInput
+    data: XOR<PrescriptionUpdateManyMutationInput, PrescriptionUncheckedUpdateManyWithoutDoctorRelInput>
   }
 
   export type CustomerCreateWithoutPrescriptionsInput = {
@@ -70889,6 +73499,45 @@ export namespace Prisma {
     create: XOR<CustomerCreateWithoutPrescriptionsInput, CustomerUncheckedCreateWithoutPrescriptionsInput>
   }
 
+  export type DoctorCreateWithoutPrescriptionsInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    email?: string | null
+    specialization?: string | null
+    registrationNo?: string | null
+    hospital?: string | null
+    address?: string | null
+    notes?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    store: StoreCreateNestedOneWithoutDoctorsInput
+    sales?: SaleCreateNestedManyWithoutDoctorRelInput
+  }
+
+  export type DoctorUncheckedCreateWithoutPrescriptionsInput = {
+    id?: string
+    storeId: string
+    name: string
+    phone?: string | null
+    email?: string | null
+    specialization?: string | null
+    registrationNo?: string | null
+    hospital?: string | null
+    address?: string | null
+    notes?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sales?: SaleUncheckedCreateNestedManyWithoutDoctorRelInput
+  }
+
+  export type DoctorCreateOrConnectWithoutPrescriptionsInput = {
+    where: DoctorWhereUniqueInput
+    create: XOR<DoctorCreateWithoutPrescriptionsInput, DoctorUncheckedCreateWithoutPrescriptionsInput>
+  }
+
   export type StoreCreateWithoutPrescriptionsInput = {
     id?: string
     name: string
@@ -70917,6 +73566,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -70949,6 +73599,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -71051,6 +73702,51 @@ export namespace Prisma {
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
+  export type DoctorUpsertWithoutPrescriptionsInput = {
+    update: XOR<DoctorUpdateWithoutPrescriptionsInput, DoctorUncheckedUpdateWithoutPrescriptionsInput>
+    create: XOR<DoctorCreateWithoutPrescriptionsInput, DoctorUncheckedCreateWithoutPrescriptionsInput>
+    where?: DoctorWhereInput
+  }
+
+  export type DoctorUpdateToOneWithWhereWithoutPrescriptionsInput = {
+    where?: DoctorWhereInput
+    data: XOR<DoctorUpdateWithoutPrescriptionsInput, DoctorUncheckedUpdateWithoutPrescriptionsInput>
+  }
+
+  export type DoctorUpdateWithoutPrescriptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    hospital?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store?: StoreUpdateOneRequiredWithoutDoctorsNestedInput
+    sales?: SaleUpdateManyWithoutDoctorRelNestedInput
+  }
+
+  export type DoctorUncheckedUpdateWithoutPrescriptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    hospital?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sales?: SaleUncheckedUpdateManyWithoutDoctorRelNestedInput
+  }
+
   export type StoreUpsertWithoutPrescriptionsInput = {
     update: XOR<StoreUpdateWithoutPrescriptionsInput, StoreUncheckedUpdateWithoutPrescriptionsInput>
     create: XOR<StoreCreateWithoutPrescriptionsInput, StoreUncheckedCreateWithoutPrescriptionsInput>
@@ -71090,6 +73786,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -71122,6 +73819,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -71170,6 +73868,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutPrescriptionsInput
+    doctorRel?: DoctorCreateNestedOneWithoutPrescriptionsInput
     store: StoreCreateNestedOneWithoutPrescriptionsInput
   }
 
@@ -71177,6 +73876,7 @@ export namespace Prisma {
     id?: string
     storeId: string
     customerId?: string | null
+    doctorId?: string | null
     prescriptionNumber?: string | null
     prescriptionDate: Date | string
     validUntil?: Date | string | null
@@ -71297,6 +73997,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutPrescriptionsNestedInput
+    doctorRel?: DoctorUpdateOneWithoutPrescriptionsNestedInput
     store?: StoreUpdateOneRequiredWithoutPrescriptionsNestedInput
   }
 
@@ -71304,6 +74005,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionDate?: DateTimeFieldUpdateOperationsInput | Date | string
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -71542,6 +74244,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -71574,6 +74277,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -72016,12 +74720,14 @@ export namespace Prisma {
 
   export type ProductSaltCreateWithoutProductInput = {
     id?: string
+    strength?: string | null
     salt: SaltCreateNestedOneWithoutProductsInput
   }
 
   export type ProductSaltUncheckedCreateWithoutProductInput = {
     id?: string
     saltId: string
+    strength?: string | null
   }
 
   export type ProductSaltCreateOrConnectWithoutProductInput = {
@@ -72188,6 +74894,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -72220,6 +74927,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -72539,16 +75247,19 @@ export namespace Prisma {
     id?: StringFilter<"ProductSalt"> | string
     productId?: StringFilter<"ProductSalt"> | string
     saltId?: StringFilter<"ProductSalt"> | string
+    strength?: StringNullableFilter<"ProductSalt"> | string | null
   }
 
   export type ProductSaltCreateWithoutSaltInput = {
     id?: string
+    strength?: string | null
     product: ProductCreateNestedOneWithoutSaltsInput
   }
 
   export type ProductSaltUncheckedCreateWithoutSaltInput = {
     id?: string
     productId: string
+    strength?: string | null
   }
 
   export type ProductSaltCreateOrConnectWithoutSaltInput = {
@@ -73384,6 +76095,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -73416,6 +76128,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -73849,6 +76562,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -73881,6 +76595,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -74413,6 +77128,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -74445,6 +77161,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -74644,6 +77361,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -74676,6 +77394,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -74964,9 +77683,11 @@ export namespace Prisma {
     id?: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -74992,9 +77713,11 @@ export namespace Prisma {
     supplierId: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -75259,9 +77982,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -75287,9 +78012,11 @@ export namespace Prisma {
     supplierId?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -75327,9 +78054,11 @@ export namespace Prisma {
     id?: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -75355,9 +78084,11 @@ export namespace Prisma {
     supplierId: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -75395,9 +78126,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -75423,9 +78156,11 @@ export namespace Prisma {
     supplierId?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -75471,6 +78206,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -75503,6 +78239,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -75646,6 +78383,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -75678,6 +78416,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -76380,6 +79119,45 @@ export namespace Prisma {
     create: XOR<CustomerCreateWithoutSalesInput, CustomerUncheckedCreateWithoutSalesInput>
   }
 
+  export type DoctorCreateWithoutSalesInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    email?: string | null
+    specialization?: string | null
+    registrationNo?: string | null
+    hospital?: string | null
+    address?: string | null
+    notes?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    store: StoreCreateNestedOneWithoutDoctorsInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutDoctorRelInput
+  }
+
+  export type DoctorUncheckedCreateWithoutSalesInput = {
+    id?: string
+    storeId: string
+    name: string
+    phone?: string | null
+    email?: string | null
+    specialization?: string | null
+    registrationNo?: string | null
+    hospital?: string | null
+    address?: string | null
+    notes?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutDoctorRelInput
+  }
+
+  export type DoctorCreateOrConnectWithoutSalesInput = {
+    where: DoctorWhereUniqueInput
+    create: XOR<DoctorCreateWithoutSalesInput, DoctorUncheckedCreateWithoutSalesInput>
+  }
+
   export type StoreCreateWithoutSalesInput = {
     id?: string
     name: string
@@ -76408,6 +79186,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -76440,6 +79219,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -76644,6 +79424,51 @@ export namespace Prisma {
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
+  export type DoctorUpsertWithoutSalesInput = {
+    update: XOR<DoctorUpdateWithoutSalesInput, DoctorUncheckedUpdateWithoutSalesInput>
+    create: XOR<DoctorCreateWithoutSalesInput, DoctorUncheckedCreateWithoutSalesInput>
+    where?: DoctorWhereInput
+  }
+
+  export type DoctorUpdateToOneWithWhereWithoutSalesInput = {
+    where?: DoctorWhereInput
+    data: XOR<DoctorUpdateWithoutSalesInput, DoctorUncheckedUpdateWithoutSalesInput>
+  }
+
+  export type DoctorUpdateWithoutSalesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    hospital?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store?: StoreUpdateOneRequiredWithoutDoctorsNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutDoctorRelNestedInput
+  }
+
+  export type DoctorUncheckedUpdateWithoutSalesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    hospital?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutDoctorRelNestedInput
+  }
+
   export type StoreUpsertWithoutSalesInput = {
     update: XOR<StoreUpdateWithoutSalesInput, StoreUncheckedUpdateWithoutSalesInput>
     create: XOR<StoreCreateWithoutSalesInput, StoreUncheckedCreateWithoutSalesInput>
@@ -76683,6 +79508,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -76715,6 +79541,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -76968,10 +79795,14 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutSalesInput
+    doctorRel?: DoctorCreateNestedOneWithoutSalesInput
     store: StoreCreateNestedOneWithoutSalesInput
     payments?: SalePaymentCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnCreateNestedManyWithoutSaleInput
@@ -76981,6 +79812,7 @@ export namespace Prisma {
     id?: string
     storeId: string
     customerId?: string | null
+    doctorId?: string | null
     invoiceNumber: string
     invoiceDate: Date | string
     status?: $Enums.SaleStatus
@@ -76995,7 +79827,10 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     payments?: SalePaymentUncheckedCreateNestedManyWithoutSaleInput
@@ -77261,10 +80096,14 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutSalesNestedInput
+    doctorRel?: DoctorUpdateOneWithoutSalesNestedInput
     store?: StoreUpdateOneRequiredWithoutSalesNestedInput
     payments?: SalePaymentUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutSaleNestedInput
@@ -77274,6 +80113,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
@@ -77288,7 +80128,10 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payments?: SalePaymentUncheckedUpdateManyWithoutSaleNestedInput
@@ -77327,10 +80170,14 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutSalesInput
+    doctorRel?: DoctorCreateNestedOneWithoutSalesInput
     store: StoreCreateNestedOneWithoutSalesInput
     items?: SaleItemCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnCreateNestedManyWithoutSaleInput
@@ -77340,6 +80187,7 @@ export namespace Prisma {
     id?: string
     storeId: string
     customerId?: string | null
+    doctorId?: string | null
     invoiceNumber: string
     invoiceDate: Date | string
     status?: $Enums.SaleStatus
@@ -77354,7 +80202,10 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
@@ -77393,10 +80244,14 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutSalesNestedInput
+    doctorRel?: DoctorUpdateOneWithoutSalesNestedInput
     store?: StoreUpdateOneRequiredWithoutSalesNestedInput
     items?: SaleItemUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutSaleNestedInput
@@ -77406,6 +80261,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
@@ -77420,7 +80276,10 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
@@ -77498,10 +80357,14 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutSalesInput
+    doctorRel?: DoctorCreateNestedOneWithoutSalesInput
     store: StoreCreateNestedOneWithoutSalesInput
     items?: SaleItemCreateNestedManyWithoutSaleInput
     payments?: SalePaymentCreateNestedManyWithoutSaleInput
@@ -77511,6 +80374,7 @@ export namespace Prisma {
     id?: string
     storeId: string
     customerId?: string | null
+    doctorId?: string | null
     invoiceNumber: string
     invoiceDate: Date | string
     status?: $Enums.SaleStatus
@@ -77525,7 +80389,10 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
@@ -77565,6 +80432,7 @@ export namespace Prisma {
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -77597,6 +80465,7 @@ export namespace Prisma {
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -77732,10 +80601,14 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutSalesNestedInput
+    doctorRel?: DoctorUpdateOneWithoutSalesNestedInput
     store?: StoreUpdateOneRequiredWithoutSalesNestedInput
     items?: SaleItemUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUpdateManyWithoutSaleNestedInput
@@ -77745,6 +80618,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
@@ -77759,7 +80633,10 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
@@ -77805,6 +80682,7 @@ export namespace Prisma {
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -77837,6 +80715,7 @@ export namespace Prisma {
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -78533,9 +81412,11 @@ export namespace Prisma {
     id?: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -78560,9 +81441,11 @@ export namespace Prisma {
     storeId: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -78661,6 +81544,7 @@ export namespace Prisma {
     salesReturns?: SalesReturnCreateNestedManyWithoutStoreInput
     stocks?: StockCreateNestedManyWithoutStoreInput
     users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -78693,6 +81577,7 @@ export namespace Prisma {
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutStoreInput
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -78821,6 +81706,7 @@ export namespace Prisma {
     salesReturns?: SalesReturnUpdateManyWithoutStoreNestedInput
     stocks?: StockUpdateManyWithoutStoreNestedInput
     users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -78853,6 +81739,7 @@ export namespace Prisma {
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutStoreNestedInput
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -79030,6 +81917,7 @@ export namespace Prisma {
     salesReturns?: SalesReturnCreateNestedManyWithoutStoreInput
     stocks?: StockCreateNestedManyWithoutStoreInput
     suppliers?: SupplierCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
   }
@@ -79062,6 +81950,7 @@ export namespace Prisma {
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutStoreInput
     stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
     suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
   }
@@ -79169,6 +82058,7 @@ export namespace Prisma {
     salesReturns?: SalesReturnUpdateManyWithoutStoreNestedInput
     stocks?: StockUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
   }
@@ -79201,6 +82091,7 @@ export namespace Prisma {
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutStoreNestedInput
     stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
     suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
@@ -79806,6 +82697,7 @@ export namespace Prisma {
   export type PrescriptionCreateManyCustomerInput = {
     id?: string
     storeId: string
+    doctorId?: string | null
     prescriptionNumber?: string | null
     prescriptionDate: Date | string
     validUntil?: Date | string | null
@@ -79821,6 +82713,7 @@ export namespace Prisma {
   export type SaleCreateManyCustomerInput = {
     id?: string
     storeId: string
+    doctorId?: string | null
     invoiceNumber: string
     invoiceDate: Date | string
     status?: $Enums.SaleStatus
@@ -79835,7 +82728,10 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -79955,6 +82851,7 @@ export namespace Prisma {
     status?: EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    doctorRel?: DoctorUpdateOneWithoutPrescriptionsNestedInput
     store?: StoreUpdateOneRequiredWithoutPrescriptionsNestedInput
     items?: PrescriptionItemUpdateManyWithoutPrescriptionNestedInput
   }
@@ -79962,6 +82859,7 @@ export namespace Prisma {
   export type PrescriptionUncheckedUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionDate?: DateTimeFieldUpdateOperationsInput | Date | string
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -79978,6 +82876,7 @@ export namespace Prisma {
   export type PrescriptionUncheckedUpdateManyWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionDate?: DateTimeFieldUpdateOperationsInput | Date | string
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -80006,9 +82905,13 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    doctorRel?: DoctorUpdateOneWithoutSalesNestedInput
     store?: StoreUpdateOneRequiredWithoutSalesNestedInput
     items?: SaleItemUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUpdateManyWithoutSaleNestedInput
@@ -80018,6 +82921,7 @@ export namespace Prisma {
   export type SaleUncheckedUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
@@ -80032,7 +82936,10 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
@@ -80043,6 +82950,7 @@ export namespace Prisma {
   export type SaleUncheckedUpdateManyWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     storeId?: StringFieldUpdateOperationsInput | string
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
@@ -80057,7 +82965,10 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -80320,6 +83231,7 @@ export namespace Prisma {
   export type PrescriptionCreateManyStoreInput = {
     id?: string
     customerId?: string | null
+    doctorId?: string | null
     prescriptionNumber?: string | null
     prescriptionDate: Date | string
     validUntil?: Date | string | null
@@ -80378,9 +83290,11 @@ export namespace Prisma {
     supplierId: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -80415,6 +83329,7 @@ export namespace Prisma {
   export type SaleCreateManyStoreInput = {
     id?: string
     customerId?: string | null
+    doctorId?: string | null
     invoiceNumber: string
     invoiceDate: Date | string
     status?: $Enums.SaleStatus
@@ -80429,7 +83344,10 @@ export namespace Prisma {
     totalAmount?: Decimal | DecimalJsLike | number | string
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
     notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -80489,6 +83407,21 @@ export namespace Prisma {
     passwordHash: string
     status?: $Enums.UserStatus
     roleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DoctorCreateManyStoreInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    email?: string | null
+    specialization?: string | null
+    registrationNo?: string | null
+    hospital?: string | null
+    address?: string | null
+    notes?: string | null
+    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -80747,12 +83680,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutPrescriptionsNestedInput
+    doctorRel?: DoctorUpdateOneWithoutPrescriptionsNestedInput
     items?: PrescriptionItemUpdateManyWithoutPrescriptionNestedInput
   }
 
   export type PrescriptionUncheckedUpdateWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionDate?: DateTimeFieldUpdateOperationsInput | Date | string
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -80769,6 +83704,7 @@ export namespace Prisma {
   export type PrescriptionUncheckedUpdateManyWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionNumber?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptionDate?: DateTimeFieldUpdateOperationsInput | Date | string
     validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -80944,9 +83880,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -80971,9 +83909,11 @@ export namespace Prisma {
     supplierId?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -80997,9 +83937,11 @@ export namespace Prisma {
     supplierId?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -81079,10 +84021,14 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutSalesNestedInput
+    doctorRel?: DoctorUpdateOneWithoutSalesNestedInput
     items?: SaleItemUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutSaleNestedInput
@@ -81091,6 +84037,7 @@ export namespace Prisma {
   export type SaleUncheckedUpdateWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
@@ -81105,7 +84052,10 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
@@ -81116,6 +84066,7 @@ export namespace Prisma {
   export type SaleUncheckedUpdateManyWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
@@ -81130,7 +84081,10 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -81330,6 +84284,55 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DoctorUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    hospital?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sales?: SaleUpdateManyWithoutDoctorRelNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutDoctorRelNestedInput
+  }
+
+  export type DoctorUncheckedUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    hospital?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sales?: SaleUncheckedUpdateManyWithoutDoctorRelNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutDoctorRelNestedInput
+  }
+
+  export type DoctorUncheckedUpdateManyWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    specialization?: NullableStringFieldUpdateOperationsInput | string | null
+    registrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    hospital?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CustomerLedgerShareUpdateWithoutStoreInput = {
     id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
@@ -81387,6 +84390,182 @@ export namespace Prisma {
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SaleCreateManyDoctorRelInput = {
+    id?: string
+    storeId: string
+    customerId?: string | null
+    invoiceNumber: string
+    invoiceDate: Date | string
+    status?: $Enums.SaleStatus
+    paymentStatus?: $Enums.SalePaymentStatus
+    subtotal?: Decimal | DecimalJsLike | number | string
+    discountAmount?: Decimal | DecimalJsLike | number | string
+    taxableAmount?: Decimal | DecimalJsLike | number | string
+    cgstAmount?: Decimal | DecimalJsLike | number | string
+    sgstAmount?: Decimal | DecimalJsLike | number | string
+    igstAmount?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
+    notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PrescriptionCreateManyDoctorRelInput = {
+    id?: string
+    storeId: string
+    customerId?: string | null
+    prescriptionNumber?: string | null
+    prescriptionDate: Date | string
+    validUntil?: Date | string | null
+    doctorName?: string | null
+    doctorRegistrationNo?: string | null
+    diagnosis?: string | null
+    notes?: string | null
+    status?: $Enums.PrescriptionStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SaleUpdateWithoutDoctorRelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
+    paymentStatus?: EnumSalePaymentStatusFieldUpdateOperationsInput | $Enums.SalePaymentStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneWithoutSalesNestedInput
+    store?: StoreUpdateOneRequiredWithoutSalesNestedInput
+    items?: SaleItemUpdateManyWithoutSaleNestedInput
+    payments?: SalePaymentUpdateManyWithoutSaleNestedInput
+    salesReturns?: SalesReturnUpdateManyWithoutSaleNestedInput
+  }
+
+  export type SaleUncheckedUpdateWithoutDoctorRelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
+    paymentStatus?: EnumSalePaymentStatusFieldUpdateOperationsInput | $Enums.SalePaymentStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
+    payments?: SalePaymentUncheckedUpdateManyWithoutSaleNestedInput
+    salesReturns?: SalesReturnUncheckedUpdateManyWithoutSaleNestedInput
+  }
+
+  export type SaleUncheckedUpdateManyWithoutDoctorRelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
+    paymentStatus?: EnumSalePaymentStatusFieldUpdateOperationsInput | $Enums.SalePaymentStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PrescriptionUpdateWithoutDoctorRelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    prescriptionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    doctorName?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorRegistrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneWithoutPrescriptionsNestedInput
+    store?: StoreUpdateOneRequiredWithoutPrescriptionsNestedInput
+    items?: PrescriptionItemUpdateManyWithoutPrescriptionNestedInput
+  }
+
+  export type PrescriptionUncheckedUpdateWithoutDoctorRelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    doctorName?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorRegistrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: PrescriptionItemUncheckedUpdateManyWithoutPrescriptionNestedInput
+  }
+
+  export type PrescriptionUncheckedUpdateManyWithoutDoctorRelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptionDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    validUntil?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    doctorName?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorRegistrationNo?: NullableStringFieldUpdateOperationsInput | string | null
+    diagnosis?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PrescriptionItemCreateManyPrescriptionInput = {
@@ -81589,6 +84768,7 @@ export namespace Prisma {
   export type ProductSaltCreateManyProductInput = {
     id?: string
     saltId: string
+    strength?: string | null
   }
 
   export type PrescriptionItemUpdateWithoutProductInput = {
@@ -82080,37 +85260,44 @@ export namespace Prisma {
 
   export type ProductSaltUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: SaltUpdateOneRequiredWithoutProductsNestedInput
   }
 
   export type ProductSaltUncheckedUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     saltId?: StringFieldUpdateOperationsInput | string
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductSaltUncheckedUpdateManyWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     saltId?: StringFieldUpdateOperationsInput | string
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductSaltCreateManySaltInput = {
     id?: string
     productId: string
+    strength?: string | null
   }
 
   export type ProductSaltUpdateWithoutSaltInput = {
     id?: StringFieldUpdateOperationsInput | string
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
     product?: ProductUpdateOneRequiredWithoutSaltsNestedInput
   }
 
   export type ProductSaltUncheckedUpdateWithoutSaltInput = {
     id?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductSaltUncheckedUpdateManyWithoutSaltInput = {
     id?: StringFieldUpdateOperationsInput | string
     productId?: StringFieldUpdateOperationsInput | string
+    strength?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PurchaseItemCreateManyPackagingInput = {
@@ -83503,9 +86690,11 @@ export namespace Prisma {
     storeId: string
     invoiceNumber: string
     invoiceDate: Date | string
+    dueDate?: Date | string | null
     receivedDate?: Date | string | null
     status?: $Enums.PurchaseStatus
     paymentStatus?: $Enums.PaymentStatus
+    paymentMethod?: $Enums.PaymentMethod
     subtotal?: Decimal | DecimalJsLike | number | string
     discountAmount?: Decimal | DecimalJsLike | number | string
     taxableAmount?: Decimal | DecimalJsLike | number | string
@@ -83664,9 +86853,11 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -83691,9 +86882,11 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -83717,9 +86910,11 @@ export namespace Prisma {
     storeId?: StringFieldUpdateOperationsInput | string
     invoiceNumber?: StringFieldUpdateOperationsInput | string
     invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     receivedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPurchaseStatusFieldUpdateOperationsInput | $Enums.PurchaseStatus
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
     subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string

@@ -1,3 +1,12 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
 model LedgerEntry {
   id              String          @id @default(cuid())
   storeId         String
@@ -362,6 +371,7 @@ enum NotificationType {
   EXPIRED
   PAYMENT_DUE
   SYSTEM
+  BILLING_NOTE
 }
 
 model Store {
@@ -393,16 +403,42 @@ model Store {
   stocks          Stock[]
   suppliers       Supplier[]
   users           User[]
+  doctors         Doctor[]
   ledgerShares    CustomerLedgerShare[]
   inventoryAudits InventoryAudit[]
 
   @@index([name])
 }
 
+model Doctor {
+  id             String         @id @default(cuid())
+  storeId        String
+  name           String
+  phone          String?
+  email          String?
+  specialization String?
+  registrationNo String?
+  hospital       String?
+  address        String?
+  notes          String?
+  isActive       Boolean        @default(true)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  store          Store          @relation(fields: [storeId], references: [id])
+  sales          Sale[]
+  prescriptions  Prescription[]
+
+  @@index([storeId])
+  @@index([name])
+  @@index([phone])
+  @@index([registrationNo])
+}
+
 model Prescription {
   id                   String             @id @default(cuid())
   storeId              String
   customerId           String?
+  doctorId             String?
   prescriptionNumber   String?
   prescriptionDate     DateTime
   validUntil           DateTime?
@@ -414,6 +450,7 @@ model Prescription {
   createdAt            DateTime           @default(now())
   updatedAt            DateTime           @updatedAt
   customer             Customer?          @relation(fields: [customerId], references: [id])
+  doctorRel            Doctor?            @relation(fields: [doctorId], references: [id])
   store                Store              @relation(fields: [storeId], references: [id])
   items                PrescriptionItem[]
 
@@ -513,6 +550,7 @@ model ProductSalt {
   id        String  @id @default(cuid())
   productId String
   saltId    String
+  strength  String?
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   salt      Salt    @relation(fields: [saltId], references: [id], onDelete: Cascade)
 
@@ -652,9 +690,11 @@ model Purchase {
   supplierId     String
   invoiceNumber  String
   invoiceDate    DateTime
+  dueDate        DateTime?
   receivedDate   DateTime?
   status         PurchaseStatus    @default(RECEIVED)
   paymentStatus  PaymentStatus     @default(UNPAID)
+  paymentMethod  PaymentMethod     @default(CASH)
   subtotal       Decimal           @default(0) @db.Decimal(14, 2)
   discountAmount Decimal           @default(0) @db.Decimal(14, 2)
   taxableAmount  Decimal           @default(0) @db.Decimal(14, 2)
@@ -805,6 +845,7 @@ model Sale {
   id             String            @id @default(cuid())
   storeId        String
   customerId     String?
+  doctorId       String?
   invoiceNumber  String
   invoiceDate    DateTime
   status         SaleStatus        @default(COMPLETED)
@@ -819,10 +860,14 @@ model Sale {
   totalAmount    Decimal           @default(0) @db.Decimal(14, 2)
   paidAmount     Decimal           @default(0) @db.Decimal(14, 2)
   dueAmount      Decimal           @default(0) @db.Decimal(14, 2)
+  doctor         String?
+  dueDate        DateTime?
   notes          String?
+  prescriptions  String[]          @default([])
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
   customer       Customer?         @relation(fields: [customerId], references: [id])
+  doctorRel      Doctor?           @relation(fields: [doctorId], references: [id])
   store          Store             @relation(fields: [storeId], references: [id])
   items          SaleItem[]
   payments       SalePayment[]
@@ -831,6 +876,7 @@ model Sale {
   @@unique([storeId, invoiceNumber])
   @@index([storeId])
   @@index([customerId])
+  @@index([doctorId])
   @@index([invoiceDate])
   @@index([paymentStatus])
 }
@@ -1037,13 +1083,4 @@ enum UserStatus {
   ACTIVE
   INACTIVE
   SUSPENDED
-}
-
-generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
-}
-
-datasource db {
-  provider = "postgresql"
 }

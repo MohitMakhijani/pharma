@@ -448,6 +448,308 @@ async function createPurchaseReturn({
 }
 
 
+async function getPurchaseReturns(storeId, filters = {}) {
+  if (!storeId) {
+    throw new Error('Store ID is required');
+  }
+
+  const {
+    search = '',
+    fromDate = null,
+    toDate = null,
+    supplierId = null,
+  } = filters;
+
+  const whereClause = {
+    storeId,
+  };
+
+  if (supplierId) {
+    whereClause.supplierId = supplierId;
+  }
+
+  if (fromDate && toDate) {
+    whereClause.returnDate = {
+      gte: new Date(fromDate),
+      lte: new Date(new Date(toDate).setHours(23, 59, 59, 999)),
+    };
+  }
+
+  if (search) {
+    whereClause.OR = [
+      { returnNumber: { contains: search, mode: 'insensitive' } },
+      { reason: { contains: search, mode: 'insensitive' } },
+      { supplier: { name: { contains: search, mode: 'insensitive' } } },
+    ];
+  }
+
+  const purchaseReturns = await prisma.purchaseReturn.findMany({
+    where: whereClause,
+    include: {
+      supplier: {
+        select: {
+          id: true,
+          name: true,
+          contactPerson: true,
+          phone: true,
+        },
+      },
+      items: {
+        include: {
+          product: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          batch: {
+            select: {
+              id: true,
+              batchNumber: true,
+              expiryDate: true,
+            },
+          },
+        },
+      },
+    },
+    orderBy: {
+      returnDate: 'desc',
+    },
+  });
+
+  return purchaseReturns;
+}
+
+async function getPurchaseReturnById(storeId, returnId) {
+  if (!storeId) {
+    throw new Error('Store ID is required');
+  }
+
+  if (!returnId) {
+    throw new Error('Return ID is required');
+  }
+
+  const purchaseReturn = await prisma.purchaseReturn.findFirst({
+    where: {
+      id: returnId,
+      storeId,
+    },
+    include: {
+      supplier: {
+        select: {
+          id: true,
+          name: true,
+          contactPerson: true,
+          phone: true,
+          email: true,
+        },
+      },
+      items: {
+        include: {
+          product: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          batch: {
+            select: {
+              id: true,
+              batchNumber: true,
+              expiryDate: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!purchaseReturn) {
+    throw new Error('Purchase return not found');
+  }
+
+  return purchaseReturn;
+}
+
+async function cancelPurchaseReturn(storeId, returnId) {
+  if (!storeId) {
+    throw new Error('Store ID is required');
+  }
+
+  if (!returnId) {
+    throw new Error('Return ID is required');
+  }
+
+  return prisma.$transaction(async (tx) => {
+    const purchaseReturn = await tx.purchaseReturn.findFirst({
+      where: {
+        id: returnId,
+        storeId,
+      },
+      include: {
+        items: true,
+      },
+    });
+
+    if (!purchaseReturn) {
+      throw new Error('Purchase return not found');
+    }
+
+    if (purchaseReturn.status === 'CANCELLED') {
+      throw new Error('This purchase return is already cancelled');
+    }
+
+    // Cancel the return
+    const cancelledReturn = await tx.purchaseReturn.update({
+      where: {
+        id: returnId,
+      },
+      data: {
+        status: 'CANCELLED',
+      },
+    });
+
+    // Restore stock for all items
+    for (const item of purchaseReturn.items) {
+      const stock = await tx.stock.findFirst({
+        where: {
+          storeId,
+          productId: item.productId,
+          batchId: item.batchId,
+        },
+      });
+
+      if (stock) {
+        const quantityBefore = Number(stock.quantity);
+        const quantityAfter = quantityBefore + Number(item.baseQuantity);
+
+        await tx.stock.update({
+          where: { id: stock.id },
+          data: { quantity: quantityAfter },
+        });
+
+        await tx.stockMovement.create({
+          data: {
+            storeId,
+            productId: item.productId,
+            batchId: item.batchId,
+            stockId: stock.id,
+            type: 'PURCHASE_RETURN',
+            referenceType: 'PURCHASE_RETURN',
+            quantity: Number(item.baseQuantity),
+            quantityBefore,
+            quantityAfter,
+            unitCost: item.unitPrice,
+            referenceId: returnId,
+            reason: `Purchase return cancellation ${purchaseReturn.returnNumber}`,
+          },
+        });
+      }
+    }
+
+    // Find the original purchase
+    if (purchaseReturn.items.length > 0) {
+      const firstItem = purchaseReturn.items[0];
+      const purchaseItem = await tx.purchaseItem.findFirst({
+        where: {
+          id: firstItem.purchaseItemId,
+        },
+      });
+
+      if (purchaseItem) {
+        const purchase = await tx.purchase.findUnique({
+          where: { id: purchaseItem.purchaseId },
+          include: { items: true },
+        });
+
+        if (purchase) {
+          // Recalculate purchase status
+          let allFullyReturned = true;
+          let anyReturned = false;
+
+          for (const pItem of purchase.items) {
+            const returnedResult = await tx.purchaseReturnItem.aggregate({
+              where: {
+                purchaseItemId: pItem.id,
+                purchaseReturn: {
+                  is: {
+                    status: 'COMPLETED',
+                  },
+                },
+              },
+              _sum: {
+                quantity: true,
+              },
+            });
+
+            const returnedQuantity = Number(returnedResult._sum.quantity || 0);
+
+            if (returnedQuantity > 0) {
+              anyReturned = true;
+            }
+
+            if (returnedQuantity < Number(pItem.quantity)) {
+              allFullyReturned = false;
+            }
+          }
+
+          let newStatus = purchase.status;
+
+          if (allFullyReturned && anyReturned) {
+            newStatus = 'FULLY_RETURNED';
+          } else if (anyReturned) {
+            newStatus = 'PARTIALLY_RETURNED';
+          } else {
+            newStatus = 'RECEIVED';
+          }
+
+          // Recalculate payment amounts
+          const totalReturned = await tx.purchaseReturnItem.aggregate({
+            where: {
+              purchaseItem: {
+                purchaseId: purchase.id,
+              },
+              purchaseReturn: {
+                status: 'COMPLETED',
+              },
+            },
+            _sum: {
+              totalAmount: true,
+            },
+          });
+
+          const returnAmount = Number(totalReturned._sum.totalAmount || 0);
+          const newDueAmount = Math.max(0, Number(purchase.dueAmount) + returnAmount);
+
+          let newPaymentStatus = purchase.paymentStatus;
+
+          if (newDueAmount <= 0) {
+            newPaymentStatus = 'PAID';
+          } else if (newDueAmount < Number(purchase.totalAmount)) {
+            newPaymentStatus = 'PARTIAL';
+          } else {
+            newPaymentStatus = 'UNPAID';
+          }
+
+          await tx.purchase.update({
+            where: { id: purchase.id },
+            data: {
+              status: newStatus,
+              dueAmount: newDueAmount,
+              paymentStatus: newPaymentStatus,
+            },
+          });
+        }
+      }
+    }
+
+    return cancelledReturn;
+  });
+}
+
 module.exports = {
   createPurchaseReturn,
+  getPurchaseReturns,
+  getPurchaseReturnById,
+  cancelPurchaseReturn,
 };

@@ -16,6 +16,8 @@ model Sale {
   totalAmount    Decimal           @default(0) @db.Decimal(14, 2)
   paidAmount     Decimal           @default(0) @db.Decimal(14, 2)
   dueAmount      Decimal           @default(0) @db.Decimal(14, 2)
+  doctor         String?
+  dueDate        DateTime?
   notes          String?
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt

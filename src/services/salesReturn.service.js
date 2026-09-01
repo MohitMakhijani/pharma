@@ -322,28 +322,177 @@ async function createSalesReturn({
 
 
     await tx.sale.update({
-
       where: {
         id: sale.id
       },
-
       data: {
         status:
           fullyReturned
             ? 'FULLY_RETURNED'
             : 'PARTIALLY_RETURNED'
       }
-
     });
 
-
     return salesReturn;
-
   });
-
 }
 
+async function getSalesReturns(storeId, filters = {}) {
+  const where = { storeId };
+
+  if (filters.search) {
+    where.OR = [
+      { returnNumber: { contains: filters.search, mode: 'insensitive' } },
+      { sale: { invoiceNumber: { contains: filters.search, mode: 'insensitive' } } },
+      { customer: { name: { contains: filters.search, mode: 'insensitive' } } },
+      { customer: { phone: { contains: filters.search, mode: 'insensitive' } } },
+    ];
+  }
+
+  if (filters.fromDate || filters.toDate) {
+    where.returnDate = {};
+    if (filters.fromDate) where.returnDate.gte = new Date(`${filters.fromDate}T00:00:00.000Z`);
+    if (filters.toDate) where.returnDate.lte = new Date(`${filters.toDate}T23:59:59.999Z`);
+  }
+
+  return prisma.salesReturn.findMany({
+    where,
+    include: {
+      customer: true,
+      sale: {
+        select: {
+          id: true,
+          invoiceNumber: true,
+          invoiceDate: true,
+          totalAmount: true,
+        },
+      },
+      items: {
+        include: {
+          product: true,
+          batch: true,
+          packaging: true,
+        },
+      },
+    },
+    orderBy: {
+      returnDate: 'desc',
+    },
+  });
+}
+
+async function getSalesReturnById(storeId, returnId) {
+  return prisma.salesReturn.findFirst({
+    where: {
+      id: returnId,
+      storeId,
+    },
+    include: {
+      customer: true,
+      sale: true,
+      items: {
+        include: {
+          product: true,
+          batch: true,
+          packaging: true,
+        },
+      },
+    },
+  });
+}
+
+async function cancelSalesReturn(storeId, returnId, userId = null) {
+  const salesReturn = await prisma.salesReturn.findFirst({
+    where: {
+      id: returnId,
+      storeId,
+    },
+    include: {
+      items: true,
+      sale: {
+        include: {
+          items: true,
+        },
+      },
+    },
+  });
+
+  if (!salesReturn) {
+    throw new Error('Sales return not found');
+  }
+
+  if (salesReturn.status === 'CANCELLED') {
+    throw new Error('Sales return is already cancelled');
+  }
+
+  return prisma.$transaction(async (tx) => {
+    // 1. Deduct the returned stock back out of inventory (reversing the return)
+    for (const item of salesReturn.items) {
+      await stockService.adjustStock(
+        item.batchId,
+        storeId,
+        userId,
+        {
+          quantity: -Number(item.baseQuantity || item.quantity || 0),
+          reason: `Reversal / Undo Sales Return ${salesReturn.returnNumber}`,
+          referenceType: 'SALE_RETURN_CANCEL',
+          referenceId: salesReturn.id,
+        }
+      );
+    }
+
+    // 2. Reverse customer ledger entry if customer was linked
+    if (salesReturn.customerId) {
+      await tx.ledgerEntry.deleteMany({
+        where: {
+          storeId,
+          referenceId: salesReturn.id,
+        },
+      });
+    }
+
+    // 3. Update return status to CANCELLED
+    const updatedReturn = await tx.salesReturn.update({
+      where: {
+        id: returnId,
+      },
+      data: {
+        status: 'CANCELLED',
+      },
+    });
+
+    // 4. Recalculate original sale status
+    if (salesReturn.saleId) {
+      const allReturns = await tx.salesReturnItem.findMany({
+        where: {
+          salesReturn: {
+            saleId: salesReturn.saleId,
+            status: 'COMPLETED',
+          },
+        },
+      });
+
+      const hasActiveReturns = allReturns.length > 0;
+
+      await tx.sale.update({
+        where: {
+          id: salesReturn.saleId,
+        },
+        data: {
+          status: hasActiveReturns ? 'PARTIALLY_RETURNED' : 'COMPLETED',
+        },
+      });
+    }
+
+    return updatedReturn;
+  });
+}
 
 module.exports = {
-  createSalesReturn
+  createSalesReturn,
+  getSalesReturns,
+  getSalesReturnById,
+  cancelSalesReturn,
 };
+
+

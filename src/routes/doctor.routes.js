@@ -1,13 +1,13 @@
 const express = require('express');
-
 const router = express.Router();
 
 const {
-  getSales,
-  getSaleById,
-  createSale,
-  deleteSale,
-} = require('../controllers/sale.controller');
+  getDoctors,
+  getDoctorById,
+  createDoctor,
+  updateDoctor,
+  deleteDoctor,
+} = require('../controllers/doctor.controller');
 
 const { authenticate } = require('../middleware/auth.middleware');
 const { authorize } = require('../middleware/role.middleware');
@@ -15,27 +15,33 @@ const { authorize } = require('../middleware/role.middleware');
 router.use(authenticate);
 
 router.get(
-  '/sales',
+  '/doctors',
   authorize('ADMIN', 'PHARMACIST', 'CASHIER'),
-  getSales
+  getDoctors
 );
 
 router.get(
-  '/sales/:id',
+  '/doctors/:id',
   authorize('ADMIN', 'PHARMACIST', 'CASHIER'),
-  getSaleById
+  getDoctorById
 );
 
 router.post(
-  '/sales',
-  authorize('ADMIN', 'PHARMACIST', 'CASHIER'),
-  createSale
+  '/doctors',
+  authorize('ADMIN', 'PHARMACIST'),
+  createDoctor
+);
+
+router.put(
+  '/doctors/:id',
+  authorize('ADMIN', 'PHARMACIST'),
+  updateDoctor
 );
 
 router.delete(
-  '/sales/:id',
-  authorize('ADMIN', 'PHARMACIST', 'CASHIER'),
-  deleteSale
+  '/doctors/:id',
+  authorize('ADMIN'),
+  deleteDoctor
 );
 
 module.exports = router;
