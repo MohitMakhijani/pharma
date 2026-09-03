@@ -193,6 +193,11 @@ export type Role = $Result.DefaultSelection<Prisma.$RolePayload>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model Reminder
+ * 
+ */
+export type Reminder = $Result.DefaultSelection<Prisma.$ReminderPayload>
 
 /**
  * Enums
@@ -990,6 +995,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.reminder`: Exposes CRUD operations for the **Reminder** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Reminders
+    * const reminders = await prisma.reminder.findMany()
+    * ```
+    */
+  get reminder(): Prisma.ReminderDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1472,7 +1487,8 @@ export namespace Prisma {
     SalesReturnItem: 'SalesReturnItem',
     Supplier: 'Supplier',
     Role: 'Role',
-    User: 'User'
+    User: 'User',
+    Reminder: 'Reminder'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1488,7 +1504,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "ledgerEntry" | "payment" | "auditLog" | "category" | "manufacturer" | "unit" | "customer" | "customerLedgerShare" | "stock" | "stockMovement" | "inventoryAudit" | "inventoryAuditItem" | "notification" | "store" | "doctor" | "prescription" | "prescriptionItem" | "product" | "salt" | "productSalt" | "productPackaging" | "productBatch" | "productSupplier" | "purchase" | "purchaseItem" | "purchasePayment" | "purchaseReturn" | "purchaseReturnItem" | "sale" | "saleItem" | "salePayment" | "salesReturn" | "salesReturnItem" | "supplier" | "role" | "user"
+      modelProps: "ledgerEntry" | "payment" | "auditLog" | "category" | "manufacturer" | "unit" | "customer" | "customerLedgerShare" | "stock" | "stockMovement" | "inventoryAudit" | "inventoryAuditItem" | "notification" | "store" | "doctor" | "prescription" | "prescriptionItem" | "product" | "salt" | "productSalt" | "productPackaging" | "productBatch" | "productSupplier" | "purchase" | "purchaseItem" | "purchasePayment" | "purchaseReturn" | "purchaseReturnItem" | "sale" | "saleItem" | "salePayment" | "salesReturn" | "salesReturnItem" | "supplier" | "role" | "user" | "reminder"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4156,6 +4172,80 @@ export namespace Prisma {
           }
         }
       }
+      Reminder: {
+        payload: Prisma.$ReminderPayload<ExtArgs>
+        fields: Prisma.ReminderFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ReminderFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ReminderFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>
+          }
+          findFirst: {
+            args: Prisma.ReminderFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ReminderFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>
+          }
+          findMany: {
+            args: Prisma.ReminderFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>[]
+          }
+          create: {
+            args: Prisma.ReminderCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>
+          }
+          createMany: {
+            args: Prisma.ReminderCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ReminderCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>[]
+          }
+          delete: {
+            args: Prisma.ReminderDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>
+          }
+          update: {
+            args: Prisma.ReminderUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>
+          }
+          deleteMany: {
+            args: Prisma.ReminderDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ReminderUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ReminderUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>[]
+          }
+          upsert: {
+            args: Prisma.ReminderUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ReminderPayload>
+          }
+          aggregate: {
+            args: Prisma.ReminderAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateReminder>
+          }
+          groupBy: {
+            args: Prisma.ReminderGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ReminderGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ReminderCountArgs<ExtArgs>
+            result: $Utils.Optional<ReminderCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -4315,6 +4405,7 @@ export namespace Prisma {
     supplier?: SupplierOmit
     role?: RoleOmit
     user?: UserOmit
+    reminder?: ReminderOmit
   }
 
   /* Types for Logging */
@@ -4512,6 +4603,7 @@ export namespace Prisma {
     sales: number
     salesReturns: number
     ledgerShares: number
+    reminders: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4521,6 +4613,7 @@ export namespace Prisma {
     sales?: boolean | CustomerCountOutputTypeCountSalesArgs
     salesReturns?: boolean | CustomerCountOutputTypeCountSalesReturnsArgs
     ledgerShares?: boolean | CustomerCountOutputTypeCountLedgerSharesArgs
+    reminders?: boolean | CustomerCountOutputTypeCountRemindersArgs
   }
 
   // Custom InputTypes
@@ -4574,6 +4667,13 @@ export namespace Prisma {
    */
   export type CustomerCountOutputTypeCountLedgerSharesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CustomerLedgerShareWhereInput
+  }
+
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountRemindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReminderWhereInput
   }
 
 
@@ -4662,6 +4762,7 @@ export namespace Prisma {
     doctors: number
     ledgerShares: number
     inventoryAudits: number
+    reminders: number
   }
 
   export type StoreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4683,6 +4784,7 @@ export namespace Prisma {
     doctors?: boolean | StoreCountOutputTypeCountDoctorsArgs
     ledgerShares?: boolean | StoreCountOutputTypeCountLedgerSharesArgs
     inventoryAudits?: boolean | StoreCountOutputTypeCountInventoryAuditsArgs
+    reminders?: boolean | StoreCountOutputTypeCountRemindersArgs
   }
 
   // Custom InputTypes
@@ -4820,6 +4922,13 @@ export namespace Prisma {
    */
   export type StoreCountOutputTypeCountInventoryAuditsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InventoryAuditWhereInput
+  }
+
+  /**
+   * StoreCountOutputType without action
+   */
+  export type StoreCountOutputTypeCountRemindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReminderWhereInput
   }
 
 
@@ -5299,12 +5408,14 @@ export namespace Prisma {
     items: number
     payments: number
     salesReturns: number
+    reminders: number
   }
 
   export type SaleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | SaleCountOutputTypeCountItemsArgs
     payments?: boolean | SaleCountOutputTypeCountPaymentsArgs
     salesReturns?: boolean | SaleCountOutputTypeCountSalesReturnsArgs
+    reminders?: boolean | SaleCountOutputTypeCountRemindersArgs
   }
 
   // Custom InputTypes
@@ -5337,6 +5448,13 @@ export namespace Prisma {
    */
   export type SaleCountOutputTypeCountSalesReturnsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SalesReturnWhereInput
+  }
+
+  /**
+   * SaleCountOutputType without action
+   */
+  export type SaleCountOutputTypeCountRemindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReminderWhereInput
   }
 
 
@@ -12586,6 +12704,8 @@ export namespace Prisma {
     creditDays: number | null
     openingBalance: Decimal | null
     status: $Enums.CustomerStatus | null
+    isDeleted: boolean | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12606,6 +12726,8 @@ export namespace Prisma {
     creditDays: number | null
     openingBalance: Decimal | null
     status: $Enums.CustomerStatus | null
+    isDeleted: boolean | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12626,6 +12748,8 @@ export namespace Prisma {
     creditDays: number
     openingBalance: number
     status: number
+    isDeleted: number
+    deletedAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -12660,6 +12784,8 @@ export namespace Prisma {
     creditDays?: true
     openingBalance?: true
     status?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12680,6 +12806,8 @@ export namespace Prisma {
     creditDays?: true
     openingBalance?: true
     status?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12700,6 +12828,8 @@ export namespace Prisma {
     creditDays?: true
     openingBalance?: true
     status?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -12807,6 +12937,8 @@ export namespace Prisma {
     creditDays: number
     openingBalance: Decimal
     status: $Enums.CustomerStatus
+    isDeleted: boolean
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: CustomerCountAggregateOutputType | null
@@ -12846,6 +12978,8 @@ export namespace Prisma {
     creditDays?: boolean
     openingBalance?: boolean
     status?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     store?: boolean | StoreDefaultArgs<ExtArgs>
@@ -12855,6 +12989,7 @@ export namespace Prisma {
     sales?: boolean | Customer$salesArgs<ExtArgs>
     salesReturns?: boolean | Customer$salesReturnsArgs<ExtArgs>
     ledgerShares?: boolean | Customer$ledgerSharesArgs<ExtArgs>
+    reminders?: boolean | Customer$remindersArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
@@ -12874,6 +13009,8 @@ export namespace Prisma {
     creditDays?: boolean
     openingBalance?: boolean
     status?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     store?: boolean | StoreDefaultArgs<ExtArgs>
@@ -12895,6 +13032,8 @@ export namespace Prisma {
     creditDays?: boolean
     openingBalance?: boolean
     status?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     store?: boolean | StoreDefaultArgs<ExtArgs>
@@ -12916,11 +13055,13 @@ export namespace Prisma {
     creditDays?: boolean
     openingBalance?: boolean
     status?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "phone" | "alternatePhone" | "email" | "gstin" | "address" | "city" | "state" | "pincode" | "creditLimit" | "creditDays" | "openingBalance" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["customer"]>
+  export type CustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "phone" | "alternatePhone" | "email" | "gstin" | "address" | "city" | "state" | "pincode" | "creditLimit" | "creditDays" | "openingBalance" | "status" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["customer"]>
   export type CustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     store?: boolean | StoreDefaultArgs<ExtArgs>
     ledgerEntries?: boolean | Customer$ledgerEntriesArgs<ExtArgs>
@@ -12929,6 +13070,7 @@ export namespace Prisma {
     sales?: boolean | Customer$salesArgs<ExtArgs>
     salesReturns?: boolean | Customer$salesReturnsArgs<ExtArgs>
     ledgerShares?: boolean | Customer$ledgerSharesArgs<ExtArgs>
+    reminders?: boolean | Customer$remindersArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12948,6 +13090,7 @@ export namespace Prisma {
       sales: Prisma.$SalePayload<ExtArgs>[]
       salesReturns: Prisma.$SalesReturnPayload<ExtArgs>[]
       ledgerShares: Prisma.$CustomerLedgerSharePayload<ExtArgs>[]
+      reminders: Prisma.$ReminderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12965,6 +13108,8 @@ export namespace Prisma {
       creditDays: number
       openingBalance: Prisma.Decimal
       status: $Enums.CustomerStatus
+      isDeleted: boolean
+      deletedAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["customer"]>
@@ -13368,6 +13513,7 @@ export namespace Prisma {
     sales<T extends Customer$salesArgs<ExtArgs> = {}>(args?: Subset<T, Customer$salesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salesReturns<T extends Customer$salesReturnsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$salesReturnsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalesReturnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ledgerShares<T extends Customer$ledgerSharesArgs<ExtArgs> = {}>(args?: Subset<T, Customer$ledgerSharesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reminders<T extends Customer$remindersArgs<ExtArgs> = {}>(args?: Subset<T, Customer$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13412,6 +13558,8 @@ export namespace Prisma {
     readonly creditDays: FieldRef<"Customer", 'Int'>
     readonly openingBalance: FieldRef<"Customer", 'Decimal'>
     readonly status: FieldRef<"Customer", 'CustomerStatus'>
+    readonly isDeleted: FieldRef<"Customer", 'Boolean'>
+    readonly deletedAt: FieldRef<"Customer", 'DateTime'>
     readonly createdAt: FieldRef<"Customer", 'DateTime'>
     readonly updatedAt: FieldRef<"Customer", 'DateTime'>
   }
@@ -13956,6 +14104,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CustomerLedgerShareScalarFieldEnum | CustomerLedgerShareScalarFieldEnum[]
+  }
+
+  /**
+   * Customer.reminders
+   */
+  export type Customer$remindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    where?: ReminderWhereInput
+    orderBy?: ReminderOrderByWithRelationInput | ReminderOrderByWithRelationInput[]
+    cursor?: ReminderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReminderScalarFieldEnum | ReminderScalarFieldEnum[]
   }
 
   /**
@@ -21215,6 +21387,7 @@ export namespace Prisma {
     doctors?: boolean | Store$doctorsArgs<ExtArgs>
     ledgerShares?: boolean | Store$ledgerSharesArgs<ExtArgs>
     inventoryAudits?: boolean | Store$inventoryAuditsArgs<ExtArgs>
+    reminders?: boolean | Store$remindersArgs<ExtArgs>
     _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["store"]>
 
@@ -21286,6 +21459,7 @@ export namespace Prisma {
     doctors?: boolean | Store$doctorsArgs<ExtArgs>
     ledgerShares?: boolean | Store$ledgerSharesArgs<ExtArgs>
     inventoryAudits?: boolean | Store$inventoryAuditsArgs<ExtArgs>
+    reminders?: boolean | Store$remindersArgs<ExtArgs>
     _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StoreIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -21312,6 +21486,7 @@ export namespace Prisma {
       doctors: Prisma.$DoctorPayload<ExtArgs>[]
       ledgerShares: Prisma.$CustomerLedgerSharePayload<ExtArgs>[]
       inventoryAudits: Prisma.$InventoryAuditPayload<ExtArgs>[]
+      reminders: Prisma.$ReminderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -21739,6 +21914,7 @@ export namespace Prisma {
     doctors<T extends Store$doctorsArgs<ExtArgs> = {}>(args?: Subset<T, Store$doctorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoctorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ledgerShares<T extends Store$ledgerSharesArgs<ExtArgs> = {}>(args?: Subset<T, Store$ledgerSharesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerLedgerSharePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inventoryAudits<T extends Store$inventoryAuditsArgs<ExtArgs> = {}>(args?: Subset<T, Store$inventoryAuditsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryAuditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reminders<T extends Store$remindersArgs<ExtArgs> = {}>(args?: Subset<T, Store$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -22603,6 +22779,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: InventoryAuditScalarFieldEnum | InventoryAuditScalarFieldEnum[]
+  }
+
+  /**
+   * Store.reminders
+   */
+  export type Store$remindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    where?: ReminderWhereInput
+    orderBy?: ReminderOrderByWithRelationInput | ReminderOrderByWithRelationInput[]
+    cursor?: ReminderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReminderScalarFieldEnum | ReminderScalarFieldEnum[]
   }
 
   /**
@@ -26319,6 +26519,8 @@ export namespace Prisma {
     baseUnitId: string | null
     minimumStock: Decimal | null
     reorderLevel: Decimal | null
+    isDeleted: boolean | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -26346,6 +26548,8 @@ export namespace Prisma {
     baseUnitId: string | null
     minimumStock: Decimal | null
     reorderLevel: Decimal | null
+    isDeleted: boolean | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -26373,6 +26577,8 @@ export namespace Prisma {
     baseUnitId: number
     minimumStock: number
     reorderLevel: number
+    isDeleted: number
+    deletedAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -26416,6 +26622,8 @@ export namespace Prisma {
     baseUnitId?: true
     minimumStock?: true
     reorderLevel?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -26443,6 +26651,8 @@ export namespace Prisma {
     baseUnitId?: true
     minimumStock?: true
     reorderLevel?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -26470,6 +26680,8 @@ export namespace Prisma {
     baseUnitId?: true
     minimumStock?: true
     reorderLevel?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -26584,6 +26796,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock: Decimal
     reorderLevel: Decimal
+    isDeleted: boolean
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: ProductCountAggregateOutputType | null
@@ -26630,6 +26844,8 @@ export namespace Prisma {
     baseUnitId?: boolean
     minimumStock?: boolean
     reorderLevel?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     prescriptionItems?: boolean | Product$prescriptionItemsArgs<ExtArgs>
@@ -26674,6 +26890,8 @@ export namespace Prisma {
     baseUnitId?: boolean
     minimumStock?: boolean
     reorderLevel?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     baseUnit?: boolean | UnitDefaultArgs<ExtArgs>
@@ -26706,6 +26924,8 @@ export namespace Prisma {
     baseUnitId?: boolean
     minimumStock?: boolean
     reorderLevel?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     baseUnit?: boolean | UnitDefaultArgs<ExtArgs>
@@ -26738,11 +26958,13 @@ export namespace Prisma {
     baseUnitId?: boolean
     minimumStock?: boolean
     reorderLevel?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "genericName" | "brandName" | "sku" | "barcode" | "hsnCode" | "rack" | "scheduling" | "prescriptionOnly" | "dosageForm" | "strength" | "strengthUnitId" | "categoryId" | "manufacturerId" | "description" | "gstPercent" | "status" | "baseUnitId" | "minimumStock" | "reorderLevel" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "genericName" | "brandName" | "sku" | "barcode" | "hsnCode" | "rack" | "scheduling" | "prescriptionOnly" | "dosageForm" | "strength" | "strengthUnitId" | "categoryId" | "manufacturerId" | "description" | "gstPercent" | "status" | "baseUnitId" | "minimumStock" | "reorderLevel" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     prescriptionItems?: boolean | Product$prescriptionItemsArgs<ExtArgs>
     baseUnit?: boolean | UnitDefaultArgs<ExtArgs>
@@ -26826,6 +27048,8 @@ export namespace Prisma {
       baseUnitId: string
       minimumStock: Prisma.Decimal
       reorderLevel: Prisma.Decimal
+      isDeleted: boolean
+      deletedAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["product"]>
@@ -27289,6 +27513,8 @@ export namespace Prisma {
     readonly baseUnitId: FieldRef<"Product", 'String'>
     readonly minimumStock: FieldRef<"Product", 'Decimal'>
     readonly reorderLevel: FieldRef<"Product", 'Decimal'>
+    readonly isDeleted: FieldRef<"Product", 'Boolean'>
+    readonly deletedAt: FieldRef<"Product", 'DateTime'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
   }
@@ -34256,6 +34482,8 @@ export namespace Prisma {
     paidAmount: Decimal | null
     dueAmount: Decimal | null
     notes: string | null
+    isDeleted: boolean | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -34283,6 +34511,8 @@ export namespace Prisma {
     paidAmount: Decimal | null
     dueAmount: Decimal | null
     notes: string | null
+    isDeleted: boolean | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -34310,6 +34540,8 @@ export namespace Prisma {
     paidAmount: number
     dueAmount: number
     notes: number
+    isDeleted: number
+    deletedAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -34367,6 +34599,8 @@ export namespace Prisma {
     paidAmount?: true
     dueAmount?: true
     notes?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -34394,6 +34628,8 @@ export namespace Prisma {
     paidAmount?: true
     dueAmount?: true
     notes?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -34421,6 +34657,8 @@ export namespace Prisma {
     paidAmount?: true
     dueAmount?: true
     notes?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -34535,6 +34773,8 @@ export namespace Prisma {
     paidAmount: Decimal
     dueAmount: Decimal
     notes: string | null
+    isDeleted: boolean
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: PurchaseCountAggregateOutputType | null
@@ -34581,6 +34821,8 @@ export namespace Prisma {
     paidAmount?: boolean
     dueAmount?: boolean
     notes?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     store?: boolean | StoreDefaultArgs<ExtArgs>
@@ -34613,6 +34855,8 @@ export namespace Prisma {
     paidAmount?: boolean
     dueAmount?: boolean
     notes?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     store?: boolean | StoreDefaultArgs<ExtArgs>
@@ -34642,6 +34886,8 @@ export namespace Prisma {
     paidAmount?: boolean
     dueAmount?: boolean
     notes?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     store?: boolean | StoreDefaultArgs<ExtArgs>
@@ -34671,11 +34917,13 @@ export namespace Prisma {
     paidAmount?: boolean
     dueAmount?: boolean
     notes?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PurchaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "supplierId" | "invoiceNumber" | "invoiceDate" | "dueDate" | "receivedDate" | "status" | "paymentStatus" | "paymentMethod" | "subtotal" | "discountAmount" | "taxableAmount" | "cgstAmount" | "sgstAmount" | "igstAmount" | "otherTaxAmount" | "roundOff" | "totalAmount" | "paidAmount" | "dueAmount" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["purchase"]>
+  export type PurchaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "supplierId" | "invoiceNumber" | "invoiceDate" | "dueDate" | "receivedDate" | "status" | "paymentStatus" | "paymentMethod" | "subtotal" | "discountAmount" | "taxableAmount" | "cgstAmount" | "sgstAmount" | "igstAmount" | "otherTaxAmount" | "roundOff" | "totalAmount" | "paidAmount" | "dueAmount" | "notes" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["purchase"]>
   export type PurchaseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     store?: boolean | StoreDefaultArgs<ExtArgs>
     supplier?: boolean | SupplierDefaultArgs<ExtArgs>
@@ -34723,6 +34971,8 @@ export namespace Prisma {
       paidAmount: Prisma.Decimal
       dueAmount: Prisma.Decimal
       notes: string | null
+      isDeleted: boolean
+      deletedAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["purchase"]>
@@ -35174,6 +35424,8 @@ export namespace Prisma {
     readonly paidAmount: FieldRef<"Purchase", 'Decimal'>
     readonly dueAmount: FieldRef<"Purchase", 'Decimal'>
     readonly notes: FieldRef<"Purchase", 'String'>
+    readonly isDeleted: FieldRef<"Purchase", 'Boolean'>
+    readonly deletedAt: FieldRef<"Purchase", 'DateTime'>
     readonly createdAt: FieldRef<"Purchase", 'DateTime'>
     readonly updatedAt: FieldRef<"Purchase", 'DateTime'>
   }
@@ -40818,6 +41070,12 @@ export namespace Prisma {
     doctor: string | null
     dueDate: Date | null
     notes: string | null
+    isAyushman: boolean | null
+    ayushmanCardNo: string | null
+    beneficiaryId: string | null
+    claimStatus: string | null
+    isDeleted: boolean | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -40844,6 +41102,12 @@ export namespace Prisma {
     doctor: string | null
     dueDate: Date | null
     notes: string | null
+    isAyushman: boolean | null
+    ayushmanCardNo: string | null
+    beneficiaryId: string | null
+    claimStatus: string | null
+    isDeleted: boolean | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -40871,6 +41135,12 @@ export namespace Prisma {
     dueDate: number
     notes: number
     prescriptions: number
+    isAyushman: number
+    ayushmanCardNo: number
+    beneficiaryId: number
+    claimStatus: number
+    isDeleted: number
+    deletedAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -40925,6 +41195,12 @@ export namespace Prisma {
     doctor?: true
     dueDate?: true
     notes?: true
+    isAyushman?: true
+    ayushmanCardNo?: true
+    beneficiaryId?: true
+    claimStatus?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -40951,6 +41227,12 @@ export namespace Prisma {
     doctor?: true
     dueDate?: true
     notes?: true
+    isAyushman?: true
+    ayushmanCardNo?: true
+    beneficiaryId?: true
+    claimStatus?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -40978,6 +41260,12 @@ export namespace Prisma {
     dueDate?: true
     notes?: true
     prescriptions?: true
+    isAyushman?: true
+    ayushmanCardNo?: true
+    beneficiaryId?: true
+    claimStatus?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -41092,6 +41380,12 @@ export namespace Prisma {
     dueDate: Date | null
     notes: string | null
     prescriptions: string[]
+    isAyushman: boolean
+    ayushmanCardNo: string | null
+    beneficiaryId: string | null
+    claimStatus: string | null
+    isDeleted: boolean
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: SaleCountAggregateOutputType | null
@@ -41138,6 +41432,12 @@ export namespace Prisma {
     dueDate?: boolean
     notes?: boolean
     prescriptions?: boolean
+    isAyushman?: boolean
+    ayushmanCardNo?: boolean
+    beneficiaryId?: boolean
+    claimStatus?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | Sale$customerArgs<ExtArgs>
@@ -41146,6 +41446,7 @@ export namespace Prisma {
     items?: boolean | Sale$itemsArgs<ExtArgs>
     payments?: boolean | Sale$paymentsArgs<ExtArgs>
     salesReturns?: boolean | Sale$salesReturnsArgs<ExtArgs>
+    reminders?: boolean | Sale$remindersArgs<ExtArgs>
     _count?: boolean | SaleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sale"]>
 
@@ -41172,6 +41473,12 @@ export namespace Prisma {
     dueDate?: boolean
     notes?: boolean
     prescriptions?: boolean
+    isAyushman?: boolean
+    ayushmanCardNo?: boolean
+    beneficiaryId?: boolean
+    claimStatus?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | Sale$customerArgs<ExtArgs>
@@ -41202,6 +41509,12 @@ export namespace Prisma {
     dueDate?: boolean
     notes?: boolean
     prescriptions?: boolean
+    isAyushman?: boolean
+    ayushmanCardNo?: boolean
+    beneficiaryId?: boolean
+    claimStatus?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | Sale$customerArgs<ExtArgs>
@@ -41232,11 +41545,17 @@ export namespace Prisma {
     dueDate?: boolean
     notes?: boolean
     prescriptions?: boolean
+    isAyushman?: boolean
+    ayushmanCardNo?: boolean
+    beneficiaryId?: boolean
+    claimStatus?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SaleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "customerId" | "doctorId" | "invoiceNumber" | "invoiceDate" | "status" | "paymentStatus" | "subtotal" | "discountAmount" | "taxableAmount" | "cgstAmount" | "sgstAmount" | "igstAmount" | "roundOff" | "totalAmount" | "paidAmount" | "dueAmount" | "doctor" | "dueDate" | "notes" | "prescriptions" | "createdAt" | "updatedAt", ExtArgs["result"]["sale"]>
+  export type SaleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "customerId" | "doctorId" | "invoiceNumber" | "invoiceDate" | "status" | "paymentStatus" | "subtotal" | "discountAmount" | "taxableAmount" | "cgstAmount" | "sgstAmount" | "igstAmount" | "roundOff" | "totalAmount" | "paidAmount" | "dueAmount" | "doctor" | "dueDate" | "notes" | "prescriptions" | "isAyushman" | "ayushmanCardNo" | "beneficiaryId" | "claimStatus" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["sale"]>
   export type SaleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | Sale$customerArgs<ExtArgs>
     doctorRel?: boolean | Sale$doctorRelArgs<ExtArgs>
@@ -41244,6 +41563,7 @@ export namespace Prisma {
     items?: boolean | Sale$itemsArgs<ExtArgs>
     payments?: boolean | Sale$paymentsArgs<ExtArgs>
     salesReturns?: boolean | Sale$salesReturnsArgs<ExtArgs>
+    reminders?: boolean | Sale$remindersArgs<ExtArgs>
     _count?: boolean | SaleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SaleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -41266,6 +41586,7 @@ export namespace Prisma {
       items: Prisma.$SaleItemPayload<ExtArgs>[]
       payments: Prisma.$SalePaymentPayload<ExtArgs>[]
       salesReturns: Prisma.$SalesReturnPayload<ExtArgs>[]
+      reminders: Prisma.$ReminderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -41290,6 +41611,12 @@ export namespace Prisma {
       dueDate: Date | null
       notes: string | null
       prescriptions: string[]
+      isAyushman: boolean
+      ayushmanCardNo: string | null
+      beneficiaryId: string | null
+      claimStatus: string | null
+      isDeleted: boolean
+      deletedAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["sale"]>
@@ -41692,6 +42019,7 @@ export namespace Prisma {
     items<T extends Sale$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Sale$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payments<T extends Sale$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Sale$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalePaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     salesReturns<T extends Sale$salesReturnsArgs<ExtArgs> = {}>(args?: Subset<T, Sale$salesReturnsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SalesReturnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reminders<T extends Sale$remindersArgs<ExtArgs> = {}>(args?: Subset<T, Sale$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -41743,6 +42071,12 @@ export namespace Prisma {
     readonly dueDate: FieldRef<"Sale", 'DateTime'>
     readonly notes: FieldRef<"Sale", 'String'>
     readonly prescriptions: FieldRef<"Sale", 'String[]'>
+    readonly isAyushman: FieldRef<"Sale", 'Boolean'>
+    readonly ayushmanCardNo: FieldRef<"Sale", 'String'>
+    readonly beneficiaryId: FieldRef<"Sale", 'String'>
+    readonly claimStatus: FieldRef<"Sale", 'String'>
+    readonly isDeleted: FieldRef<"Sale", 'Boolean'>
+    readonly deletedAt: FieldRef<"Sale", 'DateTime'>
     readonly createdAt: FieldRef<"Sale", 'DateTime'>
     readonly updatedAt: FieldRef<"Sale", 'DateTime'>
   }
@@ -42253,6 +42587,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SalesReturnScalarFieldEnum | SalesReturnScalarFieldEnum[]
+  }
+
+  /**
+   * Sale.reminders
+   */
+  export type Sale$remindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    where?: ReminderWhereInput
+    orderBy?: ReminderOrderByWithRelationInput | ReminderOrderByWithRelationInput[]
+    cursor?: ReminderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ReminderScalarFieldEnum | ReminderScalarFieldEnum[]
   }
 
   /**
@@ -47488,6 +47846,8 @@ export namespace Prisma {
     creditDays: number | null
     openingBalance: Decimal | null
     status: $Enums.SupplierStatus | null
+    isDeleted: boolean | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -47510,6 +47870,8 @@ export namespace Prisma {
     creditDays: number | null
     openingBalance: Decimal | null
     status: $Enums.SupplierStatus | null
+    isDeleted: boolean | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -47532,6 +47894,8 @@ export namespace Prisma {
     creditDays: number
     openingBalance: number
     status: number
+    isDeleted: number
+    deletedAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -47568,6 +47932,8 @@ export namespace Prisma {
     creditDays?: true
     openingBalance?: true
     status?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -47590,6 +47956,8 @@ export namespace Prisma {
     creditDays?: true
     openingBalance?: true
     status?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -47612,6 +47980,8 @@ export namespace Prisma {
     creditDays?: true
     openingBalance?: true
     status?: true
+    isDeleted?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -47721,6 +48091,8 @@ export namespace Prisma {
     creditDays: number
     openingBalance: Decimal
     status: $Enums.SupplierStatus
+    isDeleted: boolean
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: SupplierCountAggregateOutputType | null
@@ -47762,6 +48134,8 @@ export namespace Prisma {
     creditDays?: boolean
     openingBalance?: boolean
     status?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ledgerEntries?: boolean | Supplier$ledgerEntriesArgs<ExtArgs>
@@ -47791,6 +48165,8 @@ export namespace Prisma {
     creditDays?: boolean
     openingBalance?: boolean
     status?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     store?: boolean | StoreDefaultArgs<ExtArgs>
@@ -47814,6 +48190,8 @@ export namespace Prisma {
     creditDays?: boolean
     openingBalance?: boolean
     status?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     store?: boolean | StoreDefaultArgs<ExtArgs>
@@ -47837,11 +48215,13 @@ export namespace Prisma {
     creditDays?: boolean
     openingBalance?: boolean
     status?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SupplierOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "contactPerson" | "phone" | "alternatePhone" | "email" | "gstin" | "drugLicenseNo" | "address" | "city" | "state" | "pincode" | "creditLimit" | "creditDays" | "openingBalance" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["supplier"]>
+  export type SupplierOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "name" | "contactPerson" | "phone" | "alternatePhone" | "email" | "gstin" | "drugLicenseNo" | "address" | "city" | "state" | "pincode" | "creditLimit" | "creditDays" | "openingBalance" | "status" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["supplier"]>
   export type SupplierInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ledgerEntries?: boolean | Supplier$ledgerEntriesArgs<ExtArgs>
     payments?: boolean | Supplier$paymentsArgs<ExtArgs>
@@ -47886,6 +48266,8 @@ export namespace Prisma {
       creditDays: number
       openingBalance: Prisma.Decimal
       status: $Enums.SupplierStatus
+      isDeleted: boolean
+      deletedAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["supplier"]>
@@ -48334,6 +48716,8 @@ export namespace Prisma {
     readonly creditDays: FieldRef<"Supplier", 'Int'>
     readonly openingBalance: FieldRef<"Supplier", 'Decimal'>
     readonly status: FieldRef<"Supplier", 'SupplierStatus'>
+    readonly isDeleted: FieldRef<"Supplier", 'Boolean'>
+    readonly deletedAt: FieldRef<"Supplier", 'DateTime'>
     readonly createdAt: FieldRef<"Supplier", 'DateTime'>
     readonly updatedAt: FieldRef<"Supplier", 'DateTime'>
   }
@@ -51145,6 +51529,1281 @@ export namespace Prisma {
 
 
   /**
+   * Model Reminder
+   */
+
+  export type AggregateReminder = {
+    _count: ReminderCountAggregateOutputType | null
+    _avg: ReminderAvgAggregateOutputType | null
+    _sum: ReminderSumAggregateOutputType | null
+    _min: ReminderMinAggregateOutputType | null
+    _max: ReminderMaxAggregateOutputType | null
+  }
+
+  export type ReminderAvgAggregateOutputType = {
+    timesPerDay: number | null
+  }
+
+  export type ReminderSumAggregateOutputType = {
+    timesPerDay: number | null
+  }
+
+  export type ReminderMinAggregateOutputType = {
+    id: string | null
+    storeId: string | null
+    customerId: string | null
+    saleId: string | null
+    drugName: string | null
+    reminderDate: Date | null
+    reminderTime: string | null
+    timesPerDay: number | null
+    mealTiming: string | null
+    dosageInstructions: string | null
+    notes: string | null
+    status: string | null
+    isDeleted: boolean | null
+    deletedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ReminderMaxAggregateOutputType = {
+    id: string | null
+    storeId: string | null
+    customerId: string | null
+    saleId: string | null
+    drugName: string | null
+    reminderDate: Date | null
+    reminderTime: string | null
+    timesPerDay: number | null
+    mealTiming: string | null
+    dosageInstructions: string | null
+    notes: string | null
+    status: string | null
+    isDeleted: boolean | null
+    deletedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ReminderCountAggregateOutputType = {
+    id: number
+    storeId: number
+    customerId: number
+    saleId: number
+    drugName: number
+    reminderDate: number
+    reminderTime: number
+    timesPerDay: number
+    mealTiming: number
+    dosageInstructions: number
+    notes: number
+    status: number
+    isDeleted: number
+    deletedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ReminderAvgAggregateInputType = {
+    timesPerDay?: true
+  }
+
+  export type ReminderSumAggregateInputType = {
+    timesPerDay?: true
+  }
+
+  export type ReminderMinAggregateInputType = {
+    id?: true
+    storeId?: true
+    customerId?: true
+    saleId?: true
+    drugName?: true
+    reminderDate?: true
+    reminderTime?: true
+    timesPerDay?: true
+    mealTiming?: true
+    dosageInstructions?: true
+    notes?: true
+    status?: true
+    isDeleted?: true
+    deletedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ReminderMaxAggregateInputType = {
+    id?: true
+    storeId?: true
+    customerId?: true
+    saleId?: true
+    drugName?: true
+    reminderDate?: true
+    reminderTime?: true
+    timesPerDay?: true
+    mealTiming?: true
+    dosageInstructions?: true
+    notes?: true
+    status?: true
+    isDeleted?: true
+    deletedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ReminderCountAggregateInputType = {
+    id?: true
+    storeId?: true
+    customerId?: true
+    saleId?: true
+    drugName?: true
+    reminderDate?: true
+    reminderTime?: true
+    timesPerDay?: true
+    mealTiming?: true
+    dosageInstructions?: true
+    notes?: true
+    status?: true
+    isDeleted?: true
+    deletedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ReminderAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Reminder to aggregate.
+     */
+    where?: ReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reminders to fetch.
+     */
+    orderBy?: ReminderOrderByWithRelationInput | ReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Reminders
+    **/
+    _count?: true | ReminderCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ReminderAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ReminderSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ReminderMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ReminderMaxAggregateInputType
+  }
+
+  export type GetReminderAggregateType<T extends ReminderAggregateArgs> = {
+        [P in keyof T & keyof AggregateReminder]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateReminder[P]>
+      : GetScalarType<T[P], AggregateReminder[P]>
+  }
+
+
+
+
+  export type ReminderGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReminderWhereInput
+    orderBy?: ReminderOrderByWithAggregationInput | ReminderOrderByWithAggregationInput[]
+    by: ReminderScalarFieldEnum[] | ReminderScalarFieldEnum
+    having?: ReminderScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ReminderCountAggregateInputType | true
+    _avg?: ReminderAvgAggregateInputType
+    _sum?: ReminderSumAggregateInputType
+    _min?: ReminderMinAggregateInputType
+    _max?: ReminderMaxAggregateInputType
+  }
+
+  export type ReminderGroupByOutputType = {
+    id: string
+    storeId: string
+    customerId: string
+    saleId: string | null
+    drugName: string
+    reminderDate: Date
+    reminderTime: string
+    timesPerDay: number
+    mealTiming: string | null
+    dosageInstructions: string | null
+    notes: string | null
+    status: string
+    isDeleted: boolean
+    deletedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ReminderCountAggregateOutputType | null
+    _avg: ReminderAvgAggregateOutputType | null
+    _sum: ReminderSumAggregateOutputType | null
+    _min: ReminderMinAggregateOutputType | null
+    _max: ReminderMaxAggregateOutputType | null
+  }
+
+  type GetReminderGroupByPayload<T extends ReminderGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ReminderGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ReminderGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ReminderGroupByOutputType[P]>
+            : GetScalarType<T[P], ReminderGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ReminderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    customerId?: boolean
+    saleId?: boolean
+    drugName?: boolean
+    reminderDate?: boolean
+    reminderTime?: boolean
+    timesPerDay?: boolean
+    mealTiming?: boolean
+    dosageInstructions?: boolean
+    notes?: boolean
+    status?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    sale?: boolean | Reminder$saleArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reminder"]>
+
+  export type ReminderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    customerId?: boolean
+    saleId?: boolean
+    drugName?: boolean
+    reminderDate?: boolean
+    reminderTime?: boolean
+    timesPerDay?: boolean
+    mealTiming?: boolean
+    dosageInstructions?: boolean
+    notes?: boolean
+    status?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    sale?: boolean | Reminder$saleArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reminder"]>
+
+  export type ReminderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    storeId?: boolean
+    customerId?: boolean
+    saleId?: boolean
+    drugName?: boolean
+    reminderDate?: boolean
+    reminderTime?: boolean
+    timesPerDay?: boolean
+    mealTiming?: boolean
+    dosageInstructions?: boolean
+    notes?: boolean
+    status?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    sale?: boolean | Reminder$saleArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["reminder"]>
+
+  export type ReminderSelectScalar = {
+    id?: boolean
+    storeId?: boolean
+    customerId?: boolean
+    saleId?: boolean
+    drugName?: boolean
+    reminderDate?: boolean
+    reminderTime?: boolean
+    timesPerDay?: boolean
+    mealTiming?: boolean
+    dosageInstructions?: boolean
+    notes?: boolean
+    status?: boolean
+    isDeleted?: boolean
+    deletedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ReminderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "storeId" | "customerId" | "saleId" | "drugName" | "reminderDate" | "reminderTime" | "timesPerDay" | "mealTiming" | "dosageInstructions" | "notes" | "status" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["reminder"]>
+  export type ReminderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    sale?: boolean | Reminder$saleArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
+  export type ReminderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    sale?: boolean | Reminder$saleArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
+  export type ReminderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    sale?: boolean | Reminder$saleArgs<ExtArgs>
+    store?: boolean | StoreDefaultArgs<ExtArgs>
+  }
+
+  export type $ReminderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Reminder"
+    objects: {
+      customer: Prisma.$CustomerPayload<ExtArgs>
+      sale: Prisma.$SalePayload<ExtArgs> | null
+      store: Prisma.$StorePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      storeId: string
+      customerId: string
+      saleId: string | null
+      drugName: string
+      reminderDate: Date
+      reminderTime: string
+      timesPerDay: number
+      mealTiming: string | null
+      dosageInstructions: string | null
+      notes: string | null
+      status: string
+      isDeleted: boolean
+      deletedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["reminder"]>
+    composites: {}
+  }
+
+  type ReminderGetPayload<S extends boolean | null | undefined | ReminderDefaultArgs> = $Result.GetResult<Prisma.$ReminderPayload, S>
+
+  type ReminderCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ReminderFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ReminderCountAggregateInputType | true
+    }
+
+  export interface ReminderDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Reminder'], meta: { name: 'Reminder' } }
+    /**
+     * Find zero or one Reminder that matches the filter.
+     * @param {ReminderFindUniqueArgs} args - Arguments to find a Reminder
+     * @example
+     * // Get one Reminder
+     * const reminder = await prisma.reminder.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ReminderFindUniqueArgs>(args: SelectSubset<T, ReminderFindUniqueArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Reminder that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ReminderFindUniqueOrThrowArgs} args - Arguments to find a Reminder
+     * @example
+     * // Get one Reminder
+     * const reminder = await prisma.reminder.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ReminderFindUniqueOrThrowArgs>(args: SelectSubset<T, ReminderFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Reminder that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderFindFirstArgs} args - Arguments to find a Reminder
+     * @example
+     * // Get one Reminder
+     * const reminder = await prisma.reminder.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ReminderFindFirstArgs>(args?: SelectSubset<T, ReminderFindFirstArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Reminder that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderFindFirstOrThrowArgs} args - Arguments to find a Reminder
+     * @example
+     * // Get one Reminder
+     * const reminder = await prisma.reminder.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ReminderFindFirstOrThrowArgs>(args?: SelectSubset<T, ReminderFindFirstOrThrowArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Reminders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Reminders
+     * const reminders = await prisma.reminder.findMany()
+     * 
+     * // Get first 10 Reminders
+     * const reminders = await prisma.reminder.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const reminderWithIdOnly = await prisma.reminder.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ReminderFindManyArgs>(args?: SelectSubset<T, ReminderFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Reminder.
+     * @param {ReminderCreateArgs} args - Arguments to create a Reminder.
+     * @example
+     * // Create one Reminder
+     * const Reminder = await prisma.reminder.create({
+     *   data: {
+     *     // ... data to create a Reminder
+     *   }
+     * })
+     * 
+     */
+    create<T extends ReminderCreateArgs>(args: SelectSubset<T, ReminderCreateArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Reminders.
+     * @param {ReminderCreateManyArgs} args - Arguments to create many Reminders.
+     * @example
+     * // Create many Reminders
+     * const reminder = await prisma.reminder.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ReminderCreateManyArgs>(args?: SelectSubset<T, ReminderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Reminders and returns the data saved in the database.
+     * @param {ReminderCreateManyAndReturnArgs} args - Arguments to create many Reminders.
+     * @example
+     * // Create many Reminders
+     * const reminder = await prisma.reminder.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Reminders and only return the `id`
+     * const reminderWithIdOnly = await prisma.reminder.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ReminderCreateManyAndReturnArgs>(args?: SelectSubset<T, ReminderCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Reminder.
+     * @param {ReminderDeleteArgs} args - Arguments to delete one Reminder.
+     * @example
+     * // Delete one Reminder
+     * const Reminder = await prisma.reminder.delete({
+     *   where: {
+     *     // ... filter to delete one Reminder
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ReminderDeleteArgs>(args: SelectSubset<T, ReminderDeleteArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Reminder.
+     * @param {ReminderUpdateArgs} args - Arguments to update one Reminder.
+     * @example
+     * // Update one Reminder
+     * const reminder = await prisma.reminder.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ReminderUpdateArgs>(args: SelectSubset<T, ReminderUpdateArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Reminders.
+     * @param {ReminderDeleteManyArgs} args - Arguments to filter Reminders to delete.
+     * @example
+     * // Delete a few Reminders
+     * const { count } = await prisma.reminder.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ReminderDeleteManyArgs>(args?: SelectSubset<T, ReminderDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reminders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Reminders
+     * const reminder = await prisma.reminder.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ReminderUpdateManyArgs>(args: SelectSubset<T, ReminderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Reminders and returns the data updated in the database.
+     * @param {ReminderUpdateManyAndReturnArgs} args - Arguments to update many Reminders.
+     * @example
+     * // Update many Reminders
+     * const reminder = await prisma.reminder.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Reminders and only return the `id`
+     * const reminderWithIdOnly = await prisma.reminder.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ReminderUpdateManyAndReturnArgs>(args: SelectSubset<T, ReminderUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Reminder.
+     * @param {ReminderUpsertArgs} args - Arguments to update or create a Reminder.
+     * @example
+     * // Update or create a Reminder
+     * const reminder = await prisma.reminder.upsert({
+     *   create: {
+     *     // ... data to create a Reminder
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Reminder we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ReminderUpsertArgs>(args: SelectSubset<T, ReminderUpsertArgs<ExtArgs>>): Prisma__ReminderClient<$Result.GetResult<Prisma.$ReminderPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Reminders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderCountArgs} args - Arguments to filter Reminders to count.
+     * @example
+     * // Count the number of Reminders
+     * const count = await prisma.reminder.count({
+     *   where: {
+     *     // ... the filter for the Reminders we want to count
+     *   }
+     * })
+    **/
+    count<T extends ReminderCountArgs>(
+      args?: Subset<T, ReminderCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ReminderCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Reminder.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ReminderAggregateArgs>(args: Subset<T, ReminderAggregateArgs>): Prisma.PrismaPromise<GetReminderAggregateType<T>>
+
+    /**
+     * Group by Reminder.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ReminderGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ReminderGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ReminderGroupByArgs['orderBy'] }
+        : { orderBy?: ReminderGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ReminderGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetReminderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Reminder model
+   */
+  readonly fields: ReminderFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Reminder.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ReminderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sale<T extends Reminder$saleArgs<ExtArgs> = {}>(args?: Subset<T, Reminder$saleArgs<ExtArgs>>): Prisma__SaleClient<$Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    store<T extends StoreDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StoreDefaultArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Reminder model
+   */
+  interface ReminderFieldRefs {
+    readonly id: FieldRef<"Reminder", 'String'>
+    readonly storeId: FieldRef<"Reminder", 'String'>
+    readonly customerId: FieldRef<"Reminder", 'String'>
+    readonly saleId: FieldRef<"Reminder", 'String'>
+    readonly drugName: FieldRef<"Reminder", 'String'>
+    readonly reminderDate: FieldRef<"Reminder", 'DateTime'>
+    readonly reminderTime: FieldRef<"Reminder", 'String'>
+    readonly timesPerDay: FieldRef<"Reminder", 'Int'>
+    readonly mealTiming: FieldRef<"Reminder", 'String'>
+    readonly dosageInstructions: FieldRef<"Reminder", 'String'>
+    readonly notes: FieldRef<"Reminder", 'String'>
+    readonly status: FieldRef<"Reminder", 'String'>
+    readonly isDeleted: FieldRef<"Reminder", 'Boolean'>
+    readonly deletedAt: FieldRef<"Reminder", 'DateTime'>
+    readonly createdAt: FieldRef<"Reminder", 'DateTime'>
+    readonly updatedAt: FieldRef<"Reminder", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Reminder findUnique
+   */
+  export type ReminderFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which Reminder to fetch.
+     */
+    where: ReminderWhereUniqueInput
+  }
+
+  /**
+   * Reminder findUniqueOrThrow
+   */
+  export type ReminderFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which Reminder to fetch.
+     */
+    where: ReminderWhereUniqueInput
+  }
+
+  /**
+   * Reminder findFirst
+   */
+  export type ReminderFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which Reminder to fetch.
+     */
+    where?: ReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reminders to fetch.
+     */
+    orderBy?: ReminderOrderByWithRelationInput | ReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Reminders.
+     */
+    cursor?: ReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reminders.
+     */
+    distinct?: ReminderScalarFieldEnum | ReminderScalarFieldEnum[]
+  }
+
+  /**
+   * Reminder findFirstOrThrow
+   */
+  export type ReminderFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which Reminder to fetch.
+     */
+    where?: ReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reminders to fetch.
+     */
+    orderBy?: ReminderOrderByWithRelationInput | ReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Reminders.
+     */
+    cursor?: ReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reminders.
+     */
+    distinct?: ReminderScalarFieldEnum | ReminderScalarFieldEnum[]
+  }
+
+  /**
+   * Reminder findMany
+   */
+  export type ReminderFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which Reminders to fetch.
+     */
+    where?: ReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Reminders to fetch.
+     */
+    orderBy?: ReminderOrderByWithRelationInput | ReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Reminders.
+     */
+    cursor?: ReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Reminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Reminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Reminders.
+     */
+    distinct?: ReminderScalarFieldEnum | ReminderScalarFieldEnum[]
+  }
+
+  /**
+   * Reminder create
+   */
+  export type ReminderCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Reminder.
+     */
+    data: XOR<ReminderCreateInput, ReminderUncheckedCreateInput>
+  }
+
+  /**
+   * Reminder createMany
+   */
+  export type ReminderCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Reminders.
+     */
+    data: ReminderCreateManyInput | ReminderCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Reminder createManyAndReturn
+   */
+  export type ReminderCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * The data used to create many Reminders.
+     */
+    data: ReminderCreateManyInput | ReminderCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Reminder update
+   */
+  export type ReminderUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Reminder.
+     */
+    data: XOR<ReminderUpdateInput, ReminderUncheckedUpdateInput>
+    /**
+     * Choose, which Reminder to update.
+     */
+    where: ReminderWhereUniqueInput
+  }
+
+  /**
+   * Reminder updateMany
+   */
+  export type ReminderUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Reminders.
+     */
+    data: XOR<ReminderUpdateManyMutationInput, ReminderUncheckedUpdateManyInput>
+    /**
+     * Filter which Reminders to update
+     */
+    where?: ReminderWhereInput
+    /**
+     * Limit how many Reminders to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Reminder updateManyAndReturn
+   */
+  export type ReminderUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * The data used to update Reminders.
+     */
+    data: XOR<ReminderUpdateManyMutationInput, ReminderUncheckedUpdateManyInput>
+    /**
+     * Filter which Reminders to update
+     */
+    where?: ReminderWhereInput
+    /**
+     * Limit how many Reminders to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Reminder upsert
+   */
+  export type ReminderUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Reminder to update in case it exists.
+     */
+    where: ReminderWhereUniqueInput
+    /**
+     * In case the Reminder found by the `where` argument doesn't exist, create a new Reminder with this data.
+     */
+    create: XOR<ReminderCreateInput, ReminderUncheckedCreateInput>
+    /**
+     * In case the Reminder was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ReminderUpdateInput, ReminderUncheckedUpdateInput>
+  }
+
+  /**
+   * Reminder delete
+   */
+  export type ReminderDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+    /**
+     * Filter which Reminder to delete.
+     */
+    where: ReminderWhereUniqueInput
+  }
+
+  /**
+   * Reminder deleteMany
+   */
+  export type ReminderDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Reminders to delete
+     */
+    where?: ReminderWhereInput
+    /**
+     * Limit how many Reminders to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Reminder.sale
+   */
+  export type Reminder$saleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Sale
+     */
+    select?: SaleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Sale
+     */
+    omit?: SaleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SaleInclude<ExtArgs> | null
+    where?: SaleWhereInput
+  }
+
+  /**
+   * Reminder without action
+   */
+  export type ReminderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Reminder
+     */
+    select?: ReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Reminder
+     */
+    omit?: ReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ReminderInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -51265,6 +52924,8 @@ export namespace Prisma {
     creditDays: 'creditDays',
     openingBalance: 'openingBalance',
     status: 'status',
+    isDeleted: 'isDeleted',
+    deletedAt: 'deletedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -51460,6 +53121,8 @@ export namespace Prisma {
     baseUnitId: 'baseUnitId',
     minimumStock: 'minimumStock',
     reorderLevel: 'reorderLevel',
+    isDeleted: 'isDeleted',
+    deletedAt: 'deletedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -51567,6 +53230,8 @@ export namespace Prisma {
     paidAmount: 'paidAmount',
     dueAmount: 'dueAmount',
     notes: 'notes',
+    isDeleted: 'isDeleted',
+    deletedAt: 'deletedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -51678,6 +53343,12 @@ export namespace Prisma {
     dueDate: 'dueDate',
     notes: 'notes',
     prescriptions: 'prescriptions',
+    isAyushman: 'isAyushman',
+    ayushmanCardNo: 'ayushmanCardNo',
+    beneficiaryId: 'beneficiaryId',
+    claimStatus: 'claimStatus',
+    isDeleted: 'isDeleted',
+    deletedAt: 'deletedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -51783,6 +53454,8 @@ export namespace Prisma {
     creditDays: 'creditDays',
     openingBalance: 'openingBalance',
     status: 'status',
+    isDeleted: 'isDeleted',
+    deletedAt: 'deletedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -51815,6 +53488,28 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const ReminderScalarFieldEnum: {
+    id: 'id',
+    storeId: 'storeId',
+    customerId: 'customerId',
+    saleId: 'saleId',
+    drugName: 'drugName',
+    reminderDate: 'reminderDate',
+    reminderTime: 'reminderTime',
+    timesPerDay: 'timesPerDay',
+    mealTiming: 'mealTiming',
+    dosageInstructions: 'dosageInstructions',
+    notes: 'notes',
+    status: 'status',
+    isDeleted: 'isDeleted',
+    deletedAt: 'deletedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ReminderScalarFieldEnum = (typeof ReminderScalarFieldEnum)[keyof typeof ReminderScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -52750,6 +54445,8 @@ export namespace Prisma {
     creditDays?: IntFilter<"Customer"> | number
     openingBalance?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFilter<"Customer"> | $Enums.CustomerStatus
+    isDeleted?: BoolFilter<"Customer"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Customer"> | Date | string | null
     createdAt?: DateTimeFilter<"Customer"> | Date | string
     updatedAt?: DateTimeFilter<"Customer"> | Date | string
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
@@ -52759,6 +54456,7 @@ export namespace Prisma {
     sales?: SaleListRelationFilter
     salesReturns?: SalesReturnListRelationFilter
     ledgerShares?: CustomerLedgerShareListRelationFilter
+    reminders?: ReminderListRelationFilter
   }
 
   export type CustomerOrderByWithRelationInput = {
@@ -52777,6 +54475,8 @@ export namespace Prisma {
     creditDays?: SortOrder
     openingBalance?: SortOrder
     status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     store?: StoreOrderByWithRelationInput
@@ -52786,6 +54486,7 @@ export namespace Prisma {
     sales?: SaleOrderByRelationAggregateInput
     salesReturns?: SalesReturnOrderByRelationAggregateInput
     ledgerShares?: CustomerLedgerShareOrderByRelationAggregateInput
+    reminders?: ReminderOrderByRelationAggregateInput
   }
 
   export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -52807,6 +54508,8 @@ export namespace Prisma {
     creditDays?: IntFilter<"Customer"> | number
     openingBalance?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFilter<"Customer"> | $Enums.CustomerStatus
+    isDeleted?: BoolFilter<"Customer"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Customer"> | Date | string | null
     createdAt?: DateTimeFilter<"Customer"> | Date | string
     updatedAt?: DateTimeFilter<"Customer"> | Date | string
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
@@ -52816,6 +54519,7 @@ export namespace Prisma {
     sales?: SaleListRelationFilter
     salesReturns?: SalesReturnListRelationFilter
     ledgerShares?: CustomerLedgerShareListRelationFilter
+    reminders?: ReminderListRelationFilter
   }, "id">
 
   export type CustomerOrderByWithAggregationInput = {
@@ -52834,6 +54538,8 @@ export namespace Prisma {
     creditDays?: SortOrder
     openingBalance?: SortOrder
     status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CustomerCountOrderByAggregateInput
@@ -52862,6 +54568,8 @@ export namespace Prisma {
     creditDays?: IntWithAggregatesFilter<"Customer"> | number
     openingBalance?: DecimalWithAggregatesFilter<"Customer"> | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusWithAggregatesFilter<"Customer"> | $Enums.CustomerStatus
+    isDeleted?: BoolWithAggregatesFilter<"Customer"> | boolean
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Customer"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
   }
@@ -53393,6 +55101,7 @@ export namespace Prisma {
     doctors?: DoctorListRelationFilter
     ledgerShares?: CustomerLedgerShareListRelationFilter
     inventoryAudits?: InventoryAuditListRelationFilter
+    reminders?: ReminderListRelationFilter
   }
 
   export type StoreOrderByWithRelationInput = {
@@ -53427,6 +55136,7 @@ export namespace Prisma {
     doctors?: DoctorOrderByRelationAggregateInput
     ledgerShares?: CustomerLedgerShareOrderByRelationAggregateInput
     inventoryAudits?: InventoryAuditOrderByRelationAggregateInput
+    reminders?: ReminderOrderByRelationAggregateInput
   }
 
   export type StoreWhereUniqueInput = Prisma.AtLeast<{
@@ -53464,6 +55174,7 @@ export namespace Prisma {
     doctors?: DoctorListRelationFilter
     ledgerShares?: CustomerLedgerShareListRelationFilter
     inventoryAudits?: InventoryAuditListRelationFilter
+    reminders?: ReminderListRelationFilter
   }, "id" | "code">
 
   export type StoreOrderByWithAggregationInput = {
@@ -53821,6 +55532,8 @@ export namespace Prisma {
     baseUnitId?: StringFilter<"Product"> | string
     minimumStock?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFilter<"Product"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     prescriptionItems?: PrescriptionItemListRelationFilter
@@ -53864,6 +55577,8 @@ export namespace Prisma {
     baseUnitId?: SortOrder
     minimumStock?: SortOrder
     reorderLevel?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     prescriptionItems?: PrescriptionItemOrderByRelationAggregateInput
@@ -53911,6 +55626,8 @@ export namespace Prisma {
     baseUnitId?: StringFilter<"Product"> | string
     minimumStock?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFilter<"Product"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     prescriptionItems?: PrescriptionItemListRelationFilter
@@ -53954,6 +55671,8 @@ export namespace Prisma {
     baseUnitId?: SortOrder
     minimumStock?: SortOrder
     reorderLevel?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProductCountOrderByAggregateInput
@@ -53989,6 +55708,8 @@ export namespace Prisma {
     baseUnitId?: StringWithAggregatesFilter<"Product"> | string
     minimumStock?: DecimalWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolWithAggregatesFilter<"Product"> | boolean
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
   }
@@ -54462,6 +56183,8 @@ export namespace Prisma {
     paidAmount?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     notes?: StringNullableFilter<"Purchase"> | string | null
+    isDeleted?: BoolFilter<"Purchase"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Purchase"> | Date | string | null
     createdAt?: DateTimeFilter<"Purchase"> | Date | string
     updatedAt?: DateTimeFilter<"Purchase"> | Date | string
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
@@ -54493,6 +56216,8 @@ export namespace Prisma {
     paidAmount?: SortOrder
     dueAmount?: SortOrder
     notes?: SortOrderInput | SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     store?: StoreOrderByWithRelationInput
@@ -54528,6 +56253,8 @@ export namespace Prisma {
     paidAmount?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     notes?: StringNullableFilter<"Purchase"> | string | null
+    isDeleted?: BoolFilter<"Purchase"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Purchase"> | Date | string | null
     createdAt?: DateTimeFilter<"Purchase"> | Date | string
     updatedAt?: DateTimeFilter<"Purchase"> | Date | string
     store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
@@ -54559,6 +56286,8 @@ export namespace Prisma {
     paidAmount?: SortOrder
     dueAmount?: SortOrder
     notes?: SortOrderInput | SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PurchaseCountOrderByAggregateInput
@@ -54594,6 +56323,8 @@ export namespace Prisma {
     paidAmount?: DecimalWithAggregatesFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalWithAggregatesFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     notes?: StringNullableWithAggregatesFilter<"Purchase"> | string | null
+    isDeleted?: BoolWithAggregatesFilter<"Purchase"> | boolean
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Purchase"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Purchase"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Purchase"> | Date | string
   }
@@ -55068,6 +56799,12 @@ export namespace Prisma {
     dueDate?: DateTimeNullableFilter<"Sale"> | Date | string | null
     notes?: StringNullableFilter<"Sale"> | string | null
     prescriptions?: StringNullableListFilter<"Sale">
+    isAyushman?: BoolFilter<"Sale"> | boolean
+    ayushmanCardNo?: StringNullableFilter<"Sale"> | string | null
+    beneficiaryId?: StringNullableFilter<"Sale"> | string | null
+    claimStatus?: StringNullableFilter<"Sale"> | string | null
+    isDeleted?: BoolFilter<"Sale"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Sale"> | Date | string | null
     createdAt?: DateTimeFilter<"Sale"> | Date | string
     updatedAt?: DateTimeFilter<"Sale"> | Date | string
     customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
@@ -55076,6 +56813,7 @@ export namespace Prisma {
     items?: SaleItemListRelationFilter
     payments?: SalePaymentListRelationFilter
     salesReturns?: SalesReturnListRelationFilter
+    reminders?: ReminderListRelationFilter
   }
 
   export type SaleOrderByWithRelationInput = {
@@ -55101,6 +56839,12 @@ export namespace Prisma {
     dueDate?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     prescriptions?: SortOrder
+    isAyushman?: SortOrder
+    ayushmanCardNo?: SortOrderInput | SortOrder
+    beneficiaryId?: SortOrderInput | SortOrder
+    claimStatus?: SortOrderInput | SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     customer?: CustomerOrderByWithRelationInput
@@ -55109,6 +56853,7 @@ export namespace Prisma {
     items?: SaleItemOrderByRelationAggregateInput
     payments?: SalePaymentOrderByRelationAggregateInput
     salesReturns?: SalesReturnOrderByRelationAggregateInput
+    reminders?: ReminderOrderByRelationAggregateInput
   }
 
   export type SaleWhereUniqueInput = Prisma.AtLeast<{
@@ -55138,6 +56883,12 @@ export namespace Prisma {
     dueDate?: DateTimeNullableFilter<"Sale"> | Date | string | null
     notes?: StringNullableFilter<"Sale"> | string | null
     prescriptions?: StringNullableListFilter<"Sale">
+    isAyushman?: BoolFilter<"Sale"> | boolean
+    ayushmanCardNo?: StringNullableFilter<"Sale"> | string | null
+    beneficiaryId?: StringNullableFilter<"Sale"> | string | null
+    claimStatus?: StringNullableFilter<"Sale"> | string | null
+    isDeleted?: BoolFilter<"Sale"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Sale"> | Date | string | null
     createdAt?: DateTimeFilter<"Sale"> | Date | string
     updatedAt?: DateTimeFilter<"Sale"> | Date | string
     customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
@@ -55146,6 +56897,7 @@ export namespace Prisma {
     items?: SaleItemListRelationFilter
     payments?: SalePaymentListRelationFilter
     salesReturns?: SalesReturnListRelationFilter
+    reminders?: ReminderListRelationFilter
   }, "id" | "storeId_invoiceNumber">
 
   export type SaleOrderByWithAggregationInput = {
@@ -55171,6 +56923,12 @@ export namespace Prisma {
     dueDate?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     prescriptions?: SortOrder
+    isAyushman?: SortOrder
+    ayushmanCardNo?: SortOrderInput | SortOrder
+    beneficiaryId?: SortOrderInput | SortOrder
+    claimStatus?: SortOrderInput | SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SaleCountOrderByAggregateInput
@@ -55206,6 +56964,12 @@ export namespace Prisma {
     dueDate?: DateTimeNullableWithAggregatesFilter<"Sale"> | Date | string | null
     notes?: StringNullableWithAggregatesFilter<"Sale"> | string | null
     prescriptions?: StringNullableListFilter<"Sale">
+    isAyushman?: BoolWithAggregatesFilter<"Sale"> | boolean
+    ayushmanCardNo?: StringNullableWithAggregatesFilter<"Sale"> | string | null
+    beneficiaryId?: StringNullableWithAggregatesFilter<"Sale"> | string | null
+    claimStatus?: StringNullableWithAggregatesFilter<"Sale"> | string | null
+    isDeleted?: BoolWithAggregatesFilter<"Sale"> | boolean
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Sale"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Sale"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Sale"> | Date | string
   }
@@ -55673,6 +57437,8 @@ export namespace Prisma {
     creditDays?: IntFilter<"Supplier"> | number
     openingBalance?: DecimalFilter<"Supplier"> | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFilter<"Supplier"> | $Enums.SupplierStatus
+    isDeleted?: BoolFilter<"Supplier"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Supplier"> | Date | string | null
     createdAt?: DateTimeFilter<"Supplier"> | Date | string
     updatedAt?: DateTimeFilter<"Supplier"> | Date | string
     ledgerEntries?: LedgerEntryListRelationFilter
@@ -55701,6 +57467,8 @@ export namespace Prisma {
     creditDays?: SortOrder
     openingBalance?: SortOrder
     status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ledgerEntries?: LedgerEntryOrderByRelationAggregateInput
@@ -55732,6 +57500,8 @@ export namespace Prisma {
     creditDays?: IntFilter<"Supplier"> | number
     openingBalance?: DecimalFilter<"Supplier"> | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFilter<"Supplier"> | $Enums.SupplierStatus
+    isDeleted?: BoolFilter<"Supplier"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Supplier"> | Date | string | null
     createdAt?: DateTimeFilter<"Supplier"> | Date | string
     updatedAt?: DateTimeFilter<"Supplier"> | Date | string
     ledgerEntries?: LedgerEntryListRelationFilter
@@ -55760,6 +57530,8 @@ export namespace Prisma {
     creditDays?: SortOrder
     openingBalance?: SortOrder
     status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SupplierCountOrderByAggregateInput
@@ -55790,6 +57562,8 @@ export namespace Prisma {
     creditDays?: IntWithAggregatesFilter<"Supplier"> | number
     openingBalance?: DecimalWithAggregatesFilter<"Supplier"> | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusWithAggregatesFilter<"Supplier"> | $Enums.SupplierStatus
+    isDeleted?: BoolWithAggregatesFilter<"Supplier"> | boolean
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Supplier"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Supplier"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Supplier"> | Date | string
   }
@@ -55936,6 +57710,124 @@ export namespace Prisma {
     roleId?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type ReminderWhereInput = {
+    AND?: ReminderWhereInput | ReminderWhereInput[]
+    OR?: ReminderWhereInput[]
+    NOT?: ReminderWhereInput | ReminderWhereInput[]
+    id?: StringFilter<"Reminder"> | string
+    storeId?: StringFilter<"Reminder"> | string
+    customerId?: StringFilter<"Reminder"> | string
+    saleId?: StringNullableFilter<"Reminder"> | string | null
+    drugName?: StringFilter<"Reminder"> | string
+    reminderDate?: DateTimeFilter<"Reminder"> | Date | string
+    reminderTime?: StringFilter<"Reminder"> | string
+    timesPerDay?: IntFilter<"Reminder"> | number
+    mealTiming?: StringNullableFilter<"Reminder"> | string | null
+    dosageInstructions?: StringNullableFilter<"Reminder"> | string | null
+    notes?: StringNullableFilter<"Reminder"> | string | null
+    status?: StringFilter<"Reminder"> | string
+    isDeleted?: BoolFilter<"Reminder"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Reminder"> | Date | string | null
+    createdAt?: DateTimeFilter<"Reminder"> | Date | string
+    updatedAt?: DateTimeFilter<"Reminder"> | Date | string
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    sale?: XOR<SaleNullableScalarRelationFilter, SaleWhereInput> | null
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+  }
+
+  export type ReminderOrderByWithRelationInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    customerId?: SortOrder
+    saleId?: SortOrderInput | SortOrder
+    drugName?: SortOrder
+    reminderDate?: SortOrder
+    reminderTime?: SortOrder
+    timesPerDay?: SortOrder
+    mealTiming?: SortOrderInput | SortOrder
+    dosageInstructions?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    customer?: CustomerOrderByWithRelationInput
+    sale?: SaleOrderByWithRelationInput
+    store?: StoreOrderByWithRelationInput
+  }
+
+  export type ReminderWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ReminderWhereInput | ReminderWhereInput[]
+    OR?: ReminderWhereInput[]
+    NOT?: ReminderWhereInput | ReminderWhereInput[]
+    storeId?: StringFilter<"Reminder"> | string
+    customerId?: StringFilter<"Reminder"> | string
+    saleId?: StringNullableFilter<"Reminder"> | string | null
+    drugName?: StringFilter<"Reminder"> | string
+    reminderDate?: DateTimeFilter<"Reminder"> | Date | string
+    reminderTime?: StringFilter<"Reminder"> | string
+    timesPerDay?: IntFilter<"Reminder"> | number
+    mealTiming?: StringNullableFilter<"Reminder"> | string | null
+    dosageInstructions?: StringNullableFilter<"Reminder"> | string | null
+    notes?: StringNullableFilter<"Reminder"> | string | null
+    status?: StringFilter<"Reminder"> | string
+    isDeleted?: BoolFilter<"Reminder"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Reminder"> | Date | string | null
+    createdAt?: DateTimeFilter<"Reminder"> | Date | string
+    updatedAt?: DateTimeFilter<"Reminder"> | Date | string
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    sale?: XOR<SaleNullableScalarRelationFilter, SaleWhereInput> | null
+    store?: XOR<StoreScalarRelationFilter, StoreWhereInput>
+  }, "id">
+
+  export type ReminderOrderByWithAggregationInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    customerId?: SortOrder
+    saleId?: SortOrderInput | SortOrder
+    drugName?: SortOrder
+    reminderDate?: SortOrder
+    reminderTime?: SortOrder
+    timesPerDay?: SortOrder
+    mealTiming?: SortOrderInput | SortOrder
+    dosageInstructions?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ReminderCountOrderByAggregateInput
+    _avg?: ReminderAvgOrderByAggregateInput
+    _max?: ReminderMaxOrderByAggregateInput
+    _min?: ReminderMinOrderByAggregateInput
+    _sum?: ReminderSumOrderByAggregateInput
+  }
+
+  export type ReminderScalarWhereWithAggregatesInput = {
+    AND?: ReminderScalarWhereWithAggregatesInput | ReminderScalarWhereWithAggregatesInput[]
+    OR?: ReminderScalarWhereWithAggregatesInput[]
+    NOT?: ReminderScalarWhereWithAggregatesInput | ReminderScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Reminder"> | string
+    storeId?: StringWithAggregatesFilter<"Reminder"> | string
+    customerId?: StringWithAggregatesFilter<"Reminder"> | string
+    saleId?: StringNullableWithAggregatesFilter<"Reminder"> | string | null
+    drugName?: StringWithAggregatesFilter<"Reminder"> | string
+    reminderDate?: DateTimeWithAggregatesFilter<"Reminder"> | Date | string
+    reminderTime?: StringWithAggregatesFilter<"Reminder"> | string
+    timesPerDay?: IntWithAggregatesFilter<"Reminder"> | number
+    mealTiming?: StringNullableWithAggregatesFilter<"Reminder"> | string | null
+    dosageInstructions?: StringNullableWithAggregatesFilter<"Reminder"> | string | null
+    notes?: StringNullableWithAggregatesFilter<"Reminder"> | string | null
+    status?: StringWithAggregatesFilter<"Reminder"> | string
+    isDeleted?: BoolWithAggregatesFilter<"Reminder"> | boolean
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Reminder"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Reminder"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Reminder"> | Date | string
   }
 
   export type LedgerEntryCreateInput = {
@@ -56476,6 +58368,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     store: StoreCreateNestedOneWithoutCustomersInput
@@ -56485,6 +58379,7 @@ export namespace Prisma {
     sales?: SaleCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateInput = {
@@ -56503,6 +58398,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
@@ -56511,6 +58408,7 @@ export namespace Prisma {
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUpdateInput = {
@@ -56528,6 +58426,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutCustomersNestedInput
@@ -56537,6 +58437,7 @@ export namespace Prisma {
     sales?: SaleUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateInput = {
@@ -56555,6 +58456,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
@@ -56563,6 +58466,7 @@ export namespace Prisma {
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateManyInput = {
@@ -56581,6 +58485,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -56600,6 +58506,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -56620,6 +58528,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -57170,6 +59080,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateInput = {
@@ -57204,6 +59115,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUpdateInput = {
@@ -57238,6 +59150,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateInput = {
@@ -57272,6 +59185,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreCreateManyInput = {
@@ -57661,6 +59575,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -57704,6 +59620,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -57737,6 +59655,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -57780,6 +59700,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -57818,6 +59740,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -57840,6 +59764,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -57867,6 +59793,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -58365,6 +60293,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     store: StoreCreateNestedOneWithoutPurchasesInput
@@ -58396,6 +60326,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: PurchaseItemUncheckedCreateNestedManyWithoutPurchaseInput
@@ -58423,6 +60355,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutPurchasesNestedInput
@@ -58454,6 +60388,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: PurchaseItemUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -58483,6 +60419,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -58508,6 +60446,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -58535,6 +60475,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -59038,6 +60980,12 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutSalesInput
@@ -59046,6 +60994,7 @@ export namespace Prisma {
     items?: SaleItemCreateNestedManyWithoutSaleInput
     payments?: SalePaymentCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnCreateNestedManyWithoutSaleInput
+    reminders?: ReminderCreateNestedManyWithoutSaleInput
   }
 
   export type SaleUncheckedCreateInput = {
@@ -59071,11 +61020,18 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
     payments?: SalePaymentUncheckedCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutSaleInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutSaleInput
   }
 
   export type SaleUpdateInput = {
@@ -59098,6 +61054,12 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutSalesNestedInput
@@ -59106,6 +61068,7 @@ export namespace Prisma {
     items?: SaleItemUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUpdateManyWithoutSaleNestedInput
   }
 
   export type SaleUncheckedUpdateInput = {
@@ -59131,11 +61094,18 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUncheckedUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutSaleNestedInput
   }
 
   export type SaleCreateManyInput = {
@@ -59161,6 +61131,12 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -59185,6 +61161,12 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -59212,6 +61194,12 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -59704,6 +61692,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutSupplierInput
@@ -59732,6 +61722,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutSupplierInput
@@ -59758,6 +61750,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUpdateManyWithoutSupplierNestedInput
@@ -59786,6 +61780,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutSupplierNestedInput
@@ -59813,6 +61809,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -59834,6 +61832,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -59856,6 +61856,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -60013,6 +62015,136 @@ export namespace Prisma {
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
     storeId?: StringFieldUpdateOperationsInput | string
     roleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReminderCreateInput = {
+    id?: string
+    drugName: string
+    reminderDate: Date | string
+    reminderTime: string
+    timesPerDay?: number
+    mealTiming?: string | null
+    dosageInstructions?: string | null
+    notes?: string | null
+    status?: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutRemindersInput
+    sale?: SaleCreateNestedOneWithoutRemindersInput
+    store: StoreCreateNestedOneWithoutRemindersInput
+  }
+
+  export type ReminderUncheckedCreateInput = {
+    id?: string
+    storeId: string
+    customerId: string
+    saleId?: string | null
+    drugName: string
+    reminderDate: Date | string
+    reminderTime: string
+    timesPerDay?: number
+    mealTiming?: string | null
+    dosageInstructions?: string | null
+    notes?: string | null
+    status?: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReminderUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutRemindersNestedInput
+    sale?: SaleUpdateOneWithoutRemindersNestedInput
+    store?: StoreUpdateOneRequiredWithoutRemindersNestedInput
+  }
+
+  export type ReminderUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    saleId?: NullableStringFieldUpdateOperationsInput | string | null
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReminderCreateManyInput = {
+    id?: string
+    storeId: string
+    customerId: string
+    saleId?: string | null
+    drugName: string
+    reminderDate: Date | string
+    reminderTime: string
+    timesPerDay?: number
+    mealTiming?: string | null
+    dosageInstructions?: string | null
+    notes?: string | null
+    status?: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReminderUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReminderUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    saleId?: NullableStringFieldUpdateOperationsInput | string | null
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -60576,6 +62708,17 @@ export namespace Prisma {
     not?: NestedEnumCustomerStatusFilter<$PrismaModel> | $Enums.CustomerStatus
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type LedgerEntryListRelationFilter = {
     every?: LedgerEntryWhereInput
     some?: LedgerEntryWhereInput
@@ -60612,6 +62755,12 @@ export namespace Prisma {
     none?: CustomerLedgerShareWhereInput
   }
 
+  export type ReminderListRelationFilter = {
+    every?: ReminderWhereInput
+    some?: ReminderWhereInput
+    none?: ReminderWhereInput
+  }
+
   export type LedgerEntryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -60636,6 +62785,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type ReminderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CustomerCountOrderByAggregateInput = {
     id?: SortOrder
     storeId?: SortOrder
@@ -60652,6 +62805,8 @@ export namespace Prisma {
     creditDays?: SortOrder
     openingBalance?: SortOrder
     status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -60678,6 +62833,8 @@ export namespace Prisma {
     creditDays?: SortOrder
     openingBalance?: SortOrder
     status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -60698,6 +62855,8 @@ export namespace Prisma {
     creditDays?: SortOrder
     openingBalance?: SortOrder
     status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -60734,7 +62893,7 @@ export namespace Prisma {
     _max?: NestedEnumCustomerStatusFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -60742,7 +62901,10 @@ export namespace Prisma {
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type CustomerScalarRelationFilter = {
@@ -60778,20 +62940,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     expiresAt?: SortOrder
     revokedAt?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type ProductBatchScalarRelationFilter = {
@@ -61626,6 +63774,8 @@ export namespace Prisma {
     baseUnitId?: SortOrder
     minimumStock?: SortOrder
     reorderLevel?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -61660,6 +63810,8 @@ export namespace Prisma {
     baseUnitId?: SortOrder
     minimumStock?: SortOrder
     reorderLevel?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -61687,6 +63839,8 @@ export namespace Prisma {
     baseUnitId?: SortOrder
     minimumStock?: SortOrder
     reorderLevel?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -62064,6 +64218,8 @@ export namespace Prisma {
     paidAmount?: SortOrder
     dueAmount?: SortOrder
     notes?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -62105,6 +64261,8 @@ export namespace Prisma {
     paidAmount?: SortOrder
     dueAmount?: SortOrder
     notes?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -62132,6 +64290,8 @@ export namespace Prisma {
     paidAmount?: SortOrder
     dueAmount?: SortOrder
     notes?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -62553,6 +64713,12 @@ export namespace Prisma {
     dueDate?: SortOrder
     notes?: SortOrder
     prescriptions?: SortOrder
+    isAyushman?: SortOrder
+    ayushmanCardNo?: SortOrder
+    beneficiaryId?: SortOrder
+    claimStatus?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -62592,6 +64758,12 @@ export namespace Prisma {
     doctor?: SortOrder
     dueDate?: SortOrder
     notes?: SortOrder
+    isAyushman?: SortOrder
+    ayushmanCardNo?: SortOrder
+    beneficiaryId?: SortOrder
+    claimStatus?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -62618,6 +64790,12 @@ export namespace Prisma {
     doctor?: SortOrder
     dueDate?: SortOrder
     notes?: SortOrder
+    isAyushman?: SortOrder
+    ayushmanCardNo?: SortOrder
+    beneficiaryId?: SortOrder
+    claimStatus?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -62996,6 +65174,8 @@ export namespace Prisma {
     creditDays?: SortOrder
     openingBalance?: SortOrder
     status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -63024,6 +65204,8 @@ export namespace Prisma {
     creditDays?: SortOrder
     openingBalance?: SortOrder
     status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -63046,6 +65228,8 @@ export namespace Prisma {
     creditDays?: SortOrder
     openingBalance?: SortOrder
     status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -63149,6 +65333,71 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserStatusFilter<$PrismaModel>
     _max?: NestedEnumUserStatusFilter<$PrismaModel>
+  }
+
+  export type ReminderCountOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    customerId?: SortOrder
+    saleId?: SortOrder
+    drugName?: SortOrder
+    reminderDate?: SortOrder
+    reminderTime?: SortOrder
+    timesPerDay?: SortOrder
+    mealTiming?: SortOrder
+    dosageInstructions?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReminderAvgOrderByAggregateInput = {
+    timesPerDay?: SortOrder
+  }
+
+  export type ReminderMaxOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    customerId?: SortOrder
+    saleId?: SortOrder
+    drugName?: SortOrder
+    reminderDate?: SortOrder
+    reminderTime?: SortOrder
+    timesPerDay?: SortOrder
+    mealTiming?: SortOrder
+    dosageInstructions?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReminderMinOrderByAggregateInput = {
+    id?: SortOrder
+    storeId?: SortOrder
+    customerId?: SortOrder
+    saleId?: SortOrder
+    drugName?: SortOrder
+    reminderDate?: SortOrder
+    reminderTime?: SortOrder
+    timesPerDay?: SortOrder
+    mealTiming?: SortOrder
+    dosageInstructions?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    isDeleted?: SortOrder
+    deletedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ReminderSumOrderByAggregateInput = {
+    timesPerDay?: SortOrder
   }
 
   export type CustomerCreateNestedOneWithoutLedgerEntriesInput = {
@@ -63575,6 +65824,13 @@ export namespace Prisma {
     connect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
   }
 
+  export type ReminderCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<ReminderCreateWithoutCustomerInput, ReminderUncheckedCreateWithoutCustomerInput> | ReminderCreateWithoutCustomerInput[] | ReminderUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutCustomerInput | ReminderCreateOrConnectWithoutCustomerInput[]
+    createMany?: ReminderCreateManyCustomerInputEnvelope
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+  }
+
   export type LedgerEntryUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<LedgerEntryCreateWithoutCustomerInput, LedgerEntryUncheckedCreateWithoutCustomerInput> | LedgerEntryCreateWithoutCustomerInput[] | LedgerEntryUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: LedgerEntryCreateOrConnectWithoutCustomerInput | LedgerEntryCreateOrConnectWithoutCustomerInput[]
@@ -63617,6 +65873,13 @@ export namespace Prisma {
     connect?: CustomerLedgerShareWhereUniqueInput | CustomerLedgerShareWhereUniqueInput[]
   }
 
+  export type ReminderUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<ReminderCreateWithoutCustomerInput, ReminderUncheckedCreateWithoutCustomerInput> | ReminderCreateWithoutCustomerInput[] | ReminderUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutCustomerInput | ReminderCreateOrConnectWithoutCustomerInput[]
+    createMany?: ReminderCreateManyCustomerInputEnvelope
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -63627,6 +65890,10 @@ export namespace Prisma {
 
   export type EnumCustomerStatusFieldUpdateOperationsInput = {
     set?: $Enums.CustomerStatus
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type StoreUpdateOneRequiredWithoutCustomersNestedInput = {
@@ -63721,6 +65988,20 @@ export namespace Prisma {
     deleteMany?: CustomerLedgerShareScalarWhereInput | CustomerLedgerShareScalarWhereInput[]
   }
 
+  export type ReminderUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<ReminderCreateWithoutCustomerInput, ReminderUncheckedCreateWithoutCustomerInput> | ReminderCreateWithoutCustomerInput[] | ReminderUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutCustomerInput | ReminderCreateOrConnectWithoutCustomerInput[]
+    upsert?: ReminderUpsertWithWhereUniqueWithoutCustomerInput | ReminderUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: ReminderCreateManyCustomerInputEnvelope
+    set?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    disconnect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    delete?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    update?: ReminderUpdateWithWhereUniqueWithoutCustomerInput | ReminderUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: ReminderUpdateManyWithWhereWithoutCustomerInput | ReminderUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
+  }
+
   export type LedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput = {
     create?: XOR<LedgerEntryCreateWithoutCustomerInput, LedgerEntryUncheckedCreateWithoutCustomerInput> | LedgerEntryCreateWithoutCustomerInput[] | LedgerEntryUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: LedgerEntryCreateOrConnectWithoutCustomerInput | LedgerEntryCreateOrConnectWithoutCustomerInput[]
@@ -63805,6 +66086,20 @@ export namespace Prisma {
     deleteMany?: CustomerLedgerShareScalarWhereInput | CustomerLedgerShareScalarWhereInput[]
   }
 
+  export type ReminderUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<ReminderCreateWithoutCustomerInput, ReminderUncheckedCreateWithoutCustomerInput> | ReminderCreateWithoutCustomerInput[] | ReminderUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutCustomerInput | ReminderCreateOrConnectWithoutCustomerInput[]
+    upsert?: ReminderUpsertWithWhereUniqueWithoutCustomerInput | ReminderUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: ReminderCreateManyCustomerInputEnvelope
+    set?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    disconnect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    delete?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    update?: ReminderUpdateWithWhereUniqueWithoutCustomerInput | ReminderUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: ReminderUpdateManyWithWhereWithoutCustomerInput | ReminderUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
+  }
+
   export type CustomerCreateNestedOneWithoutLedgerSharesInput = {
     create?: XOR<CustomerCreateWithoutLedgerSharesInput, CustomerUncheckedCreateWithoutLedgerSharesInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutLedgerSharesInput
@@ -63815,10 +66110,6 @@ export namespace Prisma {
     create?: XOR<StoreCreateWithoutLedgerSharesInput, StoreUncheckedCreateWithoutLedgerSharesInput>
     connectOrCreate?: StoreCreateOrConnectWithoutLedgerSharesInput
     connect?: StoreWhereUniqueInput
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type CustomerUpdateOneRequiredWithoutLedgerSharesNestedInput = {
@@ -64213,6 +66504,13 @@ export namespace Prisma {
     connect?: InventoryAuditWhereUniqueInput | InventoryAuditWhereUniqueInput[]
   }
 
+  export type ReminderCreateNestedManyWithoutStoreInput = {
+    create?: XOR<ReminderCreateWithoutStoreInput, ReminderUncheckedCreateWithoutStoreInput> | ReminderCreateWithoutStoreInput[] | ReminderUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutStoreInput | ReminderCreateOrConnectWithoutStoreInput[]
+    createMany?: ReminderCreateManyStoreInputEnvelope
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutStoreInput = {
     create?: XOR<AuditLogCreateWithoutStoreInput, AuditLogUncheckedCreateWithoutStoreInput> | AuditLogCreateWithoutStoreInput[] | AuditLogUncheckedCreateWithoutStoreInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutStoreInput | AuditLogCreateOrConnectWithoutStoreInput[]
@@ -64337,6 +66635,13 @@ export namespace Prisma {
     connectOrCreate?: InventoryAuditCreateOrConnectWithoutStoreInput | InventoryAuditCreateOrConnectWithoutStoreInput[]
     createMany?: InventoryAuditCreateManyStoreInputEnvelope
     connect?: InventoryAuditWhereUniqueInput | InventoryAuditWhereUniqueInput[]
+  }
+
+  export type ReminderUncheckedCreateNestedManyWithoutStoreInput = {
+    create?: XOR<ReminderCreateWithoutStoreInput, ReminderUncheckedCreateWithoutStoreInput> | ReminderCreateWithoutStoreInput[] | ReminderUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutStoreInput | ReminderCreateOrConnectWithoutStoreInput[]
+    createMany?: ReminderCreateManyStoreInputEnvelope
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
   }
 
   export type AuditLogUpdateManyWithoutStoreNestedInput = {
@@ -64591,6 +66896,20 @@ export namespace Prisma {
     deleteMany?: InventoryAuditScalarWhereInput | InventoryAuditScalarWhereInput[]
   }
 
+  export type ReminderUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<ReminderCreateWithoutStoreInput, ReminderUncheckedCreateWithoutStoreInput> | ReminderCreateWithoutStoreInput[] | ReminderUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutStoreInput | ReminderCreateOrConnectWithoutStoreInput[]
+    upsert?: ReminderUpsertWithWhereUniqueWithoutStoreInput | ReminderUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: ReminderCreateManyStoreInputEnvelope
+    set?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    disconnect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    delete?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    update?: ReminderUpdateWithWhereUniqueWithoutStoreInput | ReminderUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: ReminderUpdateManyWithWhereWithoutStoreInput | ReminderUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutStoreNestedInput = {
     create?: XOR<AuditLogCreateWithoutStoreInput, AuditLogUncheckedCreateWithoutStoreInput> | AuditLogCreateWithoutStoreInput[] | AuditLogUncheckedCreateWithoutStoreInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutStoreInput | AuditLogCreateOrConnectWithoutStoreInput[]
@@ -64841,6 +67160,20 @@ export namespace Prisma {
     update?: InventoryAuditUpdateWithWhereUniqueWithoutStoreInput | InventoryAuditUpdateWithWhereUniqueWithoutStoreInput[]
     updateMany?: InventoryAuditUpdateManyWithWhereWithoutStoreInput | InventoryAuditUpdateManyWithWhereWithoutStoreInput[]
     deleteMany?: InventoryAuditScalarWhereInput | InventoryAuditScalarWhereInput[]
+  }
+
+  export type ReminderUncheckedUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<ReminderCreateWithoutStoreInput, ReminderUncheckedCreateWithoutStoreInput> | ReminderCreateWithoutStoreInput[] | ReminderUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutStoreInput | ReminderCreateOrConnectWithoutStoreInput[]
+    upsert?: ReminderUpsertWithWhereUniqueWithoutStoreInput | ReminderUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: ReminderCreateManyStoreInputEnvelope
+    set?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    disconnect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    delete?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    update?: ReminderUpdateWithWhereUniqueWithoutStoreInput | ReminderUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: ReminderUpdateManyWithWhereWithoutStoreInput | ReminderUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
   }
 
   export type StoreCreateNestedOneWithoutDoctorsInput = {
@@ -66670,6 +69003,13 @@ export namespace Prisma {
     connect?: SalesReturnWhereUniqueInput | SalesReturnWhereUniqueInput[]
   }
 
+  export type ReminderCreateNestedManyWithoutSaleInput = {
+    create?: XOR<ReminderCreateWithoutSaleInput, ReminderUncheckedCreateWithoutSaleInput> | ReminderCreateWithoutSaleInput[] | ReminderUncheckedCreateWithoutSaleInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutSaleInput | ReminderCreateOrConnectWithoutSaleInput[]
+    createMany?: ReminderCreateManySaleInputEnvelope
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+  }
+
   export type SaleItemUncheckedCreateNestedManyWithoutSaleInput = {
     create?: XOR<SaleItemCreateWithoutSaleInput, SaleItemUncheckedCreateWithoutSaleInput> | SaleItemCreateWithoutSaleInput[] | SaleItemUncheckedCreateWithoutSaleInput[]
     connectOrCreate?: SaleItemCreateOrConnectWithoutSaleInput | SaleItemCreateOrConnectWithoutSaleInput[]
@@ -66689,6 +69029,13 @@ export namespace Prisma {
     connectOrCreate?: SalesReturnCreateOrConnectWithoutSaleInput | SalesReturnCreateOrConnectWithoutSaleInput[]
     createMany?: SalesReturnCreateManySaleInputEnvelope
     connect?: SalesReturnWhereUniqueInput | SalesReturnWhereUniqueInput[]
+  }
+
+  export type ReminderUncheckedCreateNestedManyWithoutSaleInput = {
+    create?: XOR<ReminderCreateWithoutSaleInput, ReminderUncheckedCreateWithoutSaleInput> | ReminderCreateWithoutSaleInput[] | ReminderUncheckedCreateWithoutSaleInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutSaleInput | ReminderCreateOrConnectWithoutSaleInput[]
+    createMany?: ReminderCreateManySaleInputEnvelope
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
   }
 
   export type EnumSaleStatusFieldUpdateOperationsInput = {
@@ -66774,6 +69121,20 @@ export namespace Prisma {
     deleteMany?: SalesReturnScalarWhereInput | SalesReturnScalarWhereInput[]
   }
 
+  export type ReminderUpdateManyWithoutSaleNestedInput = {
+    create?: XOR<ReminderCreateWithoutSaleInput, ReminderUncheckedCreateWithoutSaleInput> | ReminderCreateWithoutSaleInput[] | ReminderUncheckedCreateWithoutSaleInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutSaleInput | ReminderCreateOrConnectWithoutSaleInput[]
+    upsert?: ReminderUpsertWithWhereUniqueWithoutSaleInput | ReminderUpsertWithWhereUniqueWithoutSaleInput[]
+    createMany?: ReminderCreateManySaleInputEnvelope
+    set?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    disconnect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    delete?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    update?: ReminderUpdateWithWhereUniqueWithoutSaleInput | ReminderUpdateWithWhereUniqueWithoutSaleInput[]
+    updateMany?: ReminderUpdateManyWithWhereWithoutSaleInput | ReminderUpdateManyWithWhereWithoutSaleInput[]
+    deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
+  }
+
   export type SaleItemUncheckedUpdateManyWithoutSaleNestedInput = {
     create?: XOR<SaleItemCreateWithoutSaleInput, SaleItemUncheckedCreateWithoutSaleInput> | SaleItemCreateWithoutSaleInput[] | SaleItemUncheckedCreateWithoutSaleInput[]
     connectOrCreate?: SaleItemCreateOrConnectWithoutSaleInput | SaleItemCreateOrConnectWithoutSaleInput[]
@@ -66814,6 +69175,20 @@ export namespace Prisma {
     update?: SalesReturnUpdateWithWhereUniqueWithoutSaleInput | SalesReturnUpdateWithWhereUniqueWithoutSaleInput[]
     updateMany?: SalesReturnUpdateManyWithWhereWithoutSaleInput | SalesReturnUpdateManyWithWhereWithoutSaleInput[]
     deleteMany?: SalesReturnScalarWhereInput | SalesReturnScalarWhereInput[]
+  }
+
+  export type ReminderUncheckedUpdateManyWithoutSaleNestedInput = {
+    create?: XOR<ReminderCreateWithoutSaleInput, ReminderUncheckedCreateWithoutSaleInput> | ReminderCreateWithoutSaleInput[] | ReminderUncheckedCreateWithoutSaleInput[]
+    connectOrCreate?: ReminderCreateOrConnectWithoutSaleInput | ReminderCreateOrConnectWithoutSaleInput[]
+    upsert?: ReminderUpsertWithWhereUniqueWithoutSaleInput | ReminderUpsertWithWhereUniqueWithoutSaleInput[]
+    createMany?: ReminderCreateManySaleInputEnvelope
+    set?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    disconnect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    delete?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    connect?: ReminderWhereUniqueInput | ReminderWhereUniqueInput[]
+    update?: ReminderUpdateWithWhereUniqueWithoutSaleInput | ReminderUpdateWithWhereUniqueWithoutSaleInput[]
+    updateMany?: ReminderUpdateManyWithWhereWithoutSaleInput | ReminderUpdateManyWithWhereWithoutSaleInput[]
+    deleteMany?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
   }
 
   export type ProductBatchCreateNestedOneWithoutSaleItemsInput = {
@@ -67482,6 +69857,50 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
+  export type CustomerCreateNestedOneWithoutRemindersInput = {
+    create?: XOR<CustomerCreateWithoutRemindersInput, CustomerUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutRemindersInput
+    connect?: CustomerWhereUniqueInput
+  }
+
+  export type SaleCreateNestedOneWithoutRemindersInput = {
+    create?: XOR<SaleCreateWithoutRemindersInput, SaleUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: SaleCreateOrConnectWithoutRemindersInput
+    connect?: SaleWhereUniqueInput
+  }
+
+  export type StoreCreateNestedOneWithoutRemindersInput = {
+    create?: XOR<StoreCreateWithoutRemindersInput, StoreUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutRemindersInput
+    connect?: StoreWhereUniqueInput
+  }
+
+  export type CustomerUpdateOneRequiredWithoutRemindersNestedInput = {
+    create?: XOR<CustomerCreateWithoutRemindersInput, CustomerUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutRemindersInput
+    upsert?: CustomerUpsertWithoutRemindersInput
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutRemindersInput, CustomerUpdateWithoutRemindersInput>, CustomerUncheckedUpdateWithoutRemindersInput>
+  }
+
+  export type SaleUpdateOneWithoutRemindersNestedInput = {
+    create?: XOR<SaleCreateWithoutRemindersInput, SaleUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: SaleCreateOrConnectWithoutRemindersInput
+    upsert?: SaleUpsertWithoutRemindersInput
+    disconnect?: SaleWhereInput | boolean
+    delete?: SaleWhereInput | boolean
+    connect?: SaleWhereUniqueInput
+    update?: XOR<XOR<SaleUpdateToOneWithWhereWithoutRemindersInput, SaleUpdateWithoutRemindersInput>, SaleUncheckedUpdateWithoutRemindersInput>
+  }
+
+  export type StoreUpdateOneRequiredWithoutRemindersNestedInput = {
+    create?: XOR<StoreCreateWithoutRemindersInput, StoreUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutRemindersInput
+    upsert?: StoreUpsertWithoutRemindersInput
+    connect?: StoreWhereUniqueInput
+    update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutRemindersInput, StoreUpdateWithoutRemindersInput>, StoreUncheckedUpdateWithoutRemindersInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -67746,6 +70165,17 @@ export namespace Prisma {
     not?: NestedEnumCustomerStatusFilter<$PrismaModel> | $Enums.CustomerStatus
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -67781,17 +70211,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumCustomerStatusFilter<$PrismaModel>
     _max?: NestedEnumCustomerStatusFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -68132,6 +70551,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     store: StoreCreateNestedOneWithoutCustomersInput
@@ -68140,6 +70561,7 @@ export namespace Prisma {
     sales?: SaleCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutLedgerEntriesInput = {
@@ -68158,6 +70580,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payments?: PaymentUncheckedCreateNestedManyWithoutCustomerInput
@@ -68165,6 +70589,7 @@ export namespace Prisma {
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutLedgerEntriesInput = {
@@ -68203,6 +70628,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutLedgerEntriesInput = {
@@ -68236,6 +70662,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutLedgerEntriesInput = {
@@ -68260,6 +70687,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payments?: PaymentCreateNestedManyWithoutSupplierInput
@@ -68287,6 +70716,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payments?: PaymentUncheckedCreateNestedManyWithoutSupplierInput
@@ -68326,6 +70757,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutCustomersNestedInput
@@ -68334,6 +70767,7 @@ export namespace Prisma {
     sales?: SaleUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutLedgerEntriesInput = {
@@ -68352,6 +70786,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payments?: PaymentUncheckedUpdateManyWithoutCustomerNestedInput
@@ -68359,6 +70795,7 @@ export namespace Prisma {
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type StoreUpsertWithoutLedgerEntriesInput = {
@@ -68403,6 +70840,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutLedgerEntriesInput = {
@@ -68436,6 +70874,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SupplierUpsertWithoutLedgerEntriesInput = {
@@ -68466,6 +70905,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payments?: PaymentUpdateManyWithoutSupplierNestedInput
@@ -68493,6 +70934,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payments?: PaymentUncheckedUpdateManyWithoutSupplierNestedInput
@@ -68516,6 +70959,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     store: StoreCreateNestedOneWithoutCustomersInput
@@ -68524,6 +70969,7 @@ export namespace Prisma {
     sales?: SaleCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutPaymentsInput = {
@@ -68542,6 +70988,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
@@ -68549,6 +70997,7 @@ export namespace Prisma {
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutPaymentsInput = {
@@ -68587,6 +71036,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutPaymentsInput = {
@@ -68620,6 +71070,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutPaymentsInput = {
@@ -68644,6 +71095,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutSupplierInput
@@ -68671,6 +71124,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutSupplierInput
@@ -68710,6 +71165,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutCustomersNestedInput
@@ -68718,6 +71175,7 @@ export namespace Prisma {
     sales?: SaleUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutPaymentsInput = {
@@ -68736,6 +71194,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
@@ -68743,6 +71203,7 @@ export namespace Prisma {
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type StoreUpsertWithoutPaymentsInput = {
@@ -68787,6 +71248,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutPaymentsInput = {
@@ -68820,6 +71282,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SupplierUpsertWithoutPaymentsInput = {
@@ -68850,6 +71313,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUpdateManyWithoutSupplierNestedInput
@@ -68877,6 +71342,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutSupplierNestedInput
@@ -68916,6 +71383,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutAuditLogsInput = {
@@ -68949,6 +71417,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutAuditLogsInput = {
@@ -69031,6 +71500,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutAuditLogsInput = {
@@ -69064,6 +71534,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type UserUpsertWithoutAuditLogsInput = {
@@ -69123,6 +71594,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -69164,6 +71637,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -69231,6 +71706,8 @@ export namespace Prisma {
     baseUnitId?: StringFilter<"Product"> | string
     minimumStock?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFilter<"Product"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Product"> | Date | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
   }
@@ -69253,6 +71730,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -69294,6 +71773,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -69353,6 +71834,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -69394,6 +71877,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -69437,6 +71922,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -69478,6 +71965,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -69649,6 +72138,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutCustomersInput = {
@@ -69682,6 +72172,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutCustomersInput = {
@@ -69825,6 +72316,12 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     doctorRel?: DoctorCreateNestedOneWithoutSalesInput
@@ -69832,6 +72329,7 @@ export namespace Prisma {
     items?: SaleItemCreateNestedManyWithoutSaleInput
     payments?: SalePaymentCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnCreateNestedManyWithoutSaleInput
+    reminders?: ReminderCreateNestedManyWithoutSaleInput
   }
 
   export type SaleUncheckedCreateWithoutCustomerInput = {
@@ -69856,11 +72354,18 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
     payments?: SalePaymentUncheckedCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutSaleInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutSaleInput
   }
 
   export type SaleCreateOrConnectWithoutCustomerInput = {
@@ -69945,6 +72450,52 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ReminderCreateWithoutCustomerInput = {
+    id?: string
+    drugName: string
+    reminderDate: Date | string
+    reminderTime: string
+    timesPerDay?: number
+    mealTiming?: string | null
+    dosageInstructions?: string | null
+    notes?: string | null
+    status?: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sale?: SaleCreateNestedOneWithoutRemindersInput
+    store: StoreCreateNestedOneWithoutRemindersInput
+  }
+
+  export type ReminderUncheckedCreateWithoutCustomerInput = {
+    id?: string
+    storeId: string
+    saleId?: string | null
+    drugName: string
+    reminderDate: Date | string
+    reminderTime: string
+    timesPerDay?: number
+    mealTiming?: string | null
+    dosageInstructions?: string | null
+    notes?: string | null
+    status?: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReminderCreateOrConnectWithoutCustomerInput = {
+    where: ReminderWhereUniqueInput
+    create: XOR<ReminderCreateWithoutCustomerInput, ReminderUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type ReminderCreateManyCustomerInputEnvelope = {
+    data: ReminderCreateManyCustomerInput | ReminderCreateManyCustomerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type StoreUpsertWithoutCustomersInput = {
     update: XOR<StoreUpdateWithoutCustomersInput, StoreUncheckedUpdateWithoutCustomersInput>
     create: XOR<StoreCreateWithoutCustomersInput, StoreUncheckedCreateWithoutCustomersInput>
@@ -69987,6 +72538,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutCustomersInput = {
@@ -70020,6 +72572,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type LedgerEntryUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -70166,6 +72719,12 @@ export namespace Prisma {
     dueDate?: DateTimeNullableFilter<"Sale"> | Date | string | null
     notes?: StringNullableFilter<"Sale"> | string | null
     prescriptions?: StringNullableListFilter<"Sale">
+    isAyushman?: BoolFilter<"Sale"> | boolean
+    ayushmanCardNo?: StringNullableFilter<"Sale"> | string | null
+    beneficiaryId?: StringNullableFilter<"Sale"> | string | null
+    claimStatus?: StringNullableFilter<"Sale"> | string | null
+    isDeleted?: BoolFilter<"Sale"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Sale"> | Date | string | null
     createdAt?: DateTimeFilter<"Sale"> | Date | string
     updatedAt?: DateTimeFilter<"Sale"> | Date | string
   }
@@ -70235,6 +72794,44 @@ export namespace Prisma {
     revokedAt?: DateTimeNullableFilter<"CustomerLedgerShare"> | Date | string | null
   }
 
+  export type ReminderUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: ReminderWhereUniqueInput
+    update: XOR<ReminderUpdateWithoutCustomerInput, ReminderUncheckedUpdateWithoutCustomerInput>
+    create: XOR<ReminderCreateWithoutCustomerInput, ReminderUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type ReminderUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: ReminderWhereUniqueInput
+    data: XOR<ReminderUpdateWithoutCustomerInput, ReminderUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type ReminderUpdateManyWithWhereWithoutCustomerInput = {
+    where: ReminderScalarWhereInput
+    data: XOR<ReminderUpdateManyMutationInput, ReminderUncheckedUpdateManyWithoutCustomerInput>
+  }
+
+  export type ReminderScalarWhereInput = {
+    AND?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
+    OR?: ReminderScalarWhereInput[]
+    NOT?: ReminderScalarWhereInput | ReminderScalarWhereInput[]
+    id?: StringFilter<"Reminder"> | string
+    storeId?: StringFilter<"Reminder"> | string
+    customerId?: StringFilter<"Reminder"> | string
+    saleId?: StringNullableFilter<"Reminder"> | string | null
+    drugName?: StringFilter<"Reminder"> | string
+    reminderDate?: DateTimeFilter<"Reminder"> | Date | string
+    reminderTime?: StringFilter<"Reminder"> | string
+    timesPerDay?: IntFilter<"Reminder"> | number
+    mealTiming?: StringNullableFilter<"Reminder"> | string | null
+    dosageInstructions?: StringNullableFilter<"Reminder"> | string | null
+    notes?: StringNullableFilter<"Reminder"> | string | null
+    status?: StringFilter<"Reminder"> | string
+    isDeleted?: BoolFilter<"Reminder"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Reminder"> | Date | string | null
+    createdAt?: DateTimeFilter<"Reminder"> | Date | string
+    updatedAt?: DateTimeFilter<"Reminder"> | Date | string
+  }
+
   export type CustomerCreateWithoutLedgerSharesInput = {
     id?: string
     name: string
@@ -70250,6 +72847,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     store: StoreCreateNestedOneWithoutCustomersInput
@@ -70258,6 +72857,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionCreateNestedManyWithoutCustomerInput
     sales?: SaleCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutLedgerSharesInput = {
@@ -70276,6 +72876,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
@@ -70283,6 +72885,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutCustomerInput
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutLedgerSharesInput = {
@@ -70321,6 +72924,7 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutStoreInput
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutLedgerSharesInput = {
@@ -70354,6 +72958,7 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutLedgerSharesInput = {
@@ -70387,6 +72992,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutCustomersNestedInput
@@ -70395,6 +73002,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUpdateManyWithoutCustomerNestedInput
     sales?: SaleUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutLedgerSharesInput = {
@@ -70413,6 +73021,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
@@ -70420,6 +73030,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutCustomerNestedInput
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type StoreUpsertWithoutLedgerSharesInput = {
@@ -70464,6 +73075,7 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutStoreNestedInput
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutLedgerSharesInput = {
@@ -70497,6 +73109,7 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type ProductBatchCreateWithoutStocksInput = {
@@ -70566,6 +73179,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -70608,6 +73223,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -70658,6 +73275,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutStocksInput = {
@@ -70691,6 +73309,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutStocksInput = {
@@ -70828,6 +73447,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -70870,6 +73491,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -70926,6 +73549,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutStocksInput = {
@@ -70959,6 +73583,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type StockMovementUpsertWithWhereUniqueWithoutStockInput = {
@@ -71090,6 +73715,7 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutStoreInput
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutInventoryAuditsInput = {
@@ -71123,6 +73749,7 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutInventoryAuditsInput = {
@@ -71200,6 +73827,7 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutStoreNestedInput
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutInventoryAuditsInput = {
@@ -71233,6 +73861,7 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type InventoryAuditItemUpsertWithWhereUniqueWithoutAuditInput = {
@@ -71309,6 +73938,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -71351,6 +73982,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -71481,6 +74114,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -71523,6 +74158,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -71623,6 +74260,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutNotificationsInput = {
@@ -71656,6 +74294,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutNotificationsInput = {
@@ -71738,6 +74377,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutNotificationsInput = {
@@ -71771,6 +74411,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type UserUpsertWithoutNotificationsInput = {
@@ -71863,6 +74504,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutCustomerInput
@@ -71871,6 +74514,7 @@ export namespace Prisma {
     sales?: SaleCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutStoreInput = {
@@ -71888,6 +74532,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
@@ -71896,6 +74542,7 @@ export namespace Prisma {
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutStoreInput = {
@@ -72076,6 +74723,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -72117,6 +74766,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -72217,6 +74868,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     supplier: SupplierCreateNestedOneWithoutPurchasesInput
@@ -72246,6 +74899,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: PurchaseItemUncheckedCreateNestedManyWithoutPurchaseInput
@@ -72324,6 +74979,12 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutSalesInput
@@ -72331,6 +74992,7 @@ export namespace Prisma {
     items?: SaleItemCreateNestedManyWithoutSaleInput
     payments?: SalePaymentCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnCreateNestedManyWithoutSaleInput
+    reminders?: ReminderCreateNestedManyWithoutSaleInput
   }
 
   export type SaleUncheckedCreateWithoutStoreInput = {
@@ -72355,11 +75017,18 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
     payments?: SalePaymentUncheckedCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutSaleInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutSaleInput
   }
 
   export type SaleCreateOrConnectWithoutStoreInput = {
@@ -72465,6 +75134,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutSupplierInput
@@ -72491,6 +75162,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutSupplierInput
@@ -72652,6 +75325,52 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ReminderCreateWithoutStoreInput = {
+    id?: string
+    drugName: string
+    reminderDate: Date | string
+    reminderTime: string
+    timesPerDay?: number
+    mealTiming?: string | null
+    dosageInstructions?: string | null
+    notes?: string | null
+    status?: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutRemindersInput
+    sale?: SaleCreateNestedOneWithoutRemindersInput
+  }
+
+  export type ReminderUncheckedCreateWithoutStoreInput = {
+    id?: string
+    customerId: string
+    saleId?: string | null
+    drugName: string
+    reminderDate: Date | string
+    reminderTime: string
+    timesPerDay?: number
+    mealTiming?: string | null
+    dosageInstructions?: string | null
+    notes?: string | null
+    status?: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReminderCreateOrConnectWithoutStoreInput = {
+    where: ReminderWhereUniqueInput
+    create: XOR<ReminderCreateWithoutStoreInput, ReminderUncheckedCreateWithoutStoreInput>
+  }
+
+  export type ReminderCreateManyStoreInputEnvelope = {
+    data: ReminderCreateManyStoreInput | ReminderCreateManyStoreInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AuditLogUpsertWithWhereUniqueWithoutStoreInput = {
     where: AuditLogWhereUniqueInput
     update: XOR<AuditLogUpdateWithoutStoreInput, AuditLogUncheckedUpdateWithoutStoreInput>
@@ -72720,6 +75439,8 @@ export namespace Prisma {
     creditDays?: IntFilter<"Customer"> | number
     openingBalance?: DecimalFilter<"Customer"> | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFilter<"Customer"> | $Enums.CustomerStatus
+    isDeleted?: BoolFilter<"Customer"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Customer"> | Date | string | null
     createdAt?: DateTimeFilter<"Customer"> | Date | string
     updatedAt?: DateTimeFilter<"Customer"> | Date | string
   }
@@ -72897,6 +75618,8 @@ export namespace Prisma {
     paidAmount?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFilter<"Purchase"> | Decimal | DecimalJsLike | number | string
     notes?: StringNullableFilter<"Purchase"> | string | null
+    isDeleted?: BoolFilter<"Purchase"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Purchase"> | Date | string | null
     createdAt?: DateTimeFilter<"Purchase"> | Date | string
     updatedAt?: DateTimeFilter<"Purchase"> | Date | string
   }
@@ -73035,6 +75758,8 @@ export namespace Prisma {
     creditDays?: IntFilter<"Supplier"> | number
     openingBalance?: DecimalFilter<"Supplier"> | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFilter<"Supplier"> | $Enums.SupplierStatus
+    isDeleted?: BoolFilter<"Supplier"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Supplier"> | Date | string | null
     createdAt?: DateTimeFilter<"Supplier"> | Date | string
     updatedAt?: DateTimeFilter<"Supplier"> | Date | string
   }
@@ -73152,6 +75877,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"InventoryAudit"> | Date | string
   }
 
+  export type ReminderUpsertWithWhereUniqueWithoutStoreInput = {
+    where: ReminderWhereUniqueInput
+    update: XOR<ReminderUpdateWithoutStoreInput, ReminderUncheckedUpdateWithoutStoreInput>
+    create: XOR<ReminderCreateWithoutStoreInput, ReminderUncheckedCreateWithoutStoreInput>
+  }
+
+  export type ReminderUpdateWithWhereUniqueWithoutStoreInput = {
+    where: ReminderWhereUniqueInput
+    data: XOR<ReminderUpdateWithoutStoreInput, ReminderUncheckedUpdateWithoutStoreInput>
+  }
+
+  export type ReminderUpdateManyWithWhereWithoutStoreInput = {
+    where: ReminderScalarWhereInput
+    data: XOR<ReminderUpdateManyMutationInput, ReminderUncheckedUpdateManyWithoutStoreInput>
+  }
+
   export type StoreCreateWithoutDoctorsInput = {
     id?: string
     name: string
@@ -73183,6 +75924,7 @@ export namespace Prisma {
     users?: UserCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutDoctorsInput = {
@@ -73216,6 +75958,7 @@ export namespace Prisma {
     users?: UserUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutDoctorsInput = {
@@ -73243,6 +75986,12 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutSalesInput
@@ -73250,6 +75999,7 @@ export namespace Prisma {
     items?: SaleItemCreateNestedManyWithoutSaleInput
     payments?: SalePaymentCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnCreateNestedManyWithoutSaleInput
+    reminders?: ReminderCreateNestedManyWithoutSaleInput
   }
 
   export type SaleUncheckedCreateWithoutDoctorRelInput = {
@@ -73274,11 +76024,18 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
     payments?: SalePaymentUncheckedCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutSaleInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutSaleInput
   }
 
   export type SaleCreateOrConnectWithoutDoctorRelInput = {
@@ -73377,6 +76134,7 @@ export namespace Prisma {
     users?: UserUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutDoctorsInput = {
@@ -73410,6 +76168,7 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SaleUpsertWithWhereUniqueWithoutDoctorRelInput = {
@@ -73459,6 +76218,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     store: StoreCreateNestedOneWithoutCustomersInput
@@ -73467,6 +76228,7 @@ export namespace Prisma {
     sales?: SaleCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutPrescriptionsInput = {
@@ -73485,6 +76247,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
@@ -73492,6 +76256,7 @@ export namespace Prisma {
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutPrescriptionsInput = {
@@ -73569,6 +76334,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutPrescriptionsInput = {
@@ -73602,6 +76368,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutPrescriptionsInput = {
@@ -73667,6 +76434,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutCustomersNestedInput
@@ -73675,6 +76444,7 @@ export namespace Prisma {
     sales?: SaleUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutPrescriptionsInput = {
@@ -73693,6 +76463,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
@@ -73700,6 +76472,7 @@ export namespace Prisma {
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type DoctorUpsertWithoutPrescriptionsInput = {
@@ -73789,6 +76562,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutPrescriptionsInput = {
@@ -73822,6 +76596,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type PrescriptionItemUpsertWithWhereUniqueWithoutPrescriptionInput = {
@@ -73912,6 +76687,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     baseUnit: UnitCreateNestedOneWithoutBaseProductsInput
@@ -73954,6 +76731,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     batches?: ProductBatchUncheckedCreateNestedManyWithoutProductInput
@@ -74047,6 +76826,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     baseUnit?: UnitUpdateOneRequiredWithoutBaseProductsNestedInput
@@ -74089,6 +76870,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     batches?: ProductBatchUncheckedUpdateManyWithoutProductNestedInput
@@ -74247,6 +77030,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutProductsInput = {
@@ -74280,6 +77064,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutProductsInput = {
@@ -74897,6 +77682,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutProductsInput = {
@@ -74930,6 +77716,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type UnitUpsertWithoutStrengthProductsInput = {
@@ -75306,6 +78093,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -75348,6 +78137,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -75415,6 +78206,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -75457,6 +78250,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -75514,6 +78309,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -75556,6 +78353,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -75833,6 +78632,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -75875,6 +78676,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -76006,6 +78809,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -76048,6 +78853,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -76098,6 +78905,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutBatchesInput = {
@@ -76131,6 +78939,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutBatchesInput = {
@@ -76467,6 +79276,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -76509,6 +79320,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -76565,6 +79378,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutBatchesInput = {
@@ -76598,6 +79412,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type ProductSupplierUpsertWithWhereUniqueWithoutProductBatchInput = {
@@ -76779,6 +79594,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -76821,6 +79638,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -76857,6 +79676,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutSupplierInput
@@ -76884,6 +79705,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutSupplierInput
@@ -76981,6 +79804,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -77023,6 +79848,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -77065,6 +79892,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUpdateManyWithoutSupplierNestedInput
@@ -77092,6 +79921,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutSupplierNestedInput
@@ -77131,6 +79962,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutPurchasesInput = {
@@ -77164,6 +79996,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutPurchasesInput = {
@@ -77188,6 +80021,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutSupplierInput
@@ -77215,6 +80050,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutSupplierInput
@@ -77364,6 +80201,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutPurchasesInput = {
@@ -77397,6 +80235,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SupplierUpsertWithoutPurchasesInput = {
@@ -77427,6 +80266,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUpdateManyWithoutSupplierNestedInput
@@ -77454,6 +80295,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutSupplierNestedInput
@@ -77618,6 +80461,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -77660,6 +80505,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -77700,6 +80547,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     store: StoreCreateNestedOneWithoutPurchasesInput
@@ -77730,6 +80579,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payments?: PurchasePaymentUncheckedCreateNestedManyWithoutPurchaseInput
@@ -77911,6 +80762,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -77953,6 +80806,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -77999,6 +80854,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutPurchasesNestedInput
@@ -78029,6 +80886,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payments?: PurchasePaymentUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -78071,6 +80930,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     store: StoreCreateNestedOneWithoutPurchasesInput
@@ -78101,6 +80962,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: PurchaseItemUncheckedCreateNestedManyWithoutPurchaseInput
@@ -78143,6 +81006,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutPurchasesNestedInput
@@ -78173,6 +81038,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: PurchaseItemUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -78209,6 +81076,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutPurchaseReturnsInput = {
@@ -78242,6 +81110,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutPurchaseReturnsInput = {
@@ -78266,6 +81135,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryCreateNestedManyWithoutSupplierInput
@@ -78293,6 +81164,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutSupplierInput
@@ -78386,6 +81259,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutPurchaseReturnsInput = {
@@ -78419,6 +81293,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SupplierUpsertWithoutPurchaseReturnsInput = {
@@ -78449,6 +81324,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUpdateManyWithoutSupplierNestedInput
@@ -78476,6 +81353,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutSupplierNestedInput
@@ -78610,6 +81489,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -78652,6 +81533,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -78900,6 +81783,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -78942,6 +81827,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -79079,6 +81966,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     store: StoreCreateNestedOneWithoutCustomersInput
@@ -79087,6 +81976,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutSalesInput = {
@@ -79105,6 +81995,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
@@ -79112,6 +82004,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutCustomerInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutSalesInput = {
@@ -79189,6 +82082,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutSalesInput = {
@@ -79222,6 +82116,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutSalesInput = {
@@ -79363,6 +82258,52 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ReminderCreateWithoutSaleInput = {
+    id?: string
+    drugName: string
+    reminderDate: Date | string
+    reminderTime: string
+    timesPerDay?: number
+    mealTiming?: string | null
+    dosageInstructions?: string | null
+    notes?: string | null
+    status?: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutRemindersInput
+    store: StoreCreateNestedOneWithoutRemindersInput
+  }
+
+  export type ReminderUncheckedCreateWithoutSaleInput = {
+    id?: string
+    storeId: string
+    customerId: string
+    drugName: string
+    reminderDate: Date | string
+    reminderTime: string
+    timesPerDay?: number
+    mealTiming?: string | null
+    dosageInstructions?: string | null
+    notes?: string | null
+    status?: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ReminderCreateOrConnectWithoutSaleInput = {
+    where: ReminderWhereUniqueInput
+    create: XOR<ReminderCreateWithoutSaleInput, ReminderUncheckedCreateWithoutSaleInput>
+  }
+
+  export type ReminderCreateManySaleInputEnvelope = {
+    data: ReminderCreateManySaleInput | ReminderCreateManySaleInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CustomerUpsertWithoutSalesInput = {
     update: XOR<CustomerUpdateWithoutSalesInput, CustomerUncheckedUpdateWithoutSalesInput>
     create: XOR<CustomerCreateWithoutSalesInput, CustomerUncheckedCreateWithoutSalesInput>
@@ -79389,6 +82330,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutCustomersNestedInput
@@ -79397,6 +82340,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutSalesInput = {
@@ -79415,6 +82359,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
@@ -79422,6 +82368,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type DoctorUpsertWithoutSalesInput = {
@@ -79511,6 +82458,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutSalesInput = {
@@ -79544,6 +82492,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SaleItemUpsertWithWhereUniqueWithoutSaleInput = {
@@ -79606,6 +82555,22 @@ export namespace Prisma {
   export type SalesReturnUpdateManyWithWhereWithoutSaleInput = {
     where: SalesReturnScalarWhereInput
     data: XOR<SalesReturnUpdateManyMutationInput, SalesReturnUncheckedUpdateManyWithoutSaleInput>
+  }
+
+  export type ReminderUpsertWithWhereUniqueWithoutSaleInput = {
+    where: ReminderWhereUniqueInput
+    update: XOR<ReminderUpdateWithoutSaleInput, ReminderUncheckedUpdateWithoutSaleInput>
+    create: XOR<ReminderCreateWithoutSaleInput, ReminderUncheckedCreateWithoutSaleInput>
+  }
+
+  export type ReminderUpdateWithWhereUniqueWithoutSaleInput = {
+    where: ReminderWhereUniqueInput
+    data: XOR<ReminderUpdateWithoutSaleInput, ReminderUncheckedUpdateWithoutSaleInput>
+  }
+
+  export type ReminderUpdateManyWithWhereWithoutSaleInput = {
+    where: ReminderScalarWhereInput
+    data: XOR<ReminderUpdateManyMutationInput, ReminderUncheckedUpdateManyWithoutSaleInput>
   }
 
   export type ProductBatchCreateWithoutSaleItemsInput = {
@@ -79718,6 +82683,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -79760,6 +82727,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -79799,6 +82768,12 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutSalesInput
@@ -79806,6 +82781,7 @@ export namespace Prisma {
     store: StoreCreateNestedOneWithoutSalesInput
     payments?: SalePaymentCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnCreateNestedManyWithoutSaleInput
+    reminders?: ReminderCreateNestedManyWithoutSaleInput
   }
 
   export type SaleUncheckedCreateWithoutItemsInput = {
@@ -79831,10 +82807,17 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payments?: SalePaymentUncheckedCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutSaleInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutSaleInput
   }
 
   export type SaleCreateOrConnectWithoutItemsInput = {
@@ -80013,6 +82996,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -80055,6 +83040,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -80100,6 +83087,12 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutSalesNestedInput
@@ -80107,6 +83100,7 @@ export namespace Prisma {
     store?: StoreUpdateOneRequiredWithoutSalesNestedInput
     payments?: SalePaymentUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUpdateManyWithoutSaleNestedInput
   }
 
   export type SaleUncheckedUpdateWithoutItemsInput = {
@@ -80132,10 +83126,17 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payments?: SalePaymentUncheckedUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutSaleNestedInput
   }
 
   export type SalesReturnItemUpsertWithWhereUniqueWithoutSaleItemInput = {
@@ -80174,6 +83175,12 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutSalesInput
@@ -80181,6 +83188,7 @@ export namespace Prisma {
     store: StoreCreateNestedOneWithoutSalesInput
     items?: SaleItemCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnCreateNestedManyWithoutSaleInput
+    reminders?: ReminderCreateNestedManyWithoutSaleInput
   }
 
   export type SaleUncheckedCreateWithoutPaymentsInput = {
@@ -80206,10 +83214,17 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
     salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutSaleInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutSaleInput
   }
 
   export type SaleCreateOrConnectWithoutPaymentsInput = {
@@ -80248,6 +83263,12 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutSalesNestedInput
@@ -80255,6 +83276,7 @@ export namespace Prisma {
     store?: StoreUpdateOneRequiredWithoutSalesNestedInput
     items?: SaleItemUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUpdateManyWithoutSaleNestedInput
   }
 
   export type SaleUncheckedUpdateWithoutPaymentsInput = {
@@ -80280,10 +83302,17 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutSaleNestedInput
   }
 
   export type CustomerCreateWithoutSalesReturnsInput = {
@@ -80301,6 +83330,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     store: StoreCreateNestedOneWithoutCustomersInput
@@ -80309,6 +83340,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionCreateNestedManyWithoutCustomerInput
     sales?: SaleCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutSalesReturnsInput = {
@@ -80327,6 +83359,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
@@ -80334,6 +83368,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutCustomerInput
     sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutSalesReturnsInput = {
@@ -80361,6 +83396,12 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     customer?: CustomerCreateNestedOneWithoutSalesInput
@@ -80368,6 +83409,7 @@ export namespace Prisma {
     store: StoreCreateNestedOneWithoutSalesInput
     items?: SaleItemCreateNestedManyWithoutSaleInput
     payments?: SalePaymentCreateNestedManyWithoutSaleInput
+    reminders?: ReminderCreateNestedManyWithoutSaleInput
   }
 
   export type SaleUncheckedCreateWithoutSalesReturnsInput = {
@@ -80393,10 +83435,17 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
     payments?: SalePaymentUncheckedCreateNestedManyWithoutSaleInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutSaleInput
   }
 
   export type SaleCreateOrConnectWithoutSalesReturnsInput = {
@@ -80435,6 +83484,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutSalesReturnsInput = {
@@ -80468,6 +83518,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutSalesReturnsInput = {
@@ -80539,6 +83590,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutCustomersNestedInput
@@ -80547,6 +83600,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUpdateManyWithoutCustomerNestedInput
     sales?: SaleUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutSalesReturnsInput = {
@@ -80565,6 +83619,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
@@ -80572,6 +83628,7 @@ export namespace Prisma {
     prescriptions?: PrescriptionUncheckedUpdateManyWithoutCustomerNestedInput
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type SaleUpsertWithoutSalesReturnsInput = {
@@ -80605,6 +83662,12 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutSalesNestedInput
@@ -80612,6 +83675,7 @@ export namespace Prisma {
     store?: StoreUpdateOneRequiredWithoutSalesNestedInput
     items?: SaleItemUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUpdateManyWithoutSaleNestedInput
   }
 
   export type SaleUncheckedUpdateWithoutSalesReturnsInput = {
@@ -80637,10 +83701,17 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUncheckedUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutSaleNestedInput
   }
 
   export type StoreUpsertWithoutSalesReturnsInput = {
@@ -80685,6 +83756,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutSalesReturnsInput = {
@@ -80718,6 +83790,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type SalesReturnItemUpsertWithWhereUniqueWithoutSalesReturnInput = {
@@ -80846,6 +83919,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemCreateNestedManyWithoutProductInput
@@ -80888,6 +83963,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     prescriptionItems?: PrescriptionItemUncheckedCreateNestedManyWithoutProductInput
@@ -81134,6 +84211,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -81176,6 +84255,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -81429,6 +84510,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     store: StoreCreateNestedOneWithoutPurchasesInput
@@ -81458,6 +84541,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: PurchaseItemUncheckedCreateNestedManyWithoutPurchaseInput
@@ -81547,6 +84632,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutSuppliersInput = {
@@ -81580,6 +84666,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutSuppliersInput = {
@@ -81709,6 +84796,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutSuppliersInput = {
@@ -81742,6 +84830,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type UserCreateWithoutRoleInput = {
@@ -81920,6 +85009,7 @@ export namespace Prisma {
     doctors?: DoctorCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+    reminders?: ReminderCreateNestedManyWithoutStoreInput
   }
 
   export type StoreUncheckedCreateWithoutUsersInput = {
@@ -81953,6 +85043,7 @@ export namespace Prisma {
     doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
     ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
     inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+    reminders?: ReminderUncheckedCreateNestedManyWithoutStoreInput
   }
 
   export type StoreCreateOrConnectWithoutUsersInput = {
@@ -82061,6 +85152,7 @@ export namespace Prisma {
     doctors?: DoctorUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUpdateManyWithoutStoreNestedInput
   }
 
   export type StoreUncheckedUpdateWithoutUsersInput = {
@@ -82094,6 +85186,447 @@ export namespace Prisma {
     doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
     inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutStoreNestedInput
+  }
+
+  export type CustomerCreateWithoutRemindersInput = {
+    id?: string
+    name: string
+    phone?: string | null
+    alternatePhone?: string | null
+    email?: string | null
+    gstin?: string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string
+    creditDays?: number
+    openingBalance?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    store: StoreCreateNestedOneWithoutCustomersInput
+    ledgerEntries?: LedgerEntryCreateNestedManyWithoutCustomerInput
+    payments?: PaymentCreateNestedManyWithoutCustomerInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutCustomerInput
+    sales?: SaleCreateNestedManyWithoutCustomerInput
+    salesReturns?: SalesReturnCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutRemindersInput = {
+    id?: string
+    storeId: string
+    name: string
+    phone?: string | null
+    alternatePhone?: string | null
+    email?: string | null
+    gstin?: string | null
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string
+    creditDays?: number
+    openingBalance?: Decimal | DecimalJsLike | number | string
+    status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutCustomerInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutCustomerInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutCustomerInput
+    sales?: SaleUncheckedCreateNestedManyWithoutCustomerInput
+    salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutCustomerInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutRemindersInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutRemindersInput, CustomerUncheckedCreateWithoutRemindersInput>
+  }
+
+  export type SaleCreateWithoutRemindersInput = {
+    id?: string
+    invoiceNumber: string
+    invoiceDate: Date | string
+    status?: $Enums.SaleStatus
+    paymentStatus?: $Enums.SalePaymentStatus
+    subtotal?: Decimal | DecimalJsLike | number | string
+    discountAmount?: Decimal | DecimalJsLike | number | string
+    taxableAmount?: Decimal | DecimalJsLike | number | string
+    cgstAmount?: Decimal | DecimalJsLike | number | string
+    sgstAmount?: Decimal | DecimalJsLike | number | string
+    igstAmount?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
+    notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer?: CustomerCreateNestedOneWithoutSalesInput
+    doctorRel?: DoctorCreateNestedOneWithoutSalesInput
+    store: StoreCreateNestedOneWithoutSalesInput
+    items?: SaleItemCreateNestedManyWithoutSaleInput
+    payments?: SalePaymentCreateNestedManyWithoutSaleInput
+    salesReturns?: SalesReturnCreateNestedManyWithoutSaleInput
+  }
+
+  export type SaleUncheckedCreateWithoutRemindersInput = {
+    id?: string
+    storeId: string
+    customerId?: string | null
+    doctorId?: string | null
+    invoiceNumber: string
+    invoiceDate: Date | string
+    status?: $Enums.SaleStatus
+    paymentStatus?: $Enums.SalePaymentStatus
+    subtotal?: Decimal | DecimalJsLike | number | string
+    discountAmount?: Decimal | DecimalJsLike | number | string
+    taxableAmount?: Decimal | DecimalJsLike | number | string
+    cgstAmount?: Decimal | DecimalJsLike | number | string
+    sgstAmount?: Decimal | DecimalJsLike | number | string
+    igstAmount?: Decimal | DecimalJsLike | number | string
+    roundOff?: Decimal | DecimalJsLike | number | string
+    totalAmount?: Decimal | DecimalJsLike | number | string
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    dueAmount?: Decimal | DecimalJsLike | number | string
+    doctor?: string | null
+    dueDate?: Date | string | null
+    notes?: string | null
+    prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: SaleItemUncheckedCreateNestedManyWithoutSaleInput
+    payments?: SalePaymentUncheckedCreateNestedManyWithoutSaleInput
+    salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutSaleInput
+  }
+
+  export type SaleCreateOrConnectWithoutRemindersInput = {
+    where: SaleWhereUniqueInput
+    create: XOR<SaleCreateWithoutRemindersInput, SaleUncheckedCreateWithoutRemindersInput>
+  }
+
+  export type StoreCreateWithoutRemindersInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
+    phone?: string | null
+    email?: string | null
+    gstin?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogCreateNestedManyWithoutStoreInput
+    customers?: CustomerCreateNestedManyWithoutStoreInput
+    ledgerEntries?: LedgerEntryCreateNestedManyWithoutStoreInput
+    notifications?: NotificationCreateNestedManyWithoutStoreInput
+    payments?: PaymentCreateNestedManyWithoutStoreInput
+    prescriptions?: PrescriptionCreateNestedManyWithoutStoreInput
+    products?: ProductCreateNestedManyWithoutStoreInput
+    batches?: ProductBatchCreateNestedManyWithoutStoreInput
+    purchases?: PurchaseCreateNestedManyWithoutStoreInput
+    purchaseReturns?: PurchaseReturnCreateNestedManyWithoutStoreInput
+    sales?: SaleCreateNestedManyWithoutStoreInput
+    salesReturns?: SalesReturnCreateNestedManyWithoutStoreInput
+    stocks?: StockCreateNestedManyWithoutStoreInput
+    suppliers?: SupplierCreateNestedManyWithoutStoreInput
+    users?: UserCreateNestedManyWithoutStoreInput
+    doctors?: DoctorCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreUncheckedCreateWithoutRemindersInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
+    phone?: string | null
+    email?: string | null
+    gstin?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutStoreInput
+    customers?: CustomerUncheckedCreateNestedManyWithoutStoreInput
+    ledgerEntries?: LedgerEntryUncheckedCreateNestedManyWithoutStoreInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutStoreInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutStoreInput
+    prescriptions?: PrescriptionUncheckedCreateNestedManyWithoutStoreInput
+    products?: ProductUncheckedCreateNestedManyWithoutStoreInput
+    batches?: ProductBatchUncheckedCreateNestedManyWithoutStoreInput
+    purchases?: PurchaseUncheckedCreateNestedManyWithoutStoreInput
+    purchaseReturns?: PurchaseReturnUncheckedCreateNestedManyWithoutStoreInput
+    sales?: SaleUncheckedCreateNestedManyWithoutStoreInput
+    salesReturns?: SalesReturnUncheckedCreateNestedManyWithoutStoreInput
+    stocks?: StockUncheckedCreateNestedManyWithoutStoreInput
+    suppliers?: SupplierUncheckedCreateNestedManyWithoutStoreInput
+    users?: UserUncheckedCreateNestedManyWithoutStoreInput
+    doctors?: DoctorUncheckedCreateNestedManyWithoutStoreInput
+    ledgerShares?: CustomerLedgerShareUncheckedCreateNestedManyWithoutStoreInput
+    inventoryAudits?: InventoryAuditUncheckedCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreCreateOrConnectWithoutRemindersInput = {
+    where: StoreWhereUniqueInput
+    create: XOR<StoreCreateWithoutRemindersInput, StoreUncheckedCreateWithoutRemindersInput>
+  }
+
+  export type CustomerUpsertWithoutRemindersInput = {
+    update: XOR<CustomerUpdateWithoutRemindersInput, CustomerUncheckedUpdateWithoutRemindersInput>
+    create: XOR<CustomerCreateWithoutRemindersInput, CustomerUncheckedCreateWithoutRemindersInput>
+    where?: CustomerWhereInput
+  }
+
+  export type CustomerUpdateToOneWithWhereWithoutRemindersInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutRemindersInput, CustomerUncheckedUpdateWithoutRemindersInput>
+  }
+
+  export type CustomerUpdateWithoutRemindersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    creditDays?: IntFieldUpdateOperationsInput | number
+    openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store?: StoreUpdateOneRequiredWithoutCustomersNestedInput
+    ledgerEntries?: LedgerEntryUpdateManyWithoutCustomerNestedInput
+    payments?: PaymentUpdateManyWithoutCustomerNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutCustomerNestedInput
+    sales?: SaleUpdateManyWithoutCustomerNestedInput
+    salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutRemindersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    alternatePhone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    creditDays?: IntFieldUpdateOperationsInput | number
+    openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutCustomerNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutCustomerNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
+    salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type SaleUpsertWithoutRemindersInput = {
+    update: XOR<SaleUpdateWithoutRemindersInput, SaleUncheckedUpdateWithoutRemindersInput>
+    create: XOR<SaleCreateWithoutRemindersInput, SaleUncheckedCreateWithoutRemindersInput>
+    where?: SaleWhereInput
+  }
+
+  export type SaleUpdateToOneWithWhereWithoutRemindersInput = {
+    where?: SaleWhereInput
+    data: XOR<SaleUpdateWithoutRemindersInput, SaleUncheckedUpdateWithoutRemindersInput>
+  }
+
+  export type SaleUpdateWithoutRemindersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
+    paymentStatus?: EnumSalePaymentStatusFieldUpdateOperationsInput | $Enums.SalePaymentStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneWithoutSalesNestedInput
+    doctorRel?: DoctorUpdateOneWithoutSalesNestedInput
+    store?: StoreUpdateOneRequiredWithoutSalesNestedInput
+    items?: SaleItemUpdateManyWithoutSaleNestedInput
+    payments?: SalePaymentUpdateManyWithoutSaleNestedInput
+    salesReturns?: SalesReturnUpdateManyWithoutSaleNestedInput
+  }
+
+  export type SaleUncheckedUpdateWithoutRemindersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    doctorId?: NullableStringFieldUpdateOperationsInput | string | null
+    invoiceNumber?: StringFieldUpdateOperationsInput | string
+    invoiceDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
+    paymentStatus?: EnumSalePaymentStatusFieldUpdateOperationsInput | $Enums.SalePaymentStatus
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxableAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cgstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    sgstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    igstAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    roundOff?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    doctor?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
+    payments?: SalePaymentUncheckedUpdateManyWithoutSaleNestedInput
+    salesReturns?: SalesReturnUncheckedUpdateManyWithoutSaleNestedInput
+  }
+
+  export type StoreUpsertWithoutRemindersInput = {
+    update: XOR<StoreUpdateWithoutRemindersInput, StoreUncheckedUpdateWithoutRemindersInput>
+    create: XOR<StoreCreateWithoutRemindersInput, StoreUncheckedCreateWithoutRemindersInput>
+    where?: StoreWhereInput
+  }
+
+  export type StoreUpdateToOneWithWhereWithoutRemindersInput = {
+    where?: StoreWhereInput
+    data: XOR<StoreUpdateWithoutRemindersInput, StoreUncheckedUpdateWithoutRemindersInput>
+  }
+
+  export type StoreUpdateWithoutRemindersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUpdateManyWithoutStoreNestedInput
+    customers?: CustomerUpdateManyWithoutStoreNestedInput
+    ledgerEntries?: LedgerEntryUpdateManyWithoutStoreNestedInput
+    notifications?: NotificationUpdateManyWithoutStoreNestedInput
+    payments?: PaymentUpdateManyWithoutStoreNestedInput
+    prescriptions?: PrescriptionUpdateManyWithoutStoreNestedInput
+    products?: ProductUpdateManyWithoutStoreNestedInput
+    batches?: ProductBatchUpdateManyWithoutStoreNestedInput
+    purchases?: PurchaseUpdateManyWithoutStoreNestedInput
+    purchaseReturns?: PurchaseReturnUpdateManyWithoutStoreNestedInput
+    sales?: SaleUpdateManyWithoutStoreNestedInput
+    salesReturns?: SalesReturnUpdateManyWithoutStoreNestedInput
+    stocks?: StockUpdateManyWithoutStoreNestedInput
+    suppliers?: SupplierUpdateManyWithoutStoreNestedInput
+    users?: UserUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StoreUncheckedUpdateWithoutRemindersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstin?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutStoreNestedInput
+    customers?: CustomerUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutStoreNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutStoreNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutStoreNestedInput
+    prescriptions?: PrescriptionUncheckedUpdateManyWithoutStoreNestedInput
+    products?: ProductUncheckedUpdateManyWithoutStoreNestedInput
+    batches?: ProductBatchUncheckedUpdateManyWithoutStoreNestedInput
+    purchases?: PurchaseUncheckedUpdateManyWithoutStoreNestedInput
+    purchaseReturns?: PurchaseReturnUncheckedUpdateManyWithoutStoreNestedInput
+    sales?: SaleUncheckedUpdateManyWithoutStoreNestedInput
+    salesReturns?: SalesReturnUncheckedUpdateManyWithoutStoreNestedInput
+    stocks?: StockUncheckedUpdateManyWithoutStoreNestedInput
+    suppliers?: SupplierUncheckedUpdateManyWithoutStoreNestedInput
+    users?: UserUncheckedUpdateManyWithoutStoreNestedInput
+    doctors?: DoctorUncheckedUpdateManyWithoutStoreNestedInput
+    ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutStoreNestedInput
+    inventoryAudits?: InventoryAuditUncheckedUpdateManyWithoutStoreNestedInput
   }
 
   export type ProductCreateManyCategoryInput = {
@@ -82118,6 +85651,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -82140,6 +85675,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -82181,6 +85718,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -82218,6 +85757,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -82244,6 +85785,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -82266,6 +85809,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -82307,6 +85852,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -82344,6 +85891,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -82370,6 +85919,8 @@ export namespace Prisma {
     status?: $Enums.ProductStatus
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -82396,6 +85947,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -82433,6 +85986,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -82474,6 +86029,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -82511,6 +86068,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -82533,6 +86092,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -82574,6 +86135,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -82611,6 +86174,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -82732,6 +86297,12 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -82759,6 +86330,24 @@ export namespace Prisma {
     createdAt?: Date | string
     expiresAt?: Date | string | null
     revokedAt?: Date | string | null
+  }
+
+  export type ReminderCreateManyCustomerInput = {
+    id?: string
+    storeId: string
+    saleId?: string | null
+    drugName: string
+    reminderDate: Date | string
+    reminderTime: string
+    timesPerDay?: number
+    mealTiming?: string | null
+    dosageInstructions?: string | null
+    notes?: string | null
+    status?: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type LedgerEntryUpdateWithoutCustomerInput = {
@@ -82909,6 +86498,12 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     doctorRel?: DoctorUpdateOneWithoutSalesNestedInput
@@ -82916,6 +86511,7 @@ export namespace Prisma {
     items?: SaleItemUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUpdateManyWithoutSaleNestedInput
   }
 
   export type SaleUncheckedUpdateWithoutCustomerInput = {
@@ -82940,11 +86536,18 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUncheckedUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutSaleNestedInput
   }
 
   export type SaleUncheckedUpdateManyWithoutCustomerInput = {
@@ -82969,6 +86572,12 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -83048,6 +86657,60 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ReminderUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sale?: SaleUpdateOneWithoutRemindersNestedInput
+    store?: StoreUpdateOneRequiredWithoutRemindersNestedInput
+  }
+
+  export type ReminderUncheckedUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    saleId?: NullableStringFieldUpdateOperationsInput | string | null
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReminderUncheckedUpdateManyWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    saleId?: NullableStringFieldUpdateOperationsInput | string | null
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StockMovementCreateManyStockInput = {
@@ -83186,6 +86849,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.CustomerStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -83266,6 +86931,8 @@ export namespace Prisma {
     baseUnitId: string
     minimumStock?: Decimal | DecimalJsLike | number | string
     reorderLevel?: Decimal | DecimalJsLike | number | string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -83307,6 +86974,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -83348,6 +87017,12 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -83395,6 +87070,8 @@ export namespace Prisma {
     creditDays?: number
     openingBalance?: Decimal | DecimalJsLike | number | string
     status?: $Enums.SupplierStatus
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -83443,6 +87120,24 @@ export namespace Prisma {
     createdById?: string | null
     completedAt?: Date | string | null
     createdAt?: Date | string
+  }
+
+  export type ReminderCreateManyStoreInput = {
+    id?: string
+    customerId: string
+    saleId?: string | null
+    drugName: string
+    reminderDate: Date | string
+    reminderTime: string
+    timesPerDay?: number
+    mealTiming?: string | null
+    dosageInstructions?: string | null
+    notes?: string | null
+    status?: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AuditLogUpdateWithoutStoreInput = {
@@ -83499,6 +87194,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUpdateManyWithoutCustomerNestedInput
@@ -83507,6 +87204,7 @@ export namespace Prisma {
     sales?: SaleUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutStoreInput = {
@@ -83524,6 +87222,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutCustomerNestedInput
@@ -83532,6 +87232,7 @@ export namespace Prisma {
     sales?: SaleUncheckedUpdateManyWithoutCustomerNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutCustomerNestedInput
     ledgerShares?: CustomerLedgerShareUncheckedUpdateManyWithoutCustomerNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutStoreInput = {
@@ -83549,6 +87250,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumCustomerStatusFieldUpdateOperationsInput | $Enums.CustomerStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -83735,6 +87438,8 @@ export namespace Prisma {
     status?: EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUpdateManyWithoutProductNestedInput
@@ -83776,6 +87481,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prescriptionItems?: PrescriptionItemUncheckedUpdateManyWithoutProductNestedInput
@@ -83813,6 +87520,8 @@ export namespace Prisma {
     baseUnitId?: StringFieldUpdateOperationsInput | string
     minimumStock?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reorderLevel?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -83897,6 +87606,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     supplier?: SupplierUpdateOneRequiredWithoutPurchasesNestedInput
@@ -83926,6 +87637,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: PurchaseItemUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -83954,6 +87667,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -84025,6 +87740,12 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutSalesNestedInput
@@ -84032,6 +87753,7 @@ export namespace Prisma {
     items?: SaleItemUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUpdateManyWithoutSaleNestedInput
   }
 
   export type SaleUncheckedUpdateWithoutStoreInput = {
@@ -84056,11 +87778,18 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUncheckedUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutSaleNestedInput
   }
 
   export type SaleUncheckedUpdateManyWithoutStoreInput = {
@@ -84085,6 +87814,12 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -84188,6 +87923,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUpdateManyWithoutSupplierNestedInput
@@ -84214,6 +87951,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ledgerEntries?: LedgerEntryUncheckedUpdateManyWithoutSupplierNestedInput
@@ -84240,6 +87979,8 @@ export namespace Prisma {
     creditDays?: IntFieldUpdateOperationsInput | number
     openingBalance?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumSupplierStatusFieldUpdateOperationsInput | $Enums.SupplierStatus
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -84392,6 +88133,60 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ReminderUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutRemindersNestedInput
+    sale?: SaleUpdateOneWithoutRemindersNestedInput
+  }
+
+  export type ReminderUncheckedUpdateWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    saleId?: NullableStringFieldUpdateOperationsInput | string | null
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReminderUncheckedUpdateManyWithoutStoreInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    saleId?: NullableStringFieldUpdateOperationsInput | string | null
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SaleCreateManyDoctorRelInput = {
     id?: string
     storeId: string
@@ -84414,6 +88209,12 @@ export namespace Prisma {
     dueDate?: Date | string | null
     notes?: string | null
     prescriptions?: SaleCreateprescriptionsInput | string[]
+    isAyushman?: boolean
+    ayushmanCardNo?: string | null
+    beneficiaryId?: string | null
+    claimStatus?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -84454,6 +88255,12 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneWithoutSalesNestedInput
@@ -84461,6 +88268,7 @@ export namespace Prisma {
     items?: SaleItemUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUpdateManyWithoutSaleNestedInput
   }
 
   export type SaleUncheckedUpdateWithoutDoctorRelInput = {
@@ -84485,11 +88293,18 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: SaleItemUncheckedUpdateManyWithoutSaleNestedInput
     payments?: SalePaymentUncheckedUpdateManyWithoutSaleNestedInput
     salesReturns?: SalesReturnUncheckedUpdateManyWithoutSaleNestedInput
+    reminders?: ReminderUncheckedUpdateManyWithoutSaleNestedInput
   }
 
   export type SaleUncheckedUpdateManyWithoutDoctorRelInput = {
@@ -84514,6 +88329,12 @@ export namespace Prisma {
     dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     prescriptions?: SaleUpdateprescriptionsInput | string[]
+    isAyushman?: BoolFieldUpdateOperationsInput | boolean
+    ayushmanCardNo?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficiaryId?: NullableStringFieldUpdateOperationsInput | string | null
+    claimStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -86378,6 +90199,24 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type ReminderCreateManySaleInput = {
+    id?: string
+    storeId: string
+    customerId: string
+    drugName: string
+    reminderDate: Date | string
+    reminderTime: string
+    timesPerDay?: number
+    mealTiming?: string | null
+    dosageInstructions?: string | null
+    notes?: string | null
+    status?: string
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type SaleItemUpdateWithoutSaleInput = {
     id?: StringFieldUpdateOperationsInput | string
     quantity?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -86528,6 +90367,60 @@ export namespace Prisma {
     totalAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReminderUpdateWithoutSaleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutRemindersNestedInput
+    store?: StoreUpdateOneRequiredWithoutRemindersNestedInput
+  }
+
+  export type ReminderUncheckedUpdateWithoutSaleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ReminderUncheckedUpdateManyWithoutSaleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    storeId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    drugName?: StringFieldUpdateOperationsInput | string
+    reminderDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminderTime?: StringFieldUpdateOperationsInput | string
+    timesPerDay?: IntFieldUpdateOperationsInput | number
+    mealTiming?: NullableStringFieldUpdateOperationsInput | string | null
+    dosageInstructions?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -86707,6 +90600,8 @@ export namespace Prisma {
     paidAmount?: Decimal | DecimalJsLike | number | string
     dueAmount?: Decimal | DecimalJsLike | number | string
     notes?: string | null
+    isDeleted?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -86870,6 +90765,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     store?: StoreUpdateOneRequiredWithoutPurchasesNestedInput
@@ -86899,6 +90796,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: PurchaseItemUncheckedUpdateManyWithoutPurchaseNestedInput
@@ -86927,6 +90826,8 @@ export namespace Prisma {
     paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     dueAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

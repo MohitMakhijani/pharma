@@ -209,6 +209,8 @@ exports.Prisma.CustomerScalarFieldEnum = {
   creditDays: 'creditDays',
   openingBalance: 'openingBalance',
   status: 'status',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -371,6 +373,8 @@ exports.Prisma.ProductScalarFieldEnum = {
   baseUnitId: 'baseUnitId',
   minimumStock: 'minimumStock',
   reorderLevel: 'reorderLevel',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -460,6 +464,8 @@ exports.Prisma.PurchaseScalarFieldEnum = {
   paidAmount: 'paidAmount',
   dueAmount: 'dueAmount',
   notes: 'notes',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -556,6 +562,12 @@ exports.Prisma.SaleScalarFieldEnum = {
   dueDate: 'dueDate',
   notes: 'notes',
   prescriptions: 'prescriptions',
+  isAyushman: 'isAyushman',
+  ayushmanCardNo: 'ayushmanCardNo',
+  beneficiaryId: 'beneficiaryId',
+  claimStatus: 'claimStatus',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -646,6 +658,8 @@ exports.Prisma.SupplierScalarFieldEnum = {
   creditDays: 'creditDays',
   openingBalance: 'openingBalance',
   status: 'status',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -667,6 +681,25 @@ exports.Prisma.UserScalarFieldEnum = {
   status: 'status',
   storeId: 'storeId',
   roleId: 'roleId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReminderScalarFieldEnum = {
+  id: 'id',
+  storeId: 'storeId',
+  customerId: 'customerId',
+  saleId: 'saleId',
+  drugName: 'drugName',
+  reminderDate: 'reminderDate',
+  reminderTime: 'reminderTime',
+  timesPerDay: 'timesPerDay',
+  mealTiming: 'mealTiming',
+  dosageInstructions: 'dosageInstructions',
+  notes: 'notes',
+  status: 'status',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -896,7 +929,8 @@ exports.Prisma.ModelName = {
   SalesReturnItem: 'SalesReturnItem',
   Supplier: 'Supplier',
   Role: 'Role',
-  User: 'User'
+  User: 'User',
+  Reminder: 'Reminder'
 };
 
 /**

@@ -719,6 +719,7 @@ async function createPurchase({
 async function getPurchases(storeId, filters = {}) {
   const purchaseWhere = {
     storeId,
+    isDeleted: false,
     status: {
       not: 'DRAFT',
     },
@@ -759,6 +760,7 @@ async function getDraftPurchases(storeId) {
   return prisma.purchase.findMany({
     where: {
       storeId,
+      isDeleted: false,
       status: 'DRAFT',
     },
     include: {
@@ -781,6 +783,7 @@ async function deletePurchase(storeId, purchaseId) {
     where: {
       id: purchaseId,
       storeId,
+      isDeleted: false,
     },
   });
 
@@ -788,9 +791,13 @@ async function deletePurchase(storeId, purchaseId) {
     throw new Error('Purchase not found');
   }
 
-  return prisma.purchase.delete({
+  return prisma.purchase.update({
     where: {
       id: purchaseId,
+    },
+    data: {
+      isDeleted: true,
+      deletedAt: new Date(),
     },
   });
 }
@@ -800,6 +807,7 @@ async function getPurchaseById(storeId, purchaseId) {
     where: {
       id: purchaseId,
       storeId,
+      isDeleted: false,
     },
     include: {
       supplier: true,

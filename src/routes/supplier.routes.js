@@ -46,6 +46,12 @@ router.patch(
   updateSupplier
 );
 
+router.delete(
+  '/:id',
+  authorize('ADMIN', 'PHARMACIST'),
+  require('../controllers/supplier.controller').deleteSupplier
+);
+
 
 router.get(
   '/:supplierId/ledger',

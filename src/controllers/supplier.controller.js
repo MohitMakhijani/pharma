@@ -120,11 +120,24 @@ async function importSuppliers(req, res, next) {
   } catch (error) { next(error); }
 }
 
+async function deleteSupplier(req, res, next) {
+  try {
+    const result = await supplierService.deleteSupplier(req.params.id, req.user.storeId);
+    if (!result) {
+      return res.status(404).json({ success: false, message: 'Supplier not found' });
+    }
+    res.json({ success: true, message: 'Supplier moved to trash', data: result });
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getSuppliers,
   getSupplierById,
   createSupplier,
   updateSupplier,
+  deleteSupplier,
   getSupplierLedger,
   addSupplierPayment,
   exportSuppliers,

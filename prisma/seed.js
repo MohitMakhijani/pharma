@@ -21,17 +21,25 @@ async function main() {
     },
   });
 
-  // Create admin role
-  const adminRole = await prisma.role.upsert({
-    where: {
-      name: 'ADMIN',
-    },
-    update: {},
-    create: {
-      name: 'ADMIN',
-      description: 'Pharmacy administrator',
-    },
-  });
+  // Create standard system roles
+  const rolesToCreate = [
+    { name: 'ADMIN', description: 'Pharmacy Administrator with full access' },
+    { name: 'PHARMACIST', description: 'Licensed Pharmacist with inventory & dispensing access' },
+    { name: 'STAFF', description: 'Pharmacy Staff for counter sales and stock entry' },
+    { name: 'CASHIER', description: 'Point of Sale Cashier for billing & checkout' },
+    { name: 'MANAGER', description: 'Store Manager for reports & inventory tracking' },
+  ];
+
+  const createdRoles = {};
+  for (const r of rolesToCreate) {
+    createdRoles[r.name] = await prisma.role.upsert({
+      where: { name: r.name },
+      update: { description: r.description },
+      create: { name: r.name, description: r.description },
+    });
+  }
+
+  const adminRole = createdRoles['ADMIN'];
 
   // Create admin user
   const passwordHash = await hashPassword('Admin@12345');

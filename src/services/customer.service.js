@@ -6,7 +6,8 @@ async function getCustomers(storeId){
 
 const customers = await prisma.customer.findMany({
 where:{
-storeId
+storeId,
+isDeleted: false
 },
 include: {
 	ledgerEntries: {
@@ -45,7 +46,8 @@ async function getCustomerById(customerId,storeId){
 return prisma.customer.findFirst({
 where:{
 id:customerId,
-storeId
+storeId,
+isDeleted: false
 }
 });
 
@@ -106,7 +108,8 @@ async function updateCustomer(customerId,storeId,data){
 const customer = await prisma.customer.findFirst({
 where:{
 id:customerId,
-storeId
+storeId,
+isDeleted: false
 }
 });
 
@@ -128,16 +131,33 @@ data
 
 }
 
+async function deleteCustomer(customerId, storeId) {
+  const customer = await prisma.customer.findFirst({
+    where: { id: customerId, storeId, isDeleted: false },
+    select: { id: true },
+  });
+
+  if (!customer) return null;
+
+  return prisma.customer.update({
+    where: { id: customerId },
+    data: {
+      isDeleted: true,
+      deletedAt: new Date(),
+    },
+  });
+}
+
 async function getCustomerSales(customerId, storeId) {
 return prisma.sale.findMany({
-where:{customerId,storeId},
+where:{customerId,storeId,isDeleted:false},
 orderBy:{invoiceDate:'desc'},
 include:{items:{include:{product:{select:{name:true}},batch:{select:{batchNumber:true}}}}}
 });
 }
 
 async function createCustomerLedgerShare(customerId, storeId) {
-	const customer = await prisma.customer.findFirst({ where: { id: customerId, storeId }, select: { id: true } });
+	const customer = await prisma.customer.findFirst({ where: { id: customerId, storeId, isDeleted: false }, select: { id: true } });
 	if (!customer) {
 		const error = new Error('Customer not found');
 		error.statusCode = 404;
@@ -165,8 +185,8 @@ module.exports={
 getCustomers,
 getCustomerById,
 createCustomer,
-updateCustomer
-,
+updateCustomer,
+deleteCustomer,
 getCustomerSales
 	,createCustomerLedgerShare
 	,getPublicCustomerLedger

@@ -2,7 +2,7 @@ const prisma = require('../config/prisma');
 
 async function getProducts(storeId) {
   return prisma.product.findMany({
-    where: { storeId },
+    where: { storeId, isDeleted: false },
     include: {
       category: true,
       manufacturer: true,
@@ -41,6 +41,7 @@ async function getProduct(productId, storeId) {
     where: {
       id: productId,
       storeId,
+      isDeleted: false,
     },
     include: {
       category: true,
@@ -65,6 +66,7 @@ async function getProduct(productId, storeId) {
   const relatedProducts = await prisma.product.findMany({
     where: {
       storeId,
+      isDeleted: false,
       id: { not: product.id },
       salts: { some: { saltId: { in: product.salts.map((mapping) => mapping.saltId) } } },
     },
@@ -190,11 +192,29 @@ async function createSalt(name) {
   });
 }
 
+async function deleteProduct(productId, storeId) {
+  const existing = await prisma.product.findFirst({
+    where: { id: productId, storeId, isDeleted: false },
+    select: { id: true },
+  });
+
+  if (!existing) return null;
+
+  return prisma.product.update({
+    where: { id: existing.id },
+    data: {
+      isDeleted: true,
+      deletedAt: new Date(),
+    },
+  });
+}
+
 module.exports = {
   getProducts,
   getProduct,
   createProduct,
   updateProduct,
+  deleteProduct,
   getProductPurchaseHistory,
   getSalts,
   mapProductToSalt,

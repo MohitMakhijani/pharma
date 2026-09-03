@@ -46,12 +46,12 @@ async function getDashboardSummary(storeId, timeRange = '30d') {
   ] = await Promise.all([
     // 1. Total Drugs Count
     prisma.product.count({
-      where: { storeId, isActive: true },
+      where: { storeId, isDeleted: false, status: 'ACTIVE' },
     }),
 
     // 2. All active Stocks to calculate Inventory Value & Out of Stock / Low Stock
     prisma.stock.findMany({
-      where: { storeId },
+      where: { storeId, product: { isDeleted: false } },
       include: {
         product: true,
         batch: true,
@@ -62,6 +62,7 @@ async function getDashboardSummary(storeId, timeRange = '30d') {
     prisma.sale.aggregate({
       where: {
         storeId,
+        isDeleted: false,
         invoiceDate: { gte: startOfToday, lte: endOfToday },
         status: { in: ['COMPLETED', 'PARTIALLY_RETURNED'] },
       },
@@ -73,6 +74,7 @@ async function getDashboardSummary(storeId, timeRange = '30d') {
     prisma.sale.aggregate({
       where: {
         storeId,
+        isDeleted: false,
         dueAmount: { gt: 0 },
         status: { in: ['COMPLETED', 'PARTIALLY_RETURNED'] },
       },
@@ -83,6 +85,7 @@ async function getDashboardSummary(storeId, timeRange = '30d') {
     prisma.purchase.aggregate({
       where: {
         storeId,
+        isDeleted: false,
         dueAmount: { gt: 0 },
         status: { not: 'CANCELLED' },
       },
@@ -93,6 +96,7 @@ async function getDashboardSummary(storeId, timeRange = '30d') {
     prisma.productBatch.findMany({
       where: {
         storeId,
+        product: { isDeleted: false },
         status: 'ACTIVE',
         expiryDate: { gte: startOfToday, lte: in30Days },
       },
@@ -107,6 +111,7 @@ async function getDashboardSummary(storeId, timeRange = '30d') {
     prisma.productBatch.findMany({
       where: {
         storeId,
+        product: { isDeleted: false },
         expiryDate: { lt: startOfToday },
       },
       include: {
@@ -120,6 +125,7 @@ async function getDashboardSummary(storeId, timeRange = '30d') {
     prisma.sale.findMany({
       where: {
         storeId,
+        isDeleted: false,
         invoiceDate: { gte: chartStartDate, lte: endOfToday },
         status: { in: ['COMPLETED', 'PARTIALLY_RETURNED'] },
       },
@@ -134,6 +140,7 @@ async function getDashboardSummary(storeId, timeRange = '30d') {
       where: {
         sale: {
           storeId,
+          isDeleted: false,
           status: { in: ['COMPLETED', 'PARTIALLY_RETURNED'] },
         },
       },
@@ -152,6 +159,7 @@ async function getDashboardSummary(storeId, timeRange = '30d') {
     prisma.sale.aggregate({
       where: {
         storeId,
+        isDeleted: false,
         status: { in: ['COMPLETED', 'PARTIALLY_RETURNED'] },
       },
       _sum: {

@@ -36,8 +36,44 @@ async function getUsers(storeId) {
   });
 }
 
+async function getRoles() {
+  const existingRoles = await prisma.role.findMany({
+    orderBy: {
+      name: 'asc',
+    },
+  });
+
+  if (existingRoles.length >= 4) {
+    return existingRoles;
+  }
+
+  // Auto-seed missing standard roles
+  const standardRoles = [
+    { name: 'ADMIN', description: 'Pharmacy administrator with full access' },
+    { name: 'PHARMACIST', description: 'Licensed pharmacist with inventory & dispensing access' },
+    { name: 'STAFF', description: 'Pharmacy staff for counter sales and stock entry' },
+    { name: 'CASHIER', description: 'Point of sale cashier for billing & checkout' },
+    { name: 'MANAGER', description: 'Store manager for reports & inventory tracking' },
+  ];
+
+  for (const r of standardRoles) {
+    await prisma.role.upsert({
+      where: { name: r.name },
+      update: { description: r.description },
+      create: { name: r.name, description: r.description },
+    });
+  }
+
+  return prisma.role.findMany({
+    orderBy: {
+      name: 'asc',
+    },
+  });
+}
+
 module.exports = {
   getUsers,
+  getRoles,
 };
 
 async function getUserById(userId, storeId) {

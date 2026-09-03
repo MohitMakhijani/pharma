@@ -4,6 +4,7 @@ async function getSales(storeId) {
   return prisma.sale.findMany({
     where: {
       storeId,
+      isDeleted: false,
     },
     orderBy: {
       createdAt: 'desc',
@@ -27,6 +28,7 @@ async function getSaleById(saleId, storeId) {
     where: {
       id: saleId,
       storeId,
+      isDeleted: false,
     },
     include: {
       customer: true,

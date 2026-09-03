@@ -113,6 +113,18 @@ async function getProductPurchaseHistory(req, res, next) {
   }
 }
 
+async function deleteProduct(req, res, next) {
+  try {
+    const result = await productService.deleteProduct(req.params.productId, req.user.storeId);
+    if (!result) {
+      return res.status(404).json({ success: false, message: 'Product not found' });
+    }
+    res.json({ success: true, message: 'Product moved to trash', data: result });
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getProducts,
   getSalts,
@@ -121,5 +133,6 @@ module.exports = {
   getProduct,
   createProduct,
   updateProduct,
+  deleteProduct,
   getProductPurchaseHistory,
 };

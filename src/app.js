@@ -33,6 +33,10 @@ const purchasesReportRoutes = require('./routes/purchasesReport.routes');
 const comprehensiveReportsRoutes = require('./routes/comprehensiveReports.routes');
 const dashboardRoutes = require('./routes/dashboard.routes');
 const catalogRoutes = require('./routes/catalog.routes');
+const trashRoutes = require('./routes/trash.routes');
+const searchRoutes = require('./routes/search.routes');
+const notificationRoutes = require('./routes/notifications.routes');
+const reminderRoutes = require('./routes/reminder.routes');
 const modulePlaceholderRoutes = require('./routes/modulePlaceholder.routes');
 
 
@@ -61,6 +65,7 @@ app.use('/api', productSupplierRoutes);
 app.use('/api/suppliers', supplierRoutes);
 app.use('/api/customers', customerLedgerRoutes);
 app.use('/api/public', publicCustomerRoutes);
+app.use('/api/shared', publicCustomerRoutes);
 app.use('/api', productBatchRoutes);
 app.use('/api', stockRoutes);
 app.use('/api', purchaseRoutes);
@@ -82,6 +87,10 @@ app.use('/api/sales', saleQueryRoutes);
 app.use('/api', salesReturnRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/catalog', catalogRoutes);
+app.use('/api/trash', trashRoutes);
+app.use('/api/search', searchRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/reminders', reminderRoutes);
 app.use('/api/modules', modulePlaceholderRoutes);
 
 app.get('/health', (req, res) => {

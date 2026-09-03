@@ -183,6 +183,8 @@ model Customer {
   creditDays     Int                   @default(0)
   openingBalance Decimal               @default(0) @db.Decimal(14, 2)
   status         CustomerStatus        @default(ACTIVE)
+  isDeleted      Boolean               @default(false)
+  deletedAt      DateTime?
   createdAt      DateTime              @default(now())
   updatedAt      DateTime              @updatedAt
   store          Store                 @relation(fields: [storeId], references: [id])
@@ -192,11 +194,13 @@ model Customer {
   sales          Sale[]
   salesReturns   SalesReturn[]
   ledgerShares   CustomerLedgerShare[]
+  reminders      Reminder[]
 
   @@index([storeId])
   @@index([name])
   @@index([phone])
   @@index([gstin])
+  @@index([isDeleted])
 }
 
 model CustomerLedgerShare {
@@ -406,6 +410,7 @@ model Store {
   doctors         Doctor[]
   ledgerShares    CustomerLedgerShare[]
   inventoryAudits InventoryAudit[]
+  reminders       Reminder[]
 
   @@index([name])
 }
@@ -512,6 +517,8 @@ model Product {
   baseUnitId          String
   minimumStock        Decimal              @default(0) @db.Decimal(14, 3)
   reorderLevel        Decimal              @default(0) @db.Decimal(14, 3)
+  isDeleted           Boolean              @default(false)
+  deletedAt           DateTime?
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
   prescriptionItems   PrescriptionItem[]
@@ -536,6 +543,7 @@ model Product {
   @@index([name])
   @@index([genericName])
   @@index([barcode])
+  @@index([isDeleted])
 }
 
 model Salt {
@@ -707,6 +715,8 @@ model Purchase {
   paidAmount     Decimal           @default(0) @db.Decimal(14, 2)
   dueAmount      Decimal           @default(0) @db.Decimal(14, 2)
   notes          String?
+  isDeleted      Boolean           @default(false)
+  deletedAt      DateTime?
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
   store          Store             @relation(fields: [storeId], references: [id])
@@ -719,6 +729,7 @@ model Purchase {
   @@index([supplierId])
   @@index([invoiceDate])
   @@index([paymentStatus])
+  @@index([isDeleted])
 }
 
 model PurchaseItem {
@@ -864,6 +875,12 @@ model Sale {
   dueDate        DateTime?
   notes          String?
   prescriptions  String[]          @default([])
+  isAyushman     Boolean           @default(false)
+  ayushmanCardNo String?
+  beneficiaryId  String?
+  claimStatus    String?           @default("PENDING")
+  isDeleted      Boolean           @default(false)
+  deletedAt      DateTime?
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
   customer       Customer?         @relation(fields: [customerId], references: [id])
@@ -872,6 +889,7 @@ model Sale {
   items          SaleItem[]
   payments       SalePayment[]
   salesReturns   SalesReturn[]
+  reminders      Reminder[]
 
   @@unique([storeId, invoiceNumber])
   @@index([storeId])
@@ -879,6 +897,8 @@ model Sale {
   @@index([doctorId])
   @@index([invoiceDate])
   @@index([paymentStatus])
+  @@index([isDeleted])
+  @@index([isAyushman])
 }
 
 model SaleItem {
@@ -1029,6 +1049,8 @@ model Supplier {
   creditDays      Int               @default(0)
   openingBalance  Decimal           @default(0) @db.Decimal(14, 2)
   status          SupplierStatus    @default(ACTIVE)
+  isDeleted       Boolean           @default(false)
+  deletedAt       DateTime?
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   ledgerEntries   LedgerEntry[]
@@ -1042,6 +1064,7 @@ model Supplier {
   @@index([name])
   @@index([phone])
   @@index([gstin])
+  @@index([isDeleted])
 }
 
 enum SupplierStatus {
@@ -1083,4 +1106,34 @@ enum UserStatus {
   ACTIVE
   INACTIVE
   SUSPENDED
+}
+
+model Reminder {
+  id                 String    @id @default(cuid())
+  storeId            String
+  customerId         String
+  saleId             String?
+  drugName           String
+  reminderDate       DateTime
+  reminderTime       String // e.g. "08:00 AM", "02:00 PM"
+  timesPerDay        Int       @default(1)
+  mealTiming         String? // "BEFORE_MEAL", "AFTER_MEAL", "WITH_FOOD", "ANYTIME"
+  dosageInstructions String? // "1 tablet with water"
+  notes              String?
+  status             String    @default("PENDING") // PENDING, SENT, COMPLETED, CANCELLED
+  isDeleted          Boolean   @default(false)
+  deletedAt          DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  sale     Sale?    @relation(fields: [saleId], references: [id], onDelete: SetNull)
+  store    Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@index([storeId])
+  @@index([customerId])
+  @@index([saleId])
+  @@index([reminderDate])
+  @@index([status])
+  @@index([isDeleted])
 }

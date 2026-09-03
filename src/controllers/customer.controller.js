@@ -127,6 +127,18 @@ message:error.message
 }
 }
 
+async function deleteCustomer(req, res) {
+  try {
+    const customer = await customerService.deleteCustomer(req.params.id, req.user.storeId);
+    if (!customer) {
+      return res.status(404).json({ success: false, message: 'Customer not found' });
+    }
+    return res.json({ success: true, message: 'Customer moved to trash', data: customer });
+  } catch (error) {
+    return res.status(400).json({ success: false, message: error.message });
+  }
+}
+
 async function getCustomerSales(req,res){
 try{
 const sales = await customerService.getCustomerSales(req.params.id, req.user.storeId);
@@ -160,6 +172,7 @@ getCustomers,
 getCustomerById,
 createCustomer,
 updateCustomer,
+deleteCustomer,
 getCustomerSales
  ,createCustomerLedgerShare
  ,getPublicCustomerLedger

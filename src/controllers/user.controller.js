@@ -13,8 +13,22 @@ async function getUsers(req, res, next) {
   }
 }
 
+async function getRoles(req, res, next) {
+  try {
+    const roles = await userService.getRoles();
+
+    return res.json({
+      success: true,
+      data: roles,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getUsers,
+  getRoles,
 };
 
 async function getUserById(req, res, next) {

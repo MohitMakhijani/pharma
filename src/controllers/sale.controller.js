@@ -38,6 +38,31 @@ async function getSaleById(req, res) {
   }
 }
 
+async function getPublicSharedInvoice(req, res) {
+  try {
+    const { id } = req.params;
+    const sale = await saleService.getPublicSharedInvoice(id);
+
+    if (!sale) {
+      return res.status(404).json({
+        success: false,
+        message: 'Invoice not found or link has expired',
+      });
+    }
+
+    return res.json({
+      success: true,
+      data: sale,
+    });
+  } catch (error) {
+    console.error('Get public shared invoice error:', error);
+    return res.status(500).json({
+      success: false,
+      message: error.message || 'Failed to fetch invoice',
+    });
+  }
+}
+
 async function createSale(req, res) {
   try {
     const sale = await saleService.createSale({
@@ -59,7 +84,12 @@ async function createSale(req, res) {
       items: req.body.items,
       notes: req.body.notes,
       prescriptions: req.body.prescriptions,
+      isAyushman: Boolean(req.body.isAyushman),
+      ayushmanCardNo: req.body.ayushmanCardNo || null,
+      beneficiaryId: req.body.beneficiaryId || null,
+      claimStatus: req.body.claimStatus || (req.body.isAyushman ? 'PENDING' : null),
       saleId: req.body.saleId || req.params?.id || null,
+      reminders: Array.isArray(req.body.reminders) ? req.body.reminders : (req.body.reminder ? [req.body.reminder] : []),
     });
 
     return res.status(201).json({
@@ -95,6 +125,7 @@ async function deleteSale(req, res) {
 module.exports = {
   getSales,
   getSaleById,
+  getPublicSharedInvoice,
   createSale,
   deleteSale,
 };

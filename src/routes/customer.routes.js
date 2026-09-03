@@ -55,5 +55,11 @@ router.patch(
   controller.updateCustomer
 );
 
+router.delete(
+  '/:id',
+  authorize('ADMIN','PHARMACIST'),
+  controller.deleteCustomer
+);
+
 
 module.exports = router;

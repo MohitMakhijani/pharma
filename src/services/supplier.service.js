@@ -7,11 +7,11 @@ function csvEscape(value) { return `"${String(value ?? '').replaceAll('"', '""')
 
 async function getSuppliers(storeId) {
   const suppliers = await prisma.supplier.findMany({
-    where: { storeId },
+    where: { storeId, isDeleted: false },
     orderBy: { createdAt: 'desc' },
   });
   const entries = await prisma.ledgerEntry.findMany({ where: { storeId, ledgerType: 'SUPPLIER', supplierId: { not: null } }, select: { supplierId: true, amount: true, entryType: true, entryDate: true }, orderBy: { entryDate: 'desc' } });
-  const supplierProducts = await prisma.productSupplier.findMany({ where: { supplier: { storeId } }, select: { supplierId: true, purchasePrice: true, productBatch: { select: { sellingPrice: true } } } });
+  const supplierProducts = await prisma.productSupplier.findMany({ where: { supplier: { storeId, isDeleted: false } }, select: { supplierId: true, purchasePrice: true, productBatch: { select: { sellingPrice: true } } } });
   const margins = new Map();
   supplierProducts.forEach((link) => { const cost = Number(link.purchasePrice || 0); const selling = Number(link.productBatch?.sellingPrice || 0); if (cost > 0 && selling > 0) { const current = margins.get(link.supplierId) || { total: 0, count: 0 }; current.total += ((selling - cost) / cost) * 100; current.count += 1; margins.set(link.supplierId, current); } });
   const summaries = new Map();
@@ -31,7 +31,7 @@ async function exportSuppliers(storeId, columns = supplierImportFields) {
 async function importSuppliers(storeId, rows) {
   if (!Array.isArray(rows) || rows.length === 0) throw new Error('Import must contain at least one supplier');
   if (rows.length > 1000) throw new Error('Import is limited to 1000 suppliers per file');
-  const existing = await prisma.supplier.findMany({ where: { storeId }, select: { phone: true, email: true, gstin: true } });
+  const existing = await prisma.supplier.findMany({ where: { storeId, isDeleted: false }, select: { phone: true, email: true, gstin: true } });
   const used = { phone: new Set(existing.map((row) => row.phone).filter(Boolean)), email: new Set(existing.map((row) => row.email).filter(Boolean)), gstin: new Set(existing.map((row) => row.gstin).filter(Boolean)) };
   const data = rows.map((row, index) => {
     const name = String(row.name || '').trim();
@@ -49,6 +49,7 @@ async function getSupplierById(supplierId, storeId) {
     where: {
       id: supplierId,
       storeId,
+      isDeleted: false,
     },
   });
 }
@@ -265,11 +266,29 @@ async function addSupplierPayment({ supplierId, storeId, amount, paymentMethod, 
   });
 }
 
+async function deleteSupplier(supplierId, storeId) {
+  const existing = await prisma.supplier.findFirst({
+    where: { id: supplierId, storeId, isDeleted: false },
+    select: { id: true },
+  });
+
+  if (!existing) return null;
+
+  return prisma.supplier.update({
+    where: { id: supplierId },
+    data: {
+      isDeleted: true,
+      deletedAt: new Date(),
+    },
+  });
+}
+
 module.exports = {
   getSuppliers,
   getSupplierById,
   createSupplier,
   updateSupplier,
+  deleteSupplier,
   getSupplierLedger,
   addSupplierPayment,
   exportSuppliers,

@@ -4,6 +4,7 @@ const stockService = require('./stock.service');
 async function getSales(storeId, filters = {}) {
   const saleWhere = {
     storeId,
+    isDeleted: false,
   };
 
   if (filters.status && filters.status !== 'ALL') {
@@ -54,6 +55,7 @@ async function getSaleById(storeId, saleId) {
     where: {
       id: saleId,
       storeId,
+      isDeleted: false,
     },
     include: {
       customer: true,
@@ -68,6 +70,136 @@ async function getSaleById(storeId, saleId) {
       payments: true,
     },
   });
+}
+
+async function getPublicSharedInvoice(saleId) {
+  const sale = await prisma.sale.findFirst({
+    where: {
+      id: saleId,
+      isDeleted: false,
+    },
+    select: {
+      id: true,
+      invoiceNumber: true,
+      invoiceDate: true,
+      totalAmount: true,
+      subtotal: true,
+      taxableAmount: true,
+      discountAmount: true,
+      cgstAmount: true,
+      sgstAmount: true,
+      roundOff: true,
+      paidAmount: true,
+      dueAmount: true,
+      paymentStatus: true,
+      isAyushman: true,
+      ayushmanCardNo: true,
+      beneficiaryId: true,
+      doctor: true,
+      notes: true,
+      createdAt: true,
+
+      payments: {
+        select: {
+          id: true,
+          amount: true,
+          paymentMethod: true,
+          paymentDate: true,
+        },
+      },
+
+      store: {
+        select: {
+          name: true,
+          phone: true,
+          email: true,
+          address: true,
+          city: true,
+          state: true,
+          gstin: true,
+        },
+      },
+
+      customer: {
+        select: {
+          name: true,
+          phone: true,
+          city: true,
+        },
+      },
+
+      doctorRel: {
+        select: {
+          name: true,
+          specialization: true,
+          hospital: true,
+        },
+      },
+
+      items: {
+        select: {
+          id: true,
+          quantity: true,
+          baseQuantity: true,
+          unitPrice: true,
+          discountPercent: true,
+          discountAmount: true,
+          totalAmount: true,
+          product: {
+            select: {
+              name: true,
+              genericName: true,
+              dosageForm: true,
+              strength: true,
+              manufacturer: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+          batch: {
+            select: {
+              batchNumber: true,
+              expiryDate: true,
+              mrp: true,
+            },
+          },
+          packaging: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
+
+      reminders: {
+        where: {
+          isDeleted: false,
+        },
+        select: {
+          id: true,
+          drugName: true,
+          reminderDate: true,
+          reminderTime: true,
+          timesPerDay: true,
+          mealTiming: true,
+          dosageInstructions: true,
+          status: true,
+        },
+      },
+    },
+  });
+
+  if (!sale) return null;
+
+  // Derive paymentMethod for the response object
+  const paymentMethod = sale.payments?.[0]?.paymentMethod || 'CASH';
+
+  return {
+    ...sale,
+    paymentMethod,
+  };
 }
 
 async function createSale({
@@ -88,8 +220,13 @@ async function createSale({
   items = [],
   notes = null,
   prescriptions = [],
+  isAyushman = false,
+  ayushmanCardNo = null,
+  beneficiaryId = null,
+  claimStatus = null,
   saleId = null,
   status = 'COMPLETED',
+  reminders = [],
 }) {
   const safeItems = (Array.isArray(items) ? items : []).filter(Boolean);
   const normalizedStatus = String(status || 'COMPLETED').toUpperCase();
@@ -340,6 +477,10 @@ async function createSale({
         paymentStatus: resolvedPaymentStatus,
         notes: notes || null,
         prescriptions: finalPrescriptionUrls,
+        isAyushman: Boolean(isAyushman),
+        ayushmanCardNo: ayushmanCardNo || null,
+        beneficiaryId: beneficiaryId || null,
+        claimStatus: claimStatus || (isAyushman ? 'PENDING' : null),
       };
 
       if (saleId) {
@@ -432,6 +573,29 @@ async function createSale({
       });
     }
 
+    // 3. Create medication reminders for saved customer if provided
+    if (resolvedCustomerId && Array.isArray(reminders) && reminders.length > 0 && normalizedStatus !== 'DRAFT') {
+      for (const rem of reminders) {
+        if (rem && rem.drugName && rem.reminderDate) {
+          await tx.reminder.create({
+            data: {
+              storeId,
+              customerId: resolvedCustomerId,
+              saleId: sale.id,
+              drugName: String(rem.drugName).trim(),
+              reminderDate: new Date(rem.reminderDate),
+              reminderTime: rem.reminderTime || '08:00 AM',
+              timesPerDay: Number(rem.timesPerDay) || 1,
+              mealTiming: rem.mealTiming || 'AFTER_MEAL',
+              dosageInstructions: rem.dosageInstructions || null,
+              notes: rem.notes || null,
+              status: 'PENDING',
+            },
+          });
+        }
+      }
+    }
+
     return sale;
   },
     {
@@ -446,10 +610,7 @@ async function deleteSale(storeId, saleId) {
     where: {
       id: saleId,
       storeId,
-    },
-    include: {
-      items: true,
-      payments: true,
+      isDeleted: false,
     },
   });
 
@@ -457,67 +618,21 @@ async function deleteSale(storeId, saleId) {
     throw new Error('Sale not found');
   }
 
-  return prisma.$transaction(async (tx) => {
-    // If completed sale with stock deductions, return stock
-    if (sale.status === 'COMPLETED') {
-      for (const item of sale.items) {
-        await stockService.adjustStock(
-          item.batchId,
-          storeId,
-          {
-            quantity: Number(item.baseQuantity || 0),
-            reason: `Deleted sale ${sale.invoiceNumber}`,
-            referenceType: 'SALE',
-            referenceId: sale.id,
-          }
-        );
-      }
-    }
-
-    // Delete ledger entries and payments
-    await tx.ledgerEntry.deleteMany({
-      where: {
-        storeId,
-        referenceId: sale.id,
-      },
-    });
-
-    await tx.salePayment.deleteMany({
-      where: {
-        saleId: sale.id,
-      },
-    });
-
-    await tx.saleItem.deleteMany({
-      where: {
-        saleId: sale.id,
-      },
-    });
-
-    if (Array.isArray(sale.prescriptions) && sale.prescriptions.length > 0) {
-      const { deleteFromCloudinary } = require('../config/cloudinary');
-      for (const imgUrl of sale.prescriptions) {
-        if (typeof imgUrl === 'string' && (imgUrl.includes('cloudinary.com') || imgUrl.startsWith('pharma/'))) {
-          try {
-            await deleteFromCloudinary(imgUrl);
-          } catch (err) {
-            console.warn('Cloudinary delete warning on sale deletion:', err.message);
-          }
-        }
-      }
-    }
-
-    return tx.sale.delete({
-      where: {
-        id: saleId,
-      },
-    });
+  return prisma.sale.update({
+    where: {
+      id: saleId,
+    },
+    data: {
+      isDeleted: true,
+      deletedAt: new Date(),
+    },
   });
 }
 
 module.exports = {
   getSales,
   getSaleById,
+  getPublicSharedInvoice,
   createSale,
   deleteSale,
 };
